@@ -3,6 +3,7 @@
 from enum import Enum
 from typing import Any
 from pydantic import BaseModel, Field
+from ssb.core.catalog_meta import CatalogMeta
 
 
 class SubsystemFunction(str, Enum):
@@ -18,7 +19,7 @@ class SubsystemFunction(str, Enum):
     DEORBIT_DEVICE = "deorbit_device"
 
 
-class Equipment(BaseModel):
+class Equipment(CatalogMeta):
     """Generic catalog equipment belonging to a subsystem."""
 
     id: str
@@ -75,7 +76,7 @@ class SlotRule(BaseModel):
     )
 
 
-class PlatformBase(BaseModel):
+class PlatformBase(CatalogMeta):
     """Platform base specifications (before options and payloads)."""
 
     id: str
@@ -86,6 +87,8 @@ class PlatformBase(BaseModel):
         ..., description="e.g. cubesat_12u, smallsat_150kg, smallsat_500kg, medium_1500kg"
     )
     description: str = ""
+    dimensions_mm: tuple[float, float, float] = (0.0, 0.0, 0.0)
+    deployed_span_m: float = Field(0.0, ge=0.0, description="Span with solar arrays deployed")
     dry_mass_kg: float = Field(..., ge=0.0, description="Platform dry mass excluding options & payloads")
     max_payload_mass_kg: float = Field(..., ge=0.0)
     max_launch_mass_kg: float = Field(..., ge=0.0)

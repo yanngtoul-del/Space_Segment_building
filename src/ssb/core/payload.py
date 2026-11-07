@@ -2,7 +2,8 @@
 
 from enum import Enum
 from typing import Literal
-from pydantic import BaseModel, Field
+from pydantic import Field
+from ssb.core.catalog_meta import CatalogMeta
 
 
 class PayloadType(str, Enum):
@@ -14,7 +15,7 @@ class PayloadType(str, Enum):
     RADIO_COMM = "radio_comm"
 
 
-class BasePayload(BaseModel):
+class BasePayload(CatalogMeta):
     """Shared physical and interface attributes for all payloads."""
 
     id: str

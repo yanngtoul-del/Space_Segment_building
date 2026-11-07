@@ -4,6 +4,7 @@ import hashlib
 import json
 from typing import Any
 from pydantic import BaseModel, Field
+from ssb.core.catalog_meta import CatalogMeta
 from ssb.core.mission import MissionSpecification
 from ssb.core.orbit import OrbitDefinition
 from ssb.core.platform import PlatformBase, Equipment
@@ -36,7 +37,7 @@ class LauncherOrbitCapacity(BaseModel):
     fairing_height_m: float = Field(..., ge=0.5)
 
 
-class Launcher(BaseModel):
+class Launcher(CatalogMeta):
     """Launcher catalog entry."""
 
     id: str
@@ -44,6 +45,8 @@ class Launcher(BaseModel):
     supplier_name: str
     name: str
     launcher_type: str = Field(..., description="dedicated or rideshare")
+    description: str = ""
+    fairing_volume_m3: float = Field(0.0, ge=0.0)
     price_base_meur: float = Field(..., ge=0.0)
     price_per_kg_meur: float = Field(0.0, ge=0.0, description="Used mainly for rideshares")
     max_total_mass_kg: float = Field(..., ge=0.0)
