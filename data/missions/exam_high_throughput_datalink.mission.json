@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "id": "EXAM-2026-DATARATE",
-  "title": "Mission TeraRelay — Établissement d'une Liaison Spatiale Très Haut Débit (≥ 25 Gbit/s)",
+  "title": "Mission TeraRelay — Établissement d'une Liaison Spatiale Très Haut Débit (>= 25 Gbit/s)",
   "context": "Pour désengorger les liaisons radio-fréquence saturées et rapatrier en temps quasi-réel des téraoctets de données issues de satellites d'observation ou de centres isolés, l'opérateur souhaite déployer un nœud orbital capable d'établir une liaison optique directe vers le sol à au moins 25 Gbit/s.",
   "mission_type": "telecom_opt",
   "max_budget_meur": 15.0,

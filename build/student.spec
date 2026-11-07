@@ -43,6 +43,7 @@ a = Analysis(
         'ssb.ui_common.schematic',
         'ssb.ui_common.catalog_browser',
         'ssb.ui_common.platform_slots_widget',
+        'ssb.ui_common.mission_sheet_view',
         'scipy.integrate',
         'scipy.spatial.transform',
         'docx',

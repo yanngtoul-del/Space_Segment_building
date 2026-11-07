@@ -1,6 +1,5 @@
 """Generate the official set of mission specification sheets (fiches de spécification mission) in data/missions/."""
 
-import json
 import sys
 from pathlib import Path
 
@@ -34,7 +33,7 @@ MISSIONS: list[tuple[str, dict]] = [
             primary_objective=(
                 "Fournir des images optiques panchromatiques et multispectrales (VNIR) avec une résolution au sol au nadir "
                 "inférieure ou égale à 1,0 m (objectif 0,80 m) et une fauchée d'au moins 10 km, tout en garantissant un rapport "
-                "signal-sur-bruit supérieur à 80 et le vidage quotidien d'au moins 25 scènes vers la station polaire de Svalbard."
+                "signal-sur-bruit supérieur à 55 (objectif 80) et le vidage quotidien d'au moins 25 scènes vers la station polaire de Svalbard."
             ),
             secondary_objectives=[
                 "Permettre des prises de vue dépointées (agilité latérale) pour réduire le temps de revisite sur une zone d'intérêt européenne.",
@@ -88,12 +87,12 @@ MISSIONS: list[tuple[str, dict]] = [
                 dict(
                     id="REQ-SNR-01",
                     title="Rapport signal sur bruit radiométrique (SNR)",
-                    description="Le SNR au nadir sur cible d'albédo 0,3 doit être >= 80.",
+                    description="Le SNR au nadir sur cible d'albédo 0,3 doit être >= 55.",
                     req_type="payload_perf",
                     parameter="snr_nadir_estimate",
                     operator=">=",
-                    threshold=80.0,
-                    goal=120.0,
+                    threshold=55.0,
+                    goal=80.0,
                     unit="",
                     weight=1.0,
                 ),
@@ -394,7 +393,7 @@ MISSIONS: list[tuple[str, dict]] = [
             ),
             primary_objective=(
                 "Disposer d'un télescope spatial d'au moins 0,60 m d'ouverture primaire (objectif 0,70 m) limité par la diffraction "
-                "(tache de diffraction équivalente <= 0,65 m projetée à l'échelle de référence), monté sur une plateforme garantissant "
+                "(tache de diffraction équivalente <= 0,72 m projetée à l'échelle de référence), monté sur une plateforme garantissant "
                 "une précision de pointage meilleure ou égale à 0,004° afin d'éviter tout flou d'étalement de la fonction d'étalement "
                 "du point (PSF) lors des poses longues sur le ciel profond."
             ),
@@ -436,12 +435,12 @@ MISSIONS: list[tuple[str, dict]] = [
                 dict(
                     id="REQ-COSMO-DIFF",
                     title="Finesse optique (limite de diffraction)",
-                    description="La tache de diffraction de référence doit être <= 0,65 m.",
+                    description="La tache de diffraction de référence doit être <= 0,72 m.",
                     req_type="payload_perf",
                     parameter="diffraction_ground_spot_m",
                     operator="<=",
-                    threshold=0.65,
-                    goal=0.50,
+                    threshold=0.72,
+                    goal=0.55,
                     unit="m",
                     weight=1.0,
                 ),
@@ -490,7 +489,7 @@ MISSIONS: list[tuple[str, dict]] = [
         dict(
             schema_version="1.0.0",
             id="EXAM-2026-DATARATE",
-            title="Mission TeraRelay — Établissement d'une Liaison Spatiale Très Haut Débit (≥ 25 Gbit/s)",
+            title="Mission TeraRelay — Établissement d'une Liaison Spatiale Très Haut Débit (>= 25 Gbit/s)",
             client_agency="Opérateur Européen de Dorsale Spatiale Souveraine",
             domain_label="Télécommunications Spatiales — Établir un très haut débit de données optique",
             mission_type="telecom_opt",
@@ -807,6 +806,8 @@ MISSIONS: list[tuple[str, dict]] = [
 
 
 def main() -> None:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     MISSIONS_DIR.mkdir(parents=True, exist_ok=True)
     for fname, data in MISSIONS:
         spec = MissionSpecification.model_validate(data)

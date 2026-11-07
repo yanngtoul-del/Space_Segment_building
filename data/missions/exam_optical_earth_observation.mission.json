@@ -8,7 +8,7 @@
   "target_lifetime_years": 5.0,
   "client_agency": "Agence Européenne d'Observation Civile & Sécurité (AEOCS)",
   "domain_label": "Observation de la Terre — Imagerie optique sub-métrique",
-  "primary_objective": "Fournir des images optiques panchromatiques et multispectrales (VNIR) avec une résolution au sol au nadir inférieure ou égale à 1,0 m (objectif 0,80 m) et une fauchée d'au moins 10 km, tout en garantissant un rapport signal-sur-bruit supérieur à 80 et le vidage quotidien d'au moins 25 scènes vers la station polaire de Svalbard.",
+  "primary_objective": "Fournir des images optiques panchromatiques et multispectrales (VNIR) avec une résolution au sol au nadir inférieure ou égale à 1,0 m (objectif 0,80 m) et une fauchée d'au moins 10 km, tout en garantissant un rapport signal-sur-bruit supérieur à 55 (objectif 80) et le vidage quotidien d'au moins 25 scènes vers la station polaire de Svalbard.",
   "secondary_objectives": [
     "Permettre des prises de vue dépointées (agilité latérale) pour réduire le temps de revisite sur une zone d'intérêt européenne.",
     "Maintenir une marge de puissance moyenne d'au moins 15 % sur l'orbite héliosynchrone choisie.",
@@ -52,12 +52,12 @@
     {
       "id": "REQ-SNR-01",
       "title": "Rapport signal sur bruit radiométrique (SNR)",
-      "description": "Le SNR au nadir sur cible d'albédo 0,3 doit être >= 80.",
+      "description": "Le SNR au nadir sur cible d'albédo 0,3 doit être >= 55.",
       "req_type": "payload_perf",
       "parameter": "snr_nadir_estimate",
       "operator": ">=",
-      "threshold": 80.0,
-      "goal": 120.0,
+      "threshold": 55.0,
+      "goal": 80.0,
       "unit": "",
       "weight": 1.0
     }

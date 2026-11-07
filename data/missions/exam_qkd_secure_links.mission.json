@@ -6,6 +6,22 @@
   "mission_type": "qkd",
   "max_budget_meur": 22.0,
   "target_lifetime_years": 4.0,
+  "client_agency": "Agence Nationale de Sécurité des Communications Souveraines",
+  "domain_label": "Télécommunications Quantiques — Distribution quantique de clés (QKD)",
+  "primary_objective": "Générer et distribuer des clés cryptographiques quantiques selon le protocole BB84 à états leurres à 850 nm vers des stations sol optiques de 1 m, avec un taux d'erreur quantique (QBER) <= 6,0 % et un débit asymptotique de clé secrète >= 1 000 bit/s lors des passages nocturnes.",
+  "secondary_objectives": [
+    "Garantir un pointage plateforme <= 0,008° afin de permettre au système de suivi fin sub-microradian d'accrocher la station sol.",
+    "Assurer l'authentification et la distillation des clés via un canal classique radio S ou X redondé."
+  ],
+  "scientific_or_operational_need": "Face à la menace des calculateurs quantiques sur les algorithmes asymétriques classiques (RSA/ECC), la distribution quantique de clés par satellite permet d'échanger à l'échelle intercontinentale des clés à usage unique dont la sécurité repose sur les lois de la mécanique quantique.",
+  "orbit_constraints_description": "Orbite héliosynchrone (LTAN ~ 22h30 / 10h30) à une altitude modérée (450–550 km) pour maximiser le nombre de passages de nuit au-dessus de l'Europe et minimiser l'atténuation géométrique du canal quantique.",
+  "conops_guidance": "Émission quantique exclusivement de nuit sur les stations sol dégagées de nuages. Synchronisation temporelle sub-nanoseconde et post-traitement (tamisage, correction d'erreurs, amplification de confidentialité) sur le canal classique S/X.",
+  "deliverables_expected": [
+    "Analyser le compromis entre l'altitude orbitale, les pertes géométriques du canal (en dB) et le débit de clé secrète.",
+    "Justifier le choix du terminal QKD et du pack ADCS pour tenir le budget de pointage.",
+    "Évaluer la quantité de clés de 256 bits produite par passage utile."
+  ],
+  "allowed_suppliers": [],
   "min_trl": 7,
   "requirements": [
     {
@@ -40,6 +56,7 @@
       "parameter": "pointing_accuracy_deg",
       "operator": "<=",
       "threshold": 0.008,
+      "goal": null,
       "unit": "deg",
       "weight": 1.0
     }
@@ -52,8 +69,12 @@
       "longitude_deg": 6.92,
       "altitude_m": 1270.0,
       "min_elevation_deg": 15.0,
-      "bands_supported": ["Optical", "S"],
-      "cost_per_pass_eur": 500.0
+      "bands_supported": [
+        "Optical",
+        "S"
+      ],
+      "cost_per_pass_eur": 500.0,
+      "cost_per_minute_eur": 0.0
     },
     {
       "id": "sta_tenerife_ogs",
@@ -62,9 +83,14 @@
       "longitude_deg": -16.51,
       "altitude_m": 2390.0,
       "min_elevation_deg": 15.0,
-      "bands_supported": ["Optical", "S"],
-      "cost_per_pass_eur": 450.0
+      "bands_supported": [
+        "Optical",
+        "S"
+      ],
+      "cost_per_pass_eur": 450.0,
+      "cost_per_minute_eur": 0.0
     }
   ],
-  "target_zones": []
+  "target_zones": [],
+  "metadata": {}
 }
