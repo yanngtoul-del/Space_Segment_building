@@ -1,0 +1,94 @@
+"""Pydantic models for mission requirements and constraints."""
+
+from enum import Enum
+from typing import Any
+from pydantic import BaseModel, Field
+
+
+class RequirementType(str, Enum):
+    PAYLOAD_PERF = "payload_perf"
+    ORBIT = "orbit"
+    DATA_VOLUME = "data_volume"
+    LATENCY = "latency"
+    LIFETIME = "lifetime"
+    REVISIT = "revisit"
+    BUDGET = "budget"
+    LAUNCHER = "launcher"
+    REGULATORY = "regulatory"
+
+
+class RequirementOperator(str, Enum):
+    LE = "<="
+    GE = ">="
+    EQ = "=="
+    LT = "<"
+    GT = ">"
+    CONTAINS = "contains"
+
+
+class MissionRequirement(BaseModel):
+    """A quantified mission requirement with an ID and verification rule."""
+
+    id: str = Field(..., description="Unique requirement ID, e.g. REQ-PL-01")
+    title: str = Field(..., description="Short human-readable requirement title")
+    description: str = Field(..., description="Full requirement text")
+    req_type: RequirementType = Field(..., description="Category of requirement")
+    parameter: str = Field(..., description="Internal system metric key to check")
+    operator: RequirementOperator = Field(..., description="Comparison operator")
+    threshold: float | str | list[str] = Field(
+        ..., description="Acceptable threshold value (pass/fail)"
+    )
+    goal: float | str | None = Field(
+        None, description="Optional target/goal value beyond threshold"
+    )
+    unit: str = Field("", description="Display unit, e.g. m, km, W, kg, M€, h")
+    weight: float = Field(1.0, ge=0.0, description="Relative weight for score")
+
+
+class GroundStationTarget(BaseModel):
+    """Ground station available for the mission."""
+
+    id: str
+    name: str
+    latitude_deg: float
+    longitude_deg: float
+    altitude_m: float = 0.0
+    min_elevation_deg: float = 5.0
+    bands_supported: list[str] = Field(default_factory=lambda: ["S", "X"])
+    cost_per_pass_eur: float = 0.0
+    cost_per_minute_eur: float = 0.0
+
+
+class TargetZone(BaseModel):
+    """Geographic zone of interest for coverage/revisit."""
+
+    id: str
+    name: str
+    points_lat_lon: list[tuple[float, float]] = Field(
+        default_factory=list,
+        description="Polygon vertices [(lat, lon), ...] or single point",
+    )
+    priority: int = 1
+
+
+class MissionSpecification(BaseModel):
+    """Complete mission specification provided to the student."""
+
+    schema_version: str = "1.0.0"
+    id: str
+    title: str
+    context: str
+    mission_type: str = Field(
+        ..., description="e.g. optical_eo, sar_eo, telecom_opt, telecom_radio, qkd, science"
+    )
+    max_budget_meur: float = Field(..., description="Hard budget ceiling in M€")
+    target_lifetime_years: float = Field(5.0, ge=0.5)
+    allowed_suppliers: list[str] = Field(
+        default_factory=list,
+        description="If non-empty, whitelist of allowed supplier IDs",
+    )
+    min_trl: int = Field(6, ge=1, le=9, description="Minimum TRL accepted")
+    requirements: list[MissionRequirement] = Field(default_factory=list)
+    ground_stations: list[GroundStationTarget] = Field(default_factory=list)
+    target_zones: list[TargetZone] = Field(default_factory=list)
+    metadata: dict[str, Any] = Field(default_factory=dict)

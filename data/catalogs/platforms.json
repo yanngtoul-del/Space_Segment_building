@@ -1,0 +1,350 @@
+[
+  {
+    "id": "plat_aeromicro_16u",
+    "supplier_id": "newspace_micro",
+    "supplier_name": "AeroMicro Dynamics",
+    "name": "MicroBus-16U",
+    "category": "cubesat_16u",
+    "description": "Modular 16U CubeSat platform for fast-delivery scientific and demonstration missions (inspired by EnduroSat / NanoAvionics)",
+    "dry_mass_kg": 12.0,
+    "max_payload_mass_kg": 10.0,
+    "max_launch_mass_kg": 26.0,
+    "payload_volume_liters": 9.0,
+    "orbit_avg_power_w": 65.0,
+    "payload_avg_power_w": 30.0,
+    "payload_peak_power_w": 80.0,
+    "bus_voltage_v": 12.0,
+    "battery_capacity_wh": 180.0,
+    "battery_max_dod": 0.3,
+    "pointing_accuracy_deg": 0.05,
+    "pointing_stability_arcsec_s": 15.0,
+    "slew_rate_deg_s": 2.0,
+    "jitter_arcsec": 5.0,
+    "payload_thermal_dissipation_w": 25.0,
+    "launch_environment_compatible": ["rideshare_deployer", "espa_ring"],
+    "design_lifetime_years": 3.0,
+    "rad_tolerance_krad": 15.0,
+    "base_price_meur": 0.55,
+    "base_lead_time_months": 8,
+    "trl": 9,
+    "slots": [
+      {
+        "function": "propulsion",
+        "allowed_equipment_ids": ["prop_coldgas_10u"],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.03,
+        "integration_cost_pct": 5.0,
+        "interface_mass_kg": 0.3
+      },
+      {
+        "function": "ttc",
+        "allowed_equipment_ids": ["ttc_sband_transceiver"],
+        "included_equipment_ids": ["ttc_sband_transceiver"],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0
+      },
+      {
+        "function": "mass_memory",
+        "allowed_equipment_ids": ["mass_mem_512gb"],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 2.0,
+        "interface_mass_kg": 0.1
+      }
+    ]
+  },
+  {
+    "id": "plat_sstl_micro50",
+    "supplier_id": "sstl_inspired",
+    "supplier_name": "Albion Satellite Technologies",
+    "name": "AlbionMicro-50",
+    "category": "smallsat_50kg",
+    "description": "50 kg cost-effective smallsat platform with proven flight heritage for LEO missions (inspired by SSTL Micro)",
+    "dry_mass_kg": 38.0,
+    "max_payload_mass_kg": 30.0,
+    "max_launch_mass_kg": 75.0,
+    "payload_volume_liters": 28.0,
+    "orbit_avg_power_w": 140.0,
+    "payload_avg_power_w": 70.0,
+    "payload_peak_power_w": 180.0,
+    "bus_voltage_v": 28.0,
+    "battery_capacity_wh": 350.0,
+    "battery_max_dod": 0.3,
+    "pointing_accuracy_deg": 0.025,
+    "pointing_stability_arcsec_s": 3.0,
+    "slew_rate_deg_s": 2.5,
+    "jitter_arcsec": 1.8,
+    "payload_thermal_dissipation_w": 50.0,
+    "launch_environment_compatible": ["espa_ring", "rideshare_deployer"],
+    "design_lifetime_years": 5.0,
+    "rad_tolerance_krad": 20.0,
+    "base_price_meur": 2.10,
+    "base_lead_time_months": 12,
+    "trl": 9,
+    "slots": [
+      {
+        "function": "propulsion",
+        "allowed_equipment_ids": ["prop_coldgas_10u", "prop_electric_hall_100w"],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.08,
+        "integration_cost_pct": 6.0,
+        "interface_mass_kg": 1.0
+      },
+      {
+        "function": "ttc",
+        "allowed_equipment_ids": ["ttc_sband_transceiver"],
+        "included_equipment_ids": ["ttc_sband_transceiver"],
+        "min_qty": 1,
+        "max_qty": 1
+      },
+      {
+        "function": "payload_downlink",
+        "allowed_equipment_ids": ["downlink_xband_tx"],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.04,
+        "integration_cost_pct": 5.0,
+        "interface_mass_kg": 0.4
+      },
+      {
+        "function": "mass_memory",
+        "allowed_equipment_ids": ["mass_mem_512gb"],
+        "included_equipment_ids": ["mass_mem_512gb"],
+        "min_qty": 1,
+        "max_qty": 1
+      }
+    ]
+  },
+  {
+    "id": "plat_astra_flex150",
+    "supplier_id": "heritage_aero",
+    "supplier_name": "Astra Space Systems",
+    "name": "AstraFlex-150",
+    "category": "smallsat_150kg",
+    "description": "Robust 150 kg smallsat bus for high-reliability Earth Observation and telecommunications (inspired by SSTL-150 / York)",
+    "dry_mass_kg": 85.0,
+    "max_payload_mass_kg": 75.0,
+    "max_launch_mass_kg": 200.0,
+    "payload_volume_liters": 80.0,
+    "orbit_avg_power_w": 280.0,
+    "payload_avg_power_w": 140.0,
+    "payload_peak_power_w": 350.0,
+    "bus_voltage_v": 28.0,
+    "battery_capacity_wh": 850.0,
+    "battery_max_dod": 0.3,
+    "pointing_accuracy_deg": 0.01,
+    "pointing_stability_arcsec_s": 1.0,
+    "slew_rate_deg_s": 3.0,
+    "jitter_arcsec": 0.8,
+    "payload_thermal_dissipation_w": 120.0,
+    "launch_environment_compatible": ["espa_ring", "dedicated_smallsat", "ariane6_aux"],
+    "design_lifetime_years": 7.0,
+    "rad_tolerance_krad": 30.0,
+    "base_price_meur": 4.80,
+    "base_lead_time_months": 16,
+    "trl": 9,
+    "slots": [
+      {
+        "function": "propulsion",
+        "allowed_equipment_ids": ["prop_electric_hall_100w", "prop_monoprop_1n"],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.15,
+        "integration_cost_pct": 8.0,
+        "interface_mass_kg": 2.0,
+        "equipment_overrides": {
+          "prop_electric_hall_100w": {
+            "price_meur": 0.50,
+            "mass_kg": 7.0
+          }
+        }
+      },
+      {
+        "function": "ttc",
+        "allowed_equipment_ids": ["ttc_sband_transceiver"],
+        "included_equipment_ids": ["ttc_sband_transceiver"],
+        "min_qty": 1,
+        "max_qty": 1
+      },
+      {
+        "function": "payload_downlink",
+        "allowed_equipment_ids": ["downlink_xband_tx", "downlink_kaband_tx_2gbps"],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.05,
+        "integration_cost_pct": 5.0,
+        "interface_mass_kg": 0.5
+      },
+      {
+        "function": "mass_memory",
+        "allowed_equipment_ids": ["mass_mem_512gb", "mass_mem_2tb_highrel"],
+        "included_equipment_ids": ["mass_mem_512gb"],
+        "min_qty": 1,
+        "max_qty": 2
+      },
+      {
+        "function": "adcs",
+        "allowed_equipment_ids": ["adcs_high_accuracy_pack", "adcs_cmg_agility_pack"],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.10,
+        "integration_cost_pct": 5.0,
+        "interface_mass_kg": 1.0
+      }
+    ]
+  },
+  {
+    "id": "plat_apex_pro500",
+    "supplier_id": "apex_inspired",
+    "supplier_name": "Apex Orbital Manufacturing",
+    "name": "ApexBus-500",
+    "category": "smallsat_500kg",
+    "description": "500 kg serial-production spacecraft bus optimized for agile defense & commercial SAR constellations (inspired by Apex Aries / Terran)",
+    "dry_mass_kg": 260.0,
+    "max_payload_mass_kg": 240.0,
+    "max_launch_mass_kg": 600.0,
+    "payload_volume_liters": 350.0,
+    "orbit_avg_power_w": 950.0,
+    "payload_avg_power_w": 650.0,
+    "payload_peak_power_w": 2200.0,
+    "bus_voltage_v": 50.0,
+    "battery_capacity_wh": 2600.0,
+    "battery_max_dod": 0.35,
+    "pointing_accuracy_deg": 0.005,
+    "pointing_stability_arcsec_s": 0.5,
+    "slew_rate_deg_s": 4.0,
+    "jitter_arcsec": 0.5,
+    "payload_thermal_dissipation_w": 500.0,
+    "launch_environment_compatible": ["dedicated_smallsat", "falcon9_rideshare", "ariane6"],
+    "design_lifetime_years": 8.0,
+    "rad_tolerance_krad": 45.0,
+    "base_price_meur": 9.50,
+    "base_lead_time_months": 14,
+    "trl": 9,
+    "slots": [
+      {
+        "function": "propulsion",
+        "allowed_equipment_ids": ["prop_electric_hall_100w", "prop_electric_hall_1kw", "prop_monoprop_1n"],
+        "included_equipment_ids": ["prop_electric_hall_100w"],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.20,
+        "integration_cost_pct": 6.0,
+        "interface_mass_kg": 3.5
+      },
+      {
+        "function": "ttc",
+        "allowed_equipment_ids": ["ttc_sband_transceiver"],
+        "included_equipment_ids": ["ttc_sband_transceiver"],
+        "min_qty": 1,
+        "max_qty": 1
+      },
+      {
+        "function": "payload_downlink",
+        "allowed_equipment_ids": ["downlink_xband_tx", "downlink_kaband_tx_2gbps"],
+        "included_equipment_ids": ["downlink_xband_tx"],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.08,
+        "integration_cost_pct": 4.0,
+        "interface_mass_kg": 1.0
+      },
+      {
+        "function": "mass_memory",
+        "allowed_equipment_ids": ["mass_mem_512gb", "mass_mem_2tb_highrel"],
+        "included_equipment_ids": ["mass_mem_2tb_highrel"],
+        "min_qty": 1,
+        "max_qty": 2
+      },
+      {
+        "function": "adcs",
+        "allowed_equipment_ids": ["adcs_high_accuracy_pack", "adcs_cmg_agility_pack"],
+        "included_equipment_ids": ["adcs_high_accuracy_pack"],
+        "min_qty": 1,
+        "max_qty": 1
+      }
+    ]
+  },
+  {
+    "id": "plat_europrime_heavy1500",
+    "supplier_id": "heritage_prime",
+    "supplier_name": "AeroPrime Defense & Space",
+    "name": "PrimeBus-1500",
+    "category": "medium_1500kg",
+    "description": "High-end institutional platform offering ultra-stability, high power, and extensive redundancy (inspired by Airbus Astrobus / TAS Proteus)",
+    "dry_mass_kg": 750.0,
+    "max_payload_mass_kg": 800.0,
+    "max_launch_mass_kg": 1800.0,
+    "payload_volume_liters": 1200.0,
+    "orbit_avg_power_w": 2500.0,
+    "payload_avg_power_w": 1800.0,
+    "payload_peak_power_w": 4500.0,
+    "bus_voltage_v": 100.0,
+    "battery_capacity_wh": 7000.0,
+    "battery_max_dod": 0.25,
+    "pointing_accuracy_deg": 0.002,
+    "pointing_stability_arcsec_s": 0.15,
+    "slew_rate_deg_s": 5.0,
+    "jitter_arcsec": 0.2,
+    "payload_thermal_dissipation_w": 1500.0,
+    "launch_environment_compatible": ["ariane6", "falcon9", "vega_c"],
+    "design_lifetime_years": 12.0,
+    "rad_tolerance_krad": 100.0,
+    "base_price_meur": 28.00,
+    "base_lead_time_months": 28,
+    "trl": 9,
+    "slots": [
+      {
+        "function": "propulsion",
+        "allowed_equipment_ids": ["prop_electric_hall_1kw", "prop_biprop_400n"],
+        "included_equipment_ids": ["prop_biprop_400n"],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.50,
+        "integration_cost_pct": 10.0,
+        "interface_mass_kg": 8.0
+      },
+      {
+        "function": "ttc",
+        "allowed_equipment_ids": ["ttc_sband_transceiver"],
+        "included_equipment_ids": ["ttc_sband_transceiver"],
+        "min_qty": 1,
+        "max_qty": 1
+      },
+      {
+        "function": "payload_downlink",
+        "allowed_equipment_ids": ["downlink_xband_tx", "downlink_kaband_tx_2gbps"],
+        "included_equipment_ids": ["downlink_kaband_tx_2gbps"],
+        "min_qty": 1,
+        "max_qty": 2
+      },
+      {
+        "function": "mass_memory",
+        "allowed_equipment_ids": ["mass_mem_2tb_highrel"],
+        "included_equipment_ids": ["mass_mem_2tb_highrel"],
+        "min_qty": 1,
+        "max_qty": 2
+      },
+      {
+        "function": "adcs",
+        "allowed_equipment_ids": ["adcs_cmg_agility_pack"],
+        "included_equipment_ids": ["adcs_cmg_agility_pack"],
+        "min_qty": 1,
+        "max_qty": 1
+      }
+    ]
+  }
+]

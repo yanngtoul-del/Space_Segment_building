@@ -1,0 +1,244 @@
+[
+  {
+    "id": "prop_coldgas_10u",
+    "supplier_id": "newspace_micro",
+    "supplier_name": "AeroMicro Dynamics",
+    "name": "Micro-Nozzle Cold Gas System",
+    "function": "propulsion",
+    "description": "Miniaturized cold gas propulsion system using R236fa propellant",
+    "mass_kg": 1.4,
+    "power_w": 2.0,
+    "peak_power_w": 10.0,
+    "standby_power_w": 0.2,
+    "volume_liters": 0.8,
+    "price_meur": 0.12,
+    "trl": 9,
+    "specs": {
+      "isp_s": 65.0,
+      "propellant_mass_kg": 0.45,
+      "thrust_mn": 25.0
+    }
+  },
+  {
+    "id": "prop_electric_hall_100w",
+    "supplier_id": "newspace_micro",
+    "supplier_name": "AeroMicro Dynamics",
+    "name": "HET-100 Micro Hall Effect Thruster",
+    "function": "propulsion",
+    "description": "High efficiency Hall effect thruster for smallsats with integrated PPU",
+    "mass_kg": 6.5,
+    "power_w": 150.0,
+    "peak_power_w": 180.0,
+    "standby_power_w": 2.0,
+    "volume_liters": 4.0,
+    "price_meur": 0.45,
+    "trl": 8,
+    "specs": {
+      "isp_s": 1400.0,
+      "propellant_mass_kg": 4.0,
+      "thrust_mn": 8.0
+    }
+  },
+  {
+    "id": "prop_electric_hall_1kw",
+    "supplier_id": "orbital_prop",
+    "supplier_name": "PlasmaTech Propulsion",
+    "name": "HET-1000 High-Power Hall Propulsion Module",
+    "function": "propulsion",
+    "description": "Krypton/Xenon high-thrust electric propulsion for orbit raising and station keeping",
+    "mass_kg": 28.0,
+    "power_w": 1100.0,
+    "peak_power_w": 1300.0,
+    "standby_power_w": 15.0,
+    "volume_liters": 25.0,
+    "price_meur": 1.80,
+    "trl": 9,
+    "specs": {
+      "isp_s": 1850.0,
+      "propellant_mass_kg": 25.0,
+      "thrust_mn": 65.0
+    }
+  },
+  {
+    "id": "prop_monoprop_1n",
+    "supplier_id": "heritage_aero",
+    "supplier_name": "Astra Space Systems",
+    "name": "MPS-1N Monopropellant Hydrazine Pack",
+    "function": "propulsion",
+    "description": "High-reliability catalytic hydrazine thruster with diaphragm tank",
+    "mass_kg": 12.0,
+    "power_w": 15.0,
+    "peak_power_w": 35.0,
+    "standby_power_w": 5.0,
+    "volume_liters": 15.0,
+    "price_meur": 0.95,
+    "trl": 9,
+    "specs": {
+      "isp_s": 225.0,
+      "propellant_mass_kg": 10.0,
+      "thrust_mn": 1000.0
+    }
+  },
+  {
+    "id": "prop_biprop_400n",
+    "supplier_id": "heritage_aero",
+    "supplier_name": "Astra Space Systems",
+    "name": "Biprop-400 Apogee & Maneuver Engine",
+    "function": "propulsion",
+    "description": "MMH/NTO high thrust engine for orbit insertion, apogee raising and rapid deorbiting",
+    "mass_kg": 45.0,
+    "power_w": 30.0,
+    "peak_power_w": 60.0,
+    "standby_power_w": 10.0,
+    "volume_liters": 60.0,
+    "price_meur": 3.20,
+    "trl": 9,
+    "specs": {
+      "isp_s": 320.0,
+      "propellant_mass_kg": 120.0,
+      "thrust_mn": 400000.0
+    }
+  },
+  {
+    "id": "ttc_sband_transceiver",
+    "supplier_id": "comms_euro",
+    "supplier_name": "EuroSpace Link",
+    "name": "S-Band Full Duplex TT&C Transceiver",
+    "function": "ttc",
+    "description": "CCSDS compliant S-Band transceiver with integrated patch antenna diplexer",
+    "mass_kg": 1.2,
+    "power_w": 12.0,
+    "peak_power_w": 18.0,
+    "standby_power_w": 3.0,
+    "volume_liters": 0.9,
+    "price_meur": 0.18,
+    "trl": 9,
+    "specs": {
+      "tx_rf_power_w": 2.0,
+      "downlink_rate_kbps": 1000.0,
+      "uplink_rate_kbps": 128.0
+    }
+  },
+  {
+    "id": "downlink_xband_tx",
+    "supplier_id": "comms_euro",
+    "supplier_name": "EuroSpace Link",
+    "name": "X-Band Payload Transmitter 500 Mbps",
+    "function": "payload_downlink",
+    "description": "High data rate DVB-S2X transmitter for Earth Observation data downlink",
+    "mass_kg": 2.5,
+    "power_w": 35.0,
+    "peak_power_w": 45.0,
+    "standby_power_w": 2.0,
+    "volume_liters": 1.8,
+    "price_meur": 0.35,
+    "trl": 9,
+    "specs": {
+      "rf_frequency_ghz": 8.2,
+      "rf_power_w": 10.0,
+      "max_data_rate_mbps": 500.0
+    }
+  },
+  {
+    "id": "downlink_kaband_tx_2gbps",
+    "supplier_id": "comms_euro",
+    "supplier_name": "EuroSpace Link",
+    "name": "Ka-Band Ultra-High-Rate Downlink 2 Gbps",
+    "function": "payload_downlink",
+    "description": "Ka-Band (26 GHz) wideband transmitter with steerable horn antenna for hyperspectral & SAR data",
+    "mass_kg": 5.8,
+    "power_w": 75.0,
+    "peak_power_w": 95.0,
+    "standby_power_w": 4.0,
+    "volume_liters": 4.5,
+    "price_meur": 0.85,
+    "trl": 9,
+    "specs": {
+      "rf_frequency_ghz": 26.5,
+      "rf_power_w": 20.0,
+      "max_data_rate_mbps": 2000.0
+    }
+  },
+  {
+    "id": "mass_mem_512gb",
+    "supplier_id": "space_avionics",
+    "supplier_name": "Starlight Avionics",
+    "name": "NAND Flash Mass Memory Unit 512 GB",
+    "function": "mass_memory",
+    "description": "Radiation tolerant mass memory with EDAC and high-speed SpaceWire/SpaceFibre interfaces",
+    "mass_kg": 0.9,
+    "power_w": 5.0,
+    "peak_power_w": 12.0,
+    "standby_power_w": 1.0,
+    "volume_liters": 0.6,
+    "price_meur": 0.15,
+    "trl": 9,
+    "specs": {
+      "capacity_bol_gb": 512.0,
+      "capacity_eol_gb": 460.0,
+      "write_speed_mbps": 1600.0,
+      "read_speed_mbps": 800.0
+    }
+  },
+  {
+    "id": "mass_mem_2tb_highrel",
+    "supplier_id": "space_avionics",
+    "supplier_name": "Starlight Avionics",
+    "name": "Enterprise Solid State Recorder 2 TB",
+    "function": "mass_memory",
+    "description": "High-capacity rad-hard SSR for constellation and SAR missions",
+    "mass_kg": 2.2,
+    "power_w": 14.0,
+    "peak_power_w": 28.0,
+    "standby_power_w": 2.0,
+    "volume_liters": 1.8,
+    "price_meur": 0.42,
+    "trl": 9,
+    "specs": {
+      "capacity_bol_gb": 2048.0,
+      "capacity_eol_gb": 1850.0,
+      "write_speed_mbps": 4000.0,
+      "read_speed_mbps": 2500.0
+    }
+  },
+  {
+    "id": "adcs_high_accuracy_pack",
+    "supplier_id": "space_avionics",
+    "supplier_name": "Starlight Avionics",
+    "name": "Precision ADCS Suite (Dual Star Trackers + 4 Reaction Wheels)",
+    "function": "adcs",
+    "description": "High-pointing-accuracy kit for sub-meter Earth Observation telescopes",
+    "mass_kg": 8.5,
+    "power_w": 22.0,
+    "peak_power_w": 65.0,
+    "standby_power_w": 8.0,
+    "volume_liters": 7.0,
+    "price_meur": 0.68,
+    "trl": 9,
+    "specs": {
+      "pointing_accuracy_deg": 0.005,
+      "pointing_stability_arcsec_s": 0.5,
+      "wheel_momentum_nms": 1.5
+    }
+  },
+  {
+    "id": "adcs_cmg_agility_pack",
+    "supplier_id": "space_avionics",
+    "supplier_name": "Starlight Avionics",
+    "name": "High-Agility CMG Suite (4 Control Moment Gyros)",
+    "function": "adcs",
+    "description": "Ultra-fast slewing suite (>5 deg/s) for multi-target optical imaging and tactical retasking",
+    "mass_kg": 24.0,
+    "power_w": 55.0,
+    "peak_power_w": 180.0,
+    "standby_power_w": 15.0,
+    "volume_liters": 22.0,
+    "price_meur": 1.95,
+    "trl": 8,
+    "specs": {
+      "pointing_accuracy_deg": 0.003,
+      "pointing_stability_arcsec_s": 0.2,
+      "slew_rate_deg_s": 6.5
+    }
+  }
+]
