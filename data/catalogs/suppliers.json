@@ -253,5 +253,148 @@
     ],
     "founded": 2016,
     "description": "Petits lanceurs dédiés et lancements depuis un cosmodrome polaire, optimisés pour l'orbite héliosynchrone. Inspiré d'Andøya Spaceport, d'Isar Aerospace et de RFA."
+  },
+  {
+    "id": "euro_sar_prime",
+    "name": "Aegis Radar & Defense",
+    "country": "Allemagne / Espagne (fictif)",
+    "kind": "historique",
+    "categories": [
+      "payload"
+    ],
+    "founded": 1979,
+    "description": "Maître d'œuvre européen des radars spatiaux militaires et civils à synthèse d'ouverture (bandes X et C). Spécialiste des antennes actives à modules T/R GaN haute fiabilité, de la polarimétrie complète (Quad-Pol) et des modes Spotlight sub-métriques. Inspiré d'Airbus Defence & Space (TerraSAR-X / PAZ) et d'Indra."
+  },
+  {
+    "id": "zephyr_microsar",
+    "name": "Zephyr MicroRadar Inc.",
+    "country": "États-Unis / Japon (fictif)",
+    "kind": "newspace",
+    "categories": [
+      "payload"
+    ],
+    "founded": 2017,
+    "description": "Pionnier NewSpace des radars SAR à réflecteur parabolique maillé déployable (mesh reflector) ultra-légers. En remplaçant le lourd panneau phasé actif par une parabole déployable à grand gain illuminée par une source centrale à semi-conducteurs GaN, Zephyr obtient un excellent NESZ (< -16 dB) avec une masse et une consommation divisées par deux. Inspiré de Capella Space, d'Umbra et d'iQPS."
+  },
+  {
+    "id": "med_radar_ital",
+    "name": "Alba Spazio Radar",
+    "country": "Italie (fictif)",
+    "kind": "historique",
+    "categories": [
+      "payload"
+    ],
+    "founded": 1984,
+    "description": "Industriel transalpin de référence pour l'observation radar duale (civile et défense) en bande X et bande Ku. Fort de l'héritage d'une constellation opérationnelle méditerranéenne, Alba Spazio propose des instruments SAR à haute cadence de revisite et interférométrie différentielle. Inspiré de Thales Alenia Space Italia (COSMO-SkyMed)."
+  },
+  {
+    "id": "nordic_nanocomm",
+    "name": "Nordic NanoComm Systems",
+    "country": "Danemark / Suède (fictif)",
+    "kind": "newspace",
+    "categories": [
+      "payload"
+    ],
+    "founded": 2013,
+    "description": "Leader scandinave des charges utiles radio-fréquence définies par logiciel (SDR) pour CubeSats et microsatellites : surveillance maritime AIS, suivi aéronautique ADS-B, collecte IoT satellitaire et surveillance du spectre RF. Produits très compacts, faible consommation et livraison rapide. Inspiré de GomSpace, Satlab et Kleos."
+  },
+  {
+    "id": "gallia_satcom",
+    "name": "Gallia SatCom Payloads",
+    "country": "France / Royaume-Uni (fictif)",
+    "kind": "historique",
+    "categories": [
+      "payload"
+    ],
+    "founded": 1974,
+    "description": "Grand équipementier et systémier européen de charges utiles de télécommunications spatiales en bandes X, Ku et Ka. Conçoit des répéteurs numériques transparents et régénératifs à formation de faisceaux actifs (DRA) pour constellations LEO/MEO et missions souveraines. Inspiré d'Airbus (OneWeb) et de Thales Alenia Space."
+  },
+  {
+    "id": "celestia_broadband",
+    "name": "Celestia Broadband Corp.",
+    "country": "États-Unis / Canada (fictif)",
+    "kind": "newspace",
+    "categories": [
+      "payload"
+    ],
+    "founded": 2016,
+    "description": "Entreprise NewSpace nord-américaine spécialisée dans la connectivité directe vers les terminaux mobiles (Direct-to-Device), l'IoT massif en bande L/S et les charges utiles bande Ka à antennes réseaux phasés électroniques à bas coût. Inspiré de Lynk, AST SpaceMobile et Telesat Lightspeed."
+  },
+  {
+    "id": "helvetia_microwave",
+    "name": "Helvetia Microwave & RF",
+    "country": "Suisse (fictif)",
+    "kind": "historique",
+    "categories": [
+      "payload"
+    ],
+    "founded": 1996,
+    "description": "Spécialiste suisse de l'électronique hyperfréquence de haute précision, des charges utiles de relais inter-satellites en bande K/Ka et des récepteurs de collecte environnementale (type Argos / DCS) à très faible facteur de bruit. Inspiré de SWISSto12 et de Beyond Gravity."
+  },
+  {
+    "id": "celeste_photonics",
+    "name": "Céleste Photonique Spatiale",
+    "country": "France (fictif)",
+    "kind": "newspace",
+    "categories": [
+      "payload"
+    ],
+    "founded": 2018,
+    "description": "Start-up deeptech française issue de la recherche en optique adaptative et télécoms spatiales. Développe des terminaux laser LEO-sol et inter-satellites de 5 à 40 Gbit/s intégrant une pré-compensation des turbulences atmosphériques et des composants fibrés qualifiés espace. Inspiré de Cailabs, d'Unseenlabs et d'Airbus Laser."
+  },
+  {
+    "id": "nippon_optolink",
+    "name": "Kibo Optical Communications",
+    "country": "Japon (fictif)",
+    "kind": "historique",
+    "categories": [
+      "payload"
+    ],
+    "founded": 1988,
+    "description": "Pionnier japonais des liaisons optiques spatiales bidirectionnelles (héritage OICETS / LUCAS / JDRS). Propose des terminaux laser ultra-fiables à acquisition rapide et faible masse pour microsatellites et relais de données gouvernementaux. Inspiré de NEC, Sony Space Communication et JAXA."
+  },
+  {
+    "id": "lumina_hyperspec",
+    "name": "Lumina Hyperspectral Oy",
+    "country": "Finlande / Belgique (fictif)",
+    "kind": "newspace",
+    "categories": [
+      "payload"
+    ],
+    "founded": 2016,
+    "description": "Concepteur nordique d'imageurs hyperspectraux miniaturisés à interféromètre de Fabry-Pérot et filtres linéaires variables pour CubeSats et microsatellites. Permet l'analyse environnementale, forestière et agricole à une fraction du coût des spectromètres institutionnels. Inspiré de Kuva Space, VTT et imec."
+  },
+  {
+    "id": "atmo_science_eu",
+    "name": "AtmoSonde Scientific Instruments",
+    "country": "Pays-Bas / France (fictif)",
+    "kind": "historique",
+    "categories": [
+      "payload"
+    ],
+    "founded": 1982,
+    "description": "Consortium instrumental européen spécialisé dans la chimie de l'atmosphère terrestre et le climat : spectromètres à réseau immergé UV-VIS-NIR-SWIR à très haute résolution spectrale (< 0,25 nm) pour le suivi du méthane (CH4), du CO2, du NO2 et de l'ozone. Inspiré de SRON / TNO / Airbus (TROPOMI, Sentinel-5, CO2M)."
+  },
+  {
+    "id": "edelweiss_quantum",
+    "name": "Edelweiss Quantum Space",
+    "country": "Autriche / Suisse (fictif)",
+    "kind": "historique",
+    "categories": [
+      "payload"
+    ],
+    "founded": 2004,
+    "description": "Laboratoire industriel alpin issu des travaux pionniers sur l'intrication quantique spatiale. Fournit des charges utiles QKD à états leurres et à paires de photons intriqués pour les infrastructures européennes de communication quantique (EuroQCI). Inspiré d'IQOQI, d'ID Quantique et du programme ESA Eagle-1."
+  },
+  {
+    "id": "albion_quantum_optics",
+    "name": "Albion Quantum Photonics",
+    "country": "Royaume-Uni (fictif)",
+    "kind": "newspace",
+    "categories": [
+      "payload"
+    ],
+    "founded": 2019,
+    "description": "Entreprise NewSpace britannique développant des émetteurs quantiques à puce photonique intégrée pour CubeSats et petits satellites commerciaux, abaissant drastiquement la masse et le coût d'accès au chiffrement quantique. Inspiré de Craft Prospect, d'Arqit et de Toshiba UK."
   }
 ]

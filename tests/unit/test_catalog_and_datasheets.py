@@ -1,4 +1,4 @@
-"""Unit tests for theenriched multi-supplier catalogs, datasheets, mission specification sheets, and offscreen GUI rendering."""
+"""Unit tests for the enriched multi-supplier catalogs, datasheets, mission specification sheets, and offscreen GUI rendering."""
 
 import os
 from ssb.catalog.database import CatalogDatabase
@@ -14,9 +14,9 @@ def test_enriched_catalog_counts_and_datasheets():
     db = CatalogDatabase()
     db.load_from_directory(catalogs_dir())
 
-    assert len(db.suppliers) >= 18
+    assert len(db.suppliers) >= 35
     assert len(db.platforms) >= 16
-    assert len(db.payloads) >= 33
+    assert len(db.payloads) >= 50
     assert len(db.equipments) >= 31
     assert len(db.launchers) >= 8
 
@@ -25,6 +25,17 @@ def test_enriched_catalog_counts_and_datasheets():
     for sup in plat_suppliers:
         items = db.items_by_supplier(sup.id, "platform")
         assert len(items) >= 3, f"Supplier {sup.id} should have at least 3 platforms"
+
+    # Every payload type must have at least 4 distinct suppliers (and SAR / radio_comm at least 5)
+    suppliers_by_ptype: dict[str, set[str]] = {}
+    for p in db.payloads.values():
+        suppliers_by_ptype.setdefault(p.payload_type.value, set()).add(p.supplier_id)
+    for ptype in ("optical_imager", "spectrometer", "sar", "optical_comm", "qkd", "radio_comm"):
+        assert len(suppliers_by_ptype.get(ptype, set())) >= 4, (
+            f"Payload type {ptype} should have at least 4 distinct suppliers"
+        )
+    assert len(suppliers_by_ptype["sar"]) >= 5
+    assert len(suppliers_by_ptype["radio_comm"]) >= 5
 
     orbit = OrbitDefinition(altitude_km=550.0, inclination_deg=97.6)
     img_root = images_dir()
@@ -59,9 +70,9 @@ def test_mission_specification_sheets_and_solutions():
         assert len(ms.requirements) >= 2
         missions[ms.id] = ms
 
-    # Reference valid student solutions for the new mission sheets:
+    # Reference valid student solutions across multiple competing suppliers:
     solutions = [
-        # 1. Optical EO (budget 18 M€, GSD <= 1.0 m, swath >= 10 km, SNR >= 80)
+        # 1. Optical EO (budget 18 M€, GSD <= 1.0 m, swath >= 10 km, SNR >= 55)
         (
             "EXAM-2026-EO-OPT",
             SystemConfiguration(
@@ -76,7 +87,39 @@ def test_mission_specification_sheets_and_solutions():
                 launcher_id="ln_rideshare_sso",
             ),
         ),
-        # 2. Atmosphere GHG (budget 16.5 M€, spectral_resolution <= 1.0 nm, max_wl >= 1650 nm, GSD <= 10 m, SNR >= 50)
+        # 2a. SAR surveillance — Solution with Zephyr MicroRadar mesh reflector SAR
+        (
+            "EXAM-2026-SAR",
+            SystemConfiguration(
+                orbit=OrbitDefinition(altitude_km=500.0, inclination_deg=97.4),
+                platform_id="plat_sstl_midi300",
+                selected_options=[
+                    SelectedOption(slot_function="propulsion", equipment_id="prop_green_5n"),
+                    SelectedOption(slot_function="ttc", equipment_id="ttc_sband_transceiver"),
+                    SelectedOption(slot_function="payload_downlink", equipment_id="downlink_xband_tx"),
+                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_1tb"),
+                ],
+                selected_payload_ids=["pl_sar_zephyr_mesh_x"],
+                launcher_id="ln_rideshare_sso",
+            ),
+        ),
+        # 2b. SAR surveillance — Solution with Aegis Radar & Defense institutional SAR
+        (
+            "EXAM-2026-SAR",
+            SystemConfiguration(
+                orbit=OrbitDefinition(altitude_km=500.0, inclination_deg=97.4),
+                platform_id="plat_sstl_midi300",
+                selected_options=[
+                    SelectedOption(slot_function="propulsion", equipment_id="prop_green_5n"),
+                    SelectedOption(slot_function="ttc", equipment_id="ttc_sband_transceiver"),
+                    SelectedOption(slot_function="payload_downlink", equipment_id="downlink_xband_tx"),
+                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_1tb"),
+                ],
+                selected_payload_ids=["pl_sar_aegis_x_tactical"],
+                launcher_id="ln_rideshare_sso",
+            ),
+        ),
+        # 3a. Atmosphere GHG — Cirrus Infrared Systems
         (
             "EXAM-2026-ATMO-GHG",
             SystemConfiguration(
@@ -90,7 +133,22 @@ def test_mission_specification_sheets_and_solutions():
                 launcher_id="ln_rideshare_sso",
             ),
         ),
-        # 3. Cosmology deep field (budget 32 M€, aperture >= 0.60 m, diffraction <= 0.65 m, pointing <= 0.004 deg)
+        # 3b. Atmosphere GHG — AtmoSonde Scientific Instruments (immersed grating + high accuracy ADCS)
+        (
+            "EXAM-2026-ATMO-GHG",
+            SystemConfiguration(
+                orbit=OrbitDefinition(altitude_km=500.0, inclination_deg=97.4),
+                platform_id="plat_sstl_mini150",
+                selected_options=[
+                    SelectedOption(slot_function="ttc", equipment_id="ttc_sband_transceiver"),
+                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_512gb"),
+                    SelectedOption(slot_function="adcs", equipment_id="adcs_high_accuracy_pack"),
+                ],
+                selected_payload_ids=["pl_spec_atmo_tropo_ghg"],
+                launcher_id="ln_rideshare_sso",
+            ),
+        ),
+        # 4. Cosmology deep field (budget 32 M€, aperture >= 0.60 m, diffraction <= 0.72 m, pointing <= 0.004 deg)
         (
             "EXAM-2026-COSMO",
             SystemConfiguration(
@@ -107,7 +165,7 @@ def test_mission_specification_sheets_and_solutions():
                 launcher_id="ln_rideshare_sso",
             ),
         ),
-        # 4. High throughput laser datalink (budget 15 M€, rate >= 25 Gbps, margin >= 6 dB, pointing <= 0.008 deg)
+        # 5a. High throughput laser datalink — TeraLink Photonics (25 Gbps)
         (
             "EXAM-2026-DATARATE",
             SystemConfiguration(
@@ -122,7 +180,22 @@ def test_mission_specification_sheets_and_solutions():
                 launcher_id="ln_rideshare_sso",
             ),
         ),
-        # 5. Low-cost CubeSat RF/IoT (budget 1.6 M€, rate >= 15 Mbps, margin >= 3 dB)
+        # 5b. High throughput laser datalink — Céleste Photonique Spatiale (40 Gbps)
+        (
+            "EXAM-2026-DATARATE",
+            SystemConfiguration(
+                orbit=OrbitDefinition(altitude_km=500.0, inclination_deg=97.4),
+                platform_id="plat_sstl_micro50",
+                selected_options=[
+                    SelectedOption(slot_function="ttc", equipment_id="ttc_sband_transceiver"),
+                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_512gb"),
+                    SelectedOption(slot_function="adcs", equipment_id="adcs_high_accuracy_pack"),
+                ],
+                selected_payload_ids=["pl_opt_comm_celeste_40g"],
+                launcher_id="ln_rideshare_sso",
+            ),
+        ),
+        # 6a. Low-cost CubeSat RF/IoT — Meridian RF Payloads
         (
             "EXAM-2026-CUBESAT-RF",
             SystemConfiguration(
@@ -134,6 +207,21 @@ def test_mission_specification_sheets_and_solutions():
                     SelectedOption(slot_function="adcs", equipment_id="adcs_cubesat_precision"),
                 ],
                 selected_payload_ids=["pl_rf_ais_adsb"],
+                launcher_id="ln_cubesat_deployer",
+            ),
+        ),
+        # 6b. Low-cost CubeSat RF/IoT — Nordic NanoComm Systems (plus léger, permet d'ajouter une caméra 6cm !)
+        (
+            "EXAM-2026-CUBESAT-RF",
+            SystemConfiguration(
+                orbit=OrbitDefinition(altitude_km=500.0, inclination_deg=97.4),
+                platform_id="plat_aeromicro_6u",
+                selected_options=[
+                    SelectedOption(slot_function="ttc", equipment_id="ttc_uhf_cubesat"),
+                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_64gb"),
+                    SelectedOption(slot_function="adcs", equipment_id="adcs_cubesat_precision"),
+                ],
+                selected_payload_ids=["pl_rf_nordic_ais_sdr", "pl_opt_cubesat_6cm"],
                 launcher_id="ln_cubesat_deployer",
             ),
         ),
@@ -156,8 +244,16 @@ def test_student_and_teacher_gui_offscreen():
     win = StudentMainWindow()
     assert win.current_budgets is not None
     assert win.cmb_preset_missions.count() >= 6
-    assert win.browser_payloads.list_suppliers.count() > 5
+    assert win.browser_payloads.list_suppliers.count() >= 19
     assert win.browser_platforms.list_suppliers.count() == 6
+
+    # Verify each payload sub-category filter in the UI displays >= 4 suppliers (+ "Tous les fournisseurs")
+    for idx in range(1, win.browser_payloads.cmb_type.count()):
+        win.browser_payloads.cmb_type.setCurrentIndex(idx)
+        assert win.browser_payloads.list_suppliers.count() >= 5, (
+            f"Subcategory {win.browser_payloads.cmb_type.currentText()} should have at least 4 suppliers"
+        )
+    win.browser_payloads.cmb_type.setCurrentIndex(0)
 
     # Switch between mission specification sheets in the student window
     for idx in range(win.cmb_preset_missions.count()):
