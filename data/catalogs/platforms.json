@@ -36,7 +36,8 @@
         "allowed_equipment_ids": [
           "prop_coldgas_10u",
           "prop_coldgas_1u",
-          "prop_pptt_micro"
+          "prop_pptt_micro",
+          "prop_electric_hemp_de"
         ],
         "included_equipment_ids": [],
         "min_qty": 0,
@@ -49,7 +50,9 @@
         "function": "ttc",
         "allowed_equipment_ids": [
           "ttc_sband_transceiver",
-          "ttc_uhf_cubesat"
+          "ttc_uhf_cubesat",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
         ],
         "included_equipment_ids": [
           "ttc_sband_transceiver"
@@ -64,7 +67,11 @@
         "function": "mass_memory",
         "allowed_equipment_ids": [
           "mass_mem_512gb",
-          "mass_mem_64gb"
+          "mass_mem_64gb",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_1tb_ch"
         ],
         "included_equipment_ids": [],
         "min_qty": 0,
@@ -78,7 +85,10 @@
         "allowed_equipment_ids": [
           "downlink_sband_hr",
           "downlink_xband_tx_50mbps",
-          "downlink_xband_tx_150mbps"
+          "downlink_xband_tx_150mbps",
+          "downlink_xband_toulouse_fr",
+          "downlink_xband_milan_it",
+          "downlink_kaband_milan_it"
         ],
         "included_equipment_ids": [],
         "min_qty": 0,
@@ -92,7 +102,9 @@
         "function": "adcs",
         "allowed_equipment_ids": [
           "adcs_cubesat_basic",
-          "adcs_cubesat_precision"
+          "adcs_cubesat_precision",
+          "adcs_sodern_auriga_fr",
+          "adcs_leonardo_pack_it"
         ],
         "included_equipment_ids": [
           "adcs_cubesat_precision"
@@ -163,7 +175,8 @@
           "prop_coldgas_10u",
           "prop_electric_hall_100w",
           "prop_pptt_micro",
-          "prop_green_5n"
+          "prop_green_5n",
+          "prop_electric_hemp_de"
         ],
         "included_equipment_ids": [],
         "min_qty": 0,
@@ -175,7 +188,9 @@
       {
         "function": "ttc",
         "allowed_equipment_ids": [
-          "ttc_sband_transceiver"
+          "ttc_sband_transceiver",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
         ],
         "included_equipment_ids": [
           "ttc_sband_transceiver"
@@ -187,7 +202,10 @@
         "function": "payload_downlink",
         "allowed_equipment_ids": [
           "downlink_xband_tx",
-          "downlink_xband_tx_150mbps"
+          "downlink_xband_tx_150mbps",
+          "downlink_xband_toulouse_fr",
+          "downlink_xband_milan_it",
+          "downlink_kaband_milan_it"
         ],
         "included_equipment_ids": [],
         "min_qty": 0,
@@ -200,7 +218,11 @@
         "function": "mass_memory",
         "allowed_equipment_ids": [
           "mass_mem_512gb",
-          "mass_mem_1tb"
+          "mass_mem_1tb",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_1tb_ch"
         ],
         "included_equipment_ids": [
           "mass_mem_512gb"
@@ -211,7 +233,9 @@
       {
         "function": "adcs",
         "allowed_equipment_ids": [
-          "adcs_high_accuracy_pack"
+          "adcs_high_accuracy_pack",
+          "adcs_sodern_auriga_fr",
+          "adcs_leonardo_pack_it"
         ],
         "included_equipment_ids": [],
         "min_qty": 0,
@@ -282,7 +306,8 @@
           "prop_electric_hall_100w",
           "prop_monoprop_1n",
           "prop_electric_hall_300w",
-          "prop_green_5n"
+          "prop_green_5n",
+          "prop_electric_hemp_de"
         ],
         "included_equipment_ids": [],
         "min_qty": 0,
@@ -302,7 +327,9 @@
         "allowed_equipment_ids": [
           "ttc_sband_transceiver",
           "ttc_xband_tmtc",
-          "ttc_sband_dual_redundant"
+          "ttc_sband_dual_redundant",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
         ],
         "included_equipment_ids": [
           "ttc_sband_transceiver"
@@ -316,7 +343,10 @@
           "downlink_xband_tx",
           "downlink_kaband_tx_2gbps",
           "downlink_xband_tx_150mbps",
-          "downlink_xband_tx_1200mbps"
+          "downlink_xband_tx_1200mbps",
+          "downlink_xband_toulouse_fr",
+          "downlink_xband_milan_it",
+          "downlink_kaband_milan_it"
         ],
         "included_equipment_ids": [],
         "min_qty": 0,
@@ -330,7 +360,11 @@
         "allowed_equipment_ids": [
           "mass_mem_512gb",
           "mass_mem_2tb_highrel",
-          "mass_mem_1tb"
+          "mass_mem_1tb",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_1tb_ch"
         ],
         "included_equipment_ids": [
           "mass_mem_512gb"
@@ -343,7 +377,9 @@
         "allowed_equipment_ids": [
           "adcs_high_accuracy_pack",
           "adcs_cmg_agility_pack",
-          "adcs_agile_wheels_medium"
+          "adcs_agile_wheels_medium",
+          "adcs_sodern_auriga_fr",
+          "adcs_leonardo_pack_it"
         ],
         "included_equipment_ids": [],
         "min_qty": 0,
@@ -414,7 +450,8 @@
           "prop_monoprop_1n",
           "prop_electric_hall_300w",
           "prop_ion_500w",
-          "prop_green_5n"
+          "prop_green_5n",
+          "prop_electric_hemp_de"
         ],
         "included_equipment_ids": [
           "prop_electric_hall_100w"
@@ -430,7 +467,9 @@
         "allowed_equipment_ids": [
           "ttc_sband_transceiver",
           "ttc_xband_tmtc",
-          "ttc_sband_dual_redundant"
+          "ttc_sband_dual_redundant",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
         ],
         "included_equipment_ids": [
           "ttc_sband_transceiver"
@@ -443,7 +482,10 @@
         "allowed_equipment_ids": [
           "downlink_xband_tx",
           "downlink_kaband_tx_2gbps",
-          "downlink_xband_tx_1200mbps"
+          "downlink_xband_tx_1200mbps",
+          "downlink_xband_toulouse_fr",
+          "downlink_xband_milan_it",
+          "downlink_kaband_milan_it"
         ],
         "included_equipment_ids": [
           "downlink_xband_tx"
@@ -459,7 +501,11 @@
         "allowed_equipment_ids": [
           "mass_mem_512gb",
           "mass_mem_2tb_highrel",
-          "mass_mem_8tb"
+          "mass_mem_8tb",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_1tb_ch"
         ],
         "included_equipment_ids": [
           "mass_mem_2tb_highrel"
@@ -473,7 +519,9 @@
           "adcs_high_accuracy_pack",
           "adcs_cmg_agility_pack",
           "adcs_agile_wheels_medium",
-          "adcs_ultra_stable"
+          "adcs_ultra_stable",
+          "adcs_sodern_auriga_fr",
+          "adcs_leonardo_pack_it"
         ],
         "included_equipment_ids": [
           "adcs_high_accuracy_pack"
@@ -540,7 +588,9 @@
         "allowed_equipment_ids": [
           "prop_electric_hall_1kw",
           "prop_biprop_400n",
-          "prop_ion_500w"
+          "prop_ion_500w",
+          "prop_electric_hemp_de",
+          "prop_chemical_biprop_400n_de"
         ],
         "included_equipment_ids": [
           "prop_biprop_400n"
@@ -556,7 +606,9 @@
         "allowed_equipment_ids": [
           "ttc_sband_transceiver",
           "ttc_sband_dual_redundant",
-          "ttc_xband_tmtc"
+          "ttc_xband_tmtc",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
         ],
         "included_equipment_ids": [
           "ttc_sband_transceiver"
@@ -569,7 +621,10 @@
         "allowed_equipment_ids": [
           "downlink_xband_tx",
           "downlink_kaband_tx_2gbps",
-          "downlink_xband_tx_1200mbps"
+          "downlink_xband_tx_1200mbps",
+          "downlink_xband_toulouse_fr",
+          "downlink_xband_milan_it",
+          "downlink_kaband_milan_it"
         ],
         "included_equipment_ids": [
           "downlink_kaband_tx_2gbps"
@@ -581,7 +636,11 @@
         "function": "mass_memory",
         "allowed_equipment_ids": [
           "mass_mem_2tb_highrel",
-          "mass_mem_8tb"
+          "mass_mem_8tb",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_1tb_ch"
         ],
         "included_equipment_ids": [
           "mass_mem_2tb_highrel"
@@ -593,7 +652,9 @@
         "function": "adcs",
         "allowed_equipment_ids": [
           "adcs_cmg_agility_pack",
-          "adcs_ultra_stable"
+          "adcs_ultra_stable",
+          "adcs_sodern_auriga_fr",
+          "adcs_leonardo_pack_it"
         ],
         "included_equipment_ids": [
           "adcs_cmg_agility_pack"
@@ -675,7 +736,8 @@
       {
         "function": "propulsion",
         "allowed_equipment_ids": [
-          "prop_coldgas_1u"
+          "prop_coldgas_1u",
+          "prop_electric_hemp_de"
         ],
         "included_equipment_ids": [],
         "min_qty": 0,
@@ -689,7 +751,9 @@
         "function": "ttc",
         "allowed_equipment_ids": [
           "ttc_uhf_cubesat",
-          "ttc_sband_transceiver"
+          "ttc_sband_transceiver",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
         ],
         "included_equipment_ids": [
           "ttc_uhf_cubesat"
@@ -705,7 +769,10 @@
         "function": "payload_downlink",
         "allowed_equipment_ids": [
           "downlink_sband_hr",
-          "downlink_xband_tx_50mbps"
+          "downlink_xband_tx_50mbps",
+          "downlink_xband_toulouse_fr",
+          "downlink_xband_milan_it",
+          "downlink_kaband_milan_it"
         ],
         "included_equipment_ids": [],
         "min_qty": 0,
@@ -718,7 +785,11 @@
       {
         "function": "mass_memory",
         "allowed_equipment_ids": [
-          "mass_mem_64gb"
+          "mass_mem_64gb",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_1tb_ch"
         ],
         "included_equipment_ids": [
           "mass_mem_64gb"
@@ -734,7 +805,9 @@
         "function": "adcs",
         "allowed_equipment_ids": [
           "adcs_cubesat_basic",
-          "adcs_cubesat_precision"
+          "adcs_cubesat_precision",
+          "adcs_sodern_auriga_fr",
+          "adcs_leonardo_pack_it"
         ],
         "included_equipment_ids": [
           "adcs_cubesat_basic"
@@ -803,7 +876,8 @@
         "allowed_equipment_ids": [
           "prop_coldgas_1u",
           "prop_coldgas_10u",
-          "prop_pptt_micro"
+          "prop_pptt_micro",
+          "prop_electric_hemp_de"
         ],
         "included_equipment_ids": [],
         "min_qty": 0,
@@ -817,7 +891,9 @@
         "function": "ttc",
         "allowed_equipment_ids": [
           "ttc_uhf_cubesat",
-          "ttc_sband_transceiver"
+          "ttc_sband_transceiver",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
         ],
         "included_equipment_ids": [
           "ttc_sband_transceiver"
@@ -834,7 +910,10 @@
         "allowed_equipment_ids": [
           "downlink_sband_hr",
           "downlink_xband_tx_50mbps",
-          "downlink_xband_tx_150mbps"
+          "downlink_xband_tx_150mbps",
+          "downlink_xband_toulouse_fr",
+          "downlink_xband_milan_it",
+          "downlink_kaband_milan_it"
         ],
         "included_equipment_ids": [],
         "min_qty": 0,
@@ -848,7 +927,11 @@
         "function": "mass_memory",
         "allowed_equipment_ids": [
           "mass_mem_64gb",
-          "mass_mem_512gb"
+          "mass_mem_512gb",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_1tb_ch"
         ],
         "included_equipment_ids": [
           "mass_mem_64gb"
@@ -864,7 +947,9 @@
         "function": "adcs",
         "allowed_equipment_ids": [
           "adcs_cubesat_basic",
-          "adcs_cubesat_precision"
+          "adcs_cubesat_precision",
+          "adcs_sodern_auriga_fr",
+          "adcs_leonardo_pack_it"
         ],
         "included_equipment_ids": [
           "adcs_cubesat_precision"
@@ -934,7 +1019,8 @@
         "allowed_equipment_ids": [
           "prop_coldgas_10u",
           "prop_electric_hall_100w",
-          "prop_green_5n"
+          "prop_green_5n",
+          "prop_electric_hemp_de"
         ],
         "included_equipment_ids": [],
         "min_qty": 0,
@@ -947,7 +1033,9 @@
       {
         "function": "ttc",
         "allowed_equipment_ids": [
-          "ttc_sband_transceiver"
+          "ttc_sband_transceiver",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
         ],
         "included_equipment_ids": [
           "ttc_sband_transceiver"
@@ -964,7 +1052,10 @@
         "allowed_equipment_ids": [
           "downlink_xband_tx_50mbps",
           "downlink_xband_tx_150mbps",
-          "downlink_xband_tx"
+          "downlink_xband_tx",
+          "downlink_xband_toulouse_fr",
+          "downlink_xband_milan_it",
+          "downlink_kaband_milan_it"
         ],
         "included_equipment_ids": [],
         "min_qty": 0,
@@ -978,7 +1069,11 @@
         "function": "mass_memory",
         "allowed_equipment_ids": [
           "mass_mem_512gb",
-          "mass_mem_1tb"
+          "mass_mem_1tb",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_1tb_ch"
         ],
         "included_equipment_ids": [
           "mass_mem_512gb"
@@ -994,7 +1089,9 @@
         "function": "adcs",
         "allowed_equipment_ids": [
           "adcs_cubesat_precision",
-          "adcs_high_accuracy_pack"
+          "adcs_high_accuracy_pack",
+          "adcs_sodern_auriga_fr",
+          "adcs_leonardo_pack_it"
         ],
         "included_equipment_ids": [],
         "min_qty": 0,
@@ -1062,7 +1159,8 @@
         "allowed_equipment_ids": [
           "prop_electric_hall_100w",
           "prop_monoprop_1n",
-          "prop_green_5n"
+          "prop_green_5n",
+          "prop_electric_hemp_de"
         ],
         "included_equipment_ids": [],
         "min_qty": 0,
@@ -1076,7 +1174,9 @@
         "function": "ttc",
         "allowed_equipment_ids": [
           "ttc_sband_transceiver",
-          "ttc_xband_tmtc"
+          "ttc_xband_tmtc",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
         ],
         "included_equipment_ids": [
           "ttc_sband_transceiver"
@@ -1093,7 +1193,10 @@
         "allowed_equipment_ids": [
           "downlink_xband_tx_150mbps",
           "downlink_xband_tx",
-          "downlink_xband_tx_1200mbps"
+          "downlink_xband_tx_1200mbps",
+          "downlink_xband_toulouse_fr",
+          "downlink_xband_milan_it",
+          "downlink_kaband_milan_it"
         ],
         "included_equipment_ids": [],
         "min_qty": 0,
@@ -1108,7 +1211,11 @@
         "allowed_equipment_ids": [
           "mass_mem_512gb",
           "mass_mem_1tb",
-          "mass_mem_2tb_highrel"
+          "mass_mem_2tb_highrel",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_1tb_ch"
         ],
         "included_equipment_ids": [
           "mass_mem_512gb"
@@ -1124,7 +1231,9 @@
         "function": "adcs",
         "allowed_equipment_ids": [
           "adcs_high_accuracy_pack",
-          "adcs_agile_wheels_medium"
+          "adcs_agile_wheels_medium",
+          "adcs_sodern_auriga_fr",
+          "adcs_leonardo_pack_it"
         ],
         "included_equipment_ids": [],
         "min_qty": 0,
@@ -1194,7 +1303,8 @@
           "prop_electric_hall_100w",
           "prop_electric_hall_300w",
           "prop_monoprop_1n",
-          "prop_green_5n"
+          "prop_green_5n",
+          "prop_electric_hemp_de"
         ],
         "included_equipment_ids": [
           "prop_green_5n"
@@ -1210,7 +1320,9 @@
         "function": "ttc",
         "allowed_equipment_ids": [
           "ttc_sband_transceiver",
-          "ttc_sband_dual_redundant"
+          "ttc_sband_dual_redundant",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
         ],
         "included_equipment_ids": [
           "ttc_sband_transceiver"
@@ -1227,7 +1339,10 @@
         "allowed_equipment_ids": [
           "downlink_xband_tx",
           "downlink_xband_tx_1200mbps",
-          "downlink_kaband_tx_2gbps"
+          "downlink_kaband_tx_2gbps",
+          "downlink_xband_toulouse_fr",
+          "downlink_xband_milan_it",
+          "downlink_kaband_milan_it"
         ],
         "included_equipment_ids": [
           "downlink_xband_tx"
@@ -1243,7 +1358,11 @@
         "function": "mass_memory",
         "allowed_equipment_ids": [
           "mass_mem_1tb",
-          "mass_mem_2tb_highrel"
+          "mass_mem_2tb_highrel",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_1tb_ch"
         ],
         "included_equipment_ids": [
           "mass_mem_1tb"
@@ -1260,7 +1379,9 @@
         "allowed_equipment_ids": [
           "adcs_high_accuracy_pack",
           "adcs_agile_wheels_medium",
-          "adcs_cmg_agility_pack"
+          "adcs_cmg_agility_pack",
+          "adcs_sodern_auriga_fr",
+          "adcs_leonardo_pack_it"
         ],
         "included_equipment_ids": [],
         "min_qty": 0,
@@ -1330,7 +1451,8 @@
           "prop_electric_hall_300w",
           "prop_ion_500w",
           "prop_monoprop_1n",
-          "prop_green_5n"
+          "prop_green_5n",
+          "prop_electric_hemp_de"
         ],
         "included_equipment_ids": [
           "prop_monoprop_1n"
@@ -1346,7 +1468,9 @@
         "function": "ttc",
         "allowed_equipment_ids": [
           "ttc_sband_dual_redundant",
-          "ttc_xband_tmtc"
+          "ttc_xband_tmtc",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
         ],
         "included_equipment_ids": [
           "ttc_sband_dual_redundant"
@@ -1363,7 +1487,10 @@
         "allowed_equipment_ids": [
           "downlink_xband_tx",
           "downlink_xband_tx_1200mbps",
-          "downlink_kaband_tx_2gbps"
+          "downlink_kaband_tx_2gbps",
+          "downlink_xband_toulouse_fr",
+          "downlink_xband_milan_it",
+          "downlink_kaband_milan_it"
         ],
         "included_equipment_ids": [
           "downlink_xband_tx"
@@ -1380,7 +1507,11 @@
         "allowed_equipment_ids": [
           "mass_mem_1tb",
           "mass_mem_2tb_highrel",
-          "mass_mem_8tb"
+          "mass_mem_8tb",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_1tb_ch"
         ],
         "included_equipment_ids": [
           "mass_mem_1tb"
@@ -1397,7 +1528,9 @@
         "allowed_equipment_ids": [
           "adcs_high_accuracy_pack",
           "adcs_agile_wheels_medium",
-          "adcs_cmg_agility_pack"
+          "adcs_cmg_agility_pack",
+          "adcs_sodern_auriga_fr",
+          "adcs_leonardo_pack_it"
         ],
         "included_equipment_ids": [
           "adcs_high_accuracy_pack"
@@ -1471,7 +1604,9 @@
           "prop_electric_hall_1kw",
           "prop_ion_500w",
           "prop_monoprop_1n",
-          "prop_biprop_400n"
+          "prop_biprop_400n",
+          "prop_electric_hemp_de",
+          "prop_chemical_biprop_400n_de"
         ],
         "included_equipment_ids": [
           "prop_monoprop_1n"
@@ -1487,7 +1622,9 @@
         "function": "ttc",
         "allowed_equipment_ids": [
           "ttc_sband_dual_redundant",
-          "ttc_xband_tmtc"
+          "ttc_xband_tmtc",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
         ],
         "included_equipment_ids": [
           "ttc_sband_dual_redundant"
@@ -1503,7 +1640,10 @@
         "function": "payload_downlink",
         "allowed_equipment_ids": [
           "downlink_xband_tx_1200mbps",
-          "downlink_kaband_tx_2gbps"
+          "downlink_kaband_tx_2gbps",
+          "downlink_xband_toulouse_fr",
+          "downlink_xband_milan_it",
+          "downlink_kaband_milan_it"
         ],
         "included_equipment_ids": [
           "downlink_xband_tx_1200mbps"
@@ -1519,7 +1659,11 @@
         "function": "mass_memory",
         "allowed_equipment_ids": [
           "mass_mem_2tb_highrel",
-          "mass_mem_8tb"
+          "mass_mem_8tb",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_1tb_ch"
         ],
         "included_equipment_ids": [
           "mass_mem_2tb_highrel"
@@ -1536,7 +1680,9 @@
         "allowed_equipment_ids": [
           "adcs_agile_wheels_medium",
           "adcs_cmg_agility_pack",
-          "adcs_ultra_stable"
+          "adcs_ultra_stable",
+          "adcs_sodern_auriga_fr",
+          "adcs_leonardo_pack_it"
         ],
         "included_equipment_ids": [
           "adcs_agile_wheels_medium"
@@ -1607,7 +1753,8 @@
         "allowed_equipment_ids": [
           "prop_electric_hall_100w",
           "prop_electric_hall_300w",
-          "prop_green_5n"
+          "prop_green_5n",
+          "prop_electric_hemp_de"
         ],
         "included_equipment_ids": [
           "prop_electric_hall_100w"
@@ -1623,7 +1770,9 @@
         "function": "ttc",
         "allowed_equipment_ids": [
           "ttc_sband_transceiver",
-          "ttc_xband_tmtc"
+          "ttc_xband_tmtc",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
         ],
         "included_equipment_ids": [
           "ttc_sband_transceiver"
@@ -1640,7 +1789,10 @@
         "allowed_equipment_ids": [
           "downlink_xband_tx",
           "downlink_xband_tx_1200mbps",
-          "downlink_kaband_tx_2gbps"
+          "downlink_kaband_tx_2gbps",
+          "downlink_xband_toulouse_fr",
+          "downlink_xband_milan_it",
+          "downlink_kaband_milan_it"
         ],
         "included_equipment_ids": [
           "downlink_xband_tx"
@@ -1657,7 +1809,11 @@
         "allowed_equipment_ids": [
           "mass_mem_512gb",
           "mass_mem_1tb",
-          "mass_mem_2tb_highrel"
+          "mass_mem_2tb_highrel",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_1tb_ch"
         ],
         "included_equipment_ids": [
           "mass_mem_1tb"
@@ -1674,7 +1830,9 @@
         "allowed_equipment_ids": [
           "adcs_high_accuracy_pack",
           "adcs_agile_wheels_medium",
-          "adcs_cmg_agility_pack"
+          "adcs_cmg_agility_pack",
+          "adcs_sodern_auriga_fr",
+          "adcs_leonardo_pack_it"
         ],
         "included_equipment_ids": [
           "adcs_high_accuracy_pack"
@@ -1746,7 +1904,8 @@
           "prop_electric_hall_300w",
           "prop_electric_hall_1kw",
           "prop_ion_500w",
-          "prop_monoprop_1n"
+          "prop_monoprop_1n",
+          "prop_electric_hemp_de"
         ],
         "included_equipment_ids": [
           "prop_electric_hall_1kw"
@@ -1763,7 +1922,9 @@
         "allowed_equipment_ids": [
           "ttc_sband_transceiver",
           "ttc_sband_dual_redundant",
-          "ttc_xband_tmtc"
+          "ttc_xband_tmtc",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
         ],
         "included_equipment_ids": [
           "ttc_sband_dual_redundant"
@@ -1779,7 +1940,10 @@
         "function": "payload_downlink",
         "allowed_equipment_ids": [
           "downlink_xband_tx_1200mbps",
-          "downlink_kaband_tx_2gbps"
+          "downlink_kaband_tx_2gbps",
+          "downlink_xband_toulouse_fr",
+          "downlink_xband_milan_it",
+          "downlink_kaband_milan_it"
         ],
         "included_equipment_ids": [
           "downlink_kaband_tx_2gbps"
@@ -1795,7 +1959,11 @@
         "function": "mass_memory",
         "allowed_equipment_ids": [
           "mass_mem_2tb_highrel",
-          "mass_mem_8tb"
+          "mass_mem_8tb",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_1tb_ch"
         ],
         "included_equipment_ids": [
           "mass_mem_2tb_highrel"
@@ -1812,7 +1980,9 @@
         "allowed_equipment_ids": [
           "adcs_agile_wheels_medium",
           "adcs_cmg_agility_pack",
-          "adcs_ultra_stable"
+          "adcs_ultra_stable",
+          "adcs_sodern_auriga_fr",
+          "adcs_leonardo_pack_it"
         ],
         "included_equipment_ids": [
           "adcs_agile_wheels_medium"
@@ -1884,7 +2054,9 @@
           "prop_electric_hall_1kw",
           "prop_ion_500w",
           "prop_monoprop_1n",
-          "prop_biprop_400n"
+          "prop_biprop_400n",
+          "prop_electric_hemp_de",
+          "prop_chemical_biprop_400n_de"
         ],
         "included_equipment_ids": [
           "prop_monoprop_1n"
@@ -1900,7 +2072,9 @@
         "function": "ttc",
         "allowed_equipment_ids": [
           "ttc_sband_dual_redundant",
-          "ttc_xband_tmtc"
+          "ttc_xband_tmtc",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
         ],
         "included_equipment_ids": [
           "ttc_sband_dual_redundant"
@@ -1916,7 +2090,10 @@
         "function": "payload_downlink",
         "allowed_equipment_ids": [
           "downlink_xband_tx_1200mbps",
-          "downlink_kaband_tx_2gbps"
+          "downlink_kaband_tx_2gbps",
+          "downlink_xband_toulouse_fr",
+          "downlink_xband_milan_it",
+          "downlink_kaband_milan_it"
         ],
         "included_equipment_ids": [
           "downlink_kaband_tx_2gbps"
@@ -1932,7 +2109,11 @@
         "function": "mass_memory",
         "allowed_equipment_ids": [
           "mass_mem_2tb_highrel",
-          "mass_mem_8tb"
+          "mass_mem_8tb",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_1tb_ch"
         ],
         "included_equipment_ids": [
           "mass_mem_2tb_highrel"
@@ -1949,7 +2130,9 @@
         "allowed_equipment_ids": [
           "adcs_agile_wheels_medium",
           "adcs_cmg_agility_pack",
-          "adcs_ultra_stable"
+          "adcs_ultra_stable",
+          "adcs_sodern_auriga_fr",
+          "adcs_leonardo_pack_it"
         ],
         "included_equipment_ids": [
           "adcs_ultra_stable"
@@ -2019,7 +2202,9 @@
         "allowed_equipment_ids": [
           "prop_electric_hall_1kw",
           "prop_ion_500w",
-          "prop_biprop_400n"
+          "prop_biprop_400n",
+          "prop_electric_hemp_de",
+          "prop_chemical_biprop_400n_de"
         ],
         "included_equipment_ids": [
           "prop_biprop_400n"
@@ -2035,7 +2220,9 @@
         "function": "ttc",
         "allowed_equipment_ids": [
           "ttc_sband_dual_redundant",
-          "ttc_xband_tmtc"
+          "ttc_xband_tmtc",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
         ],
         "included_equipment_ids": [
           "ttc_sband_dual_redundant"
@@ -2051,7 +2238,10 @@
         "function": "payload_downlink",
         "allowed_equipment_ids": [
           "downlink_xband_tx_1200mbps",
-          "downlink_kaband_tx_2gbps"
+          "downlink_kaband_tx_2gbps",
+          "downlink_xband_toulouse_fr",
+          "downlink_xband_milan_it",
+          "downlink_kaband_milan_it"
         ],
         "included_equipment_ids": [
           "downlink_kaband_tx_2gbps"
@@ -2067,7 +2257,11 @@
         "function": "mass_memory",
         "allowed_equipment_ids": [
           "mass_mem_2tb_highrel",
-          "mass_mem_8tb"
+          "mass_mem_8tb",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_1tb_ch"
         ],
         "included_equipment_ids": [
           "mass_mem_8tb"
@@ -2083,7 +2277,9 @@
         "function": "adcs",
         "allowed_equipment_ids": [
           "adcs_cmg_agility_pack",
-          "adcs_ultra_stable"
+          "adcs_ultra_stable",
+          "adcs_sodern_auriga_fr",
+          "adcs_leonardo_pack_it"
         ],
         "included_equipment_ids": [
           "adcs_ultra_stable"
@@ -2154,7 +2350,9 @@
         "allowed_equipment_ids": [
           "prop_biprop_400n",
           "prop_electric_hall_1kw",
-          "prop_green_5n"
+          "prop_green_5n",
+          "prop_electric_hemp_de",
+          "prop_chemical_biprop_400n_de"
         ],
         "included_equipment_ids": [
           "prop_electric_hall_1kw"
@@ -2168,7 +2366,9 @@
       {
         "function": "ttc",
         "allowed_equipment_ids": [
-          "ttc_sband_transceiver"
+          "ttc_sband_transceiver",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
         ],
         "included_equipment_ids": [
           "ttc_sband_transceiver"
@@ -2184,7 +2384,11 @@
         "allowed_equipment_ids": [
           "mass_mem_512gb",
           "mass_mem_1tb",
-          "mass_mem_2tb_highrel"
+          "mass_mem_2tb_highrel",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_1tb_ch"
         ],
         "included_equipment_ids": [
           "mass_mem_512gb"
@@ -2199,7 +2403,9 @@
         "function": "adcs",
         "allowed_equipment_ids": [
           "adcs_high_accuracy_pack",
-          "adcs_agile_wheels_medium"
+          "adcs_agile_wheels_medium",
+          "adcs_sodern_auriga_fr",
+          "adcs_leonardo_pack_it"
         ],
         "included_equipment_ids": [
           "adcs_high_accuracy_pack"
@@ -2268,7 +2474,9 @@
         "function": "propulsion",
         "allowed_equipment_ids": [
           "prop_electric_hall_1kw",
-          "prop_biprop_400n"
+          "prop_biprop_400n",
+          "prop_electric_hemp_de",
+          "prop_chemical_biprop_400n_de"
         ],
         "included_equipment_ids": [
           "prop_electric_hall_1kw"
@@ -2282,7 +2490,9 @@
       {
         "function": "ttc",
         "allowed_equipment_ids": [
-          "ttc_sband_transceiver"
+          "ttc_sband_transceiver",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
         ],
         "included_equipment_ids": [
           "ttc_sband_transceiver"
@@ -2297,7 +2507,11 @@
         "function": "mass_memory",
         "allowed_equipment_ids": [
           "mass_mem_1tb",
-          "mass_mem_2tb_highrel"
+          "mass_mem_2tb_highrel",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_1tb_ch"
         ],
         "included_equipment_ids": [
           "mass_mem_2tb_highrel"
@@ -2312,7 +2526,9 @@
         "function": "adcs",
         "allowed_equipment_ids": [
           "adcs_high_accuracy_pack",
-          "adcs_cmg_agility_pack"
+          "adcs_cmg_agility_pack",
+          "adcs_sodern_auriga_fr",
+          "adcs_leonardo_pack_it"
         ],
         "included_equipment_ids": [
           "adcs_high_accuracy_pack"
@@ -2381,7 +2597,8 @@
         "function": "propulsion",
         "allowed_equipment_ids": [
           "prop_electric_hall_1kw",
-          "prop_green_5n"
+          "prop_green_5n",
+          "prop_electric_hemp_de"
         ],
         "included_equipment_ids": [
           "prop_electric_hall_1kw"
@@ -2395,7 +2612,9 @@
       {
         "function": "ttc",
         "allowed_equipment_ids": [
-          "ttc_sband_transceiver"
+          "ttc_sband_transceiver",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
         ],
         "included_equipment_ids": [
           "ttc_sband_transceiver"
@@ -2410,7 +2629,11 @@
         "function": "mass_memory",
         "allowed_equipment_ids": [
           "mass_mem_512gb",
-          "mass_mem_1tb"
+          "mass_mem_1tb",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_1tb_ch"
         ],
         "included_equipment_ids": [
           "mass_mem_512gb"
@@ -2424,7 +2647,9 @@
       {
         "function": "adcs",
         "allowed_equipment_ids": [
-          "adcs_high_accuracy_pack"
+          "adcs_high_accuracy_pack",
+          "adcs_sodern_auriga_fr",
+          "adcs_leonardo_pack_it"
         ],
         "included_equipment_ids": [
           "adcs_high_accuracy_pack"

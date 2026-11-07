@@ -92,5 +92,25 @@
     }
   ],
   "target_zones": [],
+  "geo_return_constraints": [
+    {
+      "country": "France",
+      "min_pct": 35.0,
+      "max_pct": 60.0,
+      "rationale": "Souscription CNES (50 %) — Plateforme et maîtrise d'œuvre segment spatial"
+    },
+    {
+      "country": "Allemagne",
+      "min_pct": 30.0,
+      "max_pct": 55.0,
+      "rationale": "Souscription DLR (40 %) — Terminal laser optique très haut débit TeraLink"
+    },
+    {
+      "country": "Suisse",
+      "min_pct": 2.0,
+      "max_pct": 12.0,
+      "rationale": "Souscription Swiss Space Office (10 %) — Mémoire de masse spatiale Helvetia"
+    }
+  ],
   "metadata": {}
 }

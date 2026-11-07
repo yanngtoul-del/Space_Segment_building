@@ -111,6 +111,24 @@ class MissionSheetView(QScrollArea):
         self.t_reqs.horizontalHeader().setSectionResizeMode(5, QHeaderView.ResizeMode.Stretch)
         self._layout.addWidget(self.t_reqs)
 
+        # 3b. Geographic Return Constraints table (ESA-style juste retour)
+        self.lbl_geo = QLabel("Contraintes de Retour Géographique (Principe du Juste Retour Industriel ESA)")
+        self.lbl_geo.setStyleSheet("font-weight: bold; font-size: 13px; color: #0f2744;")
+        self._layout.addWidget(self.lbl_geo)
+
+        self.t_georeturn = QTableWidget(0, 4)
+        self.t_georeturn.setHorizontalHeaderLabels(
+            ["État Membre (Pays)", "Fourchette requise (%)", "Fourchette estimée (M€)", "Rôle industriel & Justification souscription"]
+        )
+        self.t_georeturn.verticalHeader().setVisible(False)
+        self.t_georeturn.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
+        self.t_georeturn.setAlternatingRowColors(True)
+        self.t_georeturn.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+        self.t_georeturn.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
+        self.t_georeturn.horizontalHeader().setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
+        self.t_georeturn.horizontalHeader().setSectionResizeMode(3, QHeaderView.ResizeMode.Stretch)
+        self._layout.addWidget(self.t_georeturn)
+
         # 4. Ground stations & Target zones table
         lbl_gs = QLabel("Segment Sol Imposé / Disponible & Zones d'Intérêt")
         lbl_gs.setStyleSheet("font-weight: bold; font-size: 13px; color: #0f2744;")
@@ -208,6 +226,45 @@ class MissionSheetView(QScrollArea):
                 self.t_reqs.setItem(r, c_idx, it)
             self.t_reqs.setRowHeight(r, 26)
         self.t_reqs.setFixedHeight(min(260, 32 + 26 * total_rows))
+
+        # Populate geographic return constraints (ESA juste retour)
+        flag_map = {
+            "France": "🇫🇷 France",
+            "Allemagne": "🇩🇪 Allemagne",
+            "Italie": "🇮🇹 Italie",
+            "Espagne": "🇪🇸 Espagne",
+            "Royaume-Uni": "🇬🇧 Royaume-Uni",
+            "Suisse": "🇨🇭 Suisse",
+            "Belgique": "🇧🇪 Belgique",
+            "Pays-Bas": "🇳🇱 Pays-Bas",
+            "Suède": "🇸🇪 Suède",
+            "Finlande": "🇫🇮 Finlande",
+        }
+        if m.geo_return_constraints:
+            self.lbl_geo.setVisible(True)
+            self.t_georeturn.setVisible(True)
+            self.t_georeturn.setRowCount(len(m.geo_return_constraints))
+            for r_idx, grc in enumerate(m.geo_return_constraints):
+                country_label = flag_map.get(grc.country, grc.country)
+                min_m = m.max_budget_meur * (grc.min_pct / 100.0)
+                max_m = m.max_budget_meur * (grc.max_pct / 100.0)
+
+                it_c = QTableWidgetItem(country_label)
+                it_c.setFont(b_font)
+                it_range = QTableWidgetItem(f"[{grc.min_pct:.1f} %, {grc.max_pct:.1f} %]")
+                it_range.setFont(b_font)
+                it_meur = QTableWidgetItem(f"~{min_m:.2f} à {max_m:.2f} M€")
+                it_rat = QTableWidgetItem(grc.rationale or "Souscription industrielle obligatoire au programme")
+
+                self.t_georeturn.setItem(r_idx, 0, it_c)
+                self.t_georeturn.setItem(r_idx, 1, it_range)
+                self.t_georeturn.setItem(r_idx, 2, it_meur)
+                self.t_georeturn.setItem(r_idx, 3, it_rat)
+                self.t_georeturn.setRowHeight(r_idx, 26)
+            self.t_georeturn.setFixedHeight(min(180, 32 + 26 * len(m.geo_return_constraints)))
+        else:
+            self.lbl_geo.setVisible(False)
+            self.t_georeturn.setVisible(False)
 
         # Populate ground stations + target zones
         gs_rows = len(m.ground_stations) + len(m.target_zones)

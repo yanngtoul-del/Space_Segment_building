@@ -2,399 +2,435 @@
   {
     "id": "newspace_micro",
     "name": "AeroMicro Dynamics",
-    "country": "Pays-Bas / Bulgarie (fictif)",
+    "country": "Pays-Bas",
     "kind": "newspace",
     "categories": [
       "platform",
       "equipment"
     ],
     "founded": 2014,
-    "description": "Constructeur de nanosatellites et microsatellites CubeSat 6U à 16U et de plateformes ESPA, avec une offre « sur étagère » très rapide à livrer. Philosophie : plateforme standardisée, prix bas, délais courts, composants COTS qualifiés. Inspiré d'EnduroSat et de GomSpace."
+    "description": "Constructeur de nanosatellites et microsatellites CubeSat 6U à 16U et de plateformes ESPA, avec une offre « sur étagère » très rapide à livrer. Philosophie : plateforme standardisée, prix bas, délais courts, composants COTS qualifiés. Inspiré d'EnduroSat et de GomSpace.",
+    "country_code": "NL"
   },
   {
     "id": "sstl_inspired",
     "name": "Albion Satellite Technologies",
-    "country": "Royaume-Uni (fictif)",
+    "country": "Royaume-Uni",
     "kind": "historique",
     "categories": [
       "platform"
     ],
     "founded": 1985,
-    "description": "Pionnier britannique des petits satellites à coût maîtrisé, fort d'un héritage de dizaines de missions d'observation de la Terre, de navigation et de science. Gamme de microsatellites 50 à 300 kg alliant fiabilité éprouvée et approche COTS. Inspiré de SSTL."
+    "description": "Pionnier britannique des petits satellites à coût maîtrisé, fort d'un héritage de dizaines de missions d'observation de la Terre, de navigation et de science. Gamme de microsatellites 50 à 300 kg alliant fiabilité éprouvée et approche COTS. Inspiré de SSTL.",
+    "country_code": "UK"
   },
   {
     "id": "heritage_aero",
     "name": "Astra Space Systems",
-    "country": "France / Allemagne (fictif)",
+    "country": "France",
     "kind": "historique",
     "categories": [
       "platform",
       "equipment"
     ],
     "founded": 1968,
-    "description": "Maître d'œuvre historique de satellites institutionnels et commerciaux. Plateformes SmallSat robustes à forte fiabilité (redondance, durée de vie 7 ans et plus) et propulsion chimique à héritage vol. Inspiré d'Airbus Defence & Space et de Thales Alenia Space."
+    "description": "Maître d'œuvre historique de satellites institutionnels et commerciaux. Plateformes SmallSat robustes à forte fiabilité (redondance, durée de vie 7 ans et plus) et propulsion chimique à héritage vol. Inspiré d'Airbus Defence & Space et de Thales Alenia Space.",
+    "country_code": "FR"
   },
   {
     "id": "apex_inspired",
     "name": "Apex Orbital Manufacturing",
-    "country": "États-Unis (fictif)",
+    "country": "États-Unis",
     "kind": "newspace",
     "categories": [
       "platform"
     ],
     "founded": 2012,
-    "description": "Industriel NewSpace américain produisant des plateformes de classe 200 à 800 kg en séries, optimisées pour les constellations et les charges utiles agiles. Forte intégration verticale, cadences de production élevées. Inspiré de Terran Orbital, Blue Canyon Technologies et Apex."
+    "description": "Industriel NewSpace américain produisant des plateformes de classe 200 à 800 kg en séries, optimisées pour les constellations et les charges utiles agiles. Forte intégration verticale, cadences de production élevées. Inspiré de Terran Orbital, Blue Canyon Technologies et Apex.",
+    "country_code": "US"
   },
   {
     "id": "heritage_prime",
     "name": "AeroPrime Defense & Space",
-    "country": "Europe (fictif)",
+    "country": "France",
     "kind": "historique",
     "categories": [
       "platform"
     ],
     "founded": 1960,
-    "description": "Grand maître d'œuvre de la défense et de l'espace pour les plateformes de classe 1 à 3 tonnes (observation très haute résolution, radar, télécommunications). Haute disponibilité, redondance complète, durée de vie 10 ans. Inspiré de Thales Alenia Space et d'Airbus Defence & Space."
+    "description": "Grand maître d'œuvre de la défense et de l'espace pour les plateformes de classe 1 à 3 tonnes (observation très haute résolution, radar, télécommunications). Haute disponibilité, redondance complète, durée de vie 10 ans. Inspiré de Thales Alenia Space et d'Airbus Defence & Space.",
+    "country_code": "FR"
   },
   {
     "id": "orbital_prop",
     "name": "PlasmaTech Propulsion",
-    "country": "Europe (fictif)",
+    "country": "France",
     "kind": "newspace",
     "categories": [
       "equipment"
     ],
     "founded": 2009,
-    "description": "Spécialiste de la propulsion électrique (propulseurs à effet Hall et ioniques à grille) du CubeSat au satellite de classe tonne. Inspiré de Safran Spacecraft Propulsion, Exotrail et ThrustMe."
+    "description": "Spécialiste de la propulsion électrique (propulseurs à effet Hall et ioniques à grille) du CubeSat au satellite de classe tonne. Inspiré de Safran Spacecraft Propulsion, Exotrail et ThrustMe.",
+    "country_code": "FR"
   },
   {
     "id": "comms_euro",
     "name": "EuroSpace Link",
-    "country": "Europe (fictif)",
+    "country": "Allemagne",
     "kind": "historique",
     "categories": [
       "equipment"
     ],
     "founded": 1992,
-    "description": "Fournisseur d'équipements de télécommunications spatiales : transpondeurs TT&C, émetteurs de charge utile bandes S, X et Ka, antennes. Héritage sur plus de 300 satellites. Inspiré d'Syrlinks, Thales Alenia Space et Tesat."
+    "description": "Fournisseur d'équipements de télécommunications spatiales : transpondeurs TT&C, émetteurs de charge utile bandes S, X et Ka, antennes. Héritage sur plus de 300 satellites. Inspiré d'Syrlinks, Thales Alenia Space et Tesat.",
+    "country_code": "DE"
   },
   {
     "id": "space_avionics",
     "name": "Starlight Avionics",
-    "country": "Europe / États-Unis (fictif)",
+    "country": "Espagne",
     "kind": "historique",
     "categories": [
       "equipment"
     ],
     "founded": 1998,
-    "description": "Calculateurs de bord, mémoires de masse durcies et systèmes de contrôle d'attitude à haute performance. Inspiré de Cobham Gaisler, Airbus et Honeywell Aerospace."
+    "description": "Calculateurs de bord, mémoires de masse durcies et systèmes de contrôle d'attitude à haute performance. Inspiré de Cobham Gaisler, Airbus et Honeywell Aerospace.",
+    "country_code": "ES"
   },
   {
     "id": "gyro_dyn",
     "name": "Gyrodyne Attitude Systems",
-    "country": "Allemagne (fictif)",
+    "country": "Allemagne",
     "kind": "newspace",
     "categories": [
       "equipment"
     ],
     "founded": 2011,
-    "description": "Spécialiste des systèmes de contrôle d'attitude : roues à réaction, gyroscopes de contrôle (CMG), viseurs d'étoiles et suites ADCS complètes. Inspiré de Rocket Lab (Sinclair), Blue Canyon et Jena-Optronik."
+    "description": "Spécialiste des systèmes de contrôle d'attitude : roues à réaction, gyroscopes de contrôle (CMG), viseurs d'étoiles et suites ADCS complètes. Inspiré de Rocket Lab (Sinclair), Blue Canyon et Jena-Optronik.",
+    "country_code": "DE"
   },
   {
     "id": "optics_lab",
     "name": "AeroOptics Instruments",
-    "country": "Pays-Bas (fictif)",
+    "country": "Pays-Bas",
     "kind": "newspace",
     "categories": [
       "payload"
     ],
     "founded": 2013,
-    "description": "Caméras et télescopes compacts pour CubeSats et microsatellites, de 6 à 25 cm de diamètre. Instruments modulaires, livrés en 6 à 9 mois."
+    "description": "Caméras et télescopes compacts pour CubeSats et microsatellites, de 6 à 25 cm de diamètre. Instruments modulaires, livrés en 6 à 9 mois.",
+    "country_code": "NL"
   },
   {
     "id": "heritage_optics",
     "name": "Helios Space Instruments",
-    "country": "France (fictif)",
+    "country": "France",
     "kind": "historique",
     "categories": [
       "payload"
     ],
     "founded": 1976,
-    "description": "Instruments optiques haute performance pour l'observation de la Terre : télescopes sub-métriques à 1 m de résolution, avec héritage Pléiades et Sentinel. Inspiré d'Airbus Defence & Space et de Thales Alenia Space."
+    "description": "Instruments optiques haute performance pour l'observation de la Terre : télescopes sub-métriques à 1 m de résolution, avec héritage Pléiades et Sentinel. Inspiré d'Airbus Defence & Space et de Thales Alenia Space.",
+    "country_code": "FR"
   },
   {
     "id": "stellare_ottica",
     "name": "Stellara Ottica",
-    "country": "Italie (fictif)",
+    "country": "Italie",
     "kind": "historique",
     "categories": [
       "payload"
     ],
     "founded": 1989,
-    "description": "Optiques spatiales et télescopes de grande qualité : miroirs légers en carbure de silicium, télescopes Cassegrain et Korsch de 20 à 80 cm, et terminaux optiques. Inspiré d'Officina Stellare et de Leonardo."
+    "description": "Optiques spatiales et télescopes de grande qualité : miroirs légers en carbure de silicium, télescopes Cassegrain et Korsch de 20 à 80 cm, et terminaux optiques. Inspiré d'Officina Stellare et de Leonardo.",
+    "country_code": "IT"
   },
   {
     "id": "cirrus_ir",
     "name": "Cirrus Infrared Systems",
-    "country": "États-Unis (fictif)",
+    "country": "États-Unis",
     "kind": "newspace",
     "categories": [
       "payload"
     ],
     "founded": 2015,
-    "description": "Imageurs infrarouges SWIR pour l'agriculture, la détection de feux et la surveillance industrielle. Capteurs InGaAs refroidis. Inspiré de SatVu et de Teledyne."
+    "description": "Imageurs infrarouges SWIR pour l'agriculture, la détection de feux et la surveillance industrielle. Capteurs InGaAs refroidis. Inspiré de SatVu et de Teledyne.",
+    "country_code": "US"
   },
   {
     "id": "spectra_tech",
     "name": "SpectraSpace Instruments",
-    "country": "Allemagne (fictif)",
+    "country": "Allemagne",
     "kind": "newspace",
     "categories": [
       "payload"
     ],
     "founded": 2010,
-    "description": "Spectromètres imageurs hyperspectraux VNIR, SWIR et sondeurs de gaz. Inspiré d'OHB, de PRISMA et d'EnMAP."
+    "description": "Spectromètres imageurs hyperspectraux VNIR, SWIR et sondeurs de gaz. Inspiré d'OHB, de PRISMA et d'EnMAP.",
+    "country_code": "DE"
   },
   {
     "id": "radar_tech",
     "name": "NovaRadar Systems",
-    "country": "Finlande (fictif)",
+    "country": "Finlande",
     "kind": "newspace",
     "categories": [
       "payload"
     ],
     "founded": 2014,
-    "description": "Radars à synthèse d'ouverture compacts en bande X à antenne active, pour microsatellites d'observation tout temps. Inspiré d'ICEYE et de Capella Space."
+    "description": "Radars à synthèse d'ouverture compacts en bande X à antenne active, pour microsatellites d'observation tout temps. Inspiré d'ICEYE et de Capella Space.",
+    "country_code": "FI"
   },
   {
     "id": "boreal_sar",
     "name": "Boreal Radar Technologies",
-    "country": "Canada / Norvège (fictif)",
+    "country": "Canada",
     "kind": "historique",
     "categories": [
       "payload"
     ],
     "founded": 1995,
-    "description": "Radars SAR en bandes C, L et S, ainsi que SAR haute résolution (mode spotlight) pour satellites de 300 kg à 1 tonne. Inspiré de MDA, d'Airbus (TerraSAR) et de NovaSAR."
+    "description": "Radars SAR en bandes C, L et S, ainsi que SAR haute résolution (mode spotlight) pour satellites de 300 kg à 1 tonne. Inspiré de MDA, d'Airbus (TerraSAR) et de NovaSAR.",
+    "country_code": "CA"
   },
   {
     "id": "laser_space",
     "name": "PhotonCom Optics",
-    "country": "Allemagne (fictif)",
+    "country": "Allemagne",
     "kind": "newspace",
     "categories": [
       "payload"
     ],
     "founded": 2009,
-    "description": "Terminaux de communication laser compacts pour liaisons LEO-sol et inter-satellites ; développe aussi des charges utiles QKD. Inspiré de Mynaric et de Tesat."
+    "description": "Terminaux de communication laser compacts pour liaisons LEO-sol et inter-satellites ; développe aussi des charges utiles QKD. Inspiré de Mynaric et de Tesat.",
+    "country_code": "DE"
   },
   {
     "id": "tesa_link",
     "name": "TeraLink Photonics",
-    "country": "Allemagne (fictif)",
+    "country": "Allemagne",
     "kind": "historique",
     "categories": [
       "payload"
     ],
     "founded": 2002,
-    "description": "Terminaux laser de très haut débit (jusqu'à 100 Gbit/s) pour constellations et relais GEO. Forte qualification (SDA, ESA EDRS). Inspiré de Tesat-Spacecom."
+    "description": "Terminaux laser de très haut débit (jusqu'à 100 Gbit/s) pour constellations et relais GEO. Forte qualification (SDA, ESA EDRS). Inspiré de Tesat-Spacecom.",
+    "country_code": "DE"
   },
   {
     "id": "quanta_space",
     "name": "QuantaSpace Technologies",
-    "country": "Singapour / Autriche (fictif)",
+    "country": "Autriche",
     "kind": "newspace",
     "categories": [
       "payload"
     ],
     "founded": 2018,
-    "description": "Charges utiles de distribution quantique de clés (QKD) pour CubeSats et microsatellites. Inspiré de SpeQtral et de QEYSSat."
+    "description": "Charges utiles de distribution quantique de clés (QKD) pour CubeSats et microsatellites. Inspiré de SpeQtral et de QEYSSat.",
+    "country_code": "AT"
   },
   {
     "id": "rf_payload",
     "name": "Meridian RF Payloads",
-    "country": "France / Italie (fictif)",
+    "country": "Italie",
     "kind": "historique",
     "categories": [
       "payload"
     ],
     "founded": 1985,
-    "description": "Charges utiles radio-fréquence : transpondeurs, relais de données et récepteurs AIS/ADS-B. Inspiré de Thales Alenia Space et d'Eutelsat OneWeb."
+    "description": "Charges utiles radio-fréquence : transpondeurs, relais de données et récepteurs AIS/ADS-B. Inspiré de Thales Alenia Space et d'Eutelsat OneWeb.",
+    "country_code": "IT"
   },
   {
     "id": "launch_global",
     "name": "Aether Launch Services",
-    "country": "États-Unis (fictif)",
+    "country": "États-Unis",
     "kind": "newspace",
     "categories": [
       "launcher"
     ],
     "founded": 2008,
-    "description": "Lanceurs réutilisables et missions de covoiturage (rideshare) régulières vers l'orbite héliosynchrone. Inspiré de SpaceX (Transporter), Rocket Lab et Firefly."
+    "description": "Lanceurs réutilisables et missions de covoiturage (rideshare) régulières vers l'orbite héliosynchrone. Inspiré de SpaceX (Transporter), Rocket Lab et Firefly.",
+    "country_code": "US"
   },
   {
     "id": "heritage_launch",
     "name": "EuroSpace Launch Consortium",
-    "country": "Europe (fictif)",
+    "country": "France",
     "kind": "historique",
     "categories": [
       "launcher"
     ],
     "founded": 1980,
-    "description": "Opérateur européen de lanceurs institutionnels moyens et lourds, avec une très haute fiabilité. Inspiré d'Arianespace (Ariane 6 / Vega-C)."
+    "description": "Opérateur européen de lanceurs institutionnels moyens et lourds, avec une très haute fiabilité. Inspiré d'Arianespace (Ariane 6 / Vega-C).",
+    "country_code": "FR"
   },
   {
     "id": "polar_launch",
     "name": "Borealis Launch Systems",
-    "country": "Norvège / Suède (fictif)",
+    "country": "Norvège",
     "kind": "newspace",
     "categories": [
       "launcher"
     ],
     "founded": 2016,
-    "description": "Petits lanceurs dédiés et lancements depuis un cosmodrome polaire, optimisés pour l'orbite héliosynchrone. Inspiré d'Andøya Spaceport, d'Isar Aerospace et de RFA."
+    "description": "Petits lanceurs dédiés et lancements depuis un cosmodrome polaire, optimisés pour l'orbite héliosynchrone. Inspiré d'Andøya Spaceport, d'Isar Aerospace et de RFA.",
+    "country_code": "NO"
   },
   {
     "id": "euro_sar_prime",
     "name": "Aegis Radar & Defense",
-    "country": "Allemagne / Espagne (fictif)",
+    "country": "Allemagne",
     "kind": "historique",
     "categories": [
       "payload"
     ],
     "founded": 1979,
-    "description": "Maître d'œuvre européen des radars spatiaux militaires et civils à synthèse d'ouverture (bandes X et C). Spécialiste des antennes actives à modules T/R GaN haute fiabilité, de la polarimétrie complète (Quad-Pol) et des modes Spotlight sub-métriques. Inspiré d'Airbus Defence & Space (TerraSAR-X / PAZ) et d'Indra."
+    "description": "Maître d'œuvre européen des radars spatiaux militaires et civils à synthèse d'ouverture (bandes X et C). Spécialiste des antennes actives à modules T/R GaN haute fiabilité, de la polarimétrie complète (Quad-Pol) et des modes Spotlight sub-métriques. Inspiré d'Airbus Defence & Space (TerraSAR-X / PAZ) et d'Indra.",
+    "country_code": "DE"
   },
   {
     "id": "zephyr_microsar",
     "name": "Zephyr MicroRadar Inc.",
-    "country": "États-Unis / Japon (fictif)",
+    "country": "États-Unis",
     "kind": "newspace",
     "categories": [
       "payload"
     ],
     "founded": 2017,
-    "description": "Pionnier NewSpace des radars SAR à réflecteur parabolique maillé déployable (mesh reflector) ultra-légers. En remplaçant le lourd panneau phasé actif par une parabole déployable à grand gain illuminée par une source centrale à semi-conducteurs GaN, Zephyr obtient un excellent NESZ (< -16 dB) avec une masse et une consommation divisées par deux. Inspiré de Capella Space, d'Umbra et d'iQPS."
+    "description": "Pionnier NewSpace des radars SAR à réflecteur parabolique maillé déployable (mesh reflector) ultra-légers. En remplaçant le lourd panneau phasé actif par une parabole déployable à grand gain illuminée par une source centrale à semi-conducteurs GaN, Zephyr obtient un excellent NESZ (< -16 dB) avec une masse et une consommation divisées par deux. Inspiré de Capella Space, d'Umbra et d'iQPS.",
+    "country_code": "US"
   },
   {
     "id": "med_radar_ital",
     "name": "Alba Spazio Radar",
-    "country": "Italie (fictif)",
+    "country": "Italie",
     "kind": "historique",
     "categories": [
       "payload"
     ],
     "founded": 1984,
-    "description": "Industriel transalpin de référence pour l'observation radar duale (civile et défense) en bande X et bande Ku. Fort de l'héritage d'une constellation opérationnelle méditerranéenne, Alba Spazio propose des instruments SAR à haute cadence de revisite et interférométrie différentielle. Inspiré de Thales Alenia Space Italia (COSMO-SkyMed)."
+    "description": "Industriel transalpin de référence pour l'observation radar duale (civile et défense) en bande X et bande Ku. Fort de l'héritage d'une constellation opérationnelle méditerranéenne, Alba Spazio propose des instruments SAR à haute cadence de revisite et interférométrie différentielle. Inspiré de Thales Alenia Space Italia (COSMO-SkyMed).",
+    "country_code": "IT"
   },
   {
     "id": "nordic_nanocomm",
     "name": "Nordic NanoComm Systems",
-    "country": "Danemark / Suède (fictif)",
+    "country": "Suède",
     "kind": "newspace",
     "categories": [
       "payload"
     ],
     "founded": 2013,
-    "description": "Leader scandinave des charges utiles radio-fréquence définies par logiciel (SDR) pour CubeSats et microsatellites : surveillance maritime AIS, suivi aéronautique ADS-B, collecte IoT satellitaire et surveillance du spectre RF. Produits très compacts, faible consommation et livraison rapide. Inspiré de GomSpace, Satlab et Kleos."
+    "description": "Leader scandinave des charges utiles radio-fréquence définies par logiciel (SDR) pour CubeSats et microsatellites : surveillance maritime AIS, suivi aéronautique ADS-B, collecte IoT satellitaire et surveillance du spectre RF. Produits très compacts, faible consommation et livraison rapide. Inspiré de GomSpace, Satlab et Kleos.",
+    "country_code": "SE"
   },
   {
     "id": "gallia_satcom",
     "name": "Gallia SatCom Payloads",
-    "country": "France / Royaume-Uni (fictif)",
+    "country": "France",
     "kind": "historique",
     "categories": [
       "payload"
     ],
     "founded": 1974,
-    "description": "Grand équipementier et systémier européen de charges utiles de télécommunications spatiales en bandes X, Ku et Ka. Conçoit des répéteurs numériques transparents et régénératifs à formation de faisceaux actifs (DRA) pour constellations LEO/MEO et missions souveraines. Inspiré d'Airbus (OneWeb) et de Thales Alenia Space."
+    "description": "Grand équipementier et systémier européen de charges utiles de télécommunications spatiales en bandes X, Ku et Ka. Conçoit des répéteurs numériques transparents et régénératifs à formation de faisceaux actifs (DRA) pour constellations LEO/MEO et missions souveraines. Inspiré d'Airbus (OneWeb) et de Thales Alenia Space.",
+    "country_code": "FR"
   },
   {
     "id": "celestia_broadband",
     "name": "Celestia Broadband Corp.",
-    "country": "États-Unis / Canada (fictif)",
+    "country": "États-Unis",
     "kind": "newspace",
     "categories": [
       "payload"
     ],
     "founded": 2016,
-    "description": "Entreprise NewSpace nord-américaine spécialisée dans la connectivité directe vers les terminaux mobiles (Direct-to-Device), l'IoT massif en bande L/S et les charges utiles bande Ka à antennes réseaux phasés électroniques à bas coût. Inspiré de Lynk, AST SpaceMobile et Telesat Lightspeed."
+    "description": "Entreprise NewSpace nord-américaine spécialisée dans la connectivité directe vers les terminaux mobiles (Direct-to-Device), l'IoT massif en bande L/S et les charges utiles bande Ka à antennes réseaux phasés électroniques à bas coût. Inspiré de Lynk, AST SpaceMobile et Telesat Lightspeed.",
+    "country_code": "US"
   },
   {
     "id": "helvetia_microwave",
     "name": "Helvetia Microwave & RF",
-    "country": "Suisse (fictif)",
+    "country": "Suisse",
     "kind": "historique",
     "categories": [
       "payload"
     ],
     "founded": 1996,
-    "description": "Spécialiste suisse de l'électronique hyperfréquence de haute précision, des charges utiles de relais inter-satellites en bande K/Ka et des récepteurs de collecte environnementale (type Argos / DCS) à très faible facteur de bruit. Inspiré de SWISSto12 et de Beyond Gravity."
+    "description": "Spécialiste suisse de l'électronique hyperfréquence de haute précision, des charges utiles de relais inter-satellites en bande K/Ka et des récepteurs de collecte environnementale (type Argos / DCS) à très faible facteur de bruit. Inspiré de SWISSto12 et de Beyond Gravity.",
+    "country_code": "CH"
   },
   {
     "id": "celeste_photonics",
     "name": "Céleste Photonique Spatiale",
-    "country": "France (fictif)",
+    "country": "France",
     "kind": "newspace",
     "categories": [
       "payload"
     ],
     "founded": 2018,
-    "description": "Start-up deeptech française issue de la recherche en optique adaptative et télécoms spatiales. Développe des terminaux laser LEO-sol et inter-satellites de 5 à 40 Gbit/s intégrant une pré-compensation des turbulences atmosphériques et des composants fibrés qualifiés espace. Inspiré de Cailabs, d'Unseenlabs et d'Airbus Laser."
+    "description": "Start-up deeptech française issue de la recherche en optique adaptative et télécoms spatiales. Développe des terminaux laser LEO-sol et inter-satellites de 5 à 40 Gbit/s intégrant une pré-compensation des turbulences atmosphériques et des composants fibrés qualifiés espace. Inspiré de Cailabs, d'Unseenlabs et d'Airbus Laser.",
+    "country_code": "FR"
   },
   {
     "id": "nippon_optolink",
     "name": "Kibo Optical Communications",
-    "country": "Japon (fictif)",
+    "country": "Japon",
     "kind": "historique",
     "categories": [
       "payload"
     ],
     "founded": 1988,
-    "description": "Pionnier japonais des liaisons optiques spatiales bidirectionnelles (héritage OICETS / LUCAS / JDRS). Propose des terminaux laser ultra-fiables à acquisition rapide et faible masse pour microsatellites et relais de données gouvernementaux. Inspiré de NEC, Sony Space Communication et JAXA."
+    "description": "Pionnier japonais des liaisons optiques spatiales bidirectionnelles (héritage OICETS / LUCAS / JDRS). Propose des terminaux laser ultra-fiables à acquisition rapide et faible masse pour microsatellites et relais de données gouvernementaux. Inspiré de NEC, Sony Space Communication et JAXA.",
+    "country_code": "JP"
   },
   {
     "id": "lumina_hyperspec",
     "name": "Lumina Hyperspectral Oy",
-    "country": "Finlande / Belgique (fictif)",
+    "country": "Belgique",
     "kind": "newspace",
     "categories": [
       "payload"
     ],
     "founded": 2016,
-    "description": "Concepteur nordique d'imageurs hyperspectraux miniaturisés à interféromètre de Fabry-Pérot et filtres linéaires variables pour CubeSats et microsatellites. Permet l'analyse environnementale, forestière et agricole à une fraction du coût des spectromètres institutionnels. Inspiré de Kuva Space, VTT et imec."
+    "description": "Concepteur nordique d'imageurs hyperspectraux miniaturisés à interféromètre de Fabry-Pérot et filtres linéaires variables pour CubeSats et microsatellites. Permet l'analyse environnementale, forestière et agricole à une fraction du coût des spectromètres institutionnels. Inspiré de Kuva Space, VTT et imec.",
+    "country_code": "BE"
   },
   {
     "id": "atmo_science_eu",
     "name": "AtmoSonde Scientific Instruments",
-    "country": "Pays-Bas / France (fictif)",
+    "country": "France",
     "kind": "historique",
     "categories": [
       "payload"
     ],
     "founded": 1982,
-    "description": "Consortium instrumental européen spécialisé dans la chimie de l'atmosphère terrestre et le climat : spectromètres à réseau immergé UV-VIS-NIR-SWIR à très haute résolution spectrale (< 0,25 nm) pour le suivi du méthane (CH4), du CO2, du NO2 et de l'ozone. Inspiré de SRON / TNO / Airbus (TROPOMI, Sentinel-5, CO2M)."
+    "description": "Consortium instrumental européen spécialisé dans la chimie de l'atmosphère terrestre et le climat : spectromètres à réseau immergé UV-VIS-NIR-SWIR à très haute résolution spectrale (< 0,25 nm) pour le suivi du méthane (CH4), du CO2, du NO2 et de l'ozone. Inspiré de SRON / TNO / Airbus (TROPOMI, Sentinel-5, CO2M).",
+    "country_code": "FR"
   },
   {
     "id": "edelweiss_quantum",
     "name": "Edelweiss Quantum Space",
-    "country": "Autriche / Suisse (fictif)",
+    "country": "Suisse",
     "kind": "historique",
     "categories": [
       "payload"
     ],
     "founded": 2004,
-    "description": "Laboratoire industriel alpin issu des travaux pionniers sur l'intrication quantique spatiale. Fournit des charges utiles QKD à états leurres et à paires de photons intriqués pour les infrastructures européennes de communication quantique (EuroQCI). Inspiré d'IQOQI, d'ID Quantique et du programme ESA Eagle-1."
+    "description": "Laboratoire industriel alpin issu des travaux pionniers sur l'intrication quantique spatiale. Fournit des charges utiles QKD à états leurres et à paires de photons intriqués pour les infrastructures européennes de communication quantique (EuroQCI). Inspiré d'IQOQI, d'ID Quantique et du programme ESA Eagle-1.",
+    "country_code": "CH"
   },
   {
     "id": "albion_quantum_optics",
     "name": "Albion Quantum Photonics",
-    "country": "Royaume-Uni (fictif)",
+    "country": "Royaume-Uni",
     "kind": "newspace",
     "categories": [
       "payload"
     ],
     "founded": 2019,
-    "description": "Entreprise NewSpace britannique développant des émetteurs quantiques à puce photonique intégrée pour CubeSats et petits satellites commerciaux, abaissant drastiquement la masse et le coût d'accès au chiffrement quantique. Inspiré de Craft Prospect, d'Arqit et de Toshiba UK."
+    "description": "Entreprise NewSpace britannique développant des émetteurs quantiques à puce photonique intégrée pour CubeSats et petits satellites commerciaux, abaissant drastiquement la masse et le coût d'accès au chiffrement quantique. Inspiré de Craft Prospect, d'Arqit et de Toshiba UK.",
+    "country_code": "UK"
   }
 ]

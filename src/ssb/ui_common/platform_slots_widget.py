@@ -54,7 +54,7 @@ class PlatformSlotsWidget(QWidget):
                 "Sous-système (Slot)",
                 "Qté slot",
                 "Équipement",
-                "Fournisseur",
+                "Fournisseur & Pays (Retour Géo)",
                 "Statut sur cette plateforme",
                 "Masse (+interf.)",
                 "Puissance",
@@ -126,7 +126,29 @@ class PlatformSlotsWidget(QWidget):
             it_fn = QTableWidgetItem(fn_lbl)
             it_name = QTableWidgetItem(eq.name)
             it_name.setData(Qt.ItemDataRole.UserRole, eq.id)
-            it_sup = QTableWidgetItem(eq.supplier_name)
+
+            sup = self.catalog.suppliers.get(eq.supplier_id)
+            c_name = sup.country if sup else ""
+            flag_map = {
+                "France": "🇫🇷 France",
+                "Allemagne": "🇩🇪 Allemagne",
+                "Italie": "🇮🇹 Italie",
+                "Espagne": "🇪🇸 Espagne",
+                "Royaume-Uni": "🇬🇧 Royaume-Uni",
+                "Suisse": "🇨🇭 Suisse",
+                "Belgique": "🇧🇪 Belgique",
+                "Pays-Bas": "🇳🇱 Pays-Bas",
+                "Suède": "🇸🇪 Suède",
+                "Finlande": "🇫🇮 Finlande",
+                "Autriche": "🇦🇹 Autriche",
+                "Norvège": "🇳🇴 Norvège",
+                "États-Unis": "🇺🇸 États-Unis",
+                "Canada": "🇨🇦 Canada",
+                "Japon": "🇯🇵 Japon",
+            }
+            c_disp = flag_map.get(c_name, c_name)
+            sup_disp = f"{eq.supplier_name}  [{c_disp}]" if c_disp else eq.supplier_name
+            it_sup = QTableWidgetItem(sup_disp)
             it_stat = QTableWidgetItem(status_txt)
 
             if allowed and slot is not None:

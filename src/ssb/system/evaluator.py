@@ -46,6 +46,9 @@ class CostBudget:
     space_segment_total_meur: float
     mission_budget_limit_meur: float
     cost_margin_meur: float
+    satellite_cost_meur: float = 0.0
+    cost_by_country_meur: dict[str, float] = field(default_factory=dict)
+    cost_by_country_pct: dict[str, float] = field(default_factory=dict)
 
 
 @dataclass
@@ -371,6 +374,27 @@ class SystemEvaluator:
         total_cost = plat_cost + opt_cost + pl_cost + launcher_cost
         cost_margin = mission.max_budget_meur - total_cost
 
+        # Geographic return accounting across satellite industrial contracts
+        # (Platform base + Options + Payloads)
+        sat_cost = plat_cost + opt_cost + pl_cost
+        cost_by_country_meur: dict[str, float] = {}
+
+        def _add_country_cost(sup_id: str, amount: float) -> None:
+            sup = self.catalog.suppliers.get(sup_id)
+            country = sup.country if (sup and sup.country) else "Inconnu"
+            cost_by_country_meur[country] = cost_by_country_meur.get(country, 0.0) + amount
+
+        _add_country_cost(plat_base.supplier_id, plat_cost)
+        for opt in conf_plat.resolved_options:
+            _add_country_cost(opt.equipment.supplier_id, opt.final_price_meur)
+        for p in payloads:
+            _add_country_cost(p.supplier_id, p.price_meur)
+
+        cost_by_country_pct: dict[str, float] = {}
+        for c, amt in cost_by_country_meur.items():
+            cost_by_country_meur[c] = round(amt, 2)
+            cost_by_country_pct[c] = round((amt / sat_cost) * 100.0, 1) if sat_cost > 0 else 0.0
+
         cost_b = CostBudget(
             platform_base_meur=round(plat_cost, 2),
             options_total_meur=round(opt_cost, 2),
@@ -379,6 +403,9 @@ class SystemEvaluator:
             space_segment_total_meur=round(total_cost, 2),
             mission_budget_limit_meur=mission.max_budget_meur,
             cost_margin_meur=round(cost_margin, 2),
+            satellite_cost_meur=round(sat_cost, 2),
+            cost_by_country_meur=cost_by_country_meur,
+            cost_by_country_pct=cost_by_country_pct,
         )
 
         if total_cost > mission.max_budget_meur:
@@ -403,6 +430,37 @@ class SystemEvaluator:
                     current_value=total_cost,
                     target_value=mission.max_budget_meur,
                     unit="M€",
+                )
+            )
+
+        # 3b. Geographic Return Compliance Checks (ESA juste retour industriel)
+        for grc in mission.geo_return_constraints:
+            act_pct = cost_by_country_pct.get(grc.country, 0.0)
+            act_meur = cost_by_country_meur.get(grc.country, 0.0)
+            is_ok = (grc.min_pct <= act_pct <= grc.max_pct)
+            status = CheckStatus.PASS if is_ok else CheckStatus.FAIL
+
+            if is_ok:
+                msg = (
+                    f"Retour géographique {grc.country} : {act_pct:.1f}% ({act_meur:.2f} M€) — "
+                    f"Conforme à la souscription ESA [{grc.min_pct:.1f} %, {grc.max_pct:.1f} %]"
+                )
+            else:
+                msg = (
+                    f"Retour géographique {grc.country} : {act_pct:.1f}% ({act_meur:.2f} M€) — "
+                    f"Hors fourchette ESA [{grc.min_pct:.1f} %, {grc.max_pct:.1f} %]. "
+                    f"Ajuster les options de plateforme pour respecter le juste retour !"
+                )
+
+            compliance_checks.append(
+                RuleCheckResult(
+                    rule_id=f"RULE_GEORETURN_{grc.country.upper()}",
+                    category="Retour Géographique ESA",
+                    status=status,
+                    message=msg,
+                    current_value=act_pct,
+                    target_value=grc.min_pct,
+                    unit="%",
                 )
             )
 

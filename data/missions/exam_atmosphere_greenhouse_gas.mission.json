@@ -125,5 +125,25 @@
       "priority": 1
     }
   ],
+  "geo_return_constraints": [
+    {
+      "country": "France",
+      "min_pct": 35.0,
+      "max_pct": 60.0,
+      "rationale": "Souscription CNES (50 %) — Instrument SWIR AtmoSonde et plateforme"
+    },
+    {
+      "country": "Allemagne",
+      "min_pct": 10.0,
+      "max_pct": 30.0,
+      "rationale": "Souscription DLR (25 %) — Sous-systèmes bord (EuroSpace / SpectraStore)"
+    },
+    {
+      "country": "Espagne",
+      "min_pct": 5.0,
+      "max_pct": 20.0,
+      "rationale": "Souscription CDTI (15 %) — Calculateur de bord et mémoire Starlight"
+    }
+  ],
   "metadata": {}
 }

@@ -70,78 +70,52 @@ def test_mission_specification_sheets_and_solutions():
         assert len(ms.requirements) >= 2
         missions[ms.id] = ms
 
-    # Reference valid student solutions across multiple competing suppliers:
+    # Reference valid student solutions across multiple competing suppliers,
+    # strictly satisfying technical requirements and ESA Member State geographic return quotas:
     solutions = [
         # 1. Optical EO (budget 18 M€, GSD <= 1.0 m, swath >= 10 km, SNR >= 55)
+        # Geo-return: France [35-55%], Italie [25-45%], Allemagne [8-25%]
         (
             "EXAM-2026-EO-OPT",
             SystemConfiguration(
                 orbit=OrbitDefinition(altitude_km=500.0, inclination_deg=97.4),
-                platform_id="plat_sstl_mini150",
+                platform_id="plat_astra_flex150",
                 selected_options=[
-                    SelectedOption(slot_function="ttc", equipment_id="ttc_sband_transceiver"),
-                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_512gb"),
-                    SelectedOption(slot_function="adcs", equipment_id="adcs_high_accuracy_pack"),
+                    SelectedOption(slot_function="propulsion", equipment_id="prop_electric_hemp_de"),
+                    SelectedOption(slot_function="ttc", equipment_id="ttc_sband_gallia_fr"),
+                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_1tb_de"),
+                    SelectedOption(slot_function="adcs", equipment_id="adcs_sodern_auriga_fr"),
                 ],
                 selected_payload_ids=["pl_opt_stellara_35cm"],
                 launcher_id="ln_rideshare_sso",
             ),
         ),
-        # 2a. SAR surveillance — Solution with Zephyr MicroRadar mesh reflector SAR
+        # 2. SAR surveillance — Solution with Aegis Radar institutional SAR
+        # Geo-return: Allemagne [40-65%], France [30-50%], Italie [3-15%]
         (
             "EXAM-2026-SAR",
             SystemConfiguration(
                 orbit=OrbitDefinition(altitude_km=500.0, inclination_deg=97.4),
-                platform_id="plat_sstl_midi300",
+                platform_id="plat_astra_flex300",
                 selected_options=[
-                    SelectedOption(slot_function="propulsion", equipment_id="prop_green_5n"),
-                    SelectedOption(slot_function="ttc", equipment_id="ttc_sband_transceiver"),
-                    SelectedOption(slot_function="payload_downlink", equipment_id="downlink_xband_tx"),
-                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_1tb"),
-                ],
-                selected_payload_ids=["pl_sar_zephyr_mesh_x"],
-                launcher_id="ln_rideshare_sso",
-            ),
-        ),
-        # 2b. SAR surveillance — Solution with Aegis Radar & Defense institutional SAR
-        (
-            "EXAM-2026-SAR",
-            SystemConfiguration(
-                orbit=OrbitDefinition(altitude_km=500.0, inclination_deg=97.4),
-                platform_id="plat_sstl_midi300",
-                selected_options=[
-                    SelectedOption(slot_function="propulsion", equipment_id="prop_green_5n"),
-                    SelectedOption(slot_function="ttc", equipment_id="ttc_sband_transceiver"),
-                    SelectedOption(slot_function="payload_downlink", equipment_id="downlink_xband_tx"),
-                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_1tb"),
+                    SelectedOption(slot_function="ttc", equipment_id="ttc_sband_aurora_it"),
+                    SelectedOption(slot_function="payload_downlink", equipment_id="downlink_xband_milan_it"),
                 ],
                 selected_payload_ids=["pl_sar_aegis_x_tactical"],
                 launcher_id="ln_rideshare_sso",
             ),
         ),
-        # 3a. Atmosphere GHG — Cirrus Infrared Systems
+        # 3. Atmosphere GHG — AtmoSonde Scientific Instruments (SWIR 1720 nm)
+        # Geo-return: France [35-60%], Allemagne [10-30%], Espagne [5-20%]
         (
             "EXAM-2026-ATMO-GHG",
             SystemConfiguration(
                 orbit=OrbitDefinition(altitude_km=500.0, inclination_deg=97.4),
                 platform_id="plat_sstl_mini150",
                 selected_options=[
-                    SelectedOption(slot_function="ttc", equipment_id="ttc_sband_transceiver"),
-                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_512gb"),
-                ],
-                selected_payload_ids=["pl_spec_ghg_sounder"],
-                launcher_id="ln_rideshare_sso",
-            ),
-        ),
-        # 3b. Atmosphere GHG — AtmoSonde Scientific Instruments (immersed grating + high accuracy ADCS)
-        (
-            "EXAM-2026-ATMO-GHG",
-            SystemConfiguration(
-                orbit=OrbitDefinition(altitude_km=500.0, inclination_deg=97.4),
-                platform_id="plat_sstl_mini150",
-                selected_options=[
-                    SelectedOption(slot_function="ttc", equipment_id="ttc_sband_transceiver"),
-                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_512gb"),
+                    SelectedOption(slot_function="propulsion", equipment_id="prop_electric_hemp_de"),
+                    SelectedOption(slot_function="ttc", equipment_id="ttc_xband_tmtc"),
+                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_1tb"),
                     SelectedOption(slot_function="adcs", equipment_id="adcs_high_accuracy_pack"),
                 ],
                 selected_payload_ids=["pl_spec_atmo_tropo_ghg"],
@@ -149,49 +123,36 @@ def test_mission_specification_sheets_and_solutions():
             ),
         ),
         # 4. Cosmology deep field (budget 32 M€, aperture >= 0.60 m, diffraction <= 0.72 m, pointing <= 0.004 deg)
+        # Geo-return: Italie [40-65%], France [25-50%], Allemagne [4-18%]
         (
             "EXAM-2026-COSMO",
             SystemConfiguration(
                 orbit=OrbitDefinition(altitude_km=500.0, inclination_deg=97.4),
-                platform_id="plat_sstl_midi300",
+                platform_id="plat_astra_flex300",
                 selected_options=[
-                    SelectedOption(slot_function="propulsion", equipment_id="prop_green_5n"),
-                    SelectedOption(slot_function="ttc", equipment_id="ttc_sband_transceiver"),
+                    SelectedOption(slot_function="propulsion", equipment_id="prop_electric_hemp_de"),
+                    SelectedOption(slot_function="ttc", equipment_id="ttc_sband_dual_redundant"),
                     SelectedOption(slot_function="payload_downlink", equipment_id="downlink_xband_tx"),
-                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_1tb"),
+                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_1tb_de"),
                     SelectedOption(slot_function="adcs", equipment_id="adcs_agile_wheels_medium"),
                 ],
                 selected_payload_ids=["pl_opt_stellara_60cm"],
-                launcher_id="ln_rideshare_sso",
+                launcher_id="ln_espa_heavy_rideshare",
             ),
         ),
-        # 5a. High throughput laser datalink — TeraLink Photonics (25 Gbps)
+        # 5. High throughput laser datalink — TeraLink Photonics (25 Gbps)
+        # Geo-return: France [35-60%], Allemagne [30-55%], Suisse [2-12%]
         (
             "EXAM-2026-DATARATE",
             SystemConfiguration(
                 orbit=OrbitDefinition(altitude_km=500.0, inclination_deg=97.4),
-                platform_id="plat_sstl_micro50",
+                platform_id="plat_astra_flex150",
                 selected_options=[
-                    SelectedOption(slot_function="ttc", equipment_id="ttc_sband_transceiver"),
-                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_512gb"),
-                    SelectedOption(slot_function="adcs", equipment_id="adcs_high_accuracy_pack"),
+                    SelectedOption(slot_function="ttc", equipment_id="ttc_sband_gallia_fr"),
+                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_1tb_ch"),
+                    SelectedOption(slot_function="adcs", equipment_id="adcs_sodern_auriga_fr"),
                 ],
                 selected_payload_ids=["pl_opt_comm_isl_25g"],
-                launcher_id="ln_rideshare_sso",
-            ),
-        ),
-        # 5b. High throughput laser datalink — Céleste Photonique Spatiale (40 Gbps)
-        (
-            "EXAM-2026-DATARATE",
-            SystemConfiguration(
-                orbit=OrbitDefinition(altitude_km=500.0, inclination_deg=97.4),
-                platform_id="plat_sstl_micro50",
-                selected_options=[
-                    SelectedOption(slot_function="ttc", equipment_id="ttc_sband_transceiver"),
-                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_512gb"),
-                    SelectedOption(slot_function="adcs", equipment_id="adcs_high_accuracy_pack"),
-                ],
-                selected_payload_ids=["pl_opt_comm_celeste_40g"],
                 launcher_id="ln_rideshare_sso",
             ),
         ),
@@ -258,6 +219,7 @@ def test_mission_specification_sheets_and_solutions():
             ),
         ),
         # 9. Classical GEO telecommunications (budget 55 M€, GEO 35,786 km, rate >= 600 Mbps, margin >= 3.5 dB, lifetime >= 12 yr)
+        # Geo-return: France [45-75%], Suisse [20-40%], Allemagne [3-15%]
         (
             "EXAM-2026-GEO-COMMS",
             SystemConfiguration(
@@ -266,8 +228,8 @@ def test_mission_specification_sheets_and_solutions():
                 selected_options=[
                     SelectedOption(slot_function="propulsion", equipment_id="prop_electric_hall_1kw"),
                     SelectedOption(slot_function="ttc", equipment_id="ttc_sband_transceiver"),
-                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_512gb"),
-                    SelectedOption(slot_function="adcs", equipment_id="adcs_high_accuracy_pack"),
+                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_1tb_de"),
+                    SelectedOption(slot_function="adcs", equipment_id="adcs_agile_wheels_medium"),
                 ],
                 selected_payload_ids=["pl_rf_smallgeo_ku_relay"],
                 launcher_id="ln_gto_rideshare",
@@ -280,6 +242,10 @@ def test_mission_specification_sheets_and_solutions():
         b = evaluator.evaluate(cfg, ms)
         failed = [c for c in (b.compliance_checks + b.rule_checks) if c.status == CheckStatus.FAIL]
         assert not failed, f"Mission {mid} failed checks: {[(c.rule_id, c.message) for c in failed]}"
+        if ms.geo_return_constraints:
+            geo_checks = [c for c in b.compliance_checks if c.rule_id.startswith("RULE_GEORETURN_")]
+            assert len(geo_checks) == len(ms.geo_return_constraints)
+            assert all(c.status == CheckStatus.PASS for c in geo_checks)
 
 
 def test_student_and_teacher_gui_offscreen():

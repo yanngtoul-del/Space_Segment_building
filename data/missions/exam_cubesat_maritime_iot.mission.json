@@ -64,5 +64,6 @@
     }
   ],
   "target_zones": [],
+  "geo_return_constraints": [],
   "metadata": {}
 }

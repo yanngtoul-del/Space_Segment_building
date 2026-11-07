@@ -18,6 +18,7 @@ class Supplier(BaseModel):
     id: str
     name: str
     country: str = ""
+    country_code: str = ""
     kind: str = Field("newspace", description="'historique' or 'newspace'")
     categories: list[str] = Field(
         default_factory=list,

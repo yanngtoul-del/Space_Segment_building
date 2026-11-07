@@ -139,5 +139,6 @@
       "priority": 1
     }
   ],
+  "geo_return_constraints": [],
   "metadata": {}
 }

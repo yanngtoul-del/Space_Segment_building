@@ -180,8 +180,37 @@ class ReportGenerator:
         r_cost[2].text = f"{budgets.cost.mission_budget_limit_meur:.2f} M€"
         r_cost[3].text = f"{budgets.cost.cost_margin_meur:+.2f} M€"
 
+        # 4b. Retour Géographique Industriel ESA
+        if budgets.cost.cost_by_country_pct:
+            doc.add_heading("4. Retour Géographique Industriel (Principe du Juste Retour ESA)", level=1)
+            p_geo = doc.add_paragraph(
+                f"Ventilation des dépenses industrielles allouées sur le satellite ({budgets.cost.satellite_cost_meur:.2f} M€) par État membre :"
+            )
+            t_geo = doc.add_table(rows=1, cols=4)
+            t_geo.alignment = WD_TABLE_ALIGNMENT.CENTER
+            h_geo = t_geo.rows[0].cells
+            h_geo[0].text = "État Membre"
+            h_geo[1].text = "Montant Alloué"
+            h_geo[2].text = "Part Industrielle"
+            h_geo[3].text = "Souscription / Cible ESA"
+            for c in h_geo:
+                c.paragraphs[0].runs[0].font.bold = True
+
+            geo_targets = {grc.country: grc for grc in m.geo_return_constraints}
+            for country, pct in sorted(budgets.cost.cost_by_country_pct.items(), key=lambda x: x[1], reverse=True):
+                amt = budgets.cost.cost_by_country_meur.get(country, 0.0)
+                rg = t_geo.add_row().cells
+                rg[0].text = country
+                rg[1].text = f"{amt:.2f} M€"
+                rg[2].text = f"{pct:.1f} %"
+                if country in geo_targets:
+                    t = geo_targets[country]
+                    rg[3].text = f"Cible : [{t.min_pct:.1f} %, {t.max_pct:.1f} %]"
+                else:
+                    rg[3].text = "Hors souscription spécifique"
+
         # 5. Matrice de Conformité aux Exigences
-        doc.add_heading("4. Matrice de Conformité aux Exigences & Règles", level=1)
+        doc.add_heading("5. Matrice de Conformité aux Exigences & Règles", level=1)
         t_comp = doc.add_table(rows=1, cols=4)
         t_comp.alignment = WD_TABLE_ALIGNMENT.CENTER
         h_comp = t_comp.rows[0].cells
@@ -202,7 +231,7 @@ class ReportGenerator:
 
         # 6. Sections à compléter par l'étudiant
         doc.add_page_break()
-        doc.add_heading("5. Concept d'Opérations (CONOPS) — À Rédiger par l'Étudiant", level=1)
+        doc.add_heading("6. Concept d'Opérations (CONOPS) — À Rédiger par l'Étudiant", level=1)
         p_conops_intro = doc.add_paragraph()
         p_conops_intro.add_run(
             "[CADRE ÉTUDIANT - DÉCRIVEZ LES MODES OPÉRATIONNELS (LEOP, COMMISSIONING, NOMINAL, VISIBILITÉ STATIONS, GESTION DES ANOMALIES)]\n"
@@ -210,7 +239,7 @@ class ReportGenerator:
         conops_box = doc.add_paragraph(project.conops_text if project.conops_text else "\n\n\n\n\n")
         conops_box.paragraph_format.left_indent = Inches(0.5)
 
-        doc.add_heading("6. Justification des Choix Techniques & Arbitrages", level=1)
+        doc.add_heading("7. Justification des Choix Techniques & Arbitrages", level=1)
         p_just_intro = doc.add_paragraph()
         p_just_intro.add_run(
             "[CADRE ÉTUDIANT - JUSTIFIEZ LE COMPROMIS ENTRE L'OUVERTURE DE L'INSTRUMENT, L'ALTITUDE D'ORBITE, LE CHOIX DE LA PLATEFORME ET LE COÛT]\n"

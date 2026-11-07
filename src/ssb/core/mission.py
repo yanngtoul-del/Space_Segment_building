@@ -15,6 +15,7 @@ class RequirementType(str, Enum):
     BUDGET = "budget"
     LAUNCHER = "launcher"
     REGULATORY = "regulatory"
+    GEORETURN = "georeturn"
 
 
 class RequirementOperator(str, Enum):
@@ -69,6 +70,15 @@ class TargetZone(BaseModel):
         description="Polygon vertices [(lat, lon), ...] or single point",
     )
     priority: int = 1
+
+
+class GeoReturnConstraint(BaseModel):
+    """Geographical return (juste retour géographique) constraint as enforced in ESA programmes."""
+
+    country: str = Field(..., description="Target member state, e.g. France, Allemagne, Italie, Espagne")
+    min_pct: float = Field(..., ge=0.0, le=100.0, description="Minimum industrial spend percentage (e.g. 25.0 %)")
+    max_pct: float = Field(..., ge=0.0, le=100.0, description="Maximum industrial spend percentage (e.g. 45.0 %)")
+    rationale: str = Field("", description="Justification based on national subscription / ESA delegate agreement")
 
 
 class MissionSpecification(BaseModel):
@@ -126,4 +136,8 @@ class MissionSpecification(BaseModel):
     requirements: list[MissionRequirement] = Field(default_factory=list)
     ground_stations: list[GroundStationTarget] = Field(default_factory=list)
     target_zones: list[TargetZone] = Field(default_factory=list)
+    geo_return_constraints: list[GeoReturnConstraint] = Field(
+        default_factory=list,
+        description="ESA-style geographic return constraints (ranges of industrial spending per country)",
+    )
     metadata: dict[str, Any] = Field(default_factory=dict)

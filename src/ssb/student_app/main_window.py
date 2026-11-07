@@ -693,14 +693,20 @@ class StudentMainWindow(QMainWindow):
         all_checks = b.compliance_checks + b.rule_checks
         n_pass = sum(1 for c in all_checks if c.status == CheckStatus.PASS)
         status_tag = "CONFORME" if not b.has_blocking_errors else "NON CONFORME"
+
+        geo_status = ""
+        if getattr(self.mission, "geo_return_constraints", None):
+            n_geo_pass = sum(1 for c in all_checks if c.category == "Retour Géographique ESA" and c.status == CheckStatus.PASS)
+            geo_status = f"  |  Géo ESA : {n_geo_pass}/{len(self.mission.geo_return_constraints)}"
+
         self.lbl_live_summary.setText(
             f"Coût total : {b.cost.space_segment_total_meur:.2f} / {self.mission.max_budget_meur:.1f} M€  |  "
             f"Masse : {b.mass.launch_mass_with_margin_kg:.0f} kg  |  "
-            f"Marge P : {b.power.power_margin_pct:.0f}%  |  "
+            f"Marge P : {b.power.power_margin_pct:.0f}%{geo_status}  |  "
             f"Vérifications : {n_pass}/{len(all_checks)} ({status_tag})"
         )
 
-        self.lbl_budgets_cards.setText(
+        cards_html = (
             f"<b>Bilan de Masse :</b> Plateforme sèche {b.mass.platform_dry_kg:.1f} kg + Options {b.mass.options_mass_kg:.1f} kg + "
             f"Charges utiles {b.mass.payloads_mass_kg:.1f} kg (max {b.mass.platform_capacity_kg:.1f} kg) + "
             f"Ergols {b.mass.propellant_mass_kg:.1f} kg = <b>{b.mass.system_wet_mass_kg:.1f} kg humide</b> "
@@ -712,6 +718,18 @@ class StudentMainWindow(QMainWindow):
             f"Charges utiles {b.cost.payloads_total_meur:.2f} M€ + Lanceur {b.cost.launcher_meur:.2f} M€ = "
             f"<b>{b.cost.space_segment_total_meur:.2f} M€</b> (plafond {b.cost.mission_budget_limit_meur:.2f} M€, marge {b.cost.cost_margin_meur:+.2f} M€)"
         )
+        if b.cost.cost_by_country_pct:
+            geo_tags = []
+            flags = {
+                "France": "🇫🇷", "Allemagne": "🇩🇪", "Italie": "🇮🇹", "Espagne": "🇪🇸",
+                "Suisse": "🇨🇭", "Royaume-Uni": "🇬🇧", "Belgique": "🇧🇪", "Pays-Bas": "🇳🇱",
+                "Suède": "🇸🇪", "Finlande": "🇫🇮"
+            }
+            for c, pct in sorted(b.cost.cost_by_country_pct.items(), key=lambda x: -x[1]):
+                fl = flags.get(c, "🌍")
+                geo_tags.append(f"{fl} {c}: <b>{pct:.1f}%</b> ({b.cost.cost_by_country_meur.get(c, 0.0):.2f} M€)")
+            cards_html += f"<br><b>Retour Géo Industriel (Assiette satellite {b.cost.satellite_cost_meur:.2f} M€) :</b> " + " &nbsp;|&nbsp; ".join(geo_tags)
+        self.lbl_budgets_cards.setText(cards_html)
 
         self.t_eval.setRowCount(len(all_checks))
         for row, chk in enumerate(all_checks):

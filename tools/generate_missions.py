@@ -383,6 +383,11 @@ MISSIONS: list[tuple[str, dict]] = [
                     priority=1,
                 )
             ],
+            geo_return_constraints=[
+                dict(country="France", min_pct=35.0, max_pct=60.0, rationale="Souscription CNES (50 %) — Instrument SWIR AtmoSonde et plateforme"),
+                dict(country="Allemagne", min_pct=10.0, max_pct=30.0, rationale="Souscription DLR (25 %) — Sous-systèmes bord (EuroSpace / SpectraStore)"),
+                dict(country="Espagne", min_pct=5.0, max_pct=20.0, rationale="Souscription CDTI (15 %) — Calculateur de bord et mémoire Starlight"),
+            ],
         ),
     ),
 
@@ -497,6 +502,11 @@ MISSIONS: list[tuple[str, dict]] = [
                     priority=1,
                 )
             ],
+            geo_return_constraints=[
+                dict(country="Allemagne", min_pct=40.0, max_pct=65.0, rationale="Souscription DLR (50 %) — Charge utile radar SAR et contrôle d'attitude"),
+                dict(country="France", min_pct=30.0, max_pct=50.0, rationale="Souscription CNES (40 %) — Fourniture de la plateforme et propulsion"),
+                dict(country="Italie", min_pct=3.0, max_pct=15.0, rationale="Souscription ASI (10 %) — Chaîne de télémesure / TT&C (Meridian)"),
+            ],
         ),
     ),
 
@@ -604,6 +614,11 @@ MISSIONS: list[tuple[str, dict]] = [
                 ),
             ],
             target_zones=[],
+            geo_return_constraints=[
+                dict(country="France", min_pct=35.0, max_pct=60.0, rationale="Souscription CNES (50 %) — Plateforme et maîtrise d'œuvre segment spatial"),
+                dict(country="Allemagne", min_pct=30.0, max_pct=55.0, rationale="Souscription DLR (40 %) — Terminal laser optique très haut débit TeraLink"),
+                dict(country="Suisse", min_pct=2.0, max_pct=12.0, rationale="Souscription Swiss Space Office (10 %) — Mémoire de masse spatiale Helvetia"),
+            ],
         ),
     ),
 
@@ -734,6 +749,11 @@ MISSIONS: list[tuple[str, dict]] = [
                     priority=1,
                 )
             ],
+            geo_return_constraints=[
+                dict(country="France", min_pct=45.0, max_pct=75.0, rationale="Souscription CNES/Eutelsat (60 %) — Plateforme géostationnaire SmallGEO"),
+                dict(country="Suisse", min_pct=20.0, max_pct=40.0, rationale="Souscription Swiss Space Office (30 %) — Charge utile répéteurs Helvetia"),
+                dict(country="Allemagne", min_pct=3.0, max_pct=15.0, rationale="Souscription DLR (10 %) — Équipements de servitudes bord (TT&C, ADCS, mémoire)"),
+            ],
         ),
     ),
 
@@ -829,6 +849,11 @@ MISSIONS: list[tuple[str, dict]] = [
                 )
             ],
             target_zones=[],
+            geo_return_constraints=[
+                dict(country="France", min_pct=35.0, max_pct=55.0, rationale="Souscription CNES (45 %) — Plateforme et servitudes"),
+                dict(country="Italie", min_pct=25.0, max_pct=45.0, rationale="Souscription ASI (35 %) — Instrument optique haute résolution"),
+                dict(country="Allemagne", min_pct=8.0, max_pct=25.0, rationale="Souscription DLR (20 %) — Équipements de bord (ADCS, propulsion HEMP, télémesure)"),
+            ],
         ),
     ),
 
@@ -921,6 +946,11 @@ MISSIONS: list[tuple[str, dict]] = [
                 )
             ],
             target_zones=[],
+            geo_return_constraints=[
+                dict(country="Italie", min_pct=40.0, max_pct=65.0, rationale="Souscription ASI (50 %) — Télescope grand champ 60 cm Stellara Ottica"),
+                dict(country="France", min_pct=25.0, max_pct=50.0, rationale="Souscription CNES (35 %) — Fourniture plateforme et intégration"),
+                dict(country="Allemagne", min_pct=4.0, max_pct=18.0, rationale="Souscription DLR (15 %) — Actionneurs gyroscopiques de précision Gyrodyne"),
+            ],
         ),
     ),
 
