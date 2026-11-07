@@ -1,0 +1,128 @@
+{
+  "schema_version": "1.0.0",
+  "id": "EXAM-2026-ATMO-GHG",
+  "title": "Mission AtmoWatch — Chimie de l'Atmosphère Terrestre & Panaches de Méthane",
+  "context": "Dans le cadre du suivi international des émissions anthropiques, l'ISCA lance une mission spatiale dédiée à la connaissance fine de la composition de l'atmosphère terrestre et à la détection des super-émetteurs de méthane (CH4) et de dioxyde de carbone (CO2).",
+  "mission_type": "atmosphere",
+  "max_budget_meur": 16.5,
+  "target_lifetime_years": 5.0,
+  "client_agency": "Institut Spatial du Climat & de l'Atmosphère (ISCA)",
+  "domain_label": "Connaissance de l'Atmosphère Terrestre — Spectrométrie gaz à effet de serre",
+  "primary_objective": "Mesurer par spectrométrie imageuse dans le proche infrarouge et l'infrarouge à ondes courtes (SWIR, autour de 1,65 µm) les colonnes d'absorption de CH4 et de CO2 avec une résolution spectrale meilleure ou égale à 1,0 nm (objectif 0,3 nm), une résolution spatiale au sol <= 10 m permettant d'attribuer les panaches aux installations industrielles, et un SNR >= 50.",
+  "secondary_objectives": [
+    "Caractériser les aérosols atmosphériques et les panaches urbains sur l'ensemble des bassins industriels mondiaux.",
+    "Maintenir le budget global du segment spatial sous 16,5 M€ grâce à une plateforme microsatellite optimisée."
+  ],
+  "scientific_or_operational_need": "Les inventaires climatiques souffrent d'une forte incertitude sur les fuites ponctuelles de méthane (puits gaziers, décharges, mines, pipelines). Seul un spectromètre à très haute finesse spectrale dans la bande SWIR (> 1600 nm) permet de séparer les raies rovibrationnelles du CH4 et du CO2 du fond d'albédo terrestre.",
+  "orbit_constraints_description": "Orbite héliosynchrone (SSO) vers 500–650 km d'altitude avec passage en milieu de journée (LTAN 11h00–13h00) pour maximiser le flux solaire réfléchi dans le SWIR et réduire l'angle zénithal solaire.",
+  "conops_guidance": "Observation systématique au nadir des zones continentales et des sites d'extraction. Refroidissement actif du plan focal SWIR maintenu en permanence ; étalonnage spectral sur diffuseur solaire une fois par jour au passage polaire.",
+  "deliverables_expected": [
+    "Justifier le choix du spectromètre (domaine spectral SWIR >= 1650 nm et finesse spectrale <= 1 nm) par rapport aux spectromètres VNIR classiques.",
+    "Vérifier la compatibilité de pointage et de dissipation thermique entre le sondeur refroidi et la plateforme choisie.",
+    "Décrire le plan d'opérations (calibration, acquisition, vidage mémoire)."
+  ],
+  "allowed_suppliers": [],
+  "min_trl": 8,
+  "requirements": [
+    {
+      "id": "REQ-ATMO-SRES",
+      "title": "Finesse spectrale (résolution FWHM)",
+      "description": "La résolution spectrale de l'instrument doit être <= 1,0 nm pour résoudre les raies de CH4/CO2.",
+      "req_type": "payload_perf",
+      "parameter": "spectral_resolution_nm",
+      "operator": "<=",
+      "threshold": 1.0,
+      "goal": 0.3,
+      "unit": "nm",
+      "weight": 2.0
+    },
+    {
+      "id": "REQ-ATMO-SWIR",
+      "title": "Couverture spectrale infrarouge (SWIR)",
+      "description": "La longueur d'onde maximale couverte doit atteindre au moins 1650 nm.",
+      "req_type": "payload_perf",
+      "parameter": "spectral_range_max_nm",
+      "operator": ">=",
+      "threshold": 1650.0,
+      "goal": 1680.0,
+      "unit": "nm",
+      "weight": 1.5
+    },
+    {
+      "id": "REQ-ATMO-GSD",
+      "title": "Résolution spatiale d'attribution des panaches",
+      "description": "Le GSD spatial au nadir doit être <= 10,0 m.",
+      "req_type": "payload_perf",
+      "parameter": "gsd_spatial_nadir_m",
+      "operator": "<=",
+      "threshold": 10.0,
+      "goal": 6.0,
+      "unit": "m",
+      "weight": 1.0
+    },
+    {
+      "id": "REQ-ATMO-SNR",
+      "title": "Rapport signal sur bruit spectral moyen",
+      "description": "Le SNR moyen par canal spectral doit être >= 50.",
+      "req_type": "payload_perf",
+      "parameter": "mean_snr_estimate",
+      "operator": ">=",
+      "threshold": 50.0,
+      "goal": 80.0,
+      "unit": "",
+      "weight": 1.0
+    }
+  ],
+  "ground_stations": [
+    {
+      "id": "kiruna_sta",
+      "name": "Station Polaire de Kiruna (Estrack)",
+      "latitude_deg": 67.88,
+      "longitude_deg": 20.96,
+      "altitude_m": 400.0,
+      "min_elevation_deg": 5.0,
+      "bands_supported": [
+        "S",
+        "X"
+      ],
+      "cost_per_pass_eur": 210.0,
+      "cost_per_minute_eur": 0.0
+    },
+    {
+      "id": "kourou_sta",
+      "name": "Station Équatoriale de Kourou",
+      "latitude_deg": 5.25,
+      "longitude_deg": -52.8,
+      "altitude_m": 20.0,
+      "min_elevation_deg": 5.0,
+      "bands_supported": [
+        "S",
+        "X"
+      ],
+      "cost_per_pass_eur": 200.0,
+      "cost_per_minute_eur": 0.0
+    }
+  ],
+  "target_zones": [
+    {
+      "id": "zone_permian_me",
+      "name": "Bassins gaziers & industriels (Moyen-Orient / Eurasie / Amérique)",
+      "points_lat_lon": [
+        [
+          25.0,
+          50.0
+        ],
+        [
+          40.0,
+          55.0
+        ],
+        [
+          31.0,
+          -102.0
+        ]
+      ],
+      "priority": 1
+    }
+  ],
+  "metadata": {}
+}

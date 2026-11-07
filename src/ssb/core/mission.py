@@ -1,4 +1,4 @@
-"""Pydantic models for mission requirements and constraints."""
+"""Pydantic models for mission requirements, constraints, and rich mission specification sheets."""
 
 from enum import Enum
 from typing import Any
@@ -72,17 +72,52 @@ class TargetZone(BaseModel):
 
 
 class MissionSpecification(BaseModel):
-    """Complete mission specification provided to the student."""
+    """Complete mission specification sheet (fiche de spécification mission) provided to the student."""
 
     schema_version: str = "1.0.0"
     id: str
     title: str
     context: str
     mission_type: str = Field(
-        ..., description="e.g. optical_eo, sar_eo, telecom_opt, telecom_radio, qkd, science"
+        ..., description="e.g. optical_eo, sar_eo, telecom_opt, telecom_radio, qkd, science, atmosphere, cosmology"
     )
-    max_budget_meur: float = Field(..., description="Hard budget ceiling in M€")
+    max_budget_meur: float = Field(..., description="Total budget ceiling in M€ (platform + options + payloads + launch)")
     target_lifetime_years: float = Field(5.0, ge=0.5)
+
+    # Rich specification sheet fields
+    client_agency: str = Field(
+        "Agence Spatiale / Institution",
+        description="Sponsoring agency or client organization",
+    )
+    domain_label: str = Field(
+        "",
+        description="Human-readable mission domain (Observation de la Terre, Cosmologie, Atmosphère, Télécom haut débit...)",
+    )
+    primary_objective: str = Field(
+        "",
+        description="Detailed narrative of the primary scientific, operational, or data-throughput objective",
+    )
+    secondary_objectives: list[str] = Field(
+        default_factory=list,
+        description="Secondary or bonus mission objectives",
+    )
+    scientific_or_operational_need: str = Field(
+        "",
+        description="Why this mission is needed, end-users, and expected products/data volume",
+    )
+    orbit_constraints_description: str = Field(
+        "",
+        description="Orbital regime guidance or constraints (altitude range, SSO LTAN, inclination, revisit)",
+    )
+    conops_guidance: str = Field(
+        "",
+        description="Expected operational concept (duty cycle, target passes, downlink strategy, eclipse operation)",
+    )
+    deliverables_expected: list[str] = Field(
+        default_factory=list,
+        description="Questions and trade-offs the student must justify in the final report",
+    )
+
     allowed_suppliers: list[str] = Field(
         default_factory=list,
         description="If non-empty, whitelist of allowed supplier IDs",

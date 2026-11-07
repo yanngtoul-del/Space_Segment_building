@@ -2,10 +2,26 @@
   "schema_version": "1.0.0",
   "id": "EXAM-2026-SAR",
   "title": "Mission RadarGuard — Surveillance Maritime & Terrestre Tout-Temps",
-  "context": "Concevoir un satellite d'observation radar à synthèse d'ouverture (SAR) capable d'imager les zones côtières et terrestres de jour comme de nuit, indépendamment de la couverture nuageuse, pour la détection de navires et le suivi des glaces.",
+  "context": "Concevoir un satellite d'observation radar à synthèse d'ouverture (SAR) capable d'imager les zones côtières, les détroits stratégiques et les glaces arctiques de jour comme de nuit, indépendamment de la couverture nuageuse.",
   "mission_type": "sar_eo",
   "max_budget_meur": 25.0,
   "target_lifetime_years": 5.0,
+  "client_agency": "Direction de la Surveillance Maritime & Polaire",
+  "domain_label": "Observation de la Terre — Imagerie Radar SAR tout-temps",
+  "primary_objective": "Assurer l'imagerie radar tout-temps en mode Stripmap avec une résolution azimutale meilleure que 2,0 m, une fauchée au sol d'au moins 15 km et une sensibilité radiométrique (NESZ) meilleure que -15,0 dB afin de détecter les navires non coopératifs, les nappes d'hydrocarbures et la dérive des glaces.",
+  "secondary_objectives": [
+    "Dimensionner l'alimentation électrique et la batterie pour encaisser les forts appels de puissance RF durant les prises de vue radar.",
+    "Embarquer optionnellement un récepteur AIS/ADS-B en charge utile secondaire si les marges de masse et de budget le permettent."
+  ],
+  "scientific_or_operational_need": "Les zones arctiques et nord-européennes sont couvertes de nuages plus de 70 % du temps et plongées dans la nuit polaire plusieurs mois par an : seule une charge utile active micro-ondes (SAR) garantit la continuité de surveillance.",
+  "orbit_constraints_description": "Orbite polaire ou héliosynchrone (SSO crépusculaire 06h00/18h00 recommandée pour maximiser l'ensoleillement des panneaux solaires et alimenter le radar) à une altitude comprise entre 450 km et 580 km.",
+  "conops_guidance": "Prises de vue radar programmées de 60 à 120 secondes par orbite au-dessus des zones maritimes d'intérêt. Le débit brut élevé (plusieurs Gbit/s) impose une mémoire de masse d'au moins 1 à 2 To et une liaison descendante en bande X large bande ou bande Ka.",
+  "deliverables_expected": [
+    "Expliquer l'influence de l'altitude orbitale et de la longueur d'antenne sur la résolution azimutale et le bilan NESZ.",
+    "Vérifier la tenue du bilan de puissance moyenne et crête de la plateforme face à la consommation du radar.",
+    "Justifier le choix du lanceur au regard de la masse humide avec marge de 20 %."
+  ],
+  "allowed_suppliers": [],
   "min_trl": 8,
   "requirements": [
     {
@@ -53,8 +69,13 @@
       "longitude_deg": 15.4,
       "altitude_m": 450.0,
       "min_elevation_deg": 5.0,
-      "bands_supported": ["S", "X", "Ka"],
-      "cost_per_pass_eur": 250.0
+      "bands_supported": [
+        "S",
+        "X",
+        "Ka"
+      ],
+      "cost_per_pass_eur": 250.0,
+      "cost_per_minute_eur": 0.0
     },
     {
       "id": "inuvik_sta",
@@ -63,20 +84,34 @@
       "longitude_deg": -133.72,
       "altitude_m": 100.0,
       "min_elevation_deg": 5.0,
-      "bands_supported": ["S", "X"],
-      "cost_per_pass_eur": 220.0
+      "bands_supported": [
+        "S",
+        "X"
+      ],
+      "cost_per_pass_eur": 220.0,
+      "cost_per_minute_eur": 0.0
     }
   ],
   "target_zones": [
     {
       "id": "zone_baltic",
-      "name": "Mer Baltique & Détroits",
+      "name": "Mer Baltique & Détroits Arctiques",
       "points_lat_lon": [
-        [54.0, 10.0],
-        [60.0, 18.0],
-        [65.0, 24.0]
+        [
+          54.0,
+          10.0
+        ],
+        [
+          60.0,
+          18.0
+        ],
+        [
+          65.0,
+          24.0
+        ]
       ],
       "priority": 1
     }
-  ]
+  ],
+  "metadata": {}
 }

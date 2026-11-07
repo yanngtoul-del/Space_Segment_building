@@ -9,11 +9,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from ssb.core.project import StudentProject
-from ssb.system.evaluator import SystemBudgets, CheckStatus
+from ssb.system.evaluator import SystemBudgets
 
 
 class ReportGenerator:
-    """Generates structured .docx report with budgets, compliance matrix, and editable student sections."""
+    """Generates structured .docx report with mission specification sheet, budgets, compliance matrix, and editable student sections."""
 
     @classmethod
     def generate_ground_track_plot(
@@ -24,22 +24,17 @@ class ReportGenerator:
         ax.set_facecolor("#0b1426")
         fig.patch.set_facecolor("#ffffff")
 
-        # Draw grid lines
         ax.set_xlim(-180, 180)
         ax.set_ylim(-90, 90)
         ax.set_xticks(np.arange(-180, 181, 60))
         ax.set_yticks(np.arange(-90, 91, 30))
         ax.grid(True, color="#2c3e50", linestyle="--", alpha=0.5)
-
-        # Plot equator
         ax.axhline(0, color="#7f8c8d", linestyle="-", linewidth=0.8, alpha=0.7)
 
-        # Plot ground track points
         lons = [p.longitude_deg for p in ground_track]
         lats = [p.latitude_deg for p in ground_track]
         eclipses = [p.in_eclipse for p in ground_track]
 
-        # Break lines when crossing +/-180 wrap-around
         seg_lons: list[float] = []
         seg_lats: list[float] = []
         for i in range(len(lons)):
@@ -53,7 +48,6 @@ class ReportGenerator:
         if seg_lons:
             ax.plot(seg_lons, seg_lats, color="#00d2d3", linewidth=1.5, label="Satellite Track")
 
-        # Mark eclipse segments in red/orange
         eclipse_lons = [lons[i] for i in range(len(lons)) if eclipses[i]]
         eclipse_lats = [lats[i] for i in range(len(lats)) if eclipses[i]]
         if eclipse_lons:
@@ -80,32 +74,44 @@ class ReportGenerator:
         out_path.parent.mkdir(parents=True, exist_ok=True)
 
         doc = Document()
-
-        # Styles setup
-        primary_color = RGBColor(26, 82, 118)  # Deep Space Blue
+        primary_color = RGBColor(26, 82, 118)
 
         # 1. Document Title
         title_p = doc.add_paragraph()
-        title_run = title_p.add_run(f"RAPPORT DE CONCEPTION SYSTÈME SPATIAL")
+        title_run = title_p.add_run("RAPPORT DE CONCEPTION SYSTÈME SPATIAL")
         title_run.font.size = Pt(20)
         title_run.font.bold = True
         title_run.font.color.rgb = primary_color
         title_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
+        m = project.mission
         sub_p = doc.add_paragraph()
-        sub_p.add_run(f"Mission : {project.mission.title} ({project.mission.id})\n").bold = True
+        sub_p.add_run(f"Mission : {m.title} ({m.id})\n").bold = True
+        if m.domain_label:
+            sub_p.add_run(f"Domaine : {m.domain_label} | Commanditaire : {m.client_agency}\n")
         sub_p.add_run(f"Étudiant : {project.student_name} (ID: {project.student_id})\n")
         sub_p.add_run(f"Empreinte numérique d'intégrité (SHA-256) : {project.compute_hash()[:16]}...")
         sub_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
         doc.add_paragraph()
 
-        # 2. Rappel des Exigences Mission
-        h2 = doc.add_heading("1. Spécification de la Mission et Exigences", level=1)
+        # 2. Fiche de Spécification Mission & Exigences
+        h2 = doc.add_heading("1. Fiche de Spécification de la Mission et Exigences", level=1)
         h2.paragraph_format.space_before = Pt(12)
-        doc.add_paragraph(f"Contexte opérationnel : {project.mission.context}")
-        doc.add_paragraph(f"Budget plafond alloué : {project.mission.max_budget_meur:.2f} M€ | Durée de vie cible : {project.mission.target_lifetime_years} ans")
+        p_bud = doc.add_paragraph()
+        p_bud.add_run(
+            f"Budget total plafond alloué : {m.max_budget_meur:.2f} M€ TTC (plateforme + options + charge utile + lancement) "
+            f"| Durée de vie cible : {m.target_lifetime_years} ans | TRL minimal : {m.min_trl}"
+        ).bold = True
+        doc.add_paragraph(f"Contexte opérationnel : {m.context}")
+        if m.primary_objective:
+            doc.add_paragraph(f"Objectif principal décrit : {m.primary_objective}")
+        if m.scientific_or_operational_need:
+            doc.add_paragraph(f"Besoin scientifique / opérationnel : {m.scientific_or_operational_need}")
+        if m.orbit_constraints_description:
+            doc.add_paragraph(f"Contraintes orbitales : {m.orbit_constraints_description}")
+        if m.conops_guidance:
+            doc.add_paragraph(f"Orientation CONOPS : {m.conops_guidance}")
 
-        # Requirements table
         t_req = doc.add_table(rows=1, cols=4)
         t_req.alignment = WD_TABLE_ALIGNMENT.CENTER
         hdr_cells = t_req.rows[0].cells
@@ -116,7 +122,7 @@ class ReportGenerator:
         for c in hdr_cells:
             c.paragraphs[0].runs[0].font.bold = True
 
-        for req in project.mission.requirements:
+        for req in m.requirements:
             row_cells = t_req.add_row().cells
             row_cells[0].text = req.id
             row_cells[1].text = req.title
@@ -127,16 +133,18 @@ class ReportGenerator:
         doc.add_heading("2. Architecture du Segment Spatial", level=1)
         plat = budgets.configured_platform.base
         p_arch = doc.add_paragraph()
-        p_arch.add_run(f"• Plateforme sélectionnée : ").bold = True
+        p_arch.add_run("• Plateforme sélectionnée : ").bold = True
         p_arch.add_run(f"{plat.name} ({plat.supplier_name}) — Catégorie {plat.category}\n")
-        p_arch.add_run(f"• Orbite : ").bold = True
-        p_arch.add_run(f"{project.configuration.orbit.orbit_type.value.upper()} @ {project.configuration.orbit.altitude_km} km (i = {project.configuration.orbit.inclination_deg}°)\n")
-        p_arch.add_run(f"• Options & Sous-systèmes configurés :\n").bold = True
+        p_arch.add_run("• Orbite : ").bold = True
+        p_arch.add_run(
+            f"{project.configuration.orbit.orbit_type.value.upper()} @ {project.configuration.orbit.altitude_km} km "
+            f"(i = {project.configuration.orbit.inclination_deg}°)\n"
+        )
+        p_arch.add_run("• Options & Sous-systèmes configurés :\n").bold = True
         for opt in budgets.configured_platform.resolved_options:
             inc_tag = " (Inclus)" if opt.is_included else f" (+{opt.final_price_meur:.2f} M€)"
             p_arch.add_run(f"   - [{opt.equipment.function.value.upper()}] {opt.equipment.name}{inc_tag}\n")
 
-        # Ground track plot if available
         if ground_track:
             plot_path = out_path.parent / f"ground_track_{project.project_id}.png"
             cls.generate_ground_track_plot(ground_track, plot_path)
@@ -154,21 +162,18 @@ class ReportGenerator:
         for c in h_bud:
             c.paragraphs[0].runs[0].font.bold = True
 
-        # Mass row
         r_mass = t_bud.add_row().cells
         r_mass[0].text = "Masse au Lancement (avec 20% marge)"
         r_mass[1].text = f"{budgets.mass.launch_mass_with_margin_kg:.1f} kg"
         r_mass[2].text = f"{plat.max_launch_mass_kg:.1f} kg (plateforme)"
         r_mass[3].text = f"+{budgets.mass.margin_pct:.0f} %"
 
-        # Power row
         r_pow = t_bud.add_row().cells
         r_pow[0].text = "Consommation Moyenne Orbite"
         r_pow[1].text = f"{budgets.power.total_avg_consumption_w:.1f} W"
         r_pow[2].text = f"{budgets.power.platform_generation_w:.1f} W"
         r_pow[3].text = f"{budgets.power.power_margin_pct:.1f} %"
 
-        # Cost row
         r_cost = t_bud.add_row().cells
         r_cost[0].text = "Coût Total Segment Spatial"
         r_cost[1].text = f"{budgets.cost.space_segment_total_meur:.2f} M€"

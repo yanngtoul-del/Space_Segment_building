@@ -33,6 +33,7 @@ def evaluate_payload_requirements(
         assert isinstance(payload, OpticalImagerPayload)
         p = OpticalImagerModel.compute(payload, orbit)
         perfs = p.__dict__
+        perfs["aperture_diameter_m"] = payload.aperture_diameter_m
 
     elif payload.payload_type == PayloadType.SAR:
         assert isinstance(payload, SarPayload)
@@ -43,6 +44,8 @@ def evaluate_payload_requirements(
         assert isinstance(payload, SpectrometerPayload)
         p = SpectrometerModel.compute(payload, orbit)
         perfs = p.__dict__
+        perfs["spectral_resolution_nm"] = payload.spectral_resolution_nm
+        perfs["spectral_range_max_nm"] = payload.spectral_range_max_nm
 
     elif payload.payload_type == PayloadType.OPTICAL_COMM:
         assert isinstance(payload, OpticalCommPayload)

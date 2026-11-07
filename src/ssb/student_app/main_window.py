@@ -1,10 +1,8 @@
 """Main interactive PySide6 graphical user interface for students."""
 
-import json
 import sys
 from pathlib import Path
 from typing import Any
-from PySide6.QtCore import Qt
 from PySide6.QtGui import QColor, QFont
 from PySide6.QtWidgets import (
     QApplication,
@@ -30,6 +28,7 @@ from PySide6.QtWidgets import (
     QListWidgetItem,
     QLineEdit,
 )
+from PySide6.QtCore import Qt
 
 from ssb.catalog.database import CatalogDatabase
 from ssb.catalog.datasheet import PAYLOAD_TYPE_LABELS_FR, FUNCTION_LABELS_FR
@@ -44,12 +43,13 @@ from ssb.core.mission import (
 )
 from ssb.core.platform import PlatformBase
 from ssb.core.payload import BasePayload
-from ssb.core.project import StudentProject, SystemConfiguration, SelectedOption, Launcher
+from ssb.core.project import StudentProject, SystemConfiguration, Launcher
 from ssb.system.evaluator import SystemEvaluator, CheckStatus, SystemBudgets, launcher_capacity_for_orbit
 from ssb.orbit.propagator import OrbitPropagator
 from ssb.report.generator import ReportGenerator
 from ssb.ui_common.catalog_browser import CatalogBrowser
 from ssb.ui_common.platform_slots_widget import PlatformSlotsWidget
+from ssb.ui_common.mission_sheet_view import MissionSheetView
 
 
 class StudentMainWindow(QMainWindow):
@@ -80,17 +80,25 @@ class StudentMainWindow(QMainWindow):
         self.current_budgets: SystemBudgets | None = None
 
         self._setup_ui()
-        # Initialize platform slots with default platform
         default_plat = self.catalog.platforms[self.project.configuration.platform_id]
         self.slots_widget.set_platform(default_plat)
         self._refresh_selected_payloads_list()
         self.refresh_evaluation()
 
     def _create_default_exam_mission(self) -> MissionSpecification:
+        default_file = missions_dir() / "exam_optical_earth_observation.mission.json"
+        if default_file.exists():
+            try:
+                return MissionSpecification.model_validate_json(default_file.read_text(encoding="utf-8"))
+            except Exception:
+                pass
         return MissionSpecification(
-            id="EXAM-SSO-HR",
-            title="Mission Sentinel-Vision Tactical",
+            id="EXAM-2026-EO-OPT",
+            title="Mission Sentinel-Vision — Observation de la Terre Haute Résolution",
+            client_agency="Agence Européenne d'Observation Civile & Sécurité (AEOCS)",
+            domain_label="Observation de la Terre — Imagerie optique sub-métrique",
             context="Concevoir un satellite d'observation de la Terre basse orbite haute résolution pour le suivi des infrastructures critiques.",
+            primary_objective="Fournir des images optiques avec un GSD <= 1,0 m et une fauchée >= 10 km sous un budget total de 18,0 M€.",
             mission_type="optical_eo",
             max_budget_meur=18.0,
             target_lifetime_years=5.0,
@@ -186,30 +194,39 @@ class StudentMainWindow(QMainWindow):
         self._build_tab_evaluation()
         self._build_tab_report_text()
 
-        # Compatibility combo attributes kept for existing programmatic accesses
         self._sync_legacy_combos()
 
-    # ------------------------------------------------------------------ Tab 1: Mission
+    # ------------------------------------------------------------------ Tab 1: Mission Specification Sheet
     def _build_tab_mission(self) -> None:
         tab = QWidget()
         l = QVBoxLayout(tab)
 
         top_row = QHBoxLayout()
-        top_row.addWidget(QLabel("<b>Sujet d'examen prédéfini :</b>"))
+        top_row.addWidget(QLabel("<b>Fiche de spécification mission :</b>"))
         self.cmb_preset_missions = QComboBox()
-        self.cmb_preset_missions.addItem("Sujet par défaut — Sentinel-Vision Tactical (Optique HR)", "__DEFAULT__")
         mdir = missions_dir()
+        added_files = 0
         if mdir.exists():
             for mf in sorted(mdir.glob("*.mission.json")):
                 try:
                     ms = MissionSpecification.model_validate_json(mf.read_text(encoding="utf-8"))
-                    self.cmb_preset_missions.addItem(f"{ms.title} [{ms.id}] — plafond {ms.max_budget_meur:.1f} M€", str(mf))
+                    dom = ms.domain_label or ms.mission_type
+                    self.cmb_preset_missions.addItem(
+                        f"[{ms.id}] {ms.title} — {dom} (Budget plafond : {ms.max_budget_meur:.1f} M€)",
+                        str(mf),
+                    )
+                    added_files += 1
                 except Exception:
                     pass
+        if added_files == 0:
+            self.cmb_preset_missions.addItem(
+                f"[{self.mission.id}] {self.mission.title} (Budget plafond : {self.mission.max_budget_meur:.1f} M€)",
+                "__DEFAULT__",
+            )
         self.cmb_preset_missions.currentIndexChanged.connect(self._on_preset_mission_selected)
         top_row.addWidget(self.cmb_preset_missions, stretch=1)
 
-        btn_load_m = QPushButton("Charger un fichier sujet (.mission.json)...")
+        btn_load_m = QPushButton("Importer une autre fiche mission (.mission.json)...")
         btn_load_m.clicked.connect(self._browse_mission_file)
         top_row.addWidget(btn_load_m)
         l.addLayout(top_row)
@@ -227,40 +244,19 @@ class StudentMainWindow(QMainWindow):
         stu_form.addWidget(self.ed_project_id)
         l.addWidget(stu_box)
 
-        self.lbl_mission_context = QLabel()
-        self.lbl_mission_context.setWordWrap(True)
-        self.lbl_mission_context.setStyleSheet(
-            "background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 5px; padding: 8px; font-size: 12px;"
-        )
-        l.addWidget(self.lbl_mission_context)
-
-        l.addWidget(QLabel("<b>Exigences techniques & budgétaires du cahier des charges :</b>"))
-        self.t_mission_reqs = QTableWidget(0, 5)
-        self.t_mission_reqs.setHorizontalHeaderLabels(["ID", "Intitulé", "Paramètre vérifié", "Seuil exigé", "Description"])
-        self.t_mission_reqs.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        l.addWidget(self.t_mission_reqs, stretch=1)
+        self.mission_sheet_view = MissionSheetView()
+        self.t_mission_reqs = self.mission_sheet_view.t_reqs
+        l.addWidget(self.mission_sheet_view, stretch=1)
 
         self._populate_mission_view()
-        self.tabs.addTab(tab, "1. Sujet & Exigences")
+        self.tabs.addTab(tab, "1. Fiche de Spécification Mission")
 
     def _populate_mission_view(self) -> None:
-        m = self.mission
-        self.lbl_mission_context.setText(
-            f"<b>{m.title} ({m.id})</b> — Type : <code>{m.mission_type}</code> — "
-            f"<b>Plafond budgétaire : {m.max_budget_meur:.2f} M€</b> — Durée de vie cible : {m.target_lifetime_years:.1f} ans<br>"
-            f"<b>Contexte opérationnel :</b> {m.context}"
-        )
-        self.t_mission_reqs.setRowCount(len(m.requirements))
-        for r, req in enumerate(m.requirements):
-            self.t_mission_reqs.setItem(r, 0, QTableWidgetItem(req.id))
-            self.t_mission_reqs.setItem(r, 1, QTableWidgetItem(req.title))
-            self.t_mission_reqs.setItem(r, 2, QTableWidgetItem(req.parameter))
-            self.t_mission_reqs.setItem(r, 3, QTableWidgetItem(f"{req.operator.value} {req.threshold} {req.unit}"))
-            self.t_mission_reqs.setItem(r, 4, QTableWidgetItem(req.description))
+        self.mission_sheet_view.set_mission(self.mission)
 
     def _on_preset_mission_selected(self) -> None:
         data = self.cmb_preset_missions.currentData()
-        if data == "__DEFAULT__":
+        if not data or data == "__DEFAULT__":
             self.mission = self._create_default_exam_mission()
         else:
             self.mission = MissionSpecification.model_validate_json(Path(data).read_text(encoding="utf-8"))
@@ -269,7 +265,7 @@ class StudentMainWindow(QMainWindow):
         self.refresh_evaluation()
 
     def _browse_mission_file(self) -> None:
-        fp, _ = QFileDialog.getOpenFileName(self, "Charger un sujet d'examen", str(missions_dir()), "Mission JSON (*.json)")
+        fp, _ = QFileDialog.getOpenFileName(self, "Charger une fiche mission", str(missions_dir()), "Mission JSON (*.json)")
         if fp:
             self.mission = MissionSpecification.model_validate_json(Path(fp).read_text(encoding="utf-8"))
             self.project.mission = self.mission
@@ -344,12 +340,11 @@ class StudentMainWindow(QMainWindow):
         self.browser_launchers.refresh()
         self.refresh_evaluation()
 
-    # ------------------------------------------------------------------ Tab 3: Payloads (multi-supplier catalog + multi-select)
+    # ------------------------------------------------------------------ Tab 3: Payloads
     def _build_tab_payloads(self) -> None:
         tab = QWidget()
         l = QVBoxLayout(tab)
 
-        # Selected payloads basket at top
         basket_box = QGroupBox("Charges utiles embarquées sur le satellite (sélection multiple possible)")
         bl = QHBoxLayout(basket_box)
         self.list_selected_payloads = QListWidget()
@@ -367,7 +362,6 @@ class StudentMainWindow(QMainWindow):
         bl.addLayout(btn_col)
         l.addWidget(basket_box)
 
-        # Full Supplier -> Catalog -> Datasheet browser
         type_opts = [(k, v) for k, v in PAYLOAD_TYPE_LABELS_FR.items()]
         self.browser_payloads = CatalogBrowser(
             catalog=self.catalog,
@@ -426,15 +420,10 @@ class StudentMainWindow(QMainWindow):
 
     def _refresh_selected_payloads_list(self) -> None:
         self.list_selected_payloads.clear()
-        tot_m, tot_v, tot_p, tot_c = 0.0, 0.0, 0.0, 0.0
         for pid in self.project.configuration.selected_payload_ids:
             pl = self.catalog.payloads.get(pid)
             if not pl:
                 continue
-            tot_m += pl.mass_kg
-            tot_v += pl.volume_liters
-            tot_p += pl.operational_power_w
-            tot_c += pl.price_meur
             it = QListWidgetItem(
                 f"• {pl.name} ({pl.supplier_name}) — {pl.mass_kg:.1f} kg | {pl.volume_liters:.1f} L | "
                 f"{pl.operational_power_w:.0f} W | {pl.price_meur:.2f} M€"
@@ -613,7 +602,6 @@ class StudentMainWindow(QMainWindow):
         self.tabs.addTab(tab, "8. Rédaction Rapport")
 
     def _sync_legacy_combos(self) -> None:
-        """Keep hidden combo boxes for backward compatibility with any external script/test."""
         self.combo_payloads = QComboBox()
         for pid, pl in self.catalog.payloads.items():
             self.combo_payloads.addItem(pl.name, pid)

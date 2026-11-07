@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "id": "EXAM-2026-COSMO",
+  "title": "Mission DarkLens — Cosmologie, Lentilles Gravitationnelles & Champ Profond",
+  "context": "Pour cartographier la distribution de matière noire par cisaillement gravitationnel faible (weak lensing) et suivre les supernovæ distantes, le consortium souhaite placer en orbite basse un télescope optique à grand diamètre primaire et très haute stabilité de pointage.",
+  "mission_type": "cosmology",
+  "max_budget_meur": 32.0,
+  "target_lifetime_years": 6.0,
+  "client_agency": "Consortium Scientifique Européen d'Astrophysique & Cosmologie",
+  "domain_label": "Cosmologie & Astrophysique — Télescope spatial à grand collecteur",
+  "primary_objective": "Disposer d'un télescope spatial d'au moins 0,60 m d'ouverture primaire (objectif 0,70 m) limité par la diffraction (tache de diffraction équivalente <= 0,65 m projetée à l'échelle de référence), monté sur une plateforme garantissant une précision de pointage meilleure ou égale à 0,004° afin d'éviter tout flou d'étalement de la fonction d'étalement du point (PSF) lors des poses longues sur le ciel profond.",
+  "secondary_objectives": [
+    "Assurer un stockage bord d'au moins 1 à 2 To pour accumuler les mosaïques du relevé cosmologique.",
+    "Privilégier un contrôle d'attitude à très faibles micro-vibrations (roues agiles ou suite ultra-stable)."
+  ],
+  "scientific_or_operational_need": "La mesure de la déformation cohérente de millions de galaxies lointaines par la matière noire exige une qualité d'image affranchie de la turbulence atmosphérique terrestre, un grand diamètre collecteur de photons et une stabilité d'attitude sub-arcseconde.",
+  "orbit_constraints_description": "Orbite héliosynchrone crépusculaire (dawn-dusk, 550–700 km) maintenant le télescope à l'ombre du pare-soleil et permettant de pointer à l'opposé de la Terre et du Soleil avec un minimum d'interruptions d'occultation.",
+  "conops_guidance": "Pointage inertiel prolongé (poses de 300 à 600 s par champ cosmologique) suivi d'un basculement fin vers le champ suivant. Vidage quotidien des images scientifiques non destructivement compressées en bande X ou Ka.",
+  "deliverables_expected": [
+    "Justifier le diamètre du miroir primaire choisi vis-à-vis de la limite de diffraction et de la collecte de photons.",
+    "Démontrer que l'association (plateforme + option ADCS) respecte l'exigence stricte de pointage <= 0,004°.",
+    "Présenter le bilan de masse et le choix du lanceur (rideshare lourd ESPA Grande ou lanceur dédié)."
+  ],
+  "allowed_suppliers": [],
+  "min_trl": 8,
+  "requirements": [
+    {
+      "id": "REQ-COSMO-APERTURE",
+      "title": "Diamètre du miroir primaire collecteur",
+      "description": "Le diamètre d'ouverture du télescope doit être >= 0,60 m.",
+      "req_type": "payload_perf",
+      "parameter": "aperture_diameter_m",
+      "operator": ">=",
+      "threshold": 0.6,
+      "goal": 0.7,
+      "unit": "m",
+      "weight": 2.0
+    },
+    {
+      "id": "REQ-COSMO-DIFF",
+      "title": "Finesse optique (limite de diffraction)",
+      "description": "La tache de diffraction de référence doit être <= 0,65 m.",
+      "req_type": "payload_perf",
+      "parameter": "diffraction_ground_spot_m",
+      "operator": "<=",
+      "threshold": 0.65,
+      "goal": 0.5,
+      "unit": "m",
+      "weight": 1.0
+    },
+    {
+      "id": "REQ-COSMO-POINTING",
+      "title": "Précision de pointage astrophysique",
+      "description": "La précision de pointage effective de la plateforme doit être <= 0,004 deg.",
+      "req_type": "payload_perf",
+      "parameter": "pointing_accuracy_deg",
+      "operator": "<=",
+      "threshold": 0.004,
+      "goal": 0.002,
+      "unit": "deg",
+      "weight": 1.5
+    }
+  ],
+  "ground_stations": [
+    {
+      "id": "cebreros_sta",
+      "name": "Station ESA Cebreros / Madrid",
+      "latitude_deg": 40.45,
+      "longitude_deg": -4.36,
+      "altitude_m": 790.0,
+      "min_elevation_deg": 10.0,
+      "bands_supported": [
+        "S",
+        "X",
+        "Ka"
+      ],
+      "cost_per_pass_eur": 300.0,
+      "cost_per_minute_eur": 0.0
+    },
+    {
+      "id": "svalbard_cosmo",
+      "name": "Svalbard Polar Station",
+      "latitude_deg": 78.22,
+      "longitude_deg": 15.4,
+      "altitude_m": 450.0,
+      "min_elevation_deg": 5.0,
+      "bands_supported": [
+        "S",
+        "X",
+        "Ka"
+      ],
+      "cost_per_pass_eur": 250.0,
+      "cost_per_minute_eur": 0.0
+    }
+  ],
+  "target_zones": [],
+  "metadata": {}
+}

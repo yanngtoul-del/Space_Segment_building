@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "id": "EXAM-2026-DATARATE",
+  "title": "Mission TeraRelay — Établissement d'une Liaison Spatiale Très Haut Débit (≥ 25 Gbit/s)",
+  "context": "Pour désengorger les liaisons radio-fréquence saturées et rapatrier en temps quasi-réel des téraoctets de données issues de satellites d'observation ou de centres isolés, l'opérateur souhaite déployer un nœud orbital capable d'établir une liaison optique directe vers le sol à au moins 25 Gbit/s.",
+  "mission_type": "telecom_opt",
+  "max_budget_meur": 15.0,
+  "target_lifetime_years": 6.0,
+  "client_agency": "Opérateur Européen de Dorsale Spatiale Souveraine",
+  "domain_label": "Télécommunications Spatiales — Établir un très haut débit de données optique",
+  "primary_objective": "Établir une liaison descendante laser à 1550 nm délivrant un débit effectif supérieur ou égal à 25 Gbit/s (objectif 100 Gbit/s) vers des stations sol optiques de 80 cm de diamètre, avec une marge de liaison d'au moins 6,0 dB en ciel clair et une précision de pointage plateforme <= 0,008° pour assurer l'acquisition rapide du faisceau.",
+  "secondary_objectives": [
+    "Minimiser le coût du segment spatial (plafond strict de 15,0 M€) pour permettre le déploiement futur d'une constellation.",
+    "Embarquer optionnellement un transpondeur RF bande X/Ka de secours pour la continuité de service par temps couvert."
+  ],
+  "scientific_or_operational_need": "Les capteurs modernes génèrent plusieurs gigabits par seconde alors que les passages au-dessus d'une station sol en orbite basse ne durent que 6 à 10 minutes. Établir un débit de 25 Gbit/s permet de transférer plus de 1,5 téraoctet de données utiles en un seul passage de 8 minutes.",
+  "orbit_constraints_description": "Orbite basse entre 500 km et 750 km d'altitude. Une altitude trop élevée dégrade le bilan de liaison en 1/R², tandis qu'une altitude trop basse raccourcit la durée de visibilité géométrique des stations optiques.",
+  "conops_guidance": "Pointage grossier du satellite vers la station sol optique, acquisition du phare montant (beacon) par le miroir de pointage fin (PAT) du terminal laser, verrouillage en boucle fermée (< 1,5 µrad) et vidage à très haut débit de la mémoire de masse.",
+  "deliverables_expected": [
+    "Calculer le volume total de données (en Go ou To) transférable lors d'un passage de 6 minutes au débit retenu.",
+    "Démontrer la fermeture du bilan de liaison optique (puissance laser, diamètre télescope, pertes de pointage, marge >= 6 dB).",
+    "Discuter la sensibilité aux nuages et l'intérêt de la diversité géographique des stations optiques (Calern, Tenerife, Athènes)."
+  ],
+  "allowed_suppliers": [],
+  "min_trl": 8,
+  "requirements": [
+    {
+      "id": "REQ-DATA-RATE-01",
+      "title": "Débit de données optique atteignable",
+      "description": "Le débit de données effectif sur la liaison LEO-sol doit être >= 25,0 Gbit/s.",
+      "req_type": "payload_perf",
+      "parameter": "achievable_data_rate_gbps",
+      "operator": ">=",
+      "threshold": 25.0,
+      "goal": 100.0,
+      "unit": "Gbps",
+      "weight": 2.0
+    },
+    {
+      "id": "REQ-LINK-MARGIN-01",
+      "title": "Marge de bilan de liaison optique",
+      "description": "La marge du lien optique à 1550 nm doit être >= 6,0 dB.",
+      "req_type": "payload_perf",
+      "parameter": "margin_db",
+      "operator": ">=",
+      "threshold": 6.0,
+      "goal": 10.0,
+      "unit": "dB",
+      "weight": 1.0
+    },
+    {
+      "id": "REQ-POINTING-LASER",
+      "title": "Précision de pointage plateforme pour acquisition",
+      "description": "La précision de pointage plateforme doit être <= 0,008 deg.",
+      "req_type": "payload_perf",
+      "parameter": "pointing_accuracy_deg",
+      "operator": "<=",
+      "threshold": 0.008,
+      "goal": 0.005,
+      "unit": "deg",
+      "weight": 1.0
+    }
+  ],
+  "ground_stations": [
+    {
+      "id": "ogs_tenerife",
+      "name": "ESA Optical Ground Station Tenerife",
+      "latitude_deg": 28.3,
+      "longitude_deg": -16.51,
+      "altitude_m": 2390.0,
+      "min_elevation_deg": 15.0,
+      "bands_supported": [
+        "Optical",
+        "S"
+      ],
+      "cost_per_pass_eur": 350.0,
+      "cost_per_minute_eur": 0.0
+    },
+    {
+      "id": "ogs_calern",
+      "name": "Station Optique du Plateau de Calern (OCA)",
+      "latitude_deg": 43.75,
+      "longitude_deg": 6.92,
+      "altitude_m": 1270.0,
+      "min_elevation_deg": 15.0,
+      "bands_supported": [
+        "Optical",
+        "S"
+      ],
+      "cost_per_pass_eur": 350.0,
+      "cost_per_minute_eur": 0.0
+    },
+    {
+      "id": "ogs_helmos",
+      "name": "Helmos Optical Ground Station (Grèce)",
+      "latitude_deg": 37.98,
+      "longitude_deg": 22.2,
+      "altitude_m": 2340.0,
+      "min_elevation_deg": 15.0,
+      "bands_supported": [
+        "Optical"
+      ],
+      "cost_per_pass_eur": 320.0,
+      "cost_per_minute_eur": 0.0
+    }
+  ],
+  "target_zones": [],
+  "metadata": {}
+}
