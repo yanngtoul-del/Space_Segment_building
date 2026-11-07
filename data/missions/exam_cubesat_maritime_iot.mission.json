@@ -2,23 +2,21 @@
   "schema_version": "1.0.0",
   "id": "EXAM-2026-CUBESAT-RF",
   "title": "Mission NanoSentinel — CubeSat Bas-Coût de Collecte IoT/AIS & Imagerie Côtière",
-  "context": "Un consortium universitaire et portuaire dispose d'un budget strictement plafonné à 1,60 M€ (lancement compris) pour démontrer en orbite un service de collecte de données maritimes/IoT par radio-fréquence, éventuellement complété par une nano-caméra côtière.",
+  "context": "Un consortium universitaire dispose d'un budget strictement plafonné à 1,60 M€ pour déployer un nanosatellite CubeSat dédié à la collecte de données maritimes.",
   "mission_type": "telecom_radio",
   "max_budget_meur": 1.6,
   "target_lifetime_years": 2.5,
   "client_agency": "Pôle Universitaire & Maritime NewSpace",
-  "domain_label": "Nanosatellite Bas-Coût — Établir un service de collecte de données RF sous très faible budget",
-  "primary_objective": "Établir une liaison descendante radio-fréquence d'au moins 15 Mbit/s avec une marge de liaison >= 3,0 dB depuis un nanosatellite (CubeSat 6U, 12U ou 16U) lancé en déployeur partagé, sans dépasser l'enveloppe budgétaire totale de 1,60 M€.",
+  "domain_label": "Nanosatellite Bas-Coût — Collecte de données RF sous budget strict",
+  "primary_objective": "Établir une liaison descendante RF d'au moins 15 Mbit/s avec une marge >= 3,0 dB sous 1,60 M€.",
   "secondary_objectives": [
-    "Ajouter une seconde charge utile (ex. caméra optique 6 cm) si la plateforme CubeSat et le budget le permettent.",
-    "Maintenir une masse au lancement compatible avec le service de déployeur CubeSat (<= 32 kg)."
+    "Contenir la masse dans un déployeur CubeSat <= 32 kg."
   ],
-  "scientific_or_operational_need": "Ce sujet met l'accent sur l'ingénierie NewSpace sous forte contrainte de coût : l'étudiant doit éviter tout sur-dimensionnement (plateformes de 50 kg ou lanceurs dédiés hors budget) et sélectionner uniquement les équipements strictement nécessaires.",
-  "orbit_constraints_description": "Orbite héliosynchrone de covoiturage standard entre 500 km et 550 km d'altitude, imposée par le vol partagé.",
-  "conops_guidance": "Réception permanente des balises AIS/IoT à faible consommation, vidage en bande S lors des passages sur la station universitaire.",
+  "scientific_or_operational_need": "Ingénierie spatiale sous forte contrainte de coût.",
+  "orbit_constraints_description": "Orbite héliosynchrone standard 500–550 km en covoiturage.",
+  "conops_guidance": "Collecte permanente et vidage lors des passages station.",
   "deliverables_expected": [
-    "Démontrer le respect strict du plafond de 1,60 M€ (arbitrage 6U vs 12U vs 16U et choix du lanceur déployeur).",
-    "Vérifier le bilan de masse, de volume (en U/litres) et de puissance du CubeSat."
+    "Démontrer le respect du plafond de 1,60 M€."
   ],
   "allowed_suppliers": [],
   "min_trl": 8,
@@ -26,7 +24,7 @@
     {
       "id": "REQ-RF-RATE-01",
       "title": "Débit de données RF descendant",
-      "description": "Le débit maximal de la charge utile RF doit être >= 15,0 Mbit/s.",
+      "description": "Le débit maximal RF doit être >= 15,0 Mbit/s.",
       "req_type": "payload_perf",
       "parameter": "max_data_rate_mbps",
       "operator": ">=",
@@ -38,7 +36,7 @@
     {
       "id": "REQ-RF-MARGIN-01",
       "title": "Marge du bilan de liaison RF",
-      "description": "La marge Eb/N0 sur la liaison descendante doit être >= 3,0 dB.",
+      "description": "La marge Eb/N0 doit être >= 3,0 dB.",
       "req_type": "payload_perf",
       "parameter": "link_margin_db",
       "operator": ">=",
@@ -51,7 +49,7 @@
   "ground_stations": [
     {
       "id": "sta_brest",
-      "name": "Station Universitaire Maritime de Brest",
+      "name": "Station Universitaire de Brest",
       "latitude_deg": 48.39,
       "longitude_deg": -4.49,
       "altitude_m": 50.0,
@@ -65,26 +63,6 @@
       "cost_per_minute_eur": 0.0
     }
   ],
-  "target_zones": [
-    {
-      "id": "zone_atlantic",
-      "name": "Façade Atlantique & Manche",
-      "points_lat_lon": [
-        [
-          43.0,
-          -10.0
-        ],
-        [
-          50.0,
-          -5.0
-        ],
-        [
-          51.0,
-          2.0
-        ]
-      ],
-      "priority": 1
-    }
-  ],
+  "target_zones": [],
   "metadata": {}
 }

@@ -1,0 +1,143 @@
+{
+  "schema_version": "1.0.0",
+  "id": "EXAM-2026-EO-HIGHPERF",
+  "title": "Mission Iris-Vanguard — Imagerie Optique Sub-Métrique Très Haute Performance",
+  "context": "La DGOSS requiert une capacité d'imagerie optique d'élite pour la reconnaissance tactique, la sécurité des frontières et le renseignement stratégique. Le satellite doit fournir des détails d'identification d'une extrême précision (GSD <= 0,40 m) avec un diamètre d'ouverture d'au moins 0,70 m.",
+  "mission_type": "optical_eo",
+  "max_budget_meur": 35.0,
+  "target_lifetime_years": 7.0,
+  "client_agency": "Délégation Générale à l'Observation Spatiale Souveraine (DGOSS)",
+  "domain_label": "Observation de la Terre — Imagerie optique sub-métrique de très haute performance",
+  "primary_objective": "Délivrer des scènes optiques panchromatiques avec une résolution spatiale au nadir (GSD) <= 0,40 m (objectif 0,35 m), un miroir primaire d'ouverture >= 0,70 m, un rapport SNR >= 60 et une plateforme ultra-stable offrant une précision de pointage <= 0,004° avec contrôle de ligne de visée agile.",
+  "secondary_objectives": [
+    "Maintenir une durée de vie opérationnelle garantie d'au moins 7 ans en orbite basse.",
+    "Intégrer une mémoire de masse d'au moins 1 To à 2 To pour absorber les acquisitions multiples par orbite.",
+    "Garantir le respect de l'enveloppe budgétaire stricte de 35,0 M€ (lancement et plateforme inclus)."
+  ],
+  "scientific_or_operational_need": "La distinction d'équipements tactiques fins, de marquages au sol et de détails d'infrastructures sensibles nécessite de descendre sous la barre des 40 cm de résolution avec une dynamique radiométrique élevée.",
+  "orbit_constraints_description": "Orbite basse héliosynchrone (SSO) entre 450 km et 520 km (LTAN 10h30 ou 13h30) pour combiner résolution optimale, fauchée utile et éclairement sous angle d'élévation solaire favorable.",
+  "conops_guidance": "Prises de vue agiles le long de la trace ou en dépointage latéral rapide (pitch/roll). Vidage haute cadence en bande Ka ou lien optique vers les stations polaires (Svalbard/Kiruna).",
+  "deliverables_expected": [
+    "Justifier le choix du grand instrument optique (diamètre >= 0,70 m) et le respect de la limite GSD <= 0,40 m.",
+    "Valider le couplage avec une plateforme lourde et son pack ADCS garantissant un pointage <= 0,004°.",
+    "Établir le bilan de masse au lancement et sélectionner le lanceur adéquat (rideshare lourd ou lanceur dédié)."
+  ],
+  "allowed_suppliers": [],
+  "min_trl": 8,
+  "requirements": [
+    {
+      "id": "REQ-HP-GSD",
+      "title": "Résolution spatiale au nadir (GSD)",
+      "description": "Le GSD panchromatique au nadir doit être <= 0,40 m.",
+      "req_type": "payload_perf",
+      "parameter": "gsd_nadir_m",
+      "operator": "<=",
+      "threshold": 0.4,
+      "goal": 0.35,
+      "unit": "m",
+      "weight": 2.0
+    },
+    {
+      "id": "REQ-HP-APERTURE",
+      "title": "Diamètre d'ouverture du télescope",
+      "description": "Le diamètre du miroir primaire doit être >= 0,70 m.",
+      "req_type": "payload_perf",
+      "parameter": "aperture_diameter_m",
+      "operator": ">=",
+      "threshold": 0.7,
+      "goal": 0.8,
+      "unit": "m",
+      "weight": 1.5
+    },
+    {
+      "id": "REQ-HP-POINTING",
+      "title": "Précision de pointage plateforme",
+      "description": "La précision de pointage effective doit être <= 0,004 deg pour éviter tout flou dynamique.",
+      "req_type": "payload_perf",
+      "parameter": "pointing_accuracy_deg",
+      "operator": "<=",
+      "threshold": 0.004,
+      "goal": 0.002,
+      "unit": "deg",
+      "weight": 1.5
+    },
+    {
+      "id": "REQ-HP-SNR",
+      "title": "Rapport signal sur bruit (SNR)",
+      "description": "Le SNR radiométrique au nadir doit être >= 40.",
+      "req_type": "payload_perf",
+      "parameter": "snr_nadir_estimate",
+      "operator": ">=",
+      "threshold": 40.0,
+      "goal": 60.0,
+      "unit": "",
+      "weight": 1.0
+    },
+    {
+      "id": "REQ-HP-LIFETIME",
+      "title": "Durée de vie nominale de la plateforme",
+      "description": "La durée de vie certifiée de la plateforme doit être >= 7,0 ans.",
+      "req_type": "lifetime",
+      "parameter": "design_lifetime_years",
+      "operator": ">=",
+      "threshold": 7.0,
+      "goal": 10.0,
+      "unit": "yr",
+      "weight": 1.0
+    }
+  ],
+  "ground_stations": [
+    {
+      "id": "svalbard_hp",
+      "name": "Svalbard Satellite Station (KSAT)",
+      "latitude_deg": 78.22,
+      "longitude_deg": 15.4,
+      "altitude_m": 450.0,
+      "min_elevation_deg": 5.0,
+      "bands_supported": [
+        "S",
+        "X",
+        "Ka"
+      ],
+      "cost_per_pass_eur": 260.0,
+      "cost_per_minute_eur": 0.0
+    },
+    {
+      "id": "toulouse_hp",
+      "name": "Station Spatiale de Toulouse",
+      "latitude_deg": 43.6,
+      "longitude_deg": 1.44,
+      "altitude_m": 150.0,
+      "min_elevation_deg": 10.0,
+      "bands_supported": [
+        "S",
+        "X",
+        "Ka"
+      ],
+      "cost_per_pass_eur": 190.0,
+      "cost_per_minute_eur": 0.0
+    }
+  ],
+  "target_zones": [
+    {
+      "id": "zone_strategic_eu",
+      "name": "Détroits et corridors maritimes européens",
+      "points_lat_lon": [
+        [
+          35.0,
+          -6.0
+        ],
+        [
+          37.0,
+          15.0
+        ],
+        [
+          45.0,
+          30.0
+        ]
+      ],
+      "priority": 1
+    }
+  ],
+  "metadata": {}
+}

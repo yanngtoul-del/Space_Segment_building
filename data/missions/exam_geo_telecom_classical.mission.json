@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0.0",
+  "id": "EXAM-2026-GEO-COMMS",
+  "title": "Mission EuroCom-GEO — Télécommunications Régionales en Orbite Géostationnaire",
+  "context": "Pour assurer la connectivité souveraine et la diffusion audiovisuelle et de données sécurisées 24h/24 sans interruption au-dessus de l'Europe et du bassin méditerranéen, l'opérateur lance le dimensionnement d'un satellite géostationnaire (GEO, altitude 35 786 km, inclinaison 0,0°).",
+  "mission_type": "telecom_radio",
+  "max_budget_meur": 55.0,
+  "target_lifetime_years": 12.0,
+  "client_agency": "Opérateur Européen de Télécommunications par Satellite (EUTELSAT/ESA)",
+  "domain_label": "Télécommunications Spatiales — Orbite géostationnaire (GEO), répéteurs Ku/Ka et couverture permanente",
+  "primary_objective": "Fournir un débit descendant utile d'au moins 600,0 Mbit/s (objectif 1 800 Mbit/s) sur antenne sol de 4,5 m avec une marge de liaison Eb/N0 >= 3,5 dB en bande Ku/Ka, une durée de vie garantie de la plateforme d'au moins 12 ans (objectif 15 ans) et une précision de maintien à poste et pointage <= 0,05°.",
+  "secondary_objectives": [
+    "Assurer une visibilité permanente 24h/24 sans interruption d'élévation sur les stations européennes.",
+    "Maintenir le coût complet (plateforme GEO + charge utile répéteur + lancement GTO/GEO) sous 55,0 M€.",
+    "Garantir la tenue aux radiations de l'orbite géostationnaire (blindage 100 krad)."
+  ],
+  "scientific_or_operational_need": "Contrairement aux constellations LEO dont les satellites défilent à grande vitesse, l'orbite géostationnaire permet à une antenne sol fixe de pointer en continu le même relais spatial, offrant une disponibilité de service de 99,99 % pour les liaisons gouvernementales critiques et les faisceaux de diffusion.",
+  "orbit_constraints_description": "Orbite géostationnaire (GEO) : altitude exacte 35 786 km, inclinaison 0,0°, période de révolution 24h00. Injection via transfert géostationnaire (GTO) ou injection directe GEO.",
+  "conops_guidance": "Fonctionnement permanent des répéteurs RF (100 % du temps d'orbite, y compris durant les courtes éclipses d'équinoxe grâce au parc de batteries lithium-ion). Maintien à poste fin Nord-Sud et Est-Ouest par propulsion électrique ou chimique.",
+  "deliverables_expected": [
+    "Démontrer la conformité de l'orbite GEO (35 786 km, 0°) et la couverture permanente 24/7 sur les stations sol.",
+    "Établir le bilan de liaison RF à 35 786 km (puissance RF, gain d'antenne satellite, station sol 4,5 m, marge Eb/N0 >= 3,5 dB).",
+    "Justifier le choix de la plateforme GEO (durée de vie >= 12 ans, puissance continue > 2 000 W) et du lanceur GTO."
+  ],
+  "allowed_suppliers": [],
+  "min_trl": 8,
+  "requirements": [
+    {
+      "id": "REQ-GEO-DATARATE",
+      "title": "Débit de données RF descendant total",
+      "description": "Le débit RF descendant de la charge utile de télécommunications doit être >= 600,0 Mbit/s.",
+      "req_type": "payload_perf",
+      "parameter": "max_data_rate_mbps",
+      "operator": ">=",
+      "threshold": 600.0,
+      "goal": 1800.0,
+      "unit": "Mbps",
+      "weight": 2.0
+    },
+    {
+      "id": "REQ-GEO-MARGIN",
+      "title": "Marge du bilan de liaison RF (Eb/N0)",
+      "description": "La marge Eb/N0 sur la liaison descendante vers station 4,5 m doit être >= 3,5 dB.",
+      "req_type": "payload_perf",
+      "parameter": "link_margin_db",
+      "operator": ">=",
+      "threshold": 3.5,
+      "goal": 6.0,
+      "unit": "dB",
+      "weight": 1.5
+    },
+    {
+      "id": "REQ-GEO-LIFETIME",
+      "title": "Durée de vie nominale de la plateforme",
+      "description": "La durée de vie certifiée de la plateforme géostationnaire doit être >= 12,0 ans.",
+      "req_type": "lifetime",
+      "parameter": "design_lifetime_years",
+      "operator": ">=",
+      "threshold": 12.0,
+      "goal": 15.0,
+      "unit": "yr",
+      "weight": 1.5
+    },
+    {
+      "id": "REQ-GEO-POINTING",
+      "title": "Précision de pointage antenne plateforme",
+      "description": "La précision de pointage de la plateforme doit être <= 0,05 deg pour maintenir le faisceau sol.",
+      "req_type": "payload_perf",
+      "parameter": "pointing_accuracy_deg",
+      "operator": "<=",
+      "threshold": 0.05,
+      "goal": 0.02,
+      "unit": "deg",
+      "weight": 1.0
+    }
+  ],
+  "ground_stations": [
+    {
+      "id": "sta_fucino_geo",
+      "name": "Téléport Spatial de Fucino (Italie)",
+      "latitude_deg": 41.97,
+      "longitude_deg": 13.6,
+      "altitude_m": 650.0,
+      "min_elevation_deg": 10.0,
+      "bands_supported": [
+        "C",
+        "Ku",
+        "Ka"
+      ],
+      "cost_per_pass_eur": 180.0,
+      "cost_per_minute_eur": 0.0
+    },
+    {
+      "id": "sta_rambouillet_geo",
+      "name": "Téléport de Rambouillet (Eutelsat)",
+      "latitude_deg": 48.64,
+      "longitude_deg": 1.83,
+      "altitude_m": 160.0,
+      "min_elevation_deg": 10.0,
+      "bands_supported": [
+        "Ku",
+        "Ka"
+      ],
+      "cost_per_pass_eur": 180.0,
+      "cost_per_minute_eur": 0.0
+    }
+  ],
+  "target_zones": [
+    {
+      "id": "zone_euro_med",
+      "name": "Couverture Européenne & Bassin Méditerranéen",
+      "points_lat_lon": [
+        [
+          34.0,
+          -10.0
+        ],
+        [
+          60.0,
+          5.0
+        ],
+        [
+          36.0,
+          35.0
+        ]
+      ],
+      "priority": 1
+    }
+  ],
+  "metadata": {}
+}

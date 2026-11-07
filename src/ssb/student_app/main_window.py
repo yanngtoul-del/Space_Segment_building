@@ -137,15 +137,22 @@ class StudentMainWindow(QMainWindow):
 
     def _current_orbit(self) -> OrbitDefinition:
         alt = self.spin_altitude.value()
-        if self.combo_orbit_type.currentIndex() == 0:
+        idx = self.combo_orbit_type.currentIndex()
+        if idx == 0:
             try:
                 inc = OrbitDefinition.compute_sso_inclination(alt)
             except Exception:
                 inc = 97.4
             otype = OrbitType.SSO
-        else:
+        elif idx == 1:
             inc = self.spin_inclination.value()
             otype = OrbitType.CIRCULAR
+        elif idx == 2:
+            inc = self.spin_inclination.value()
+            otype = OrbitType.MEO
+        else:
+            inc = 0.0
+            otype = OrbitType.GEO
         return OrbitDefinition(orbit_type=otype, altitude_km=alt, inclination_deg=inc)
 
     def _setup_ui(self) -> None:
@@ -280,13 +287,18 @@ class StudentMainWindow(QMainWindow):
         form = QFormLayout(grp)
 
         self.combo_orbit_type = QComboBox()
-        self.combo_orbit_type.addItems(["SSO — Héliosynchrone (inclinaison calculée via J2)", "Orbite circulaire à inclinaison libre"])
-        self.combo_orbit_type.currentIndexChanged.connect(self._on_orbit_changed)
+        self.combo_orbit_type.addItems([
+            "SSO — Héliosynchrone (inclinaison calculée via J2, LEO)",
+            "LEO — Circulaire à inclinaison libre (200 – 2 000 km)",
+            "MEO — Constellation / Moyenne orbite (8 000 – 24 000 km)",
+            "GEO — Orbite Géostationnaire (35 786 km, 0.0°, 24h00)",
+        ])
+        self.combo_orbit_type.currentIndexChanged.connect(self._on_orbit_type_changed)
         form.addRow("Type d'orbite :", self.combo_orbit_type)
 
         self.spin_altitude = QDoubleSpinBox()
-        self.spin_altitude.setRange(250.0, 1800.0)
-        self.spin_altitude.setSingleStep(25.0)
+        self.spin_altitude.setRange(150.0, 42000.0)
+        self.spin_altitude.setSingleStep(50.0)
         self.spin_altitude.setValue(500.0)
         self.spin_altitude.setSuffix(" km")
         self.spin_altitude.valueChanged.connect(self._on_orbit_changed)
@@ -313,11 +325,39 @@ class StudentMainWindow(QMainWindow):
         l.addStretch(1)
         self.tabs.addTab(tab, "2. Orbite")
 
+    def _on_orbit_type_changed(self, idx: int) -> None:
+        self.spin_altitude.blockSignals(True)
+        self.spin_inclination.blockSignals(True)
+        if idx == 0:  # SSO
+            self.spin_altitude.setEnabled(True)
+            if self.spin_altitude.value() > 1800.0:
+                self.spin_altitude.setValue(500.0)
+            self.spin_inclination.setEnabled(False)
+        elif idx == 1:  # LEO libre
+            self.spin_altitude.setEnabled(True)
+            if self.spin_altitude.value() > 2000.0:
+                self.spin_altitude.setValue(500.0)
+            self.spin_inclination.setEnabled(True)
+        elif idx == 2:  # MEO
+            self.spin_altitude.setEnabled(True)
+            if self.spin_altitude.value() < 2000.0 or self.spin_altitude.value() > 32000.0:
+                self.spin_altitude.setValue(23222.0)
+            self.spin_inclination.setEnabled(True)
+            if self.spin_inclination.value() < 5.0 or self.spin_inclination.value() > 90.0:
+                self.spin_inclination.setValue(56.0)
+        elif idx == 3:  # GEO
+            self.spin_altitude.setValue(35786.0)
+            self.spin_altitude.setEnabled(False)
+            self.spin_inclination.setValue(0.0)
+            self.spin_inclination.setEnabled(False)
+        self.spin_altitude.blockSignals(False)
+        self.spin_inclination.blockSignals(False)
+        self._on_orbit_changed()
+
     def _on_orbit_changed(self) -> None:
         alt = self.spin_altitude.value()
-        is_sso = self.combo_orbit_type.currentIndex() == 0
-        self.spin_inclination.setEnabled(not is_sso)
-        if is_sso:
+        idx = self.combo_orbit_type.currentIndex()
+        if idx == 0:
             try:
                 inc = OrbitDefinition.compute_sso_inclination(alt)
                 self.spin_inclination.blockSignals(True)
@@ -326,13 +366,17 @@ class StudentMainWindow(QMainWindow):
                 self.lbl_inclination.setText(f"{inc:.2f} ° (calculée automatiquement pour précession SSO J2)")
             except Exception:
                 self.lbl_inclination.setText("Orbite SSO impossible à cette altitude")
+        elif idx == 3:
+            self.lbl_inclination.setText("0.00 ° (GEO exacte, période = 24h00, 1 orbite/jour)")
+        elif idx == 2:
+            self.lbl_inclination.setText(f"{self.spin_inclination.value():.2f} ° (MEO constellation)")
         else:
             self.lbl_inclination.setText(f"{self.spin_inclination.value():.2f} ° (inclinaison libre)")
 
         orb = self._current_orbit()
         self.lbl_orbit_details.setText(
             f"<b>Demi-grand axe :</b> {orb.semi_major_axis_km:.1f} km   |   "
-            f"<b>Période orbitale :</b> {orb.period_minutes:.1f} min ({orb.revolutions_per_day:.2f} orb/jour)<br>"
+            f"<b>Période orbitale :</b> {orb.period_minutes:.1f} min ({orb.period_hours:.2f} h, {orb.revolutions_per_day:.2f} orb/jour)<br>"
             "<i>Note : l'altitude influe directement sur la résolution au sol (GSD), la fauchée, le bilan de liaison RF/optique, "
             "le NESZ radar et la capacité du lanceur.</i>"
         )
@@ -443,6 +487,9 @@ class StudentMainWindow(QMainWindow):
             ("smallsat", "Microsatellites & SmallSats (50 à 500 kg)"),
             ("medium", "Plateformes moyennes (700 à 1500 kg)"),
             ("heavy", "Plateformes lourdes (3000 kg)"),
+            ("geo_compact", "SmallGEO compactes (500 à 900 kg)"),
+            ("geo_heavy", "GEO Télécom lourdes (1500 à 4500 kg)"),
+            ("meo_constellation", "MEO Constellations durcies"),
         ]
         self.browser_platforms = CatalogBrowser(
             catalog=self.catalog,
@@ -728,7 +775,15 @@ class StudentMainWindow(QMainWindow):
         self._populate_mission_view()
 
         orb = proj.configuration.orbit
-        self.combo_orbit_type.setCurrentIndex(0 if (orb.orbit_type == OrbitType.SSO) else 1)
+        if orb.orbit_type == OrbitType.SSO:
+            idx = 0
+        elif orb.orbit_type == OrbitType.MEO:
+            idx = 2
+        elif orb.orbit_type == OrbitType.GEO:
+            idx = 3
+        else:
+            idx = 1
+        self.combo_orbit_type.setCurrentIndex(idx)
         self.spin_altitude.setValue(orb.altitude_km)
         self.spin_inclination.setValue(orb.inclination_deg)
 

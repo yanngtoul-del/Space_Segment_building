@@ -2,25 +2,24 @@
   "schema_version": "1.0.0",
   "id": "EXAM-2026-EO-OPT",
   "title": "Mission Sentinel-Vision — Observation de la Terre Haute Résolution",
-  "context": "L'agence souhaite déployer un microsatellite d'observation optique sub-métrique en orbite héliosynchrone pour le suivi quotidien des infrastructures critiques, la cartographie urbaine fine et l'évaluation rapide des dommages après catastrophe naturelle.",
+  "context": "L'agence souhaite déployer un microsatellite d'observation optique sub-métrique en orbite héliosynchrone pour le suivi quotidien des infrastructures critiques et la cartographie urbaine fine.",
   "mission_type": "optical_eo",
   "max_budget_meur": 18.0,
   "target_lifetime_years": 5.0,
   "client_agency": "Agence Européenne d'Observation Civile & Sécurité (AEOCS)",
-  "domain_label": "Observation de la Terre — Imagerie optique sub-métrique",
-  "primary_objective": "Fournir des images optiques panchromatiques et multispectrales (VNIR) avec une résolution au sol au nadir inférieure ou égale à 1,0 m (objectif 0,80 m) et une fauchée d'au moins 10 km, tout en garantissant un rapport signal-sur-bruit supérieur à 55 (objectif 80) et le vidage quotidien d'au moins 25 scènes vers la station polaire de Svalbard.",
+  "domain_label": "Observation de la Terre — Imagerie optique métrique standard",
+  "primary_objective": "Fournir des images optiques panchromatiques et multispectrales avec une résolution au sol au nadir inférieure ou égale à 1,0 m (objectif 0,80 m) et une fauchée d'au moins 10 km, tout en garantissant un rapport signal-sur-bruit supérieur à 55 (objectif 80).",
   "secondary_objectives": [
-    "Permettre des prises de vue dépointées (agilité latérale) pour réduire le temps de revisite sur une zone d'intérêt européenne.",
+    "Permettre des prises de vue dépointées pour réduire le temps de revisite.",
     "Maintenir une marge de puissance moyenne d'au moins 15 % sur l'orbite héliosynchrone choisie.",
-    "Contenir le coût complet (plateforme + options + instrument + lancement) sous 18,0 M€."
+    "Contenir le coût complet sous 18,0 M€."
   ],
-  "scientific_or_operational_need": "Les services de protection civile et d'aménagement du territoire ont besoin d'une résolution sub-métrique pour distinguer les véhicules, l'état des ponts et des digues, ainsi que de bandes proche-infrarouge pour qualifier le stress hydrique péri-urbain. Le segment spatial doit être livrable en moins de 18 mois.",
-  "orbit_constraints_description": "Orbite basse héliosynchrone (SSO) recommandée entre 450 km et 600 km d'altitude (LTAN ~ 10h30) afin de concilier résolution géométrique (GSD proportionnel à l'altitude), éclairement solaire constant et durée de vie orbitale.",
-  "conops_guidance": "Acquisition sur les terres émergées éclairées (facteur de marche charge utile ~15–25 %), stockage dans la mémoire de masse embarquée, puis téléchargement haut débit en bande X ou par lien optique lors des passages à haute élévation sur la station de Svalbard. Gestion de la charge batterie pendant les ~35 minutes d'éclipse par orbite.",
+  "scientific_or_operational_need": "Les services de protection civile ont besoin d'une résolution métrique pour qualifier les dégâts matériels et suivre l'évolution des territoires.",
+  "orbit_constraints_description": "Orbite basse héliosynchrone (SSO) recommandée entre 450 km et 600 km d'altitude.",
+  "conops_guidance": "Acquisition sur les terres éclairées, stockage mémoire et vidage vers la station polaire de Svalbard.",
   "deliverables_expected": [
-    "Justifier le choix du couple (altitude orbitale, télescope) vis-à-vis du compromis résolution GSD / largeur de fauchée.",
-    "Justifier la sélection de la plateforme et du pack ADCS au regard de l'exigence de pointage de l'instrument.",
-    "Dimensionner la chaîne mémoire de masse + émetteur de télémesure charge utile pour écouler le débit généré."
+    "Justifier le choix du télescope et de l'altitude au regard de la résolution et de la fauchée.",
+    "Justifier la plateforme et l'ADCS choisi."
   ],
   "allowed_suppliers": [],
   "min_trl": 8,
@@ -52,7 +51,7 @@
     {
       "id": "REQ-SNR-01",
       "title": "Rapport signal sur bruit radiométrique (SNR)",
-      "description": "Le SNR au nadir sur cible d'albédo 0,3 doit être >= 55.",
+      "description": "Le SNR au nadir doit être >= 55.",
       "req_type": "payload_perf",
       "parameter": "snr_nadir_estimate",
       "operator": ">=",
@@ -77,42 +76,8 @@
       ],
       "cost_per_pass_eur": 240.0,
       "cost_per_minute_eur": 0.0
-    },
-    {
-      "id": "toulouse",
-      "name": "Station Réception Toulouse",
-      "latitude_deg": 43.6,
-      "longitude_deg": 1.44,
-      "altitude_m": 150.0,
-      "min_elevation_deg": 10.0,
-      "bands_supported": [
-        "S",
-        "X"
-      ],
-      "cost_per_pass_eur": 180.0,
-      "cost_per_minute_eur": 0.0
     }
   ],
-  "target_zones": [
-    {
-      "id": "zone_med",
-      "name": "Arc Méditerranéen & Europe de l'Ouest",
-      "points_lat_lon": [
-        [
-          36.0,
-          -5.0
-        ],
-        [
-          48.0,
-          2.0
-        ],
-        [
-          43.0,
-          15.0
-        ]
-      ],
-      "priority": 1
-    }
-  ],
+  "target_zones": [],
   "metadata": {}
 }

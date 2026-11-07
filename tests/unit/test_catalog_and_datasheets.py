@@ -225,6 +225,54 @@ def test_mission_specification_sheets_and_solutions():
                 launcher_id="ln_cubesat_deployer",
             ),
         ),
+        # 7. Light low-cost optical EO (budget 2.80 M€, GSD <= 3.5 m, swath >= 12 km, SNR >= 50)
+        (
+            "EXAM-2026-EO-LIGHT",
+            SystemConfiguration(
+                orbit=OrbitDefinition(altitude_km=500.0, inclination_deg=97.4),
+                platform_id="plat_aeromicro_12u",
+                selected_options=[
+                    SelectedOption(slot_function="ttc", equipment_id="ttc_uhf_cubesat"),
+                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_64gb"),
+                    SelectedOption(slot_function="adcs", equipment_id="adcs_cubesat_precision"),
+                ],
+                selected_payload_ids=["pl_opt_pan_compact"],
+                launcher_id="ln_cubesat_deployer",
+            ),
+        ),
+        # 8. High-performance sub-metric optical EO (budget 35 M€, GSD <= 0.40 m, aperture >= 0.70 m, pointing <= 0.004 deg, lifetime >= 7 yr)
+        (
+            "EXAM-2026-EO-HIGHPERF",
+            SystemConfiguration(
+                orbit=OrbitDefinition(altitude_km=500.0, inclination_deg=97.4),
+                platform_id="plat_astra_flex300",
+                selected_options=[
+                    SelectedOption(slot_function="propulsion", equipment_id="prop_green_5n"),
+                    SelectedOption(slot_function="ttc", equipment_id="ttc_sband_dual_redundant"),
+                    SelectedOption(slot_function="payload_downlink", equipment_id="downlink_xband_tx"),
+                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_1tb"),
+                    SelectedOption(slot_function="adcs", equipment_id="adcs_agile_wheels_medium"),
+                ],
+                selected_payload_ids=["pl_opt_helios_70cm"],
+                launcher_id="ln_espa_heavy_rideshare",
+            ),
+        ),
+        # 9. Classical GEO telecommunications (budget 55 M€, GEO 35,786 km, rate >= 600 Mbps, margin >= 3.5 dB, lifetime >= 12 yr)
+        (
+            "EXAM-2026-GEO-COMMS",
+            SystemConfiguration(
+                orbit=OrbitDefinition(altitude_km=35786.0, inclination_deg=0.0),
+                platform_id="plat_smallgeo_500",
+                selected_options=[
+                    SelectedOption(slot_function="propulsion", equipment_id="prop_electric_hall_1kw"),
+                    SelectedOption(slot_function="ttc", equipment_id="ttc_sband_transceiver"),
+                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_512gb"),
+                    SelectedOption(slot_function="adcs", equipment_id="adcs_high_accuracy_pack"),
+                ],
+                selected_payload_ids=["pl_rf_smallgeo_ku_relay"],
+                launcher_id="ln_gto_rideshare",
+            ),
+        ),
     ]
 
     for mid, cfg in solutions:

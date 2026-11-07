@@ -71,13 +71,34 @@ def launcher_capacity_for_orbit(ln: Launcher, orbit: OrbitDefinition) -> float:
     if not ln.capacities:
         return ln.max_total_mass_kg
     by_type = {c.orbit_type: c.max_payload_mass_kg for c in ln.capacities}
-    if orbit.orbit_type.value == "sso" or orbit.inclination_deg >= 95.0:
+
+    # GEO orbit
+    if orbit.is_geo or orbit.orbit_type.value == "geo" or orbit.altitude_km >= 30000.0:
+        if "geo" in by_type:
+            return by_type["geo"]
+        if "gto" in by_type:
+            return by_type["gto"]
+        return 0.0
+
+    # MEO orbit
+    if orbit.is_meo or orbit.orbit_type.value == "meo" or (2000.0 <= orbit.altitude_km < 30000.0):
+        if "meo" in by_type:
+            return by_type["meo"]
+        if "gto" in by_type:
+            return by_type["gto"]
+        if "sso_500km" in by_type:
+            return by_type["sso_500km"] * 0.4
+        return 0.0
+
+    # SSO LEO
+    if orbit.is_sso or orbit.orbit_type.value == "sso" or orbit.inclination_deg >= 95.0:
         if orbit.altitude_km <= 600.0 and "sso_500km" in by_type:
             return by_type["sso_500km"]
         if "sso_700km" in by_type:
             return by_type["sso_700km"]
         if "sso_500km" in by_type:
             return by_type["sso_500km"]
+
     if "leo_inclined" in by_type:
         return by_type["leo_inclined"]
     return ln.max_total_mass_kg
@@ -156,13 +177,14 @@ class SystemEvaluator:
             platform_capacity_kg=plat_base.max_payload_mass_kg,
         )
 
+        # Rule checks on Mass & Volume
         if pl_mass > plat_base.max_payload_mass_kg:
             rule_checks.append(
                 RuleCheckResult(
                     rule_id="RULE_MASS_PAYLOAD_MAX",
                     category="Mass",
                     status=CheckStatus.FAIL,
-                    message=f"Total payload mass ({pl_mass:.1f} kg) exceeds platform capability ({plat_base.max_payload_mass_kg:.1f} kg)",
+                    message=f"Payload mass ({pl_mass:.1f} kg) exceeds platform payload capacity ({plat_base.max_payload_mass_kg:.1f} kg)",
                     current_value=pl_mass,
                     target_value=plat_base.max_payload_mass_kg,
                     unit="kg",
@@ -184,10 +206,10 @@ class SystemEvaluator:
         if pl_vol > plat_base.payload_volume_liters:
             rule_checks.append(
                 RuleCheckResult(
-                    rule_id="RULE_VOLUME_PAYLOAD_MAX",
+                    rule_id="RULE_PLAT_PAYLOAD_VOL",
                     category="Volume",
                     status=CheckStatus.FAIL,
-                    message=f"Total payload volume ({pl_vol:.1f} L) exceeds platform bay ({plat_base.payload_volume_liters:.1f} L)",
+                    message=f"Payload volume ({pl_vol:.1f} L) exceeds platform volume ({plat_base.payload_volume_liters:.1f} L)",
                     current_value=pl_vol,
                     target_value=plat_base.payload_volume_liters,
                     unit="L",
@@ -196,7 +218,7 @@ class SystemEvaluator:
         else:
             rule_checks.append(
                 RuleCheckResult(
-                    rule_id="RULE_VOLUME_PAYLOAD_MAX",
+                    rule_id="RULE_PLAT_PAYLOAD_VOL",
                     category="Volume",
                     status=CheckStatus.PASS,
                     message=f"Payload volume ({pl_vol:.1f} L) within platform bay ({plat_base.payload_volume_liters:.1f} L)",
@@ -297,7 +319,19 @@ class SystemEvaluator:
                 ln.price_per_kg_meur * launch_mass_with_margin_kg
             )
             ln_cap = launcher_capacity_for_orbit(ln, config.orbit)
-            if launch_mass_with_margin_kg > ln_cap:
+            if ln_cap <= 0.0:
+                rule_checks.append(
+                    RuleCheckResult(
+                        rule_id="RULE_LAUNCHER_INCOMPATIBLE_ORBIT",
+                        category="Launcher",
+                        status=CheckStatus.FAIL,
+                        message=f"Launcher '{ln.name}' cannot reach orbit {config.orbit.orbit_type.value.upper()} ({config.orbit.altitude_km:.0f} km)",
+                        current_value=0.0,
+                        target_value=launch_mass_with_margin_kg,
+                        unit="kg",
+                    )
+                )
+            elif launch_mass_with_margin_kg > ln_cap:
                 rule_checks.append(
                     RuleCheckResult(
                         rule_id="RULE_LAUNCHER_CAPACITY",
@@ -397,6 +431,24 @@ class SystemEvaluator:
                         current_value=effective_pointing_accuracy_deg,
                         target_value=thresh,
                         unit="deg",
+                    )
+                )
+            elif req.parameter == "design_lifetime_years":
+                thresh = float(req.threshold)
+                pass_lt = (
+                    plat_base.design_lifetime_years >= thresh
+                    if req.operator == RequirementOperator.GE
+                    else plat_base.design_lifetime_years <= thresh
+                )
+                compliance_checks.append(
+                    RuleCheckResult(
+                        rule_id=req.id,
+                        category="Mission Requirement",
+                        status=CheckStatus.PASS if pass_lt else CheckStatus.FAIL,
+                        message=f"{req.title}: platform design lifetime = {plat_base.design_lifetime_years:.1f} yr (threshold: {thresh:.1f} yr)",
+                        current_value=plat_base.design_lifetime_years,
+                        target_value=thresh,
+                        unit="yr",
                     )
                 )
 

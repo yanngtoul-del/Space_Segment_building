@@ -1,33 +1,33 @@
 {
   "schema_version": "1.0.0",
   "id": "EXAM-2026-DATARATE",
-  "title": "Mission TeraRelay — Établissement d'une Liaison Spatiale Très Haut Débit (>= 25 Gbit/s)",
-  "context": "Pour désengorger les liaisons radio-fréquence saturées et rapatrier en temps quasi-réel des téraoctets de données issues de satellites d'observation ou de centres isolés, l'opérateur souhaite déployer un nœud orbital capable d'établir une liaison optique directe vers le sol à au moins 25 Gbit/s.",
+  "title": "Mission TeraRelay — Établissement d'une Liaison Optique Très Haut Débit (>= 25 Gbit/s)",
+  "context": "Pour désengorger les liaisons radio-fréquence saturées et rapatrier en temps quasi-réel des téraoctets de données issues de capteurs spatiaux, l'opérateur souhaite déployer un terminal laser capable d'établir une liaison directe vers le sol à un débit supérieur ou égal à 25 Gbit/s.",
   "mission_type": "telecom_opt",
   "max_budget_meur": 15.0,
   "target_lifetime_years": 6.0,
   "client_agency": "Opérateur Européen de Dorsale Spatiale Souveraine",
-  "domain_label": "Télécommunications Spatiales — Établir un très haut débit de données optique",
-  "primary_objective": "Établir une liaison descendante laser à 1550 nm délivrant un débit effectif supérieur ou égal à 25 Gbit/s (objectif 100 Gbit/s) vers des stations sol optiques de 80 cm de diamètre, avec une marge de liaison d'au moins 6,0 dB en ciel clair et une précision de pointage plateforme <= 0,008° pour assurer l'acquisition rapide du faisceau.",
+  "domain_label": "Télécommunications Spatiales — Établir un très haut débit de données laser optique",
+  "primary_objective": "Établir une liaison descendante laser à 1550 nm délivrant un débit effectif >= 25,0 Gbit/s vers des stations sol optiques de 80 cm, avec une marge de liaison d'au moins 6,0 dB en ciel clair et une précision de pointage plateforme inférieure ou égale à 0,008° pour garantir l'acquisition rapide du faisceau optique.",
   "secondary_objectives": [
-    "Minimiser le coût du segment spatial (plafond strict de 15,0 M€) pour permettre le déploiement futur d'une constellation.",
-    "Embarquer optionnellement un transpondeur RF bande X/Ka de secours pour la continuité de service par temps couvert."
+    "Respecter le plafond budgétaire de 15,0 M€ pour permettre la réplication en constellation.",
+    "Embarquer un pack de contrôle d'attitude de précision adapté aux exigences de pointage sub-microradian du terminal laser."
   ],
-  "scientific_or_operational_need": "Les capteurs modernes génèrent plusieurs gigabits par seconde alors que les passages au-dessus d'une station sol en orbite basse ne durent que 6 à 10 minutes. Établir un débit de 25 Gbit/s permet de transférer plus de 1,5 téraoctet de données utiles en un seul passage de 8 minutes.",
-  "orbit_constraints_description": "Orbite basse entre 500 km et 750 km d'altitude. Une altitude trop élevée dégrade le bilan de liaison en 1/R², tandis qu'une altitude trop basse raccourcit la durée de visibilité géométrique des stations optiques.",
-  "conops_guidance": "Pointage grossier du satellite vers la station sol optique, acquisition du phare montant (beacon) par le miroir de pointage fin (PAT) du terminal laser, verrouillage en boucle fermée (< 1,5 µrad) et vidage à très haut débit de la mémoire de masse.",
+  "scientific_or_operational_need": "Les constellations d'observation modernes génèrent des volumes massifs incompatibles avec les bandes RF étroites. Une liaison laser à 25 Gbit/s transfère plus de 1,1 To de données utiles lors d'un passage unique de 6 minutes.",
+  "orbit_constraints_description": "Orbite basse circulaire entre 500 km et 750 km d'altitude. L'altitude modérée réduit les pertes de propagation en 1/R².",
+  "conops_guidance": "Pointage grossier du satellite vers la station sol optique sélectionnée, détection du balisage montant (beacon), asservissement fin par le miroir rapide PAT et transmission plein débit de la mémoire de masse.",
   "deliverables_expected": [
-    "Calculer le volume total de données (en Go ou To) transférable lors d'un passage de 6 minutes au débit retenu.",
-    "Démontrer la fermeture du bilan de liaison optique (puissance laser, diamètre télescope, pertes de pointage, marge >= 6 dB).",
-    "Discuter la sensibilité aux nuages et l'intérêt de la diversité géographique des stations optiques (Calern, Tenerife, Athènes)."
+    "Calculer le volume de données transféré par passage à 25 Gbit/s.",
+    "Démontrer la fermeture du bilan de liaison optique (puissance émise, diamètres d'ouverture, marge >= 6,0 dB).",
+    "Justifier le choix de la plateforme et du pack ADCS associé."
   ],
   "allowed_suppliers": [],
   "min_trl": 8,
   "requirements": [
     {
       "id": "REQ-DATA-RATE-01",
-      "title": "Débit de données optique atteignable",
-      "description": "Le débit de données effectif sur la liaison LEO-sol doit être >= 25,0 Gbit/s.",
+      "title": "Débit de données optique effectif",
+      "description": "Le débit de données de la liaison descendante laser doit être >= 25,0 Gbit/s.",
       "req_type": "payload_perf",
       "parameter": "achievable_data_rate_gbps",
       "operator": ">=",
@@ -38,8 +38,8 @@
     },
     {
       "id": "REQ-LINK-MARGIN-01",
-      "title": "Marge de bilan de liaison optique",
-      "description": "La marge du lien optique à 1550 nm doit être >= 6,0 dB.",
+      "title": "Marge du bilan de liaison optique",
+      "description": "La marge du lien laser à 1550 nm doit être >= 6,0 dB.",
       "req_type": "payload_perf",
       "parameter": "margin_db",
       "operator": ">=",
@@ -88,19 +88,6 @@
         "S"
       ],
       "cost_per_pass_eur": 350.0,
-      "cost_per_minute_eur": 0.0
-    },
-    {
-      "id": "ogs_helmos",
-      "name": "Helmos Optical Ground Station (Grèce)",
-      "latitude_deg": 37.98,
-      "longitude_deg": 22.2,
-      "altitude_m": 2340.0,
-      "min_elevation_deg": 15.0,
-      "bands_supported": [
-        "Optical"
-      ],
-      "cost_per_pass_eur": 320.0,
       "cost_per_minute_eur": 0.0
     }
   ],

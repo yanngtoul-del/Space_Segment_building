@@ -88,6 +88,18 @@
         "max_payload_mass_kg": 1200.0,
         "fairing_diameter_m": 2.6,
         "fairing_height_m": 4.5
+      },
+      {
+        "orbit_type": "gto",
+        "max_payload_mass_kg": 600.0,
+        "fairing_diameter_m": 2.6,
+        "fairing_height_m": 4.5
+      },
+      {
+        "orbit_type": "meo",
+        "max_payload_mass_kg": 750.0,
+        "fairing_diameter_m": 2.6,
+        "fairing_height_m": 4.5
       }
     ],
     "image": "launcher_rocket.jpg",
@@ -121,6 +133,24 @@
       {
         "orbit_type": "sso_500km",
         "max_payload_mass_kg": 5000.0,
+        "fairing_diameter_m": 4.5,
+        "fairing_height_m": 8.0
+      },
+      {
+        "orbit_type": "gto",
+        "max_payload_mass_kg": 7200.0,
+        "fairing_diameter_m": 4.5,
+        "fairing_height_m": 8.0
+      },
+      {
+        "orbit_type": "geo",
+        "max_payload_mass_kg": 3500.0,
+        "fairing_diameter_m": 4.5,
+        "fairing_height_m": 8.0
+      },
+      {
+        "orbit_type": "meo",
+        "max_payload_mass_kg": 5200.0,
         "fairing_diameter_m": 4.5,
         "fairing_height_m": 8.0
       }
@@ -325,6 +355,59 @@
         "max_payload_mass_kg": 650.0,
         "fairing_diameter_m": 2.0,
         "fairing_height_m": 2.8
+      }
+    ]
+  },
+  {
+    "id": "ln_gto_rideshare",
+    "supplier_id": "launch_global",
+    "supplier_name": "Aether Launch Services",
+    "name": "OrbitalShare GTO (Commercial Co-passenger)",
+    "launcher_type": "rideshare",
+    "price_base_meur": 2.2,
+    "price_per_kg_meur": 0.014,
+    "max_total_mass_kg": 2500.0,
+    "lead_time_months": 15,
+    "trl": 9,
+    "flight_heritage": ">35 vols vers GTO",
+    "image": "launcher_rideshare.jpg",
+    "fairing_volume_m3": 25.0,
+    "description": "Lancement partagé vers l'orbite de transfert géostationnaire (GTO/GEO) ou MEO pour satellites commerciaux",
+    "long_description": "Service régulier de lancement en covoiturage vers l'orbite de transfert géostationnaire (GTO) sur lanceur lourd commercial. Permet d'injecter des satellites de classe 500 à 2500 kg (SmallGEO, constellations MEO) avec un coût fixe réduit (2,2 M€) et un coût au kilogramme de 14 k€/kg. Le satellite circularise ensuite son orbite à l'apogée par sa propre propulsion chimique ou électrique.",
+    "key_features": [
+      "Accès direct GTO / MEO en passager partagé",
+      "Capacité jusqu'à 2 500 kg en GTO",
+      "Coiffe grand volume (diamètre 3,8 m)",
+      "Coût très attractif pour satellites GEO/MEO"
+    ],
+    "interfaces": [
+      "Adaptateur standard 1194 mm ou 1666 mm",
+      "Enveloppe mécanique 3,8 x 4,5 m"
+    ],
+    "capacities": [
+      {
+        "orbit_type": "gto",
+        "max_payload_mass_kg": 2500.0,
+        "fairing_diameter_m": 3.8,
+        "fairing_height_m": 4.5
+      },
+      {
+        "orbit_type": "geo",
+        "max_payload_mass_kg": 1400.0,
+        "fairing_diameter_m": 3.8,
+        "fairing_height_m": 4.5
+      },
+      {
+        "orbit_type": "meo",
+        "max_payload_mass_kg": 1800.0,
+        "fairing_diameter_m": 3.8,
+        "fairing_height_m": 4.5
+      },
+      {
+        "orbit_type": "sso_500km",
+        "max_payload_mass_kg": 2500.0,
+        "fairing_diameter_m": 3.8,
+        "fairing_height_m": 4.5
       }
     ]
   }

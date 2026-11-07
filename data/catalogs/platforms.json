@@ -2096,5 +2096,345 @@
         "equipment_overrides": {}
       }
     ]
+  },
+  {
+    "id": "plat_smallgeo_500",
+    "supplier_id": "heritage_prime",
+    "supplier_name": "AeroPrime Defense & Space",
+    "name": "SmallGEO-Express Bus",
+    "category": "geo_smallgeo",
+    "description": "Plateforme géostationnaire compacte (580 kg sec, 15 ans) pour télécommunications régionales",
+    "dry_mass_kg": 580.0,
+    "max_payload_mass_kg": 280.0,
+    "max_launch_mass_kg": 1600.0,
+    "payload_volume_liters": 220.0,
+    "orbit_avg_power_w": 3800.0,
+    "payload_avg_power_w": 2100.0,
+    "payload_peak_power_w": 3400.0,
+    "bus_voltage_v": 50.0,
+    "battery_capacity_wh": 5200.0,
+    "battery_max_dod": 0.75,
+    "pointing_accuracy_deg": 0.03,
+    "pointing_stability_arcsec_s": 2.5,
+    "slew_rate_deg_s": 1.0,
+    "jitter_arcsec": 1.2,
+    "payload_thermal_dissipation_w": 1400.0,
+    "launch_environment_compatible": [
+      "gto_rideshare",
+      "ariane_fairing",
+      "falcon_fairing"
+    ],
+    "design_lifetime_years": 15.0,
+    "rad_tolerance_krad": 100.0,
+    "base_price_meur": 18.5,
+    "base_lead_time_months": 24,
+    "trl": 9,
+    "image": "platform_large.jpg",
+    "dimensions_mm": [
+      2200,
+      1600,
+      1500
+    ],
+    "deployed_span_m": 12.0,
+    "long_description": "Plateforme géostationnaire compacte (classe SmallGEO) conçue pour les missions de télécommunications commerciales régionales et les liaisons gouvernementales sécurisées. Elle intègre des générateurs solaires déployables de 3,8 kW, une avionique durcie aux ceintures de radiations (100 krad) et une durée de vie garantie de 15 ans en orbite géostationnaire. Compatible avec les lancements en passager partagé GTO.",
+    "key_features": [
+      "Conçue spécifiquement pour l'orbite GEO (15 ans, 100 krad)",
+      "Puissance utile charge utile : 2 100 W continus",
+      "Capacité charge utile 280 kg / 220 L",
+      "Maintien à poste N-S / E-W haute précision"
+    ],
+    "interfaces": [
+      "Bus régulé 50 V",
+      "SpaceWire / MIL-STD-1553B / SpaceFibre",
+      "Fixation lanceur adaptateur 1194 mm"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "allowed_equipment_ids": [
+          "prop_biprop_400n",
+          "prop_electric_hall_1kw",
+          "prop_green_5n"
+        ],
+        "included_equipment_ids": [
+          "prop_electric_hall_1kw"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.25,
+        "integration_cost_pct": 5.0,
+        "interface_mass_kg": 4.5
+      },
+      {
+        "function": "ttc",
+        "allowed_equipment_ids": [
+          "ttc_sband_transceiver"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_transceiver"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0
+      },
+      {
+        "function": "mass_memory",
+        "allowed_equipment_ids": [
+          "mass_mem_512gb",
+          "mass_mem_1tb",
+          "mass_mem_2tb_highrel"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_512gb"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.05,
+        "integration_cost_pct": 2.0,
+        "interface_mass_kg": 0.5
+      },
+      {
+        "function": "adcs",
+        "allowed_equipment_ids": [
+          "adcs_high_accuracy_pack",
+          "adcs_agile_wheels_medium"
+        ],
+        "included_equipment_ids": [
+          "adcs_high_accuracy_pack"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0
+      }
+    ]
+  },
+  {
+    "id": "plat_europrime_geo3000",
+    "supplier_id": "heritage_prime",
+    "supplier_name": "AeroPrime Defense & Space",
+    "name": "PrimeBus-GEO Heavy Telecom",
+    "category": "geo_heavy",
+    "description": "Plateforme géostationnaire lourde multi-faisceaux (1850 kg sec, 15 ans, 6,8 kW utile)",
+    "dry_mass_kg": 1850.0,
+    "max_payload_mass_kg": 750.0,
+    "max_launch_mass_kg": 4500.0,
+    "payload_volume_liters": 580.0,
+    "orbit_avg_power_w": 12500.0,
+    "payload_avg_power_w": 6800.0,
+    "payload_peak_power_w": 11000.0,
+    "bus_voltage_v": 100.0,
+    "battery_capacity_wh": 16000.0,
+    "battery_max_dod": 0.8,
+    "pointing_accuracy_deg": 0.02,
+    "pointing_stability_arcsec_s": 2.0,
+    "slew_rate_deg_s": 0.8,
+    "jitter_arcsec": 1.0,
+    "payload_thermal_dissipation_w": 4500.0,
+    "launch_environment_compatible": [
+      "ariane_heavy",
+      "falcon_heavy",
+      "gto_dedicated"
+    ],
+    "design_lifetime_years": 15.0,
+    "rad_tolerance_krad": 100.0,
+    "base_price_meur": 32.0,
+    "base_lead_time_months": 30,
+    "trl": 9,
+    "image": "platform_large.jpg",
+    "dimensions_mm": [
+      3800,
+      2600,
+      2400
+    ],
+    "deployed_span_m": 28.0,
+    "long_description": "Grand bus de télécommunications géostationnaires lourd (inspiré de Spacebus Neo et Eurostar Neo). Il héberge jusqu'à 750 kg de répéteurs Ku/Ka ou optiques de forte puissance (6,8 kW utiles) avec une durée de vie opérationnelle de 15 ans et une redondance complète sur tous les sous-systèmes.",
+    "key_features": [
+      "Puissance charge utile massive : 6 800 W en permanence",
+      "Capacité d'emport 750 kg / 580 L",
+      "Maintien à poste électrique ou bi-liquide",
+      "TRL 9 avec dizaines de missions en vol"
+    ],
+    "interfaces": [
+      "Bus haute tension 100 V régulé",
+      "SpaceFibre / SpaceWire redondés",
+      "Adaptateur 1666 mm"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "allowed_equipment_ids": [
+          "prop_electric_hall_1kw",
+          "prop_biprop_400n"
+        ],
+        "included_equipment_ids": [
+          "prop_electric_hall_1kw"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.4,
+        "integration_cost_pct": 5.0,
+        "interface_mass_kg": 6.0
+      },
+      {
+        "function": "ttc",
+        "allowed_equipment_ids": [
+          "ttc_sband_transceiver"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_transceiver"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0
+      },
+      {
+        "function": "mass_memory",
+        "allowed_equipment_ids": [
+          "mass_mem_1tb",
+          "mass_mem_2tb_highrel"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_2tb_highrel"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.05,
+        "integration_cost_pct": 2.0,
+        "interface_mass_kg": 0.5
+      },
+      {
+        "function": "adcs",
+        "allowed_equipment_ids": [
+          "adcs_high_accuracy_pack",
+          "adcs_cmg_agility_pack"
+        ],
+        "included_equipment_ids": [
+          "adcs_high_accuracy_pack"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0
+      }
+    ]
+  },
+  {
+    "id": "plat_meo_constellation_700",
+    "supplier_id": "heritage_aero",
+    "supplier_name": "Astra Space Systems",
+    "name": "AstraMEO-700 Constellation Bus",
+    "category": "meo_constellation",
+    "description": "Plateforme MEO durcie aux radiations (390 kg sec, 12 ans, 100 krad) pour constellations de connectivité",
+    "dry_mass_kg": 390.0,
+    "max_payload_mass_kg": 220.0,
+    "max_launch_mass_kg": 920.0,
+    "payload_volume_liters": 150.0,
+    "orbit_avg_power_w": 2800.0,
+    "payload_avg_power_w": 1300.0,
+    "payload_peak_power_w": 2200.0,
+    "bus_voltage_v": 50.0,
+    "battery_capacity_wh": 3400.0,
+    "battery_max_dod": 0.65,
+    "pointing_accuracy_deg": 0.025,
+    "pointing_stability_arcsec_s": 2.5,
+    "slew_rate_deg_s": 1.5,
+    "jitter_arcsec": 1.2,
+    "payload_thermal_dissipation_w": 850.0,
+    "launch_environment_compatible": [
+      "gto_rideshare",
+      "falcon_fairing",
+      "ariane_fairing"
+    ],
+    "design_lifetime_years": 12.0,
+    "rad_tolerance_krad": 100.0,
+    "base_price_meur": 12.8,
+    "base_lead_time_months": 18,
+    "trl": 9,
+    "image": "platform_medium.jpg",
+    "dimensions_mm": [
+      2000,
+      1400,
+      1300
+    ],
+    "deployed_span_m": 8.5,
+    "long_description": "Plateforme MEO durcie aux flux intenses de protons et d'électrons des ceintures de Van Allen (8 000 à 23 000 km d'altitude). Elle convient aux satellites de navigation (type Galileo) et aux constellations de données très bas temps de latence (type O3b mPOWER).",
+    "key_features": [
+      "Blindage radiatif renforcé (100 krad)",
+      "Orbite MEO 8 000 à 23 200 km",
+      "1 300 W utiles charge utile",
+      "Durée de vie garantie 12 ans"
+    ],
+    "interfaces": [
+      "Bus régulé 50 V",
+      "SpaceWire / MIL-STD-1553B",
+      "Adaptateur 1194 mm"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "allowed_equipment_ids": [
+          "prop_electric_hall_1kw",
+          "prop_green_5n"
+        ],
+        "included_equipment_ids": [
+          "prop_electric_hall_1kw"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.15,
+        "integration_cost_pct": 4.0,
+        "interface_mass_kg": 3.0
+      },
+      {
+        "function": "ttc",
+        "allowed_equipment_ids": [
+          "ttc_sband_transceiver"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_transceiver"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0
+      },
+      {
+        "function": "mass_memory",
+        "allowed_equipment_ids": [
+          "mass_mem_512gb",
+          "mass_mem_1tb"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_512gb"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.04,
+        "integration_cost_pct": 2.0,
+        "interface_mass_kg": 0.4
+      },
+      {
+        "function": "adcs",
+        "allowed_equipment_ids": [
+          "adcs_high_accuracy_pack"
+        ],
+        "included_equipment_ids": [
+          "adcs_high_accuracy_pack"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0
+      }
+    ]
   }
 ]

@@ -1,4 +1,4 @@
-"""Orbit definition and state representation."""
+"""Orbit definition and state representation (LEO, MEO, GEO, SSO)."""
 
 from enum import Enum
 import math
@@ -10,12 +10,17 @@ from ssb.core.constants import (
     SUN_MEAN_MOTION_RAD_S,
 )
 
+GEO_ALTITUDE_KM: float = 35786.0
+MEO_GALILEO_ALTITUDE_KM: float = 23222.0
+MEO_O3B_ALTITUDE_KM: float = 8062.0
+
 
 class OrbitType(str, Enum):
     SSO = "sso"
     CIRCULAR = "circular"
     ELLIPTIC = "elliptic"
     REPEAT_GROUND_TRACK = "repeat_ground_track"
+    MEO = "meo"
     GEO = "geo"
     HEO_MOLNIYA = "heo_molniya"
     HEO_TUNDRA = "heo_tundra"
@@ -25,7 +30,7 @@ class OrbitDefinition(BaseModel):
     """User-specified orbit parameters."""
 
     orbit_type: OrbitType = OrbitType.SSO
-    altitude_km: float = Field(500.0, ge=150.0, le=40_000.0)
+    altitude_km: float = Field(500.0, ge=150.0, le=42_000.0)
     eccentricity: float = Field(0.0, ge=0.0, lt=1.0)
     inclination_deg: float = Field(97.4, ge=0.0, le=180.0)
     raan_deg: float = Field(0.0, ge=0.0, lt=360.0)
@@ -42,6 +47,18 @@ class OrbitDefinition(BaseModel):
     repeat_revolutions: int | None = Field(None, ge=1, le=2000)
 
     @property
+    def is_geo(self) -> bool:
+        return self.orbit_type == OrbitType.GEO or abs(self.altitude_km - GEO_ALTITUDE_KM) < 1000.0
+
+    @property
+    def is_meo(self) -> bool:
+        return self.orbit_type == OrbitType.MEO or (2000.0 <= self.altitude_km < 30000.0)
+
+    @property
+    def is_sso(self) -> bool:
+        return self.orbit_type == OrbitType.SSO or (self.inclination_deg >= 95.0 and self.altitude_km <= 1500.0)
+
+    @property
     def semi_major_axis_km(self) -> float:
         return EARTH_RADIUS_KM + self.altitude_km
 
@@ -55,12 +72,21 @@ class OrbitDefinition(BaseModel):
         return self.period_seconds / 60.0
 
     @property
+    def period_hours(self) -> float:
+        return self.period_minutes / 60.0
+
+    @property
     def mean_motion_rad_s(self) -> float:
         return 2.0 * math.pi / self.period_seconds
 
     @property
     def revolutions_per_day(self) -> float:
         return 86400.0 / self.period_seconds
+
+    @property
+    def orbital_velocity_km_s(self) -> float:
+        """Orbital speed for circular orbit."""
+        return math.sqrt(EARTH_MU_KM / self.semi_major_axis_km)
 
     @classmethod
     def compute_sso_inclination(cls, altitude_km: float, eccentricity: float = 0.0) -> float:

@@ -2,24 +2,23 @@
   "schema_version": "1.0.0",
   "id": "EXAM-2026-QKD",
   "title": "Mission QuantumShield — Relais Sécurisé Gouvernemental par Clés Quantiques",
-  "context": "Concevoir un satellite de distribution quantique de clés (QKD) en orbite basse (LEO) pour alimenter les centres de calcul souverains et les ambassades en clés cryptographiques inviolables par injection laser nocturne.",
+  "context": "Concevoir un satellite de distribution quantique de clés (QKD) en orbite basse (LEO) pour alimenter les centres de calcul souverains en clés cryptographiques inviolables par faisceau laser nocturne.",
   "mission_type": "qkd",
   "max_budget_meur": 22.0,
   "target_lifetime_years": 4.0,
   "client_agency": "Agence Nationale de Sécurité des Communications Souveraines",
   "domain_label": "Télécommunications Quantiques — Distribution quantique de clés (QKD)",
-  "primary_objective": "Générer et distribuer des clés cryptographiques quantiques selon le protocole BB84 à états leurres à 850 nm vers des stations sol optiques de 1 m, avec un taux d'erreur quantique (QBER) <= 6,0 % et un débit asymptotique de clé secrète >= 1 000 bit/s lors des passages nocturnes.",
+  "primary_objective": "Distribuer des clés quantiques (BB84 à états leurres à 850 nm) avec un taux d'erreur quantique QBER <= 6,0 % et un débit de clé secrète asymptotique >= 1 000 bit/s.",
   "secondary_objectives": [
-    "Garantir un pointage plateforme <= 0,008° afin de permettre au système de suivi fin sub-microradian d'accrocher la station sol.",
-    "Assurer l'authentification et la distillation des clés via un canal classique radio S ou X redondé."
+    "Garantir un pointage plateforme <= 0,008°.",
+    "Assurer l'authentification et la distillation des clés via un canal radio classique."
   ],
-  "scientific_or_operational_need": "Face à la menace des calculateurs quantiques sur les algorithmes asymétriques classiques (RSA/ECC), la distribution quantique de clés par satellite permet d'échanger à l'échelle intercontinentale des clés à usage unique dont la sécurité repose sur les lois de la mécanique quantique.",
-  "orbit_constraints_description": "Orbite héliosynchrone (LTAN ~ 22h30 / 10h30) à une altitude modérée (450–550 km) pour maximiser le nombre de passages de nuit au-dessus de l'Europe et minimiser l'atténuation géométrique du canal quantique.",
-  "conops_guidance": "Émission quantique exclusivement de nuit sur les stations sol dégagées de nuages. Synchronisation temporelle sub-nanoseconde et post-traitement (tamisage, correction d'erreurs, amplification de confidentialité) sur le canal classique S/X.",
+  "scientific_or_operational_need": "Protéger les communications souveraines contre l'essor futur des calculateurs quantiques.",
+  "orbit_constraints_description": "Orbite basse héliosynchrone à 450–550 km d'altitude.",
+  "conops_guidance": "Émission quantique exclusivement nocturne lors des passages au-dessus des stations optiques.",
   "deliverables_expected": [
-    "Analyser le compromis entre l'altitude orbitale, les pertes géométriques du canal (en dB) et le débit de clé secrète.",
-    "Justifier le choix du terminal QKD et du pack ADCS pour tenir le budget de pointage.",
-    "Évaluer la quantité de clés de 256 bits produite par passage utile."
+    "Analyser le compromis entre altitude et pertes du canal optique quantique.",
+    "Justifier le choix du terminal QKD et du pack ADCS."
   ],
   "allowed_suppliers": [],
   "min_trl": 7,
@@ -27,7 +26,7 @@
     {
       "id": "REQ-QKD-QBER-01",
       "title": "Taux d'Erreur Quantique (QBER)",
-      "description": "Quantum Bit Error Rate <= 6.0 % pour garantir la distillation de clé",
+      "description": "Quantum Bit Error Rate <= 6.0 %",
       "req_type": "payload_perf",
       "parameter": "quantum_bit_error_rate_pct",
       "operator": "<=",
@@ -39,7 +38,7 @@
     {
       "id": "REQ-QKD-SKR-01",
       "title": "Débit de Clé Secrète Asymptotique",
-      "description": "Secret Key Rate moyen >= 1000 bps lors des contacts",
+      "description": "Secret Key Rate moyen >= 1000 bps",
       "req_type": "payload_perf",
       "parameter": "asymptotic_secret_key_rate_bps",
       "operator": ">=",
@@ -74,20 +73,6 @@
         "S"
       ],
       "cost_per_pass_eur": 500.0,
-      "cost_per_minute_eur": 0.0
-    },
-    {
-      "id": "sta_tenerife_ogs",
-      "name": "Teide Optical Ground Station (IAC)",
-      "latitude_deg": 28.3,
-      "longitude_deg": -16.51,
-      "altitude_m": 2390.0,
-      "min_elevation_deg": 15.0,
-      "bands_supported": [
-        "Optical",
-        "S"
-      ],
-      "cost_per_pass_eur": 450.0,
       "cost_per_minute_eur": 0.0
     }
   ],

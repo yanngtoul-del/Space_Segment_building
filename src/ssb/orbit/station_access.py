@@ -90,4 +90,18 @@ class StationAccessCalculator:
                             max_elevation_deg=round(max_elev, 1),
                         )
                     )
+
+        # If still in pass at the end of the simulation timeline (e.g. permanent GEO visibility)
+        if in_pass and ground_track:
+            passes.append(
+                GroundStationPass(
+                    station_id=station.id,
+                    station_name=station.name,
+                    start_time_s=pass_start_t,
+                    end_time_s=ground_track[-1].time_s,
+                    duration_seconds=round(ground_track[-1].time_s - pass_start_t, 1),
+                    max_elevation_deg=round(max_elev, 1),
+                )
+            )
+
         return passes

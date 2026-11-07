@@ -12,283 +12,296 @@ MISSIONS_DIR = ROOT / "data" / "missions"
 
 
 MISSIONS: list[tuple[str, dict]] = [
-    # ------------------------------------------------------------------ 1. Observation de la Terre Optique HR
+    # ------------------------------------------------------------------ 1. Observation Optique Légère & Bas-Coût (NewSpace)
     (
-        "exam_optical_earth_observation.mission.json",
+        "exam_optical_light_lowcost.mission.json",
         dict(
             schema_version="1.0.0",
-            id="EXAM-2026-EO-OPT",
-            title="Mission Sentinel-Vision — Observation de la Terre Haute Résolution",
-            client_agency="Agence Européenne d'Observation Civile & Sécurité (AEOCS)",
-            domain_label="Observation de la Terre — Imagerie optique sub-métrique",
+            id="EXAM-2026-EO-LIGHT",
+            title="Mission PicOptic — Observation Optique Légère et Bas-Coût (NewSpace)",
+            client_agency="Agence Régionale de Surveillance Environnementale & Pépinière NewSpace",
+            domain_label="Observation de la Terre — Imagerie optique compacte et économique",
             mission_type="optical_eo",
-            max_budget_meur=18.0,
-            target_lifetime_years=5.0,
+            max_budget_meur=2.80,
+            target_lifetime_years=3.0,
             min_trl=8,
             context=(
-                "L'agence souhaite déployer un microsatellite d'observation optique sub-métrique en orbite héliosynchrone "
-                "pour le suivi quotidien des infrastructures critiques, la cartographie urbaine fine et l'évaluation rapide "
-                "des dommages après catastrophe naturelle."
+                "Dans le cadre d'un programme d'amorçage NewSpace pour le suivi de la déforestation, des incendies "
+                "et des cultures agricoles, l'agence souhaite déployer un satellite d'observation optique ultra-économique "
+                "en orbite héliosynchrone pour un budget total inférieur ou égal à 2,80 M€ tout compris."
             ),
             primary_objective=(
-                "Fournir des images optiques panchromatiques et multispectrales (VNIR) avec une résolution au sol au nadir "
-                "inférieure ou égale à 1,0 m (objectif 0,80 m) et une fauchée d'au moins 10 km, tout en garantissant un rapport "
-                "signal-sur-bruit supérieur à 55 (objectif 80) et le vidage quotidien d'au moins 25 scènes vers la station polaire de Svalbard."
+                "Délivrer des images multispectrales ou panchromatiques avec une résolution spatiale au nadir (GSD) "
+                "inférieure ou égale à 3,5 m (objectif 2,5 m) et une fauchée au sol d'au moins 12,0 km (objectif 20 km), "
+                "avec un SNR radiométrique supérieur ou égal à 50, en utilisant une plateforme nanosatellite ou microsatellite légère."
             ),
             secondary_objectives=[
-                "Permettre des prises de vue dépointées (agilité latérale) pour réduire le temps de revisite sur une zone d'intérêt européenne.",
-                "Maintenir une marge de puissance moyenne d'au moins 15 % sur l'orbite héliosynchrone choisie.",
-                "Contenir le coût complet (plateforme + options + instrument + lancement) sous 18,0 M€.",
+                "Contenir la masse au lancement sous 40 kg pour exploiter les vols partagés (rideshare CubeSat ou petit plateau).",
+                "Assurer une durée de vie opérationnelle minimale de 3 ans en orbite basse.",
+                "Garantir une marge de puissance positive sur l'ensemble des modes orbitaux.",
             ],
             scientific_or_operational_need=(
-                "Les services de protection civile et d'aménagement du territoire ont besoin d'une résolution sub-métrique "
-                "pour distinguer les véhicules, l'état des ponts et des digues, ainsi que de bandes proche-infrarouge pour "
-                "qualifier le stress hydrique péri-urbain. Le segment spatial doit être livrable en moins de 18 mois."
+                "Les coopératives agricoles et les services forestiers régionaux nécessitent des passages fréquents à résolution "
+                "métrique/décamétrique sans encourir le coût prohibitif des satellites institutionnels de grande taille."
             ),
             orbit_constraints_description=(
-                "Orbite basse héliosynchrone (SSO) recommandée entre 450 km et 600 km d'altitude (LTAN ~ 10h30) afin de concilier "
-                "résolution géométrique (GSD proportionnel à l'altitude), éclairement solaire constant et durée de vie orbitale."
+                "Orbite basse héliosynchrone (SSO) standard entre 480 km et 540 km d'altitude (LTAN 10h30–11h30), accessible "
+                "via les services de lancement partagé fréquents."
             ),
             conops_guidance=(
-                "Acquisition sur les terres émergées éclairées (facteur de marche charge utile ~15–25 %), stockage dans la mémoire "
-                "de masse embarquée, puis téléchargement haut débit en bande X ou par lien optique lors des passages à haute "
-                "élévation sur la station de Svalbard. Gestion de la charge batterie pendant les ~35 minutes d'éclipse par orbite."
+                "Prises de vue programmées au-dessus des forêts et parcelles agricoles le jour, stockage dans la mémoire "
+                "de masse et vidage rapide en bande S ou X lors des passages au-dessus de la station sol universitaire."
             ),
             deliverables_expected=[
-                "Justifier le choix du couple (altitude orbitale, télescope) vis-à-vis du compromis résolution GSD / largeur de fauchée.",
-                "Justifier la sélection de la plateforme et du pack ADCS au regard de l'exigence de pointage de l'instrument.",
-                "Dimensionner la chaîne mémoire de masse + émetteur de télémesure charge utile pour écouler le débit généré.",
+                "Démontrer le respect du plafond budgétaire de 2,80 M€ en justifiant l'arbitrage plateforme (CubeSat 12U/16U vs Smallsat 50 kg).",
+                "Vérifier le compromis d'altitude vis-à-vis du GSD <= 3,5 m et de la fauchée >= 12 km.",
+                "Valider le bilan de masse et de puissance de la plateforme choisie.",
             ],
             requirements=[
                 dict(
-                    id="REQ-GSD-01",
+                    id="REQ-LIGHT-GSD",
                     title="Résolution spatiale au nadir (GSD)",
-                    description="La distance d'échantillonnage au sol (GSD) au nadir doit être <= 1,0 m.",
+                    description="La distance d'échantillonnage au sol (GSD) au nadir doit être <= 3,5 m.",
                     req_type="payload_perf",
                     parameter="gsd_nadir_m",
                     operator="<=",
-                    threshold=1.0,
-                    goal=0.8,
+                    threshold=3.5,
+                    goal=2.5,
                     unit="m",
                     weight=1.5,
                 ),
                 dict(
-                    id="REQ-SWATH-01",
-                    title="Largeur de fauchée au nadir",
-                    description="La largeur de fauchée cross-track doit être >= 10,0 km.",
+                    id="REQ-LIGHT-SWATH",
+                    title="Largeur de fauchée au sol",
+                    description="La fauchée cross-track au nadir doit être >= 12,0 km.",
                     req_type="payload_perf",
                     parameter="swath_width_km",
                     operator=">=",
-                    threshold=10.0,
-                    goal=15.0,
+                    threshold=12.0,
+                    goal=20.0,
                     unit="km",
                     weight=1.0,
                 ),
                 dict(
-                    id="REQ-SNR-01",
-                    title="Rapport signal sur bruit radiométrique (SNR)",
-                    description="Le SNR au nadir sur cible d'albédo 0,3 doit être >= 55.",
+                    id="REQ-LIGHT-SNR",
+                    title="Rapport signal sur bruit (SNR)",
+                    description="Le SNR au nadir doit être >= 50.",
                     req_type="payload_perf",
                     parameter="snr_nadir_estimate",
                     operator=">=",
-                    threshold=55.0,
-                    goal=80.0,
+                    threshold=50.0,
+                    goal=70.0,
                     unit="",
                     weight=1.0,
                 ),
             ],
             ground_stations=[
                 dict(
-                    id="svalbard",
+                    id="sta_brest_light",
+                    name="Station Universitaire de Brest",
+                    latitude_deg=48.39,
+                    longitude_deg=-4.49,
+                    altitude_m=50.0,
+                    min_elevation_deg=10.0,
+                    bands_supported=["S", "X"],
+                    cost_per_pass_eur=60.0,
+                )
+            ],
+            target_zones=[
+                dict(
+                    id="zone_landes",
+                    name="Massif des Landes & Bassin Aquitain",
+                    points_lat_lon=[(44.0, -1.0), (45.0, 0.0), (43.5, -0.5)],
+                    priority=1,
+                )
+            ],
+        ),
+    ),
+
+    # ------------------------------------------------------------------ 2. Observation Optique Très Haute Performance (Sub-métrique)
+    (
+        "exam_optical_highperf.mission.json",
+        dict(
+            schema_version="1.0.0",
+            id="EXAM-2026-EO-HIGHPERF",
+            title="Mission Iris-Vanguard — Imagerie Optique Sub-Métrique Très Haute Performance",
+            client_agency="Délégation Générale à l'Observation Spatiale Souveraine (DGOSS)",
+            domain_label="Observation de la Terre — Imagerie optique sub-métrique de très haute performance",
+            mission_type="optical_eo",
+            max_budget_meur=35.0,
+            target_lifetime_years=7.0,
+            min_trl=8,
+            context=(
+                "La DGOSS requiert une capacité d'imagerie optique d'élite pour la reconnaissance tactique, la sécurité "
+                "des frontières et le renseignement stratégique. Le satellite doit fournir des détails d'identification "
+                "d'une extrême précision (GSD <= 0,40 m) avec un diamètre d'ouverture d'au moins 0,70 m."
+            ),
+            primary_objective=(
+                "Délivrer des scènes optiques panchromatiques avec une résolution spatiale au nadir (GSD) <= 0,40 m "
+                "(objectif 0,35 m), un miroir primaire d'ouverture >= 0,70 m, un rapport SNR >= 60 et une plateforme ultra-stable "
+                "offrant une précision de pointage <= 0,004° avec contrôle de ligne de visée agile."
+            ),
+            secondary_objectives=[
+                "Maintenir une durée de vie opérationnelle garantie d'au moins 7 ans en orbite basse.",
+                "Intégrer une mémoire de masse d'au moins 1 To à 2 To pour absorber les acquisitions multiples par orbite.",
+                "Garantir le respect de l'enveloppe budgétaire stricte de 35,0 M€ (lancement et plateforme inclus).",
+            ],
+            scientific_or_operational_need=(
+                "La distinction d'équipements tactiques fins, de marquages au sol et de détails d'infrastructures sensibles "
+                "nécessite de descendre sous la barre des 40 cm de résolution avec une dynamique radiométrique élevée."
+            ),
+            orbit_constraints_description=(
+                "Orbite basse héliosynchrone (SSO) entre 450 km et 520 km (LTAN 10h30 ou 13h30) pour combiner résolution "
+                "optimale, fauchée utile et éclairement sous angle d'élévation solaire favorable."
+            ),
+            conops_guidance=(
+                "Prises de vue agiles le long de la trace ou en dépointage latéral rapide (pitch/roll). Vidage haute cadence "
+                "en bande Ka ou lien optique vers les stations polaires (Svalbard/Kiruna)."
+            ),
+            deliverables_expected=[
+                "Justifier le choix du grand instrument optique (diamètre >= 0,70 m) et le respect de la limite GSD <= 0,40 m.",
+                "Valider le couplage avec une plateforme lourde et son pack ADCS garantissant un pointage <= 0,004°.",
+                "Établir le bilan de masse au lancement et sélectionner le lanceur adéquat (rideshare lourd ou lanceur dédié).",
+            ],
+            requirements=[
+                dict(
+                    id="REQ-HP-GSD",
+                    title="Résolution spatiale au nadir (GSD)",
+                    description="Le GSD panchromatique au nadir doit être <= 0,40 m.",
+                    req_type="payload_perf",
+                    parameter="gsd_nadir_m",
+                    operator="<=",
+                    threshold=0.40,
+                    goal=0.35,
+                    unit="m",
+                    weight=2.0,
+                ),
+                dict(
+                    id="REQ-HP-APERTURE",
+                    title="Diamètre d'ouverture du télescope",
+                    description="Le diamètre du miroir primaire doit être >= 0,70 m.",
+                    req_type="payload_perf",
+                    parameter="aperture_diameter_m",
+                    operator=">=",
+                    threshold=0.70,
+                    goal=0.80,
+                    unit="m",
+                    weight=1.5,
+                ),
+                dict(
+                    id="REQ-HP-POINTING",
+                    title="Précision de pointage plateforme",
+                    description="La précision de pointage effective doit être <= 0,004 deg pour éviter tout flou dynamique.",
+                    req_type="payload_perf",
+                    parameter="pointing_accuracy_deg",
+                    operator="<=",
+                    threshold=0.004,
+                    goal=0.002,
+                    unit="deg",
+                    weight=1.5,
+                ),
+                dict(
+                    id="REQ-HP-SNR",
+                    title="Rapport signal sur bruit (SNR)",
+                    description="Le SNR radiométrique au nadir doit être >= 40.",
+                    req_type="payload_perf",
+                    parameter="snr_nadir_estimate",
+                    operator=">=",
+                    threshold=40.0,
+                    goal=60.0,
+                    unit="",
+                    weight=1.0,
+                ),
+                dict(
+                    id="REQ-HP-LIFETIME",
+                    title="Durée de vie nominale de la plateforme",
+                    description="La durée de vie certifiée de la plateforme doit être >= 7,0 ans.",
+                    req_type="lifetime",
+                    parameter="design_lifetime_years",
+                    operator=">=",
+                    threshold=7.0,
+                    goal=10.0,
+                    unit="yr",
+                    weight=1.0,
+                ),
+            ],
+            ground_stations=[
+                dict(
+                    id="svalbard_hp",
                     name="Svalbard Satellite Station (KSAT)",
                     latitude_deg=78.22,
                     longitude_deg=15.40,
                     altitude_m=450.0,
                     min_elevation_deg=5.0,
                     bands_supported=["S", "X", "Ka"],
-                    cost_per_pass_eur=240.0,
+                    cost_per_pass_eur=260.0,
                 ),
                 dict(
-                    id="toulouse",
-                    name="Station Réception Toulouse",
+                    id="toulouse_hp",
+                    name="Station Spatiale de Toulouse",
                     latitude_deg=43.60,
                     longitude_deg=1.44,
                     altitude_m=150.0,
                     min_elevation_deg=10.0,
-                    bands_supported=["S", "X"],
-                    cost_per_pass_eur=180.0,
-                ),
-            ],
-            target_zones=[
-                dict(
-                    id="zone_med",
-                    name="Arc Méditerranéen & Europe de l'Ouest",
-                    points_lat_lon=[(36.0, -5.0), (48.0, 2.0), (43.0, 15.0)],
-                    priority=1,
-                )
-            ],
-        ),
-    ),
-
-    # ------------------------------------------------------------------ 2. Observation Radar SAR (preserved IDs for unit test)
-    (
-        "exam_sar_surveillance.mission.json",
-        dict(
-            schema_version="1.0.0",
-            id="EXAM-2026-SAR",
-            title="Mission RadarGuard — Surveillance Maritime & Terrestre Tout-Temps",
-            client_agency="Direction de la Surveillance Maritime & Polaire",
-            domain_label="Observation de la Terre — Imagerie Radar SAR tout-temps",
-            mission_type="sar_eo",
-            max_budget_meur=25.0,
-            target_lifetime_years=5.0,
-            min_trl=8,
-            context=(
-                "Concevoir un satellite d'observation radar à synthèse d'ouverture (SAR) capable d'imager les zones côtières, "
-                "les détroits stratégiques et les glaces arctiques de jour comme de nuit, indépendamment de la couverture nuageuse."
-            ),
-            primary_objective=(
-                "Assurer l'imagerie radar tout-temps en mode Stripmap avec une résolution azimutale meilleure que 2,0 m, "
-                "une fauchée au sol d'au moins 15 km et une sensibilité radiométrique (NESZ) meilleure que -15,0 dB afin de "
-                "détecter les navires non coopératifs, les nappes d'hydrocarbures et la dérive des glaces."
-            ),
-            secondary_objectives=[
-                "Dimensionner l'alimentation électrique et la batterie pour encaisser les forts appels de puissance RF durant les prises de vue radar.",
-                "Embarquer optionnellement un récepteur AIS/ADS-B en charge utile secondaire si les marges de masse et de budget le permettent.",
-            ],
-            scientific_or_operational_need=(
-                "Les zones arctiques et nord-européennes sont couvertes de nuages plus de 70 % du temps et plongées dans la nuit "
-                "polaire plusieurs mois par an : seule une charge utile active micro-ondes (SAR) garantit la continuité de surveillance."
-            ),
-            orbit_constraints_description=(
-                "Orbite polaire ou héliosynchrone (SSO crépusculaire 06h00/18h00 recommandée pour maximiser l'ensoleillement des panneaux "
-                "solaires et alimenter le radar) à une altitude comprise entre 450 km et 580 km."
-            ),
-            conops_guidance=(
-                "Prises de vue radar programmées de 60 à 120 secondes par orbite au-dessus des zones maritimes d'intérêt. "
-                "Le débit brut élevé (plusieurs Gbit/s) impose une mémoire de masse d'au moins 1 à 2 To et une liaison descendante "
-                "en bande X large bande ou bande Ka."
-            ),
-            deliverables_expected=[
-                "Expliquer l'influence de l'altitude orbitale et de la longueur d'antenne sur la résolution azimutale et le bilan NESZ.",
-                "Vérifier la tenue du bilan de puissance moyenne et crête de la plateforme face à la consommation du radar.",
-                "Justifier le choix du lanceur au regard de la masse humide avec marge de 20 %.",
-            ],
-            requirements=[
-                dict(
-                    id="REQ-SAR-AZ-01",
-                    title="Résolution Azimutale Stripmap",
-                    description="Résolution azimutale le long de la trace <= 2.0 m",
-                    req_type="payload_perf",
-                    parameter="azimuth_resolution_stripmap_m",
-                    operator="<=",
-                    threshold=2.0,
-                    goal=1.5,
-                    unit="m",
-                    weight=1.0,
-                ),
-                dict(
-                    id="REQ-SAR-SWATH-01",
-                    title="Fauchée au Sol",
-                    description="Largeur de fauchée au sol >= 15.0 km",
-                    req_type="payload_perf",
-                    parameter="swath_width_ground_km",
-                    operator=">=",
-                    threshold=15.0,
-                    goal=25.0,
-                    unit="km",
-                    weight=1.0,
-                ),
-                dict(
-                    id="REQ-SAR-NESZ-01",
-                    title="Sensibilité Radiométrique (NESZ)",
-                    description="Noise Equivalent Sigma Zero <= -15.0 dB pour détecter les cibles de faible réflectivité",
-                    req_type="payload_perf",
-                    parameter="nesz_db",
-                    operator="<=",
-                    threshold=-15.0,
-                    goal=-22.0,
-                    unit="dB",
-                    weight=1.0,
-                ),
-            ],
-            ground_stations=[
-                dict(
-                    id="svalbard_sta",
-                    name="Svalbard Arctic Station",
-                    latitude_deg=78.22,
-                    longitude_deg=15.40,
-                    altitude_m=450.0,
-                    min_elevation_deg=5.0,
                     bands_supported=["S", "X", "Ka"],
-                    cost_per_pass_eur=250.0,
-                ),
-                dict(
-                    id="inuvik_sta",
-                    name="Inuvik Canadian Station",
-                    latitude_deg=68.36,
-                    longitude_deg=-133.72,
-                    altitude_m=100.0,
-                    min_elevation_deg=5.0,
-                    bands_supported=["S", "X"],
-                    cost_per_pass_eur=220.0,
+                    cost_per_pass_eur=190.0,
                 ),
             ],
             target_zones=[
                 dict(
-                    id="zone_baltic",
-                    name="Mer Baltique & Détroits Arctiques",
-                    points_lat_lon=[(54.0, 10.0), (60.0, 18.0), (65.0, 24.0)],
+                    id="zone_strategic_eu",
+                    name="Détroits et corridors maritimes européens",
+                    points_lat_lon=[(35.0, -6.0), (37.0, 15.0), (45.0, 30.0)],
                     priority=1,
                 )
             ],
         ),
     ),
 
-    # ------------------------------------------------------------------ 3. Atmosphère Terrestre & Gaz à Effet de Serre
+    # ------------------------------------------------------------------ 3. Spectrométrie Atmosphérique SWIR (Gaz à effet de serre CH4/CO2)
     (
         "exam_atmosphere_greenhouse_gas.mission.json",
         dict(
             schema_version="1.0.0",
             id="EXAM-2026-ATMO-GHG",
-            title="Mission AtmoWatch — Chimie de l'Atmosphère Terrestre & Panaches de Méthane",
+            title="Mission AtmoWatch — Chimie de l'Atmosphère Terrestre & Panaches de Gaz à Effet de Serre (SWIR)",
             client_agency="Institut Spatial du Climat & de l'Atmosphère (ISCA)",
-            domain_label="Connaissance de l'Atmosphère Terrestre — Spectrométrie gaz à effet de serre",
+            domain_label="Connaissance de l'Atmosphère Terrestre — Spectrométrie SWIR pour gaz atmosphériques",
             mission_type="atmosphere",
             max_budget_meur=16.5,
             target_lifetime_years=5.0,
             min_trl=8,
             context=(
-                "Dans le cadre du suivi international des émissions anthropiques, l'ISCA lance une mission spatiale dédiée à la "
-                "connaissance fine de la composition de l'atmosphère terrestre et à la détection des super-émetteurs de méthane (CH4) "
-                "et de dioxyde de carbone (CO2)."
+                "Dans le cadre de la surveillance indépendante des émissions anthropiques et des traités internationaux, "
+                "l'ISCA requiert un spectromètre imageur dans les bandes infrarouges courtes (SWIR, 1,6–1,7 µm) capable de "
+                "détecter et quantifier les panaches de méthane (CH4) et de dioxyde de carbone (CO2)."
             ),
             primary_objective=(
-                "Mesurer par spectrométrie imageuse dans le proche infrarouge et l'infrarouge à ondes courtes (SWIR, autour de 1,65 µm) "
-                "les colonnes d'absorption de CH4 et de CO2 avec une résolution spectrale meilleure ou égale à 1,0 nm (objectif 0,3 nm), "
-                "une résolution spatiale au sol <= 10 m permettant d'attribuer les panaches aux installations industrielles, et un SNR >= 50."
+                "Mesurer par spectrométrie imageuse dans le SWIR (jusqu'à au moins 1650 nm) les colonnes atmosphériques de CH4 et CO2 "
+                "avec une résolution spectrale <= 1,0 nm (objectif 0,3 nm), une résolution spatiale au nadir <= 10 m permettant "
+                "d'attribuer les émissions aux sites industriels sources, et un SNR spectral moyen >= 50."
             ),
             secondary_objectives=[
-                "Caractériser les aérosols atmosphériques et les panaches urbains sur l'ensemble des bassins industriels mondiaux.",
-                "Maintenir le budget global du segment spatial sous 16,5 M€ grâce à une plateforme microsatellite optimisée.",
+                "Couvrir les principaux bassins industriels et gaziers mondiaux avec un temps de revisite inférieur à 5 jours.",
+                "Garantir une compatibilité thermique avec la cryogénie passive/active du détecteur SWIR.",
+                "Maintenir le coût complet du segment spatial sous le plafond de 16,5 M€.",
             ],
             scientific_or_operational_need=(
-                "Les inventaires climatiques souffrent d'une forte incertitude sur les fuites ponctuelles de méthane (puits gaziers, "
-                "décharges, mines, pipelines). Seul un spectromètre à très haute finesse spectrale dans la bande SWIR (> 1600 nm) "
-                "permet de séparer les raies rovibrationnelles du CH4 et du CO2 du fond d'albédo terrestre."
+                "La détection précise des fuites fugitives de méthane requiert d'isoler des raies d'absorption très étroites "
+                "dans la fenêtre SWIR au-delà de 1600 nm sans être confondues avec la vapeur d'eau ou le CO2 ambiant."
             ),
             orbit_constraints_description=(
-                "Orbite héliosynchrone (SSO) vers 500–650 km d'altitude avec passage en milieu de journée (LTAN 11h00–13h00) "
-                "pour maximiser le flux solaire réfléchi dans le SWIR et réduire l'angle zénithal solaire."
+                "Orbite basse héliosynchrone (SSO) entre 500 km et 650 km d'altitude avec heure de passage solaire LTAN 11h30–13h00 "
+                "afin de disposer du flux solaire réfléchi maximal dans le SWIR."
             ),
             conops_guidance=(
-                "Observation systématique au nadir des zones continentales et des sites d'extraction. Refroidissement actif du "
-                "plan focal SWIR maintenu en permanence ; étalonnage spectral sur diffuseur solaire une fois par jour au passage polaire."
+                "Observations au nadir le long de la trace sur les continents éclairés. Vidage de la mémoire de masse vers les "
+                "stations polaires de Kiruna et Kourou."
             ),
             deliverables_expected=[
-                "Justifier le choix du spectromètre (domaine spectral SWIR >= 1650 nm et finesse spectrale <= 1 nm) par rapport aux spectromètres VNIR classiques.",
-                "Vérifier la compatibilité de pointage et de dissipation thermique entre le sondeur refroidi et la plateforme choisie.",
-                "Décrire le plan d'opérations (calibration, acquisition, vidage mémoire).",
+                "Justifier le choix d'un spectromètre imageur SWIR (>= 1650 nm, finesse spectrale <= 1,0 nm) par rapport aux spectromètres VNIR.",
+                "Démontrer la conformité du bilan de puissance et de pointage de la plateforme microsatellite sélectionnée.",
+                "Valider le budget global et le dimensionnement de la télémesure pour écouler le flux de données hyperspectrales.",
             ],
             requirements=[
                 dict(
@@ -373,7 +386,453 @@ MISSIONS: list[tuple[str, dict]] = [
         ),
     ),
 
-    # ------------------------------------------------------------------ 4. Cosmologie & Astrométrie Champ Profond
+    # ------------------------------------------------------------------ 4. Surveillance Radar SAR Tout-Temps
+    (
+        "exam_sar_surveillance.mission.json",
+        dict(
+            schema_version="1.0.0",
+            id="EXAM-2026-SAR",
+            title="Mission RadarGuard — Surveillance Maritime & Terrestre Tout-Temps par Radar SAR",
+            client_agency="Direction de la Surveillance Maritime & Polaire (DSMP)",
+            domain_label="Observation de la Terre — Imagerie Radar SAR micro-ondes tout-temps",
+            mission_type="sar_eo",
+            max_budget_meur=25.0,
+            target_lifetime_years=5.0,
+            min_trl=8,
+            context=(
+                "Concevoir un satellite d'observation radar à synthèse d'ouverture (SAR) capable d'imager les zones maritimes, "
+                "les détroits stratégiques et les glaces arctiques de jour comme de nuit, indépendamment de la couverture nuageuse."
+            ),
+            primary_objective=(
+                "Assurer l'imagerie radar tout-temps en mode Stripmap avec une résolution azimutale <= 2,0 m (objectif 1,5 m), "
+                "une fauchée au sol d'au moins 15 km et une sensibilité radiométrique (NESZ) <= -15,0 dB afin de détecter les "
+                "navires non coopératifs, les pollutions marines et la dérive des glaces."
+            ),
+            secondary_objectives=[
+                "Dimensionner l'alimentation électrique pour absorber la puissance crête RF élevée de l'antenne réseau active.",
+                "Maintenir le coût complet du satellite et du lancement sous 25,0 M€.",
+            ],
+            scientific_or_operational_need=(
+                "Les zones polaires et les mers septentrionales sont couvertes de nuages plus de 70 % de l'année et plongées "
+                "dans l'obscurité hivernale : seul un radar imageur actif micro-ondes assure une surveillance continue."
+            ),
+            orbit_constraints_description=(
+                "Orbite polaire ou héliosynchrone crépusculaire (dawn-dusk 06h00/18h00) à 500–580 km d'altitude afin de maximiser "
+                "l'ensoleillement des panneaux solaires et minimiser les cycles d'éclipse lors des tirs radar."
+            ),
+            conops_guidance=(
+                "Séquences radar de 60 à 120 secondes par orbite. Stockage des données brutes I/Q dans la mémoire de masse "
+                "et vidage haut débit bande X vers les stations boréales (Svalbard/Inuvik)."
+            ),
+            deliverables_expected=[
+                "Analyser l'influence de l'altitude et de la taille d'antenne sur la résolution SAR et le bilan de bruit NESZ.",
+                "Valider le bilan de puissance moyenne et crête de la plateforme face aux tirs radar.",
+                "Vérifier le choix du lanceur compatible avec la masse humide et ses marges.",
+            ],
+            requirements=[
+                dict(
+                    id="REQ-SAR-AZ-01",
+                    title="Résolution Azimutale Stripmap",
+                    description="Résolution azimutale le long de la trace <= 2.0 m",
+                    req_type="payload_perf",
+                    parameter="azimuth_resolution_stripmap_m",
+                    operator="<=",
+                    threshold=2.0,
+                    goal=1.5,
+                    unit="m",
+                    weight=1.0,
+                ),
+                dict(
+                    id="REQ-SAR-SWATH-01",
+                    title="Fauchée au Sol",
+                    description="Largeur de fauchée au sol >= 15.0 km",
+                    req_type="payload_perf",
+                    parameter="swath_width_ground_km",
+                    operator=">=",
+                    threshold=15.0,
+                    goal=25.0,
+                    unit="km",
+                    weight=1.0,
+                ),
+                dict(
+                    id="REQ-SAR-NESZ-01",
+                    title="Sensibilité Radiométrique (NESZ)",
+                    description="Noise Equivalent Sigma Zero <= -15.0 dB pour détecter les cibles de faible réflectivité",
+                    req_type="payload_perf",
+                    parameter="nesz_db",
+                    operator="<=",
+                    threshold=-15.0,
+                    goal=-22.0,
+                    unit="dB",
+                    weight=1.0,
+                ),
+            ],
+            ground_stations=[
+                dict(
+                    id="svalbard_sta",
+                    name="Svalbard Arctic Station",
+                    latitude_deg=78.22,
+                    longitude_deg=15.40,
+                    altitude_m=450.0,
+                    min_elevation_deg=5.0,
+                    bands_supported=["S", "X", "Ka"],
+                    cost_per_pass_eur=250.0,
+                ),
+                dict(
+                    id="inuvik_sta",
+                    name="Inuvik Canadian Station",
+                    latitude_deg=68.36,
+                    longitude_deg=-133.72,
+                    altitude_m=100.0,
+                    min_elevation_deg=5.0,
+                    bands_supported=["S", "X"],
+                    cost_per_pass_eur=220.0,
+                ),
+            ],
+            target_zones=[
+                dict(
+                    id="zone_baltic",
+                    name="Mer Baltique & Détroits Arctiques",
+                    points_lat_lon=[(54.0, 10.0), (60.0, 18.0), (65.0, 24.0)],
+                    priority=1,
+                )
+            ],
+        ),
+    ),
+
+    # ------------------------------------------------------------------ 5. Télécom Optique Laser Haut Débit (>= 25 Gbit/s)
+    (
+        "exam_high_throughput_datalink.mission.json",
+        dict(
+            schema_version="1.0.0",
+            id="EXAM-2026-DATARATE",
+            title="Mission TeraRelay — Établissement d'une Liaison Optique Très Haut Débit (>= 25 Gbit/s)",
+            client_agency="Opérateur Européen de Dorsale Spatiale Souveraine",
+            domain_label="Télécommunications Spatiales — Établir un très haut débit de données laser optique",
+            mission_type="telecom_opt",
+            max_budget_meur=15.0,
+            target_lifetime_years=6.0,
+            min_trl=8,
+            context=(
+                "Pour désengorger les liaisons radio-fréquence saturées et rapatrier en temps quasi-réel des téraoctets de données "
+                "issues de capteurs spatiaux, l'opérateur souhaite déployer un terminal laser capable d'établir une liaison directe "
+                "vers le sol à un débit supérieur ou égal à 25 Gbit/s."
+            ),
+            primary_objective=(
+                "Établir une liaison descendante laser à 1550 nm délivrant un débit effectif >= 25,0 Gbit/s vers des stations sol "
+                "optiques de 80 cm, avec une marge de liaison d'au moins 6,0 dB en ciel clair et une précision de pointage plateforme "
+                "inférieure ou égale à 0,008° pour garantir l'acquisition rapide du faisceau optique."
+            ),
+            secondary_objectives=[
+                "Respecter le plafond budgétaire de 15,0 M€ pour permettre la réplication en constellation.",
+                "Embarquer un pack de contrôle d'attitude de précision adapté aux exigences de pointage sub-microradian du terminal laser.",
+            ],
+            scientific_or_operational_need=(
+                "Les constellations d'observation modernes génèrent des volumes massifs incompatibles avec les bandes RF étroites. "
+                "Une liaison laser à 25 Gbit/s transfère plus de 1,1 To de données utiles lors d'un passage unique de 6 minutes."
+            ),
+            orbit_constraints_description=(
+                "Orbite basse circulaire entre 500 km et 750 km d'altitude. L'altitude modérée réduit les pertes de propagation en 1/R²."
+            ),
+            conops_guidance=(
+                "Pointage grossier du satellite vers la station sol optique sélectionnée, détection du balisage montant (beacon), "
+                "asservissement fin par le miroir rapide PAT et transmission plein débit de la mémoire de masse."
+            ),
+            deliverables_expected=[
+                "Calculer le volume de données transféré par passage à 25 Gbit/s.",
+                "Démontrer la fermeture du bilan de liaison optique (puissance émise, diamètres d'ouverture, marge >= 6,0 dB).",
+                "Justifier le choix de la plateforme et du pack ADCS associé.",
+            ],
+            requirements=[
+                dict(
+                    id="REQ-DATA-RATE-01",
+                    title="Débit de données optique effectif",
+                    description="Le débit de données de la liaison descendante laser doit être >= 25,0 Gbit/s.",
+                    req_type="payload_perf",
+                    parameter="achievable_data_rate_gbps",
+                    operator=">=",
+                    threshold=25.0,
+                    goal=100.0,
+                    unit="Gbps",
+                    weight=2.0,
+                ),
+                dict(
+                    id="REQ-LINK-MARGIN-01",
+                    title="Marge du bilan de liaison optique",
+                    description="La marge du lien laser à 1550 nm doit être >= 6,0 dB.",
+                    req_type="payload_perf",
+                    parameter="margin_db",
+                    operator=">=",
+                    threshold=6.0,
+                    goal=10.0,
+                    unit="dB",
+                    weight=1.0,
+                ),
+                dict(
+                    id="REQ-POINTING-LASER",
+                    title="Précision de pointage plateforme pour acquisition",
+                    description="La précision de pointage plateforme doit être <= 0,008 deg.",
+                    req_type="payload_perf",
+                    parameter="pointing_accuracy_deg",
+                    operator="<=",
+                    threshold=0.008,
+                    goal=0.005,
+                    unit="deg",
+                    weight=1.0,
+                ),
+            ],
+            ground_stations=[
+                dict(
+                    id="ogs_tenerife",
+                    name="ESA Optical Ground Station Tenerife",
+                    latitude_deg=28.30,
+                    longitude_deg=-16.51,
+                    altitude_m=2390.0,
+                    min_elevation_deg=15.0,
+                    bands_supported=["Optical", "S"],
+                    cost_per_pass_eur=350.0,
+                ),
+                dict(
+                    id="ogs_calern",
+                    name="Station Optique du Plateau de Calern (OCA)",
+                    latitude_deg=43.75,
+                    longitude_deg=6.92,
+                    altitude_m=1270.0,
+                    min_elevation_deg=15.0,
+                    bands_supported=["Optical", "S"],
+                    cost_per_pass_eur=350.0,
+                ),
+            ],
+            target_zones=[],
+        ),
+    ),
+
+    # ------------------------------------------------------------------ 6. Télécommunications Classiques en Orbite Géostationnaire (GEO)
+    (
+        "exam_geo_telecom_classical.mission.json",
+        dict(
+            schema_version="1.0.0",
+            id="EXAM-2026-GEO-COMMS",
+            title="Mission EuroCom-GEO — Télécommunications Régionales en Orbite Géostationnaire",
+            client_agency="Opérateur Européen de Télécommunications par Satellite (EUTELSAT/ESA)",
+            domain_label="Télécommunications Spatiales — Orbite géostationnaire (GEO), répéteurs Ku/Ka et couverture permanente",
+            mission_type="telecom_radio",
+            max_budget_meur=55.0,
+            target_lifetime_years=12.0,
+            min_trl=8,
+            context=(
+                "Pour assurer la connectivité souveraine et la diffusion audiovisuelle et de données sécurisées 24h/24 "
+                "sans interruption au-dessus de l'Europe et du bassin méditerranéen, l'opérateur lance le dimensionnement "
+                "d'un satellite géostationnaire (GEO, altitude 35 786 km, inclinaison 0,0°)."
+            ),
+            primary_objective=(
+                "Fournir un débit descendant utile d'au moins 600,0 Mbit/s (objectif 1 800 Mbit/s) sur antenne sol de 4,5 m "
+                "avec une marge de liaison Eb/N0 >= 3,5 dB en bande Ku/Ka, une durée de vie garantie de la plateforme "
+                "d'au moins 12 ans (objectif 15 ans) et une précision de maintien à poste et pointage <= 0,05°."
+            ),
+            secondary_objectives=[
+                "Assurer une visibilité permanente 24h/24 sans interruption d'élévation sur les stations européennes.",
+                "Maintenir le coût complet (plateforme GEO + charge utile répéteur + lancement GTO/GEO) sous 55,0 M€.",
+                "Garantir la tenue aux radiations de l'orbite géostationnaire (blindage 100 krad).",
+            ],
+            scientific_or_operational_need=(
+                "Contrairement aux constellations LEO dont les satellites défilent à grande vitesse, l'orbite géostationnaire "
+                "permet à une antenne sol fixe de pointer en continu le même relais spatial, offrant une disponibilité de "
+                "service de 99,99 % pour les liaisons gouvernementales critiques et les faisceaux de diffusion."
+            ),
+            orbit_constraints_description=(
+                "Orbite géostationnaire (GEO) : altitude exacte 35 786 km, inclinaison 0,0°, période de révolution 24h00. "
+                "Injection via transfert géostationnaire (GTO) ou injection directe GEO."
+            ),
+            conops_guidance=(
+                "Fonctionnement permanent des répéteurs RF (100 % du temps d'orbite, y compris durant les courtes éclipses "
+                "d'équinoxe grâce au parc de batteries lithium-ion). Maintien à poste fin Nord-Sud et Est-Ouest par propulsion "
+                "électrique ou chimique."
+            ),
+            deliverables_expected=[
+                "Démontrer la conformité de l'orbite GEO (35 786 km, 0°) et la couverture permanente 24/7 sur les stations sol.",
+                "Établir le bilan de liaison RF à 35 786 km (puissance RF, gain d'antenne satellite, station sol 4,5 m, marge Eb/N0 >= 3,5 dB).",
+                "Justifier le choix de la plateforme GEO (durée de vie >= 12 ans, puissance continue > 2 000 W) et du lanceur GTO.",
+            ],
+            requirements=[
+                dict(
+                    id="REQ-GEO-DATARATE",
+                    title="Débit de données RF descendant total",
+                    description="Le débit RF descendant de la charge utile de télécommunications doit être >= 600,0 Mbit/s.",
+                    req_type="payload_perf",
+                    parameter="max_data_rate_mbps",
+                    operator=">=",
+                    threshold=600.0,
+                    goal=1800.0,
+                    unit="Mbps",
+                    weight=2.0,
+                ),
+                dict(
+                    id="REQ-GEO-MARGIN",
+                    title="Marge du bilan de liaison RF (Eb/N0)",
+                    description="La marge Eb/N0 sur la liaison descendante vers station 4,5 m doit être >= 3,5 dB.",
+                    req_type="payload_perf",
+                    parameter="link_margin_db",
+                    operator=">=",
+                    threshold=3.5,
+                    goal=6.0,
+                    unit="dB",
+                    weight=1.5,
+                ),
+                dict(
+                    id="REQ-GEO-LIFETIME",
+                    title="Durée de vie nominale de la plateforme",
+                    description="La durée de vie certifiée de la plateforme géostationnaire doit être >= 12,0 ans.",
+                    req_type="lifetime",
+                    parameter="design_lifetime_years",
+                    operator=">=",
+                    threshold=12.0,
+                    goal=15.0,
+                    unit="yr",
+                    weight=1.5,
+                ),
+                dict(
+                    id="REQ-GEO-POINTING",
+                    title="Précision de pointage antenne plateforme",
+                    description="La précision de pointage de la plateforme doit être <= 0,05 deg pour maintenir le faisceau sol.",
+                    req_type="payload_perf",
+                    parameter="pointing_accuracy_deg",
+                    operator="<=",
+                    threshold=0.05,
+                    goal=0.02,
+                    unit="deg",
+                    weight=1.0,
+                ),
+            ],
+            ground_stations=[
+                dict(
+                    id="sta_fucino_geo",
+                    name="Téléport Spatial de Fucino (Italie)",
+                    latitude_deg=41.97,
+                    longitude_deg=13.60,
+                    altitude_m=650.0,
+                    min_elevation_deg=10.0,
+                    bands_supported=["C", "Ku", "Ka"],
+                    cost_per_pass_eur=180.0,
+                ),
+                dict(
+                    id="sta_rambouillet_geo",
+                    name="Téléport de Rambouillet (Eutelsat)",
+                    latitude_deg=48.64,
+                    longitude_deg=1.83,
+                    altitude_m=160.0,
+                    min_elevation_deg=10.0,
+                    bands_supported=["Ku", "Ka"],
+                    cost_per_pass_eur=180.0,
+                ),
+            ],
+            target_zones=[
+                dict(
+                    id="zone_euro_med",
+                    name="Couverture Européenne & Bassin Méditerranéen",
+                    points_lat_lon=[(34.0, -10.0), (60.0, 5.0), (36.0, 35.0)],
+                    priority=1,
+                )
+            ],
+        ),
+    ),
+
+    # ------------------------------------------------------------------ 7. Observation Optique Métrique Standard (Preserved)
+    (
+        "exam_optical_earth_observation.mission.json",
+        dict(
+            schema_version="1.0.0",
+            id="EXAM-2026-EO-OPT",
+            title="Mission Sentinel-Vision — Observation de la Terre Haute Résolution",
+            client_agency="Agence Européenne d'Observation Civile & Sécurité (AEOCS)",
+            domain_label="Observation de la Terre — Imagerie optique métrique standard",
+            mission_type="optical_eo",
+            max_budget_meur=18.0,
+            target_lifetime_years=5.0,
+            min_trl=8,
+            context=(
+                "L'agence souhaite déployer un microsatellite d'observation optique sub-métrique en orbite héliosynchrone "
+                "pour le suivi quotidien des infrastructures critiques et la cartographie urbaine fine."
+            ),
+            primary_objective=(
+                "Fournir des images optiques panchromatiques et multispectrales avec une résolution au sol au nadir "
+                "inférieure ou égale à 1,0 m (objectif 0,80 m) et une fauchée d'au moins 10 km, tout en garantissant un rapport "
+                "signal-sur-bruit supérieur à 55 (objectif 80)."
+            ),
+            secondary_objectives=[
+                "Permettre des prises de vue dépointées pour réduire le temps de revisite.",
+                "Maintenir une marge de puissance moyenne d'au moins 15 % sur l'orbite héliosynchrone choisie.",
+                "Contenir le coût complet sous 18,0 M€.",
+            ],
+            scientific_or_operational_need=(
+                "Les services de protection civile ont besoin d'une résolution métrique pour qualifier les dégâts matériels "
+                "et suivre l'évolution des territoires."
+            ),
+            orbit_constraints_description=(
+                "Orbite basse héliosynchrone (SSO) recommandée entre 450 km et 600 km d'altitude."
+            ),
+            conops_guidance=(
+                "Acquisition sur les terres éclairées, stockage mémoire et vidage vers la station polaire de Svalbard."
+            ),
+            deliverables_expected=[
+                "Justifier le choix du télescope et de l'altitude au regard de la résolution et de la fauchée.",
+                "Justifier la plateforme et l'ADCS choisi.",
+            ],
+            requirements=[
+                dict(
+                    id="REQ-GSD-01",
+                    title="Résolution spatiale au nadir (GSD)",
+                    description="La distance d'échantillonnage au sol (GSD) au nadir doit être <= 1,0 m.",
+                    req_type="payload_perf",
+                    parameter="gsd_nadir_m",
+                    operator="<=",
+                    threshold=1.0,
+                    goal=0.8,
+                    unit="m",
+                    weight=1.5,
+                ),
+                dict(
+                    id="REQ-SWATH-01",
+                    title="Largeur de fauchée au nadir",
+                    description="La largeur de fauchée cross-track doit être >= 10,0 km.",
+                    req_type="payload_perf",
+                    parameter="swath_width_km",
+                    operator=">=",
+                    threshold=10.0,
+                    goal=15.0,
+                    unit="km",
+                    weight=1.0,
+                ),
+                dict(
+                    id="REQ-SNR-01",
+                    title="Rapport signal sur bruit radiométrique (SNR)",
+                    description="Le SNR au nadir doit être >= 55.",
+                    req_type="payload_perf",
+                    parameter="snr_nadir_estimate",
+                    operator=">=",
+                    threshold=55.0,
+                    goal=80.0,
+                    unit="",
+                    weight=1.0,
+                ),
+            ],
+            ground_stations=[
+                dict(
+                    id="svalbard",
+                    name="Svalbard Satellite Station (KSAT)",
+                    latitude_deg=78.22,
+                    longitude_deg=15.40,
+                    altitude_m=450.0,
+                    min_elevation_deg=5.0,
+                    bands_supported=["S", "X", "Ka"],
+                    cost_per_pass_eur=240.0,
+                )
+            ],
+            target_zones=[],
+        ),
+    ),
+
+    # ------------------------------------------------------------------ 8. Cosmologie & Champ Profond (Preserved)
     (
         "exam_cosmology_deep_field.mission.json",
         dict(
@@ -387,37 +846,29 @@ MISSIONS: list[tuple[str, dict]] = [
             target_lifetime_years=6.0,
             min_trl=8,
             context=(
-                "Pour cartographier la distribution de matière noire par cisaillement gravitationnel faible (weak lensing) "
-                "et suivre les supernovæ distantes, le consortium souhaite placer en orbite basse un télescope optique à grand "
-                "diamètre primaire et très haute stabilité de pointage."
+                "Pour cartographier la distribution de matière noire par cisaillement gravitationnel faible et suivre "
+                "les supernovæ distantes, le consortium souhaite placer en orbite un télescope optique à grand diamètre primaire."
             ),
             primary_objective=(
-                "Disposer d'un télescope spatial d'au moins 0,60 m d'ouverture primaire (objectif 0,70 m) limité par la diffraction "
-                "(tache de diffraction équivalente <= 0,72 m projetée à l'échelle de référence), monté sur une plateforme garantissant "
-                "une précision de pointage meilleure ou égale à 0,004° afin d'éviter tout flou d'étalement de la fonction d'étalement "
-                "du point (PSF) lors des poses longues sur le ciel profond."
+                "Disposer d'un télescope spatial d'au moins 0,60 m d'ouverture primaire (objectif 0,70 m) limité par la diffraction, "
+                "monté sur une plateforme garantissant une précision de pointage <= 0,004°."
             ),
             secondary_objectives=[
-                "Assurer un stockage bord d'au moins 1 à 2 To pour accumuler les mosaïques du relevé cosmologique.",
-                "Privilégier un contrôle d'attitude à très faibles micro-vibrations (roues agiles ou suite ultra-stable).",
+                "Assurer un stockage bord d'au moins 1 à 2 To.",
+                "Privilégier un contrôle d'attitude à très faibles micro-vibrations.",
             ],
             scientific_or_operational_need=(
-                "La mesure de la déformation cohérente de millions de galaxies lointaines par la matière noire exige une qualité "
-                "d'image affranchie de la turbulence atmosphérique terrestre, un grand diamètre collecteur de photons et une "
-                "stabilité d'attitude sub-arcseconde."
+                "La déformation cohérente de galaxies lointaines exige une qualité d'image affranchie de la turbulence terrestre."
             ),
             orbit_constraints_description=(
-                "Orbite héliosynchrone crépusculaire (dawn-dusk, 550–700 km) maintenant le télescope à l'ombre du pare-soleil "
-                "et permettant de pointer à l'opposé de la Terre et du Soleil avec un minimum d'interruptions d'occultation."
+                "Orbite héliosynchrone crépusculaire (dawn-dusk, 550–700 km)."
             ),
             conops_guidance=(
-                "Pointage inertiel prolongé (poses de 300 à 600 s par champ cosmologique) suivi d'un basculement fin vers le champ "
-                "suivant. Vidage quotidien des images scientifiques non destructivement compressées en bande X ou Ka."
+                "Pointage inertiel prolongé (poses de 300 à 600 s) puis vidage quotidien en bande X/Ka."
             ),
             deliverables_expected=[
-                "Justifier le diamètre du miroir primaire choisi vis-à-vis de la limite de diffraction et de la collecte de photons.",
-                "Démontrer que l'association (plateforme + option ADCS) respecte l'exigence stricte de pointage <= 0,004°.",
-                "Présenter le bilan de masse et le choix du lanceur (rideshare lourd ESPA Grande ou lanceur dédié).",
+                "Justifier le diamètre du miroir primaire vis-à-vis de la limite de diffraction.",
+                "Démontrer que le pointage respecte l'exigence <= 0,004°.",
             ],
             requirements=[
                 dict(
@@ -467,143 +918,13 @@ MISSIONS: list[tuple[str, dict]] = [
                     min_elevation_deg=10.0,
                     bands_supported=["S", "X", "Ka"],
                     cost_per_pass_eur=300.0,
-                ),
-                dict(
-                    id="svalbard_cosmo",
-                    name="Svalbard Polar Station",
-                    latitude_deg=78.22,
-                    longitude_deg=15.40,
-                    altitude_m=450.0,
-                    min_elevation_deg=5.0,
-                    bands_supported=["S", "X", "Ka"],
-                    cost_per_pass_eur=250.0,
-                ),
+                )
             ],
             target_zones=[],
         ),
     ),
 
-    # ------------------------------------------------------------------ 5. Télécommunications & Haut Débit de Données (Laser / RF)
-    (
-        "exam_high_throughput_datalink.mission.json",
-        dict(
-            schema_version="1.0.0",
-            id="EXAM-2026-DATARATE",
-            title="Mission TeraRelay — Établissement d'une Liaison Spatiale Très Haut Débit (>= 25 Gbit/s)",
-            client_agency="Opérateur Européen de Dorsale Spatiale Souveraine",
-            domain_label="Télécommunications Spatiales — Établir un très haut débit de données optique",
-            mission_type="telecom_opt",
-            max_budget_meur=15.0,
-            target_lifetime_years=6.0,
-            min_trl=8,
-            context=(
-                "Pour désengorger les liaisons radio-fréquence saturées et rapatrier en temps quasi-réel des téraoctets de données "
-                "issues de satellites d'observation ou de centres isolés, l'opérateur souhaite déployer un nœud orbital capable "
-                "d'établir une liaison optique directe vers le sol à au moins 25 Gbit/s."
-            ),
-            primary_objective=(
-                "Établir une liaison descendante laser à 1550 nm délivrant un débit effectif supérieur ou égal à 25 Gbit/s "
-                "(objectif 100 Gbit/s) vers des stations sol optiques de 80 cm de diamètre, avec une marge de liaison d'au moins "
-                "6,0 dB en ciel clair et une précision de pointage plateforme <= 0,008° pour assurer l'acquisition rapide du faisceau."
-            ),
-            secondary_objectives=[
-                "Minimiser le coût du segment spatial (plafond strict de 15,0 M€) pour permettre le déploiement futur d'une constellation.",
-                "Embarquer optionnellement un transpondeur RF bande X/Ka de secours pour la continuité de service par temps couvert.",
-            ],
-            scientific_or_operational_need=(
-                "Les capteurs modernes génèrent plusieurs gigabits par seconde alors que les passages au-dessus d'une station sol "
-                "en orbite basse ne durent que 6 à 10 minutes. Établir un débit de 25 Gbit/s permet de transférer plus de "
-                "1,5 téraoctet de données utiles en un seul passage de 8 minutes."
-            ),
-            orbit_constraints_description=(
-                "Orbite basse entre 500 km et 750 km d'altitude. Une altitude trop élevée dégrade le bilan de liaison en 1/R², "
-                "tandis qu'une altitude trop basse raccourcit la durée de visibilité géométrique des stations optiques."
-            ),
-            conops_guidance=(
-                "Pointage grossier du satellite vers la station sol optique, acquisition du phare montant (beacon) par le miroir "
-                "de pointage fin (PAT) du terminal laser, verrouillage en boucle fermée (< 1,5 µrad) et vidage à très haut débit "
-                "de la mémoire de masse."
-            ),
-            deliverables_expected=[
-                "Calculer le volume total de données (en Go ou To) transférable lors d'un passage de 6 minutes au débit retenu.",
-                "Démontrer la fermeture du bilan de liaison optique (puissance laser, diamètre télescope, pertes de pointage, marge >= 6 dB).",
-                "Discuter la sensibilité aux nuages et l'intérêt de la diversité géographique des stations optiques (Calern, Tenerife, Athènes).",
-            ],
-            requirements=[
-                dict(
-                    id="REQ-DATA-RATE-01",
-                    title="Débit de données optique atteignable",
-                    description="Le débit de données effectif sur la liaison LEO-sol doit être >= 25,0 Gbit/s.",
-                    req_type="payload_perf",
-                    parameter="achievable_data_rate_gbps",
-                    operator=">=",
-                    threshold=25.0,
-                    goal=100.0,
-                    unit="Gbps",
-                    weight=2.0,
-                ),
-                dict(
-                    id="REQ-LINK-MARGIN-01",
-                    title="Marge de bilan de liaison optique",
-                    description="La marge du lien optique à 1550 nm doit être >= 6,0 dB.",
-                    req_type="payload_perf",
-                    parameter="margin_db",
-                    operator=">=",
-                    threshold=6.0,
-                    goal=10.0,
-                    unit="dB",
-                    weight=1.0,
-                ),
-                dict(
-                    id="REQ-POINTING-LASER",
-                    title="Précision de pointage plateforme pour acquisition",
-                    description="La précision de pointage plateforme doit être <= 0,008 deg.",
-                    req_type="payload_perf",
-                    parameter="pointing_accuracy_deg",
-                    operator="<=",
-                    threshold=0.008,
-                    goal=0.005,
-                    unit="deg",
-                    weight=1.0,
-                ),
-            ],
-            ground_stations=[
-                dict(
-                    id="ogs_tenerife",
-                    name="ESA Optical Ground Station Tenerife",
-                    latitude_deg=28.30,
-                    longitude_deg=-16.51,
-                    altitude_m=2390.0,
-                    min_elevation_deg=15.0,
-                    bands_supported=["Optical", "S"],
-                    cost_per_pass_eur=350.0,
-                ),
-                dict(
-                    id="ogs_calern",
-                    name="Station Optique du Plateau de Calern (OCA)",
-                    latitude_deg=43.75,
-                    longitude_deg=6.92,
-                    altitude_m=1270.0,
-                    min_elevation_deg=15.0,
-                    bands_supported=["Optical", "S"],
-                    cost_per_pass_eur=350.0,
-                ),
-                dict(
-                    id="ogs_helmos",
-                    name="Helmos Optical Ground Station (Grèce)",
-                    latitude_deg=37.98,
-                    longitude_deg=22.20,
-                    altitude_m=2340.0,
-                    min_elevation_deg=15.0,
-                    bands_supported=["Optical"],
-                    cost_per_pass_eur=320.0,
-                ),
-            ],
-            target_zones=[],
-        ),
-    ),
-
-    # ------------------------------------------------------------------ 6. Distribution Quantique de Clés (QKD, preserved IDs for unit test)
+    # ------------------------------------------------------------------ 9. Distribution Quantique de Clés (Preserved)
     (
         "exam_qkd_secure_links.mission.json",
         dict(
@@ -618,41 +939,34 @@ MISSIONS: list[tuple[str, dict]] = [
             min_trl=7,
             context=(
                 "Concevoir un satellite de distribution quantique de clés (QKD) en orbite basse (LEO) pour alimenter les centres "
-                "de calcul souverains et les ambassades en clés cryptographiques inviolables par injection laser nocturne."
+                "de calcul souverains en clés cryptographiques inviolables par faisceau laser nocturne."
             ),
             primary_objective=(
-                "Générer et distribuer des clés cryptographiques quantiques selon le protocole BB84 à états leurres à 850 nm "
-                "vers des stations sol optiques de 1 m, avec un taux d'erreur quantique (QBER) <= 6,0 % et un débit asymptotique "
-                "de clé secrète >= 1 000 bit/s lors des passages nocturnes."
+                "Distribuer des clés quantiques (BB84 à états leurres à 850 nm) avec un taux d'erreur quantique QBER <= 6,0 % "
+                "et un débit de clé secrète asymptotique >= 1 000 bit/s."
             ),
             secondary_objectives=[
-                "Garantir un pointage plateforme <= 0,008° afin de permettre au système de suivi fin sub-microradian d'accrocher la station sol.",
-                "Assurer l'authentification et la distillation des clés via un canal classique radio S ou X redondé.",
+                "Garantir un pointage plateforme <= 0,008°.",
+                "Assurer l'authentification et la distillation des clés via un canal radio classique.",
             ],
             scientific_or_operational_need=(
-                "Face à la menace des calculateurs quantiques sur les algorithmes asymétriques classiques (RSA/ECC), la distribution "
-                "quantique de clés par satellite permet d'échanger à l'échelle intercontinentale des clés à usage unique dont la "
-                "sécurité repose sur les lois de la mécanique quantique."
+                "Protéger les communications souveraines contre l'essor futur des calculateurs quantiques."
             ),
             orbit_constraints_description=(
-                "Orbite héliosynchrone (LTAN ~ 22h30 / 10h30) à une altitude modérée (450–550 km) pour maximiser le nombre de "
-                "passages de nuit au-dessus de l'Europe et minimiser l'atténuation géométrique du canal quantique."
+                "Orbite basse héliosynchrone à 450–550 km d'altitude."
             ),
             conops_guidance=(
-                "Émission quantique exclusivement de nuit sur les stations sol dégagées de nuages. Synchronisation temporelle "
-                "sub-nanoseconde et post-traitement (tamisage, correction d'erreurs, amplification de confidentialité) sur le "
-                "canal classique S/X."
+                "Émission quantique exclusivement nocturne lors des passages au-dessus des stations optiques."
             ),
             deliverables_expected=[
-                "Analyser le compromis entre l'altitude orbitale, les pertes géométriques du canal (en dB) et le débit de clé secrète.",
-                "Justifier le choix du terminal QKD et du pack ADCS pour tenir le budget de pointage.",
-                "Évaluer la quantité de clés de 256 bits produite par passage utile.",
+                "Analyser le compromis entre altitude et pertes du canal optique quantique.",
+                "Justifier le choix du terminal QKD et du pack ADCS.",
             ],
             requirements=[
                 dict(
                     id="REQ-QKD-QBER-01",
                     title="Taux d'Erreur Quantique (QBER)",
-                    description="Quantum Bit Error Rate <= 6.0 % pour garantir la distillation de clé",
+                    description="Quantum Bit Error Rate <= 6.0 %",
                     req_type="payload_perf",
                     parameter="quantum_bit_error_rate_pct",
                     operator="<=",
@@ -664,7 +978,7 @@ MISSIONS: list[tuple[str, dict]] = [
                 dict(
                     id="REQ-QKD-SKR-01",
                     title="Débit de Clé Secrète Asymptotique",
-                    description="Secret Key Rate moyen >= 1000 bps lors des contacts",
+                    description="Secret Key Rate moyen >= 1000 bps",
                     req_type="payload_perf",
                     parameter="asymptotic_secret_key_rate_bps",
                     operator=">=",
@@ -695,23 +1009,13 @@ MISSIONS: list[tuple[str, dict]] = [
                     min_elevation_deg=15.0,
                     bands_supported=["Optical", "S"],
                     cost_per_pass_eur=500.0,
-                ),
-                dict(
-                    id="sta_tenerife_ogs",
-                    name="Teide Optical Ground Station (IAC)",
-                    latitude_deg=28.30,
-                    longitude_deg=-16.51,
-                    altitude_m=2390.0,
-                    min_elevation_deg=15.0,
-                    bands_supported=["Optical", "S"],
-                    cost_per_pass_eur=450.0,
-                ),
+                )
             ],
             target_zones=[],
         ),
     ),
 
-    # ------------------------------------------------------------------ 7. CubeSat Bas Coût Surveillance Maritime & Débit RF
+    # ------------------------------------------------------------------ 10. CubeSat Bas-Coût IoT / Maritime (Preserved)
     (
         "exam_cubesat_maritime_iot.mission.json",
         dict(
@@ -719,46 +1023,38 @@ MISSIONS: list[tuple[str, dict]] = [
             id="EXAM-2026-CUBESAT-RF",
             title="Mission NanoSentinel — CubeSat Bas-Coût de Collecte IoT/AIS & Imagerie Côtière",
             client_agency="Pôle Universitaire & Maritime NewSpace",
-            domain_label="Nanosatellite Bas-Coût — Établir un service de collecte de données RF sous très faible budget",
+            domain_label="Nanosatellite Bas-Coût — Collecte de données RF sous budget strict",
             mission_type="telecom_radio",
             max_budget_meur=1.6,
             target_lifetime_years=2.5,
             min_trl=8,
             context=(
-                "Un consortium universitaire et portuaire dispose d'un budget strictement plafonné à 1,60 M€ (lancement compris) "
-                "pour démontrer en orbite un service de collecte de données maritimes/IoT par radio-fréquence, éventuellement "
-                "complété par une nano-caméra côtière."
+                "Un consortium universitaire dispose d'un budget strictement plafonné à 1,60 M€ pour déployer un "
+                "nanosatellite CubeSat dédié à la collecte de données maritimes."
             ),
             primary_objective=(
-                "Établir une liaison descendante radio-fréquence d'au moins 15 Mbit/s avec une marge de liaison >= 3,0 dB "
-                "depuis un nanosatellite (CubeSat 6U, 12U ou 16U) lancé en déployeur partagé, sans dépasser l'enveloppe budgétaire "
-                "totale de 1,60 M€."
+                "Établir une liaison descendante RF d'au moins 15 Mbit/s avec une marge >= 3,0 dB sous 1,60 M€."
             ),
             secondary_objectives=[
-                "Ajouter une seconde charge utile (ex. caméra optique 6 cm) si la plateforme CubeSat et le budget le permettent.",
-                "Maintenir une masse au lancement compatible avec le service de déployeur CubeSat (<= 32 kg).",
+                "Contenir la masse dans un déployeur CubeSat <= 32 kg.",
             ],
             scientific_or_operational_need=(
-                "Ce sujet met l'accent sur l'ingénierie NewSpace sous forte contrainte de coût : l'étudiant doit éviter tout "
-                "sur-dimensionnement (plateformes de 50 kg ou lanceurs dédiés hors budget) et sélectionner uniquement les "
-                "équipements strictement nécessaires."
+                "Ingénierie spatiale sous forte contrainte de coût."
             ),
             orbit_constraints_description=(
-                "Orbite héliosynchrone de covoiturage standard entre 500 km et 550 km d'altitude, imposée par le vol partagé."
+                "Orbite héliosynchrone standard 500–550 km en covoiturage."
             ),
             conops_guidance=(
-                "Réception permanente des balises AIS/IoT à faible consommation, vidage en bande S lors des passages sur la "
-                "station universitaire."
+                "Collecte permanente et vidage lors des passages station."
             ),
             deliverables_expected=[
-                "Démontrer le respect strict du plafond de 1,60 M€ (arbitrage 6U vs 12U vs 16U et choix du lanceur déployeur).",
-                "Vérifier le bilan de masse, de volume (en U/litres) et de puissance du CubeSat.",
+                "Démontrer le respect du plafond de 1,60 M€.",
             ],
             requirements=[
                 dict(
                     id="REQ-RF-RATE-01",
                     title="Débit de données RF descendant",
-                    description="Le débit maximal de la charge utile RF doit être >= 15,0 Mbit/s.",
+                    description="Le débit maximal RF doit être >= 15,0 Mbit/s.",
                     req_type="payload_perf",
                     parameter="max_data_rate_mbps",
                     operator=">=",
@@ -770,7 +1066,7 @@ MISSIONS: list[tuple[str, dict]] = [
                 dict(
                     id="REQ-RF-MARGIN-01",
                     title="Marge du bilan de liaison RF",
-                    description="La marge Eb/N0 sur la liaison descendante doit être >= 3,0 dB.",
+                    description="La marge Eb/N0 doit être >= 3,0 dB.",
                     req_type="payload_perf",
                     parameter="link_margin_db",
                     operator=">=",
@@ -783,7 +1079,7 @@ MISSIONS: list[tuple[str, dict]] = [
             ground_stations=[
                 dict(
                     id="sta_brest",
-                    name="Station Universitaire Maritime de Brest",
+                    name="Station Universitaire de Brest",
                     latitude_deg=48.39,
                     longitude_deg=-4.49,
                     altitude_m=50.0,
@@ -792,14 +1088,7 @@ MISSIONS: list[tuple[str, dict]] = [
                     cost_per_pass_eur=40.0,
                 )
             ],
-            target_zones=[
-                dict(
-                    id="zone_atlantic",
-                    name="Façade Atlantique & Manche",
-                    points_lat_lon=[(43.0, -10.0), (50.0, -5.0), (51.0, 2.0)],
-                    priority=1,
-                )
-            ],
+            target_zones=[],
         ),
     ),
 ]

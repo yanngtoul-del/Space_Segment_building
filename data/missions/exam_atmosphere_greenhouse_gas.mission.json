@@ -1,25 +1,26 @@
 {
   "schema_version": "1.0.0",
   "id": "EXAM-2026-ATMO-GHG",
-  "title": "Mission AtmoWatch — Chimie de l'Atmosphère Terrestre & Panaches de Méthane",
-  "context": "Dans le cadre du suivi international des émissions anthropiques, l'ISCA lance une mission spatiale dédiée à la connaissance fine de la composition de l'atmosphère terrestre et à la détection des super-émetteurs de méthane (CH4) et de dioxyde de carbone (CO2).",
+  "title": "Mission AtmoWatch — Chimie de l'Atmosphère Terrestre & Panaches de Gaz à Effet de Serre (SWIR)",
+  "context": "Dans le cadre de la surveillance indépendante des émissions anthropiques et des traités internationaux, l'ISCA requiert un spectromètre imageur dans les bandes infrarouges courtes (SWIR, 1,6–1,7 µm) capable de détecter et quantifier les panaches de méthane (CH4) et de dioxyde de carbone (CO2).",
   "mission_type": "atmosphere",
   "max_budget_meur": 16.5,
   "target_lifetime_years": 5.0,
   "client_agency": "Institut Spatial du Climat & de l'Atmosphère (ISCA)",
-  "domain_label": "Connaissance de l'Atmosphère Terrestre — Spectrométrie gaz à effet de serre",
-  "primary_objective": "Mesurer par spectrométrie imageuse dans le proche infrarouge et l'infrarouge à ondes courtes (SWIR, autour de 1,65 µm) les colonnes d'absorption de CH4 et de CO2 avec une résolution spectrale meilleure ou égale à 1,0 nm (objectif 0,3 nm), une résolution spatiale au sol <= 10 m permettant d'attribuer les panaches aux installations industrielles, et un SNR >= 50.",
+  "domain_label": "Connaissance de l'Atmosphère Terrestre — Spectrométrie SWIR pour gaz atmosphériques",
+  "primary_objective": "Mesurer par spectrométrie imageuse dans le SWIR (jusqu'à au moins 1650 nm) les colonnes atmosphériques de CH4 et CO2 avec une résolution spectrale <= 1,0 nm (objectif 0,3 nm), une résolution spatiale au nadir <= 10 m permettant d'attribuer les émissions aux sites industriels sources, et un SNR spectral moyen >= 50.",
   "secondary_objectives": [
-    "Caractériser les aérosols atmosphériques et les panaches urbains sur l'ensemble des bassins industriels mondiaux.",
-    "Maintenir le budget global du segment spatial sous 16,5 M€ grâce à une plateforme microsatellite optimisée."
+    "Couvrir les principaux bassins industriels et gaziers mondiaux avec un temps de revisite inférieur à 5 jours.",
+    "Garantir une compatibilité thermique avec la cryogénie passive/active du détecteur SWIR.",
+    "Maintenir le coût complet du segment spatial sous le plafond de 16,5 M€."
   ],
-  "scientific_or_operational_need": "Les inventaires climatiques souffrent d'une forte incertitude sur les fuites ponctuelles de méthane (puits gaziers, décharges, mines, pipelines). Seul un spectromètre à très haute finesse spectrale dans la bande SWIR (> 1600 nm) permet de séparer les raies rovibrationnelles du CH4 et du CO2 du fond d'albédo terrestre.",
-  "orbit_constraints_description": "Orbite héliosynchrone (SSO) vers 500–650 km d'altitude avec passage en milieu de journée (LTAN 11h00–13h00) pour maximiser le flux solaire réfléchi dans le SWIR et réduire l'angle zénithal solaire.",
-  "conops_guidance": "Observation systématique au nadir des zones continentales et des sites d'extraction. Refroidissement actif du plan focal SWIR maintenu en permanence ; étalonnage spectral sur diffuseur solaire une fois par jour au passage polaire.",
+  "scientific_or_operational_need": "La détection précise des fuites fugitives de méthane requiert d'isoler des raies d'absorption très étroites dans la fenêtre SWIR au-delà de 1600 nm sans être confondues avec la vapeur d'eau ou le CO2 ambiant.",
+  "orbit_constraints_description": "Orbite basse héliosynchrone (SSO) entre 500 km et 650 km d'altitude avec heure de passage solaire LTAN 11h30–13h00 afin de disposer du flux solaire réfléchi maximal dans le SWIR.",
+  "conops_guidance": "Observations au nadir le long de la trace sur les continents éclairés. Vidage de la mémoire de masse vers les stations polaires de Kiruna et Kourou.",
   "deliverables_expected": [
-    "Justifier le choix du spectromètre (domaine spectral SWIR >= 1650 nm et finesse spectrale <= 1 nm) par rapport aux spectromètres VNIR classiques.",
-    "Vérifier la compatibilité de pointage et de dissipation thermique entre le sondeur refroidi et la plateforme choisie.",
-    "Décrire le plan d'opérations (calibration, acquisition, vidage mémoire)."
+    "Justifier le choix d'un spectromètre imageur SWIR (>= 1650 nm, finesse spectrale <= 1,0 nm) par rapport aux spectromètres VNIR.",
+    "Démontrer la conformité du bilan de puissance et de pointage de la plateforme microsatellite sélectionnée.",
+    "Valider le budget global et le dimensionnement de la télémesure pour écouler le flux de données hyperspectrales."
   ],
   "allowed_suppliers": [],
   "min_trl": 8,
