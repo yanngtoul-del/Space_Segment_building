@@ -18,6 +18,21 @@
         "fairing_diameter_m": 1.2,
         "fairing_height_m": 1.8
       }
+    ],
+    "image": "launcher_rideshare.jpg",
+    "fairing_volume_m3": 2.0,
+    "description": "Covoiturage régulier vers l'orbite héliosynchrone sur port ESPA ou plateau partagé",
+    "long_description": "Service de lancement partagé (rideshare) sur lanceur moyen réutilisable, avec départs trimestriels vers une orbite héliosynchrone à 500–600 km. Le tarif comprend un prix d'entrée fixe et un coût au kilogramme : c'est la solution la plus économique pour un microsatellite jusqu'à 350–450 kg, mais l'orbite d'injection est imposée par le passager principal.",
+    "key_features": [
+      "Départs tous les 3 mois vers SSO",
+      "0,25 M€ + 15 k€/kg",
+      "Jusqu'à 350 kg en SSO 500 km",
+      "Ports ESPA 15\" et 24\""
+    ],
+    "interfaces": [
+      "Anneau ESPA 15 ou 24 pouces",
+      "Connecteur ombilical standard",
+      "Enveloppe mécanique 1,2 x 1,8 m"
     ]
   },
   {
@@ -39,6 +54,20 @@
         "fairing_diameter_m": 1.5,
         "fairing_height_m": 2.2
       }
+    ],
+    "image": "launcher_rocket.jpg",
+    "fairing_volume_m3": 2.2,
+    "description": "Petit lanceur dédié pour l'injection directe d'un microsatellite sur orbite sur mesure",
+    "long_description": "Petit lanceur orbital dédié (classe 250 kg en orbite basse). Contrairement au rideshare, l'étudiant choisit librement l'altitude et l'inclinaison d'injection sans avoir à dépenser du propergol pour rejoindre l'orbite opérationnelle. Le coût fixe (5,5 M€) est en revanche bien supérieur à un lancement partagé.",
+    "key_features": [
+      "Orbite d'injection sur mesure",
+      "220 kg en SSO 500 km, 180 kg à 700 km",
+      "Coiffe Ø 1,2 m x 2,0 m",
+      "Étage supérieur réallumable"
+    ],
+    "interfaces": [
+      "Adaptateur 15 ou 24 pouces",
+      "Coiffe 1,2 m"
     ]
   },
   {
@@ -60,6 +89,20 @@
         "fairing_diameter_m": 2.6,
         "fairing_height_m": 4.5
       }
+    ],
+    "image": "launcher_rocket.jpg",
+    "fairing_volume_m3": 18.0,
+    "description": "Lanceur médium dédié pour satellites de 300 à 1500 kg",
+    "long_description": "Lanceur dédié de classe moyenne (inspiré de Vega-C / Firefly Alpha+), capable de placer plus d'une tonne en orbite héliosynchrone. Il dispose d'une coiffe de 2,6 m de diamètre permettant d'embarquer des télescopes sub-métriques ou des antennes radar repliées.",
+    "key_features": [
+      "1 350 kg en SSO 500 km",
+      "Coiffe Ø 2,6 m x 3,5 m",
+      "Haute précision d'injection",
+      "Adaptateur double lancement possible"
+    ],
+    "interfaces": [
+      "Adaptateur 937 mm ou 1194 mm",
+      "Coiffe 2,6 m"
     ]
   },
   {
@@ -80,6 +123,208 @@
         "max_payload_mass_kg": 5000.0,
         "fairing_diameter_m": 4.5,
         "fairing_height_m": 8.0
+      }
+    ],
+    "image": "launcher_heavy.jpg",
+    "fairing_volume_m3": 85.0,
+    "description": "Lanceur lourd institutionnel pour grands satellites ou grappes multi-tonnes",
+    "long_description": "Lanceur lourd européen/américain (classe Ariane 6 / Falcon 9 dédié) offrant plusieurs tonnes de capacité en orbite héliosynchrone et une coiffe de grand volume (4,5 m de diamètre). Indispensable pour les plateformes de plus de 1,5 tonne, mais son coût très élevé pénalise fortement le budget global si le satellite est léger.",
+    "key_features": [
+      "5 000 kg en SSO 500 km",
+      "Coiffe Ø 4,5 m x 6,0 m",
+      "Fiabilité institutionnelle",
+      "Injection directe toute inclinaison"
+    ],
+    "interfaces": [
+      "Adaptateur 1194 mm ou 1666 mm",
+      "Coiffe 4,5 m"
+    ]
+  },
+  {
+    "id": "ln_cubesat_deployer",
+    "supplier_id": "launch_global",
+    "supplier_name": "Aether Launch Services",
+    "name": "CubePod SSO Dispenser Service",
+    "launcher_type": "rideshare",
+    "description": "Déployeur CubeSat (6U à 16U) en covoiturage SSO",
+    "fairing_volume_m3": 0.05,
+    "price_base_meur": 0.08,
+    "price_per_kg_meur": 0.025,
+    "max_total_mass_kg": 32.0,
+    "lead_time_months": 6,
+    "trl": 9,
+    "flight_heritage": ">120 CubeSats déployés",
+    "image": "launcher_rideshare.jpg",
+    "long_description": "Service d'intégration et d'éjection en déployeur containerisé (6U, 12U ou 16U) sur un vol partagé. C'est le mode de lancement le moins cher du catalogue, réservé aux nanosatellites de moins de 32 kg. Le satellite est protégé dans son pod jusqu'à l'éjection en orbite.",
+    "key_features": [
+      "Pour CubeSats 6U, 12U, 16U (max 32 kg)",
+      "Mise de départ très faible (80 k€)",
+      "Délai 6 mois",
+      "Démarches de sécurité simplifiées"
+    ],
+    "interfaces": [
+      "Rails CubeSat conformes CDS",
+      "Volume max 0,45 x 0,25 x 0,25 m"
+    ],
+    "capacities": [
+      {
+        "orbit_type": "sso_500km",
+        "max_payload_mass_kg": 32.0,
+        "fairing_diameter_m": 0.5,
+        "fairing_height_m": 0.55
+      },
+      {
+        "orbit_type": "sso_700km",
+        "max_payload_mass_kg": 26.0,
+        "fairing_diameter_m": 0.5,
+        "fairing_height_m": 0.55
+      },
+      {
+        "orbit_type": "leo_inclined",
+        "max_payload_mass_kg": 32.0,
+        "fairing_diameter_m": 0.5,
+        "fairing_height_m": 0.55
+      }
+    ]
+  },
+  {
+    "id": "ln_espa_heavy_rideshare",
+    "supplier_id": "launch_global",
+    "supplier_name": "Aether Launch Services",
+    "name": "OrbitalShare XL (ESPA Grande)",
+    "launcher_type": "rideshare",
+    "description": "Emplacement ESPA Grande / plateau supérieur pour satellites jusqu'à 800 kg",
+    "fairing_volume_m3": 5.5,
+    "price_base_meur": 0.65,
+    "price_per_kg_meur": 0.012,
+    "max_total_mass_kg": 850.0,
+    "lead_time_months": 12,
+    "trl": 9,
+    "flight_heritage": ">25 vols",
+    "image": "launcher_rideshare.jpg",
+    "long_description": "Emplacement de covoiturage de grande capacité sur port ESPA Grande (24 pouces) ou adaptateur supérieur, acceptant des satellites jusqu'à 800 kg en SSO. Permet de lancer des plateformes de 300 à 700 kg à une fraction du prix d'un lanceur dédié, avec la contrainte d'une orbite partagée.",
+    "key_features": [
+      "Jusqu'à 800 kg en SSO 500 km",
+      "0,65 M€ + 12 k€/kg",
+      "Volume 1,6 x 2,2 m",
+      "Idéal pour classes 300–700 kg"
+    ],
+    "interfaces": [
+      "Anneau 24 pouces ou adaptateur 937 mm",
+      "Enveloppe 1,6 x 2,2 m"
+    ],
+    "capacities": [
+      {
+        "orbit_type": "sso_500km",
+        "max_payload_mass_kg": 800.0,
+        "fairing_diameter_m": 1.6,
+        "fairing_height_m": 2.2
+      },
+      {
+        "orbit_type": "sso_700km",
+        "max_payload_mass_kg": 650.0,
+        "fairing_diameter_m": 1.6,
+        "fairing_height_m": 2.2
+      },
+      {
+        "orbit_type": "leo_inclined",
+        "max_payload_mass_kg": 850.0,
+        "fairing_diameter_m": 1.6,
+        "fairing_height_m": 2.2
+      }
+    ]
+  },
+  {
+    "id": "ln_polar_dedicated_micro",
+    "supplier_id": "polar_launch",
+    "supplier_name": "Borealis Launch Systems",
+    "name": "Aurora-1 Polar Micro Launcher",
+    "launcher_type": "dedicated",
+    "description": "Micro-lanceur dédié tiré depuis un cosmodrome polaire européen",
+    "fairing_volume_m3": 1.3,
+    "price_base_meur": 3.8,
+    "price_per_kg_meur": 0.0,
+    "max_total_mass_kg": 130.0,
+    "lead_time_months": 10,
+    "trl": 8,
+    "flight_heritage": "6 vols",
+    "image": "launcher_rocket.jpg",
+    "long_description": "Micro-lanceur dédié de Borealis Launch Systems, opéré depuis la Scandinavie pour un accès direct aux orbites polaires et héliosynchrones. Il cible les satellites de 50 à 120 kg qui ont besoin d'une orbite précise (inclinaison, heure locale) sans payer un lanceur de 250 kg.",
+    "key_features": [
+      "115 kg en SSO 500 km",
+      "Prix dédié 3,8 M€",
+      "Tir direct vers inclinaisons polaires",
+      "Délai 10 mois"
+    ],
+    "interfaces": [
+      "Adaptateur 15 pouces / déployeur 16U",
+      "Coiffe Ø 1,0 m x 1,6 m"
+    ],
+    "capacities": [
+      {
+        "orbit_type": "sso_500km",
+        "max_payload_mass_kg": 115.0,
+        "fairing_diameter_m": 1.0,
+        "fairing_height_m": 1.6
+      },
+      {
+        "orbit_type": "sso_700km",
+        "max_payload_mass_kg": 90.0,
+        "fairing_diameter_m": 1.0,
+        "fairing_height_m": 1.6
+      },
+      {
+        "orbit_type": "leo_inclined",
+        "max_payload_mass_kg": 130.0,
+        "fairing_diameter_m": 1.0,
+        "fairing_height_m": 1.6
+      }
+    ]
+  },
+  {
+    "id": "ln_polar_medium_500",
+    "supplier_id": "polar_launch",
+    "supplier_name": "Borealis Launch Systems",
+    "name": "Aurora-5 Small-Medium Launcher",
+    "launcher_type": "dedicated",
+    "description": "Lanceur dédié de classe 600 kg positionné entre le micro-lanceur et le médium",
+    "fairing_volume_m3": 7.5,
+    "price_base_meur": 11.5,
+    "price_per_kg_meur": 0.0,
+    "max_total_mass_kg": 650.0,
+    "lead_time_months": 15,
+    "trl": 8,
+    "flight_heritage": "4 vols",
+    "image": "launcher_rocket.jpg",
+    "long_description": "Lanceur à deux étages au méthane liquide capable de placer 550 kg en orbite héliosynchrone pour 11,5 M€. Il comble le trou tarifaire entre les petits lanceurs (250 kg, 5,5 M€) et les lanceurs moyens (1 500 kg, 18 M€) pour les satellites de 250 à 550 kg.",
+    "key_features": [
+      "550 kg en SSO 500 km",
+      "11,5 M€ en lancement dédié",
+      "Coiffe Ø 2,0 m x 2,8 m",
+      "Étage supérieur réallumable"
+    ],
+    "interfaces": [
+      "Adaptateur 24 pouces ou 937 mm",
+      "Coiffe 2,0 m"
+    ],
+    "capacities": [
+      {
+        "orbit_type": "sso_500km",
+        "max_payload_mass_kg": 550.0,
+        "fairing_diameter_m": 2.0,
+        "fairing_height_m": 2.8
+      },
+      {
+        "orbit_type": "sso_700km",
+        "max_payload_mass_kg": 440.0,
+        "fairing_diameter_m": 2.0,
+        "fairing_height_m": 2.8
+      },
+      {
+        "orbit_type": "leo_inclined",
+        "max_payload_mass_kg": 650.0,
+        "fairing_diameter_m": 2.0,
+        "fairing_height_m": 2.8
       }
     ]
   }

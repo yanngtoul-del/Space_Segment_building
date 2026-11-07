@@ -5,7 +5,7 @@ from typing import Any
 from ssb.core.orbit import OrbitDefinition
 from ssb.core.project import SystemConfiguration, Launcher
 from ssb.core.mission import MissionSpecification, RequirementOperator
-from ssb.core.payload import BasePayload, OpticalImagerPayload, PayloadType
+from ssb.core.payload import BasePayload
 from ssb.catalog.database import CatalogDatabase
 from ssb.system.configurator import PlatformConfigurator, ConfiguredPlatform
 from ssb.system.checks import CheckStatus, RuleCheckResult
@@ -66,6 +66,23 @@ class SystemBudgets:
         )
 
 
+def launcher_capacity_for_orbit(ln: Launcher, orbit: OrbitDefinition) -> float:
+    """Return launcher mass capacity (kg) for the requested orbit."""
+    if not ln.capacities:
+        return ln.max_total_mass_kg
+    by_type = {c.orbit_type: c.max_payload_mass_kg for c in ln.capacities}
+    if orbit.orbit_type.value == "sso" or orbit.inclination_deg >= 95.0:
+        if orbit.altitude_km <= 600.0 and "sso_500km" in by_type:
+            return by_type["sso_500km"]
+        if "sso_700km" in by_type:
+            return by_type["sso_700km"]
+        if "sso_500km" in by_type:
+            return by_type["sso_500km"]
+    if "leo_inclined" in by_type:
+        return by_type["leo_inclined"]
+    return ln.max_total_mass_kg
+
+
 class SystemEvaluator:
     """Evaluates the complete satellite architecture against physics, platform limits, and mission specs."""
 
@@ -112,8 +129,9 @@ class SystemEvaluator:
                     )
                 )
 
-        # 1. Mass Budget
+        # 1. Mass & Volume Budget
         pl_mass = sum(p.mass_kg for p in payloads)
+        pl_vol = sum(p.volume_liters for p in payloads)
         opt_mass = sum(opt.final_mass_kg for opt in conf_plat.resolved_options)
 
         prop_mass = 0.0
@@ -163,6 +181,44 @@ class SystemEvaluator:
                 )
             )
 
+        if pl_vol > plat_base.payload_volume_liters:
+            rule_checks.append(
+                RuleCheckResult(
+                    rule_id="RULE_VOLUME_PAYLOAD_MAX",
+                    category="Volume",
+                    status=CheckStatus.FAIL,
+                    message=f"Total payload volume ({pl_vol:.1f} L) exceeds platform bay ({plat_base.payload_volume_liters:.1f} L)",
+                    current_value=pl_vol,
+                    target_value=plat_base.payload_volume_liters,
+                    unit="L",
+                )
+            )
+        else:
+            rule_checks.append(
+                RuleCheckResult(
+                    rule_id="RULE_VOLUME_PAYLOAD_MAX",
+                    category="Volume",
+                    status=CheckStatus.PASS,
+                    message=f"Payload volume ({pl_vol:.1f} L) within platform bay ({plat_base.payload_volume_liters:.1f} L)",
+                    current_value=pl_vol,
+                    target_value=plat_base.payload_volume_liters,
+                    unit="L",
+                )
+            )
+
+        if wet_mass_kg > plat_base.max_launch_mass_kg:
+            rule_checks.append(
+                RuleCheckResult(
+                    rule_id="RULE_PLAT_LAUNCH_MASS",
+                    category="Mass",
+                    status=CheckStatus.FAIL,
+                    message=f"Wet mass ({wet_mass_kg:.1f} kg) exceeds platform structural limit ({plat_base.max_launch_mass_kg:.1f} kg)",
+                    current_value=wet_mass_kg,
+                    target_value=plat_base.max_launch_mass_kg,
+                    unit="kg",
+                )
+            )
+
         # 2. Power Budget
         pl_power_avg = sum(p.operational_power_w for p in payloads) * 0.25
 
@@ -175,7 +231,11 @@ class SystemEvaluator:
 
         total_cons_avg = opt_power_avg + pl_power_avg
         power_margin_w = plat_base.payload_avg_power_w - total_cons_avg
-        power_margin_pct = (power_margin_w / plat_base.payload_avg_power_w) * 100.0 if plat_base.payload_avg_power_w > 0 else 0.0
+        power_margin_pct = (
+            (power_margin_w / plat_base.payload_avg_power_w) * 100.0
+            if plat_base.payload_avg_power_w > 0
+            else 0.0
+        )
 
         peak_cons = sum(p.peak_power_w for p in payloads) + sum(
             opt.equipment.peak_power_w for opt in conf_plat.resolved_options
@@ -229,13 +289,38 @@ class SystemEvaluator:
                 )
             )
 
-        # 3. Cost Budget
+        # 3. Cost & Launcher Budget
         launcher_cost = 0.0
         if config.launcher_id and config.launcher_id in self.catalog.launchers:
             ln = self.catalog.launchers[config.launcher_id]
             launcher_cost = ln.price_base_meur + (
                 ln.price_per_kg_meur * launch_mass_with_margin_kg
             )
+            ln_cap = launcher_capacity_for_orbit(ln, config.orbit)
+            if launch_mass_with_margin_kg > ln_cap:
+                rule_checks.append(
+                    RuleCheckResult(
+                        rule_id="RULE_LAUNCHER_CAPACITY",
+                        category="Launcher",
+                        status=CheckStatus.FAIL,
+                        message=f"Launch mass with margin ({launch_mass_with_margin_kg:.1f} kg) exceeds '{ln.name}' capacity on this orbit ({ln_cap:.1f} kg)",
+                        current_value=launch_mass_with_margin_kg,
+                        target_value=ln_cap,
+                        unit="kg",
+                    )
+                )
+            else:
+                rule_checks.append(
+                    RuleCheckResult(
+                        rule_id="RULE_LAUNCHER_CAPACITY",
+                        category="Launcher",
+                        status=CheckStatus.PASS,
+                        message=f"Launch mass ({launch_mass_with_margin_kg:.1f} kg) within '{ln.name}' capacity ({ln_cap:.1f} kg)",
+                        current_value=launch_mass_with_margin_kg,
+                        target_value=ln_cap,
+                        unit="kg",
+                    )
+                )
         elif config.launcher_id:
             rule_checks.append(
                 RuleCheckResult(
@@ -298,7 +383,11 @@ class SystemEvaluator:
         for req in mission.requirements:
             if req.parameter == "pointing_accuracy_deg":
                 thresh = float(req.threshold)
-                pass_pt = effective_pointing_accuracy_deg <= thresh if req.operator == RequirementOperator.LE else False
+                pass_pt = (
+                    effective_pointing_accuracy_deg <= thresh
+                    if req.operator == RequirementOperator.LE
+                    else False
+                )
                 compliance_checks.append(
                     RuleCheckResult(
                         rule_id=req.id,
@@ -340,7 +429,9 @@ class SystemEvaluator:
         # 5. Generic Payload Performances & Mission Requirements Verification
         payload_perfs: dict[str, Any] = {}
         for pl in payloads:
-            p_dict, p_compliance = evaluate_payload_requirements(pl, config.orbit, mission)
+            p_dict, p_compliance = evaluate_payload_requirements(
+                pl, config.orbit, mission
+            )
             payload_perfs[pl.id] = p_dict
             compliance_checks.extend(p_compliance)
 

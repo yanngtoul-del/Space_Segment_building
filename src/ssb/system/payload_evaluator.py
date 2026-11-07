@@ -1,4 +1,4 @@
-"""Extend system evaluator to check SAR, spectrometer, optical comm, and QKD performance."""
+"""Extend system evaluator to check optical, SAR, spectrometer, optical comm, QKD, and radio comm performance."""
 
 from ssb.core.payload import (
     BasePayload,
@@ -69,7 +69,18 @@ def evaluate_payload_requirements(
         )
         perfs = p.__dict__
 
-    # Match computed values against mission requirements
+    elif payload.payload_type == PayloadType.RADIO_COMM:
+        assert isinstance(payload, RadioCommPayload)
+        p = RadioCommModel.compute_downlink_budget(
+            rf_power_w=payload.rf_output_power_w,
+            carrier_freq_ghz=payload.downlink_frequency_ghz,
+            satellite_antenna_gain_dbi=payload.antenna_gain_tx_dbi,
+            ground_antenna_diameter_m=5.0,
+            data_rate_mbps=payload.max_data_rate_mbps,
+            slant_range_km=orbit.altitude_km * 1.5,
+        )
+        perfs = p.__dict__
+
     for req in mission.requirements:
         if req.parameter in perfs:
             calc_val = perfs[req.parameter]

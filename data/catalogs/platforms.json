@@ -21,7 +21,10 @@
     "slew_rate_deg_s": 2.0,
     "jitter_arcsec": 5.0,
     "payload_thermal_dissipation_w": 25.0,
-    "launch_environment_compatible": ["rideshare_deployer", "espa_ring"],
+    "launch_environment_compatible": [
+      "rideshare_deployer",
+      "espa_ring"
+    ],
     "design_lifetime_years": 3.0,
     "rad_tolerance_krad": 15.0,
     "base_price_meur": 0.55,
@@ -30,7 +33,11 @@
     "slots": [
       {
         "function": "propulsion",
-        "allowed_equipment_ids": ["prop_coldgas_10u"],
+        "allowed_equipment_ids": [
+          "prop_coldgas_10u",
+          "prop_coldgas_1u",
+          "prop_pptt_micro"
+        ],
         "included_equipment_ids": [],
         "min_qty": 0,
         "max_qty": 1,
@@ -40,8 +47,13 @@
       },
       {
         "function": "ttc",
-        "allowed_equipment_ids": ["ttc_sband_transceiver"],
-        "included_equipment_ids": ["ttc_sband_transceiver"],
+        "allowed_equipment_ids": [
+          "ttc_sband_transceiver",
+          "ttc_uhf_cubesat"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_transceiver"
+        ],
         "min_qty": 1,
         "max_qty": 1,
         "integration_cost_fixed_meur": 0.0,
@@ -50,14 +62,67 @@
       },
       {
         "function": "mass_memory",
-        "allowed_equipment_ids": ["mass_mem_512gb"],
+        "allowed_equipment_ids": [
+          "mass_mem_512gb",
+          "mass_mem_64gb"
+        ],
         "included_equipment_ids": [],
         "min_qty": 0,
         "max_qty": 1,
         "integration_cost_fixed_meur": 0.02,
         "integration_cost_pct": 2.0,
         "interface_mass_kg": 0.1
+      },
+      {
+        "function": "payload_downlink",
+        "allowed_equipment_ids": [
+          "downlink_sband_hr",
+          "downlink_xband_tx_50mbps",
+          "downlink_xband_tx_150mbps"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 4.0,
+        "interface_mass_kg": 0.2,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "adcs",
+        "allowed_equipment_ids": [
+          "adcs_cubesat_basic",
+          "adcs_cubesat_precision"
+        ],
+        "included_equipment_ids": [
+          "adcs_cubesat_precision"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
       }
+    ],
+    "image": "platform_cubesat.jpg",
+    "dimensions_mm": [
+      450,
+      226,
+      226
+    ],
+    "deployed_span_m": 1.4,
+    "long_description": "Plateforme CubeSat 16U d'AeroMicro Dynamics, dotée de panneaux solaires déployables, d'un calculateur COTS tolérant aux radiations et d'une baie de charge utile de 9 litres. Elle est conçue pour emporter de petits imageurs, des terminaux radio ou des démonstrateurs technologiques à coût très contenu. La puissance disponible, le volume et la précision de pointage limitent toutefois son usage aux instruments compacts.",
+    "key_features": [
+      "Format 16U compatible dispensers standards",
+      "Baie charge utile 9 L / 10 kg",
+      "Pointage 0,05° avec viseur d'étoiles",
+      "Livraison rapide en 8 mois"
+    ],
+    "interfaces": [
+      "Bus 12 V non régulé",
+      "CAN / RS-422 / SpaceWire",
+      "Fixation rail CubeSat 16U"
     ]
   },
   {
@@ -82,16 +147,24 @@
     "slew_rate_deg_s": 2.5,
     "jitter_arcsec": 1.8,
     "payload_thermal_dissipation_w": 50.0,
-    "launch_environment_compatible": ["espa_ring", "rideshare_deployer"],
+    "launch_environment_compatible": [
+      "espa_ring",
+      "rideshare_deployer"
+    ],
     "design_lifetime_years": 5.0,
     "rad_tolerance_krad": 20.0,
-    "base_price_meur": 2.10,
+    "base_price_meur": 2.1,
     "base_lead_time_months": 12,
     "trl": 9,
     "slots": [
       {
         "function": "propulsion",
-        "allowed_equipment_ids": ["prop_coldgas_10u", "prop_electric_hall_100w"],
+        "allowed_equipment_ids": [
+          "prop_coldgas_10u",
+          "prop_electric_hall_100w",
+          "prop_pptt_micro",
+          "prop_green_5n"
+        ],
         "included_equipment_ids": [],
         "min_qty": 0,
         "max_qty": 1,
@@ -101,14 +174,21 @@
       },
       {
         "function": "ttc",
-        "allowed_equipment_ids": ["ttc_sband_transceiver"],
-        "included_equipment_ids": ["ttc_sband_transceiver"],
+        "allowed_equipment_ids": [
+          "ttc_sband_transceiver"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_transceiver"
+        ],
         "min_qty": 1,
         "max_qty": 1
       },
       {
         "function": "payload_downlink",
-        "allowed_equipment_ids": ["downlink_xband_tx"],
+        "allowed_equipment_ids": [
+          "downlink_xband_tx",
+          "downlink_xband_tx_150mbps"
+        ],
         "included_equipment_ids": [],
         "min_qty": 0,
         "max_qty": 1,
@@ -118,11 +198,49 @@
       },
       {
         "function": "mass_memory",
-        "allowed_equipment_ids": ["mass_mem_512gb"],
-        "included_equipment_ids": ["mass_mem_512gb"],
+        "allowed_equipment_ids": [
+          "mass_mem_512gb",
+          "mass_mem_1tb"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_512gb"
+        ],
         "min_qty": 1,
         "max_qty": 1
+      },
+      {
+        "function": "adcs",
+        "allowed_equipment_ids": [
+          "adcs_high_accuracy_pack"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.08,
+        "integration_cost_pct": 5.0,
+        "interface_mass_kg": 0.8,
+        "equipment_overrides": {}
       }
+    ],
+    "image": "platform_smallsat.jpg",
+    "dimensions_mm": [
+      600,
+      600,
+      700
+    ],
+    "deployed_span_m": 2.2,
+    "long_description": "Microsatellite de classe 50 kg d'Albion Satellite Technologies, héritier d'une longue lignée de petits satellites d'observation et de télécommunications. Structure aluminium nid d'abeille, bus 28 V, roues à réaction et viseur d'étoiles de série. Bon compromis entre un CubeSat limité en puissance et une plateforme de 150 kg nettement plus coûteuse.",
+    "key_features": [
+      "Charge utile jusqu'à 30 kg / 28 L",
+      "Bus 28 V, 70 W moyens pour la charge utile",
+      "Compatible anneau ESPA",
+      "Durée de vie 5 ans"
+    ],
+    "interfaces": [
+      "Bus 28 V",
+      "SpaceWire / CAN / LVDS",
+      "Plateau d'interface charge utile 500 x 500 mm",
+      "Anneau de séparation 15 pouces"
     ]
   },
   {
@@ -147,16 +265,25 @@
     "slew_rate_deg_s": 3.0,
     "jitter_arcsec": 0.8,
     "payload_thermal_dissipation_w": 120.0,
-    "launch_environment_compatible": ["espa_ring", "dedicated_smallsat", "ariane6_aux"],
+    "launch_environment_compatible": [
+      "espa_ring",
+      "dedicated_smallsat",
+      "ariane6_aux"
+    ],
     "design_lifetime_years": 7.0,
     "rad_tolerance_krad": 30.0,
-    "base_price_meur": 4.80,
+    "base_price_meur": 4.8,
     "base_lead_time_months": 16,
     "trl": 9,
     "slots": [
       {
         "function": "propulsion",
-        "allowed_equipment_ids": ["prop_electric_hall_100w", "prop_monoprop_1n"],
+        "allowed_equipment_ids": [
+          "prop_electric_hall_100w",
+          "prop_monoprop_1n",
+          "prop_electric_hall_300w",
+          "prop_green_5n"
+        ],
         "included_equipment_ids": [],
         "min_qty": 0,
         "max_qty": 2,
@@ -165,21 +292,32 @@
         "interface_mass_kg": 2.0,
         "equipment_overrides": {
           "prop_electric_hall_100w": {
-            "price_meur": 0.50,
+            "price_meur": 0.5,
             "mass_kg": 7.0
           }
         }
       },
       {
         "function": "ttc",
-        "allowed_equipment_ids": ["ttc_sband_transceiver"],
-        "included_equipment_ids": ["ttc_sband_transceiver"],
+        "allowed_equipment_ids": [
+          "ttc_sband_transceiver",
+          "ttc_xband_tmtc",
+          "ttc_sband_dual_redundant"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_transceiver"
+        ],
         "min_qty": 1,
         "max_qty": 1
       },
       {
         "function": "payload_downlink",
-        "allowed_equipment_ids": ["downlink_xband_tx", "downlink_kaband_tx_2gbps"],
+        "allowed_equipment_ids": [
+          "downlink_xband_tx",
+          "downlink_kaband_tx_2gbps",
+          "downlink_xband_tx_150mbps",
+          "downlink_xband_tx_1200mbps"
+        ],
         "included_equipment_ids": [],
         "min_qty": 0,
         "max_qty": 1,
@@ -189,21 +327,50 @@
       },
       {
         "function": "mass_memory",
-        "allowed_equipment_ids": ["mass_mem_512gb", "mass_mem_2tb_highrel"],
-        "included_equipment_ids": ["mass_mem_512gb"],
+        "allowed_equipment_ids": [
+          "mass_mem_512gb",
+          "mass_mem_2tb_highrel",
+          "mass_mem_1tb"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_512gb"
+        ],
         "min_qty": 1,
         "max_qty": 2
       },
       {
         "function": "adcs",
-        "allowed_equipment_ids": ["adcs_high_accuracy_pack", "adcs_cmg_agility_pack"],
+        "allowed_equipment_ids": [
+          "adcs_high_accuracy_pack",
+          "adcs_cmg_agility_pack",
+          "adcs_agile_wheels_medium"
+        ],
         "included_equipment_ids": [],
         "min_qty": 0,
         "max_qty": 1,
-        "integration_cost_fixed_meur": 0.10,
+        "integration_cost_fixed_meur": 0.1,
         "integration_cost_pct": 5.0,
         "interface_mass_kg": 1.0
       }
+    ],
+    "image": "platform_smallsat.jpg",
+    "dimensions_mm": [
+      950,
+      850,
+      1100
+    ],
+    "deployed_span_m": 3.8,
+    "long_description": "Plateforme de 150 kg d'Astra Space Systems destinée aux missions opérationnelles d'observation de la Terre et de télécommunications. Elle offre deux emplacements de propulsion (permettant de combiner ou de redonder propulsion électrique et chimique), une avionique redondée et une bonne stabilité de pointage. C'est la plateforme polyvalente de référence pour les instruments de 30 à 75 kg.",
+    "key_features": [
+      "Jusqu'à 75 kg / 80 L de charge utile",
+      "Double emplacement de propulsion (max 2)",
+      "Avionique redondée, durée de vie 7 ans",
+      "Compatible ESPA Grande, Vega-C, Falcon 9"
+    ],
+    "interfaces": [
+      "Bus 28 V régulé",
+      "SpaceWire / SpaceFibre / MIL-1553",
+      "Anneau de séparation 24 pouces"
     ]
   },
   {
@@ -228,34 +395,59 @@
     "slew_rate_deg_s": 4.0,
     "jitter_arcsec": 0.5,
     "payload_thermal_dissipation_w": 500.0,
-    "launch_environment_compatible": ["dedicated_smallsat", "falcon9_rideshare", "ariane6"],
+    "launch_environment_compatible": [
+      "dedicated_smallsat",
+      "falcon9_rideshare",
+      "ariane6"
+    ],
     "design_lifetime_years": 8.0,
     "rad_tolerance_krad": 45.0,
-    "base_price_meur": 9.50,
+    "base_price_meur": 9.5,
     "base_lead_time_months": 14,
     "trl": 9,
     "slots": [
       {
         "function": "propulsion",
-        "allowed_equipment_ids": ["prop_electric_hall_100w", "prop_electric_hall_1kw", "prop_monoprop_1n"],
-        "included_equipment_ids": ["prop_electric_hall_100w"],
+        "allowed_equipment_ids": [
+          "prop_electric_hall_100w",
+          "prop_electric_hall_1kw",
+          "prop_monoprop_1n",
+          "prop_electric_hall_300w",
+          "prop_ion_500w",
+          "prop_green_5n"
+        ],
+        "included_equipment_ids": [
+          "prop_electric_hall_100w"
+        ],
         "min_qty": 1,
         "max_qty": 2,
-        "integration_cost_fixed_meur": 0.20,
+        "integration_cost_fixed_meur": 0.2,
         "integration_cost_pct": 6.0,
         "interface_mass_kg": 3.5
       },
       {
         "function": "ttc",
-        "allowed_equipment_ids": ["ttc_sband_transceiver"],
-        "included_equipment_ids": ["ttc_sband_transceiver"],
+        "allowed_equipment_ids": [
+          "ttc_sband_transceiver",
+          "ttc_xband_tmtc",
+          "ttc_sband_dual_redundant"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_transceiver"
+        ],
         "min_qty": 1,
         "max_qty": 1
       },
       {
         "function": "payload_downlink",
-        "allowed_equipment_ids": ["downlink_xband_tx", "downlink_kaband_tx_2gbps"],
-        "included_equipment_ids": ["downlink_xband_tx"],
+        "allowed_equipment_ids": [
+          "downlink_xband_tx",
+          "downlink_kaband_tx_2gbps",
+          "downlink_xband_tx_1200mbps"
+        ],
+        "included_equipment_ids": [
+          "downlink_xband_tx"
+        ],
         "min_qty": 1,
         "max_qty": 2,
         "integration_cost_fixed_meur": 0.08,
@@ -264,18 +456,50 @@
       },
       {
         "function": "mass_memory",
-        "allowed_equipment_ids": ["mass_mem_512gb", "mass_mem_2tb_highrel"],
-        "included_equipment_ids": ["mass_mem_2tb_highrel"],
+        "allowed_equipment_ids": [
+          "mass_mem_512gb",
+          "mass_mem_2tb_highrel",
+          "mass_mem_8tb"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_2tb_highrel"
+        ],
         "min_qty": 1,
         "max_qty": 2
       },
       {
         "function": "adcs",
-        "allowed_equipment_ids": ["adcs_high_accuracy_pack", "adcs_cmg_agility_pack"],
-        "included_equipment_ids": ["adcs_high_accuracy_pack"],
+        "allowed_equipment_ids": [
+          "adcs_high_accuracy_pack",
+          "adcs_cmg_agility_pack",
+          "adcs_agile_wheels_medium",
+          "adcs_ultra_stable"
+        ],
+        "included_equipment_ids": [
+          "adcs_high_accuracy_pack"
+        ],
         "min_qty": 1,
         "max_qty": 1
       }
+    ],
+    "image": "platform_medium.jpg",
+    "dimensions_mm": [
+      1400,
+      1300,
+      1700
+    ],
+    "deployed_span_m": 6.5,
+    "long_description": "Plateforme agile de classe 500 kg produite en série par Apex Orbital Manufacturing. Dotée de panneaux solaires de près d'un kilowatt, d'un contrôle d'attitude de haute précision inclus de base et d'une grande baie d'instrument, elle accueille des radars SAR, des télescopes sub-métriques ou des charges utiles multi-instruments.",
+    "key_features": [
+      "Charge utile 240 kg / 350 L",
+      "950 W moyens en orbite (650 W charge utile)",
+      "Propulsion Hall, X-band, mémoire 2 To et ADCS précis inclus",
+      "Production en série, délai 14 mois"
+    ],
+    "interfaces": [
+      "Bus 50 V régulé",
+      "SpaceFibre 4 voies / MIL-1553",
+      "Interface lanceur 24 ou 38 pouces"
     ]
   },
   {
@@ -300,50 +524,1576 @@
     "slew_rate_deg_s": 5.0,
     "jitter_arcsec": 0.2,
     "payload_thermal_dissipation_w": 1500.0,
-    "launch_environment_compatible": ["ariane6", "falcon9", "vega_c"],
+    "launch_environment_compatible": [
+      "ariane6",
+      "falcon9",
+      "vega_c"
+    ],
     "design_lifetime_years": 12.0,
     "rad_tolerance_krad": 100.0,
-    "base_price_meur": 28.00,
+    "base_price_meur": 28.0,
     "base_lead_time_months": 28,
     "trl": 9,
     "slots": [
       {
         "function": "propulsion",
-        "allowed_equipment_ids": ["prop_electric_hall_1kw", "prop_biprop_400n"],
-        "included_equipment_ids": ["prop_biprop_400n"],
+        "allowed_equipment_ids": [
+          "prop_electric_hall_1kw",
+          "prop_biprop_400n",
+          "prop_ion_500w"
+        ],
+        "included_equipment_ids": [
+          "prop_biprop_400n"
+        ],
         "min_qty": 1,
         "max_qty": 2,
-        "integration_cost_fixed_meur": 0.50,
+        "integration_cost_fixed_meur": 0.5,
         "integration_cost_pct": 10.0,
         "interface_mass_kg": 8.0
       },
       {
         "function": "ttc",
-        "allowed_equipment_ids": ["ttc_sband_transceiver"],
-        "included_equipment_ids": ["ttc_sband_transceiver"],
+        "allowed_equipment_ids": [
+          "ttc_sband_transceiver",
+          "ttc_sband_dual_redundant",
+          "ttc_xband_tmtc"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_transceiver"
+        ],
         "min_qty": 1,
         "max_qty": 1
       },
       {
         "function": "payload_downlink",
-        "allowed_equipment_ids": ["downlink_xband_tx", "downlink_kaband_tx_2gbps"],
-        "included_equipment_ids": ["downlink_kaband_tx_2gbps"],
+        "allowed_equipment_ids": [
+          "downlink_xband_tx",
+          "downlink_kaband_tx_2gbps",
+          "downlink_xband_tx_1200mbps"
+        ],
+        "included_equipment_ids": [
+          "downlink_kaband_tx_2gbps"
+        ],
         "min_qty": 1,
         "max_qty": 2
       },
       {
         "function": "mass_memory",
-        "allowed_equipment_ids": ["mass_mem_2tb_highrel"],
-        "included_equipment_ids": ["mass_mem_2tb_highrel"],
+        "allowed_equipment_ids": [
+          "mass_mem_2tb_highrel",
+          "mass_mem_8tb"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_2tb_highrel"
+        ],
         "min_qty": 1,
         "max_qty": 2
       },
       {
         "function": "adcs",
-        "allowed_equipment_ids": ["adcs_cmg_agility_pack"],
-        "included_equipment_ids": ["adcs_cmg_agility_pack"],
+        "allowed_equipment_ids": [
+          "adcs_cmg_agility_pack",
+          "adcs_ultra_stable"
+        ],
+        "included_equipment_ids": [
+          "adcs_cmg_agility_pack"
+        ],
         "min_qty": 1,
         "max_qty": 1
+      }
+    ],
+    "image": "platform_large.jpg",
+    "dimensions_mm": [
+      2200,
+      2000,
+      3100
+    ],
+    "deployed_span_m": 11.5,
+    "long_description": "Plateforme lourde de classe 1,5 tonne d'AeroPrime Defense & Space, qualifiée pour les grandes missions institutionnelles et de défense. Architecture entièrement redondée, bus 100 V de 2,5 kW, très haute stabilité de pointage et capacité d'emport de 800 kg. C'est la seule famille capable d'accueillir les grands télescopes métriques ou des radars à large antenne.",
+    "key_features": [
+      "Charge utile 800 kg / 1200 L",
+      "2,5 kW moyens, bus 100 V",
+      "Stabilité 0,15 arcsec/s, durée de vie 12 ans",
+      "Tolérance radiations 100 krad"
+    ],
+    "interfaces": [
+      "Bus 100 V régulé",
+      "SpaceFibre / MIL-1553B redondé",
+      "Adaptateur lanceur 1194 mm"
+    ]
+  },
+  {
+    "id": "plat_aeromicro_6u",
+    "supplier_id": "newspace_micro",
+    "supplier_name": "AeroMicro Dynamics",
+    "name": "MicroBus-6U",
+    "category": "cubesat_6u",
+    "description": "CubeSat 6U d'entrée de gamme pour petits instruments et IoT/AIS",
+    "dimensions_mm": [
+      340,
+      226,
+      100
+    ],
+    "deployed_span_m": 0.9,
+    "dry_mass_kg": 5.0,
+    "max_payload_mass_kg": 4.0,
+    "max_launch_mass_kg": 12.0,
+    "payload_volume_liters": 3.5,
+    "orbit_avg_power_w": 25.0,
+    "payload_avg_power_w": 12.0,
+    "payload_peak_power_w": 35.0,
+    "bus_voltage_v": 12.0,
+    "battery_capacity_wh": 65.0,
+    "battery_max_dod": 0.3,
+    "pointing_accuracy_deg": 0.15,
+    "pointing_stability_arcsec_s": 25.0,
+    "slew_rate_deg_s": 1.5,
+    "jitter_arcsec": 8.0,
+    "payload_thermal_dissipation_w": 12.0,
+    "launch_environment_compatible": [
+      "rideshare_deployer"
+    ],
+    "design_lifetime_years": 2.5,
+    "rad_tolerance_krad": 10.0,
+    "base_price_meur": 0.28,
+    "base_lead_time_months": 6,
+    "trl": 9,
+    "image": "platform_cubesat.jpg",
+    "long_description": "La plus petite plateforme du catalogue : un CubeSat 6U standardisé offrant 3,5 U à la charge utile. Très économique et livrable en 6 mois, elle convient aux récepteurs radio (AIS/IoT) ou à une caméra miniature, mais sa puissance et sa précision de pointage interdisent les charges utiles exigeantes.",
+    "key_features": [
+      "3,5 L / 4 kg pour la charge utile",
+      "Prix de base 0,28 M€",
+      "Livraison 6 mois",
+      "Compatible tous déployeurs 6U"
+    ],
+    "interfaces": [
+      "Bus 5 V / 12 V",
+      "CAN / UART / I2C",
+      "Rails CubeSat 6U"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "allowed_equipment_ids": [
+          "prop_coldgas_1u"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.01,
+        "integration_cost_pct": 3.0,
+        "interface_mass_kg": 0.1,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "ttc",
+        "allowed_equipment_ids": [
+          "ttc_uhf_cubesat",
+          "ttc_sband_transceiver"
+        ],
+        "included_equipment_ids": [
+          "ttc_uhf_cubesat"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "payload_downlink",
+        "allowed_equipment_ids": [
+          "downlink_sband_hr",
+          "downlink_xband_tx_50mbps"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.01,
+        "integration_cost_pct": 3.0,
+        "interface_mass_kg": 0.1,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "mass_memory",
+        "allowed_equipment_ids": [
+          "mass_mem_64gb"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_64gb"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "adcs",
+        "allowed_equipment_ids": [
+          "adcs_cubesat_basic",
+          "adcs_cubesat_precision"
+        ],
+        "included_equipment_ids": [
+          "adcs_cubesat_basic"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      }
+    ]
+  },
+  {
+    "id": "plat_aeromicro_12u",
+    "supplier_id": "newspace_micro",
+    "supplier_name": "AeroMicro Dynamics",
+    "name": "MicroBus-12U",
+    "category": "cubesat_12u",
+    "description": "CubeSat 12U polyvalent pour imagerie compacte et démonstration",
+    "dimensions_mm": [
+      340,
+      226,
+      226
+    ],
+    "deployed_span_m": 1.2,
+    "dry_mass_kg": 9.0,
+    "max_payload_mass_kg": 8.0,
+    "max_launch_mass_kg": 20.0,
+    "payload_volume_liters": 6.5,
+    "orbit_avg_power_w": 45.0,
+    "payload_avg_power_w": 22.0,
+    "payload_peak_power_w": 60.0,
+    "bus_voltage_v": 12.0,
+    "battery_capacity_wh": 130.0,
+    "battery_max_dod": 0.3,
+    "pointing_accuracy_deg": 0.08,
+    "pointing_stability_arcsec_s": 18.0,
+    "slew_rate_deg_s": 2.0,
+    "jitter_arcsec": 6.0,
+    "payload_thermal_dissipation_w": 20.0,
+    "launch_environment_compatible": [
+      "rideshare_deployer"
+    ],
+    "design_lifetime_years": 3.0,
+    "rad_tolerance_krad": 12.0,
+    "base_price_meur": 0.42,
+    "base_lead_time_months": 7,
+    "trl": 9,
+    "image": "platform_cubesat.jpg",
+    "long_description": "Plateforme CubeSat 12U offrant 6,5 L à la charge utile et des panneaux solaires déployables de 45 W moyens. Elle comble l'écart entre le 6U très contraint et le 16U, à un tarif attractif pour les missions universitaires ou les constellations à bas coût.",
+    "key_features": [
+      "6,5 L / 8 kg de charge utile",
+      "45 W moyens en orbite",
+      "ADCS 3 axes avec viseur d'étoiles en option",
+      "Compatible déployeurs 12U"
+    ],
+    "interfaces": [
+      "Bus 12 V",
+      "CAN / SpaceWire / LVDS",
+      "Rails CubeSat 12U"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "allowed_equipment_ids": [
+          "prop_coldgas_1u",
+          "prop_coldgas_10u",
+          "prop_pptt_micro"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 4.0,
+        "interface_mass_kg": 0.2,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "ttc",
+        "allowed_equipment_ids": [
+          "ttc_uhf_cubesat",
+          "ttc_sband_transceiver"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_transceiver"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "payload_downlink",
+        "allowed_equipment_ids": [
+          "downlink_sband_hr",
+          "downlink_xband_tx_50mbps",
+          "downlink_xband_tx_150mbps"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 4.0,
+        "interface_mass_kg": 0.15,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "mass_memory",
+        "allowed_equipment_ids": [
+          "mass_mem_64gb",
+          "mass_mem_512gb"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_64gb"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "adcs",
+        "allowed_equipment_ids": [
+          "adcs_cubesat_basic",
+          "adcs_cubesat_precision"
+        ],
+        "included_equipment_ids": [
+          "adcs_cubesat_precision"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      }
+    ]
+  },
+  {
+    "id": "plat_aeromicro_espa50",
+    "supplier_id": "newspace_micro",
+    "supplier_name": "AeroMicro Dynamics",
+    "name": "MicroBus-ESPA60",
+    "category": "smallsat_50kg",
+    "description": "Microsatellite NewSpace de 60 kg à bas coût pour anneau ESPA",
+    "dimensions_mm": [
+      550,
+      550,
+      650
+    ],
+    "deployed_span_m": 2.0,
+    "dry_mass_kg": 32.0,
+    "max_payload_mass_kg": 35.0,
+    "max_launch_mass_kg": 80.0,
+    "payload_volume_liters": 35.0,
+    "orbit_avg_power_w": 120.0,
+    "payload_avg_power_w": 65.0,
+    "payload_peak_power_w": 160.0,
+    "bus_voltage_v": 28.0,
+    "battery_capacity_wh": 320.0,
+    "battery_max_dod": 0.3,
+    "pointing_accuracy_deg": 0.03,
+    "pointing_stability_arcsec_s": 4.0,
+    "slew_rate_deg_s": 2.5,
+    "jitter_arcsec": 2.2,
+    "payload_thermal_dissipation_w": 45.0,
+    "launch_environment_compatible": [
+      "espa_ring",
+      "rideshare_deployer"
+    ],
+    "design_lifetime_years": 4.0,
+    "rad_tolerance_krad": 18.0,
+    "base_price_meur": 1.45,
+    "base_lead_time_months": 10,
+    "trl": 8,
+    "image": "platform_smallsat.jpg",
+    "long_description": "Première plateforme hors-CubeSat d'AeroMicro Dynamics, conçue pour les ports ESPA en covoiturage. Plus économique que l'AlbionMicro-50 grâce à l'utilisation d'avionique issue des CubeSats, mais avec une durée de vie et une tenue aux radiations plus modestes.",
+    "key_features": [
+      "35 kg / 35 L de charge utile",
+      "Tarif NewSpace (1,45 M€)",
+      "Délai court 10 mois",
+      "Propulsion électrique 100 W possible"
+    ],
+    "interfaces": [
+      "Bus 28 V",
+      "CAN / SpaceWire",
+      "Séparation 15 pouces ESPA"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "allowed_equipment_ids": [
+          "prop_coldgas_10u",
+          "prop_electric_hall_100w",
+          "prop_green_5n"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.06,
+        "integration_cost_pct": 5.0,
+        "interface_mass_kg": 0.8,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "ttc",
+        "allowed_equipment_ids": [
+          "ttc_sband_transceiver"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_transceiver"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "payload_downlink",
+        "allowed_equipment_ids": [
+          "downlink_xband_tx_50mbps",
+          "downlink_xband_tx_150mbps",
+          "downlink_xband_tx"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.03,
+        "integration_cost_pct": 4.0,
+        "interface_mass_kg": 0.3,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "mass_memory",
+        "allowed_equipment_ids": [
+          "mass_mem_512gb",
+          "mass_mem_1tb"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_512gb"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "adcs",
+        "allowed_equipment_ids": [
+          "adcs_cubesat_precision",
+          "adcs_high_accuracy_pack"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.06,
+        "integration_cost_pct": 5.0,
+        "interface_mass_kg": 0.6,
+        "equipment_overrides": {}
+      }
+    ]
+  },
+  {
+    "id": "plat_sstl_mini150",
+    "supplier_id": "sstl_inspired",
+    "supplier_name": "Albion Satellite Technologies",
+    "name": "AlbionMini-150",
+    "category": "smallsat_150kg",
+    "description": "Microsatellite 150 kg économique à fort héritage",
+    "dimensions_mm": [
+      900,
+      800,
+      1000
+    ],
+    "deployed_span_m": 3.4,
+    "dry_mass_kg": 90.0,
+    "max_payload_mass_kg": 70.0,
+    "max_launch_mass_kg": 190.0,
+    "payload_volume_liters": 75.0,
+    "orbit_avg_power_w": 240.0,
+    "payload_avg_power_w": 120.0,
+    "payload_peak_power_w": 300.0,
+    "bus_voltage_v": 28.0,
+    "battery_capacity_wh": 720.0,
+    "battery_max_dod": 0.3,
+    "pointing_accuracy_deg": 0.015,
+    "pointing_stability_arcsec_s": 1.5,
+    "slew_rate_deg_s": 2.5,
+    "jitter_arcsec": 1.0,
+    "payload_thermal_dissipation_w": 100.0,
+    "launch_environment_compatible": [
+      "espa_ring",
+      "dedicated_smallsat"
+    ],
+    "design_lifetime_years": 6.0,
+    "rad_tolerance_krad": 25.0,
+    "base_price_meur": 3.9,
+    "base_lead_time_months": 14,
+    "trl": 9,
+    "image": "platform_smallsat.jpg",
+    "long_description": "Concurrente directe de l'AstraFlex-150, l'AlbionMini-150 privilégie une architecture simple et éprouvée pour contenir le prix sous 4 M€. Elle emporte un seul système de propulsion et offre un peu moins de puissance, mais reste très compétitive pour l'imagerie optique moyenne résolution ou la spectrométrie.",
+    "key_features": [
+      "70 kg / 75 L de charge utile",
+      "Prix maîtrisé 3,9 M€",
+      "Héritage > 25 satellites en vol",
+      "Durée de vie 6 ans"
+    ],
+    "interfaces": [
+      "Bus 28 V",
+      "SpaceWire / CAN",
+      "Anneau ESPA 24 pouces"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "allowed_equipment_ids": [
+          "prop_electric_hall_100w",
+          "prop_monoprop_1n",
+          "prop_green_5n"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.1,
+        "integration_cost_pct": 6.0,
+        "interface_mass_kg": 1.5,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "ttc",
+        "allowed_equipment_ids": [
+          "ttc_sband_transceiver",
+          "ttc_xband_tmtc"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_transceiver"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "payload_downlink",
+        "allowed_equipment_ids": [
+          "downlink_xband_tx_150mbps",
+          "downlink_xband_tx",
+          "downlink_xband_tx_1200mbps"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.04,
+        "integration_cost_pct": 5.0,
+        "interface_mass_kg": 0.4,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "mass_memory",
+        "allowed_equipment_ids": [
+          "mass_mem_512gb",
+          "mass_mem_1tb",
+          "mass_mem_2tb_highrel"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_512gb"
+        ],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "adcs",
+        "allowed_equipment_ids": [
+          "adcs_high_accuracy_pack",
+          "adcs_agile_wheels_medium"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.08,
+        "integration_cost_pct": 5.0,
+        "interface_mass_kg": 0.8,
+        "equipment_overrides": {}
+      }
+    ]
+  },
+  {
+    "id": "plat_sstl_midi300",
+    "supplier_id": "sstl_inspired",
+    "supplier_name": "Albion Satellite Technologies",
+    "name": "AlbionMidi-300",
+    "category": "smallsat_300kg",
+    "description": "Plateforme 300 kg pour charges utiles optiques ou radar compact",
+    "dimensions_mm": [
+      1200,
+      1100,
+      1400
+    ],
+    "deployed_span_m": 4.8,
+    "dry_mass_kg": 165.0,
+    "max_payload_mass_kg": 140.0,
+    "max_launch_mass_kg": 360.0,
+    "payload_volume_liters": 180.0,
+    "orbit_avg_power_w": 520.0,
+    "payload_avg_power_w": 320.0,
+    "payload_peak_power_w": 900.0,
+    "bus_voltage_v": 28.0,
+    "battery_capacity_wh": 1600.0,
+    "battery_max_dod": 0.3,
+    "pointing_accuracy_deg": 0.008,
+    "pointing_stability_arcsec_s": 0.8,
+    "slew_rate_deg_s": 2.8,
+    "jitter_arcsec": 0.7,
+    "payload_thermal_dissipation_w": 250.0,
+    "launch_environment_compatible": [
+      "espa_ring",
+      "dedicated_smallsat",
+      "vega_c"
+    ],
+    "design_lifetime_years": 7.0,
+    "rad_tolerance_krad": 30.0,
+    "base_price_meur": 6.4,
+    "base_lead_time_months": 16,
+    "trl": 9,
+    "image": "platform_medium.jpg",
+    "long_description": "Plateforme intermédiaire de 300 kg au lancement, idéale lorsque les 150 kg sont trop justes en masse ou en puissance mais qu'un bus de 500 kg serait surdimensionné. Sa structure hexagonale offre un grand plateau supérieur pour fixer un télescope de 40 cm ou un radar en bande X.",
+    "key_features": [
+      "140 kg / 180 L de charge utile",
+      "320 W moyens (900 W crête) pour la charge utile",
+      "Pointage 0,008° de base",
+      "Double propulsion possible"
+    ],
+    "interfaces": [
+      "Bus 28 V régulé",
+      "SpaceWire / SpaceFibre",
+      "Adaptateur 24 pouces"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "allowed_equipment_ids": [
+          "prop_electric_hall_100w",
+          "prop_electric_hall_300w",
+          "prop_monoprop_1n",
+          "prop_green_5n"
+        ],
+        "included_equipment_ids": [
+          "prop_green_5n"
+        ],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.12,
+        "integration_cost_pct": 6.0,
+        "interface_mass_kg": 2.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "ttc",
+        "allowed_equipment_ids": [
+          "ttc_sband_transceiver",
+          "ttc_sband_dual_redundant"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_transceiver"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "payload_downlink",
+        "allowed_equipment_ids": [
+          "downlink_xband_tx",
+          "downlink_xband_tx_1200mbps",
+          "downlink_kaband_tx_2gbps"
+        ],
+        "included_equipment_ids": [
+          "downlink_xband_tx"
+        ],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.06,
+        "integration_cost_pct": 5.0,
+        "interface_mass_kg": 0.6,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "mass_memory",
+        "allowed_equipment_ids": [
+          "mass_mem_1tb",
+          "mass_mem_2tb_highrel"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_1tb"
+        ],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "adcs",
+        "allowed_equipment_ids": [
+          "adcs_high_accuracy_pack",
+          "adcs_agile_wheels_medium",
+          "adcs_cmg_agility_pack"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.1,
+        "integration_cost_pct": 5.0,
+        "interface_mass_kg": 1.0,
+        "equipment_overrides": {}
+      }
+    ]
+  },
+  {
+    "id": "plat_astra_flex300",
+    "supplier_id": "heritage_aero",
+    "supplier_name": "Astra Space Systems",
+    "name": "AstraFlex-300",
+    "category": "smallsat_300kg",
+    "description": "Plateforme institutionnelle 300 kg haute fiabilité",
+    "dimensions_mm": [
+      1250,
+      1150,
+      1450
+    ],
+    "deployed_span_m": 5.2,
+    "dry_mass_kg": 175.0,
+    "max_payload_mass_kg": 150.0,
+    "max_launch_mass_kg": 390.0,
+    "payload_volume_liters": 210.0,
+    "orbit_avg_power_w": 620.0,
+    "payload_avg_power_w": 420.0,
+    "payload_peak_power_w": 1300.0,
+    "bus_voltage_v": 50.0,
+    "battery_capacity_wh": 1900.0,
+    "battery_max_dod": 0.3,
+    "pointing_accuracy_deg": 0.006,
+    "pointing_stability_arcsec_s": 0.6,
+    "slew_rate_deg_s": 3.2,
+    "jitter_arcsec": 0.5,
+    "payload_thermal_dissipation_w": 320.0,
+    "launch_environment_compatible": [
+      "dedicated_smallsat",
+      "vega_c",
+      "falcon9_rideshare"
+    ],
+    "design_lifetime_years": 8.0,
+    "rad_tolerance_krad": 40.0,
+    "base_price_meur": 7.8,
+    "base_lead_time_months": 18,
+    "trl": 9,
+    "image": "platform_medium.jpg",
+    "long_description": "Version agrandie de l'AstraFlex-150 avec bus 50 V et redondance complète. Conçue pour les missions institutionnelles exigeant 8 ans de durée de vie et une forte puissance crête (SAR compact ou charge utile multi-instruments).",
+    "key_features": [
+      "150 kg / 210 L de charge utile",
+      "Bus 50 V, 420 W moyens / 1,3 kW crête",
+      "Avionique entièrement redondée",
+      "Durée de vie 8 ans"
+    ],
+    "interfaces": [
+      "Bus 50 V régulé",
+      "SpaceFibre / MIL-1553",
+      "Anneau 24 pouces"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "allowed_equipment_ids": [
+          "prop_electric_hall_300w",
+          "prop_ion_500w",
+          "prop_monoprop_1n",
+          "prop_green_5n"
+        ],
+        "included_equipment_ids": [
+          "prop_monoprop_1n"
+        ],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.18,
+        "integration_cost_pct": 8.0,
+        "interface_mass_kg": 2.5,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "ttc",
+        "allowed_equipment_ids": [
+          "ttc_sband_dual_redundant",
+          "ttc_xband_tmtc"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_dual_redundant"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "payload_downlink",
+        "allowed_equipment_ids": [
+          "downlink_xband_tx",
+          "downlink_xband_tx_1200mbps",
+          "downlink_kaband_tx_2gbps"
+        ],
+        "included_equipment_ids": [
+          "downlink_xband_tx"
+        ],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.07,
+        "integration_cost_pct": 5.0,
+        "interface_mass_kg": 0.8,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "mass_memory",
+        "allowed_equipment_ids": [
+          "mass_mem_1tb",
+          "mass_mem_2tb_highrel",
+          "mass_mem_8tb"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_1tb"
+        ],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "adcs",
+        "allowed_equipment_ids": [
+          "adcs_high_accuracy_pack",
+          "adcs_agile_wheels_medium",
+          "adcs_cmg_agility_pack"
+        ],
+        "included_equipment_ids": [
+          "adcs_high_accuracy_pack"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      }
+    ]
+  },
+  {
+    "id": "plat_astra_flex700",
+    "supplier_id": "heritage_aero",
+    "supplier_name": "Astra Space Systems",
+    "name": "AstraFlex-700",
+    "category": "medium_700kg",
+    "description": "Plateforme 700 kg pour télescopes très haute résolution et radars",
+    "dimensions_mm": [
+      1650,
+      1500,
+      2100
+    ],
+    "deployed_span_m": 8.0,
+    "dry_mass_kg": 360.0,
+    "max_payload_mass_kg": 340.0,
+    "max_launch_mass_kg": 820.0,
+    "payload_volume_liters": 520.0,
+    "orbit_avg_power_w": 1400.0,
+    "payload_avg_power_w": 950.0,
+    "payload_peak_power_w": 2800.0,
+    "bus_voltage_v": 50.0,
+    "battery_capacity_wh": 3800.0,
+    "battery_max_dod": 0.3,
+    "pointing_accuracy_deg": 0.003,
+    "pointing_stability_arcsec_s": 0.3,
+    "slew_rate_deg_s": 3.5,
+    "jitter_arcsec": 0.3,
+    "payload_thermal_dissipation_w": 750.0,
+    "launch_environment_compatible": [
+      "dedicated_smallsat",
+      "vega_c",
+      "falcon9",
+      "ariane6"
+    ],
+    "design_lifetime_years": 10.0,
+    "rad_tolerance_krad": 60.0,
+    "base_price_meur": 14.5,
+    "base_lead_time_months": 22,
+    "trl": 9,
+    "image": "platform_medium.jpg",
+    "long_description": "Haut de gamme d'Astra Space Systems, capable d'emporter 340 kg d'instruments avec près d'un kilowatt de puissance moyenne. Sa très grande stabilité mécanique (plateau optique en carbone) permet d'exploiter des télescopes sub-métriques exigeants sans dégradation par le jitter.",
+    "key_features": [
+      "340 kg / 520 L de charge utile",
+      "950 W moyens pour la charge utile",
+      "Stabilité 0,3 arcsec/s, jitter 0,3 arcsec",
+      "Durée de vie 10 ans"
+    ],
+    "interfaces": [
+      "Bus 50 V régulé",
+      "SpaceFibre redondé / MIL-1553",
+      "Adaptateur 937 mm"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "allowed_equipment_ids": [
+          "prop_electric_hall_300w",
+          "prop_electric_hall_1kw",
+          "prop_ion_500w",
+          "prop_monoprop_1n",
+          "prop_biprop_400n"
+        ],
+        "included_equipment_ids": [
+          "prop_monoprop_1n"
+        ],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.25,
+        "integration_cost_pct": 8.0,
+        "interface_mass_kg": 4.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "ttc",
+        "allowed_equipment_ids": [
+          "ttc_sband_dual_redundant",
+          "ttc_xband_tmtc"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_dual_redundant"
+        ],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "payload_downlink",
+        "allowed_equipment_ids": [
+          "downlink_xband_tx_1200mbps",
+          "downlink_kaband_tx_2gbps"
+        ],
+        "included_equipment_ids": [
+          "downlink_xband_tx_1200mbps"
+        ],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.1,
+        "integration_cost_pct": 5.0,
+        "interface_mass_kg": 1.2,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "mass_memory",
+        "allowed_equipment_ids": [
+          "mass_mem_2tb_highrel",
+          "mass_mem_8tb"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_2tb_highrel"
+        ],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "adcs",
+        "allowed_equipment_ids": [
+          "adcs_agile_wheels_medium",
+          "adcs_cmg_agility_pack",
+          "adcs_ultra_stable"
+        ],
+        "included_equipment_ids": [
+          "adcs_agile_wheels_medium"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      }
+    ]
+  },
+  {
+    "id": "plat_apex_200",
+    "supplier_id": "apex_inspired",
+    "supplier_name": "Apex Orbital Manufacturing",
+    "name": "ApexBus-200",
+    "category": "smallsat_200kg",
+    "description": "SmallSat 200 kg produit en série à forte puissance",
+    "dimensions_mm": [
+      1050,
+      950,
+      1200
+    ],
+    "deployed_span_m": 4.2,
+    "dry_mass_kg": 105.0,
+    "max_payload_mass_kg": 110.0,
+    "max_launch_mass_kg": 240.0,
+    "payload_volume_liters": 120.0,
+    "orbit_avg_power_w": 420.0,
+    "payload_avg_power_w": 260.0,
+    "payload_peak_power_w": 850.0,
+    "bus_voltage_v": 28.0,
+    "battery_capacity_wh": 1200.0,
+    "battery_max_dod": 0.35,
+    "pointing_accuracy_deg": 0.008,
+    "pointing_stability_arcsec_s": 0.8,
+    "slew_rate_deg_s": 3.8,
+    "jitter_arcsec": 0.7,
+    "payload_thermal_dissipation_w": 200.0,
+    "launch_environment_compatible": [
+      "espa_ring",
+      "falcon9_rideshare",
+      "dedicated_smallsat"
+    ],
+    "design_lifetime_years": 6.0,
+    "rad_tolerance_krad": 30.0,
+    "base_price_meur": 5.2,
+    "base_lead_time_months": 11,
+    "trl": 9,
+    "image": "platform_smallsat.jpg",
+    "long_description": "Plateforme NewSpace de 200 kg pensée pour les constellations d'observation et de radar léger. Par rapport aux plateformes de 150 kg, elle se distingue par une puissance électrique élevée (420 W moyens, 850 W crête) et un délai de livraison réduit à 11 mois.",
+    "key_features": [
+      "110 kg / 120 L de charge utile",
+      "260 W moyens / 850 W crête pour la charge utile",
+      "Livraison sur étagère en 11 mois",
+      "Compatible ESPA Grande"
+    ],
+    "interfaces": [
+      "Bus 28 V",
+      "SpaceFibre / SpaceWire / Ethernet spatial",
+      "Anneau ESPA 24 pouces"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "allowed_equipment_ids": [
+          "prop_electric_hall_100w",
+          "prop_electric_hall_300w",
+          "prop_green_5n"
+        ],
+        "included_equipment_ids": [
+          "prop_electric_hall_100w"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.1,
+        "integration_cost_pct": 5.0,
+        "interface_mass_kg": 1.5,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "ttc",
+        "allowed_equipment_ids": [
+          "ttc_sband_transceiver",
+          "ttc_xband_tmtc"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_transceiver"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "payload_downlink",
+        "allowed_equipment_ids": [
+          "downlink_xband_tx",
+          "downlink_xband_tx_1200mbps",
+          "downlink_kaband_tx_2gbps"
+        ],
+        "included_equipment_ids": [
+          "downlink_xband_tx"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.05,
+        "integration_cost_pct": 4.0,
+        "interface_mass_kg": 0.5,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "mass_memory",
+        "allowed_equipment_ids": [
+          "mass_mem_512gb",
+          "mass_mem_1tb",
+          "mass_mem_2tb_highrel"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_1tb"
+        ],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "adcs",
+        "allowed_equipment_ids": [
+          "adcs_high_accuracy_pack",
+          "adcs_agile_wheels_medium",
+          "adcs_cmg_agility_pack"
+        ],
+        "included_equipment_ids": [
+          "adcs_high_accuracy_pack"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      }
+    ]
+  },
+  {
+    "id": "plat_apex_800",
+    "supplier_id": "apex_inspired",
+    "supplier_name": "Apex Orbital Manufacturing",
+    "name": "ApexBus-800",
+    "category": "medium_800kg",
+    "description": "Plateforme NewSpace 800 kg à forte puissance pour SAR et charges multiples",
+    "dimensions_mm": [
+      1750,
+      1600,
+      2200
+    ],
+    "deployed_span_m": 8.8,
+    "dry_mass_kg": 410.0,
+    "max_payload_mass_kg": 420.0,
+    "max_launch_mass_kg": 950.0,
+    "payload_volume_liters": 620.0,
+    "orbit_avg_power_w": 1750.0,
+    "payload_avg_power_w": 1250.0,
+    "payload_peak_power_w": 3400.0,
+    "bus_voltage_v": 100.0,
+    "battery_capacity_wh": 4500.0,
+    "battery_max_dod": 0.35,
+    "pointing_accuracy_deg": 0.004,
+    "pointing_stability_arcsec_s": 0.35,
+    "slew_rate_deg_s": 4.2,
+    "jitter_arcsec": 0.4,
+    "payload_thermal_dissipation_w": 900.0,
+    "launch_environment_compatible": [
+      "falcon9",
+      "vega_c",
+      "ariane6"
+    ],
+    "design_lifetime_years": 8.0,
+    "rad_tolerance_krad": 50.0,
+    "base_price_meur": 13.8,
+    "base_lead_time_months": 16,
+    "trl": 8,
+    "image": "platform_medium.jpg",
+    "long_description": "La plus grande plateforme d'Apex Orbital : 420 kg de capacité d'emport et 1,25 kW moyens pour la charge utile, à un prix sensiblement inférieur aux plateformes institutionnelles de même masse. Très adaptée aux radars SAR puissants ou aux missions combinant imagerie et liaison laser.",
+    "key_features": [
+      "420 kg / 620 L de charge utile",
+      "1,25 kW moyens / 3,4 kW crête",
+      "Bus 100 V",
+      "Tarif compétitif 13,8 M€"
+    ],
+    "interfaces": [
+      "Bus 100 V",
+      "SpaceFibre 8 voies",
+      "Adaptateur 937 mm"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "allowed_equipment_ids": [
+          "prop_electric_hall_300w",
+          "prop_electric_hall_1kw",
+          "prop_ion_500w",
+          "prop_monoprop_1n"
+        ],
+        "included_equipment_ids": [
+          "prop_electric_hall_1kw"
+        ],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.22,
+        "integration_cost_pct": 6.0,
+        "interface_mass_kg": 4.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "ttc",
+        "allowed_equipment_ids": [
+          "ttc_sband_transceiver",
+          "ttc_sband_dual_redundant",
+          "ttc_xband_tmtc"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_dual_redundant"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "payload_downlink",
+        "allowed_equipment_ids": [
+          "downlink_xband_tx_1200mbps",
+          "downlink_kaband_tx_2gbps"
+        ],
+        "included_equipment_ids": [
+          "downlink_kaband_tx_2gbps"
+        ],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.08,
+        "integration_cost_pct": 4.0,
+        "interface_mass_kg": 1.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "mass_memory",
+        "allowed_equipment_ids": [
+          "mass_mem_2tb_highrel",
+          "mass_mem_8tb"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_2tb_highrel"
+        ],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "adcs",
+        "allowed_equipment_ids": [
+          "adcs_agile_wheels_medium",
+          "adcs_cmg_agility_pack",
+          "adcs_ultra_stable"
+        ],
+        "included_equipment_ids": [
+          "adcs_agile_wheels_medium"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      }
+    ]
+  },
+  {
+    "id": "plat_europrime_1000",
+    "supplier_id": "heritage_prime",
+    "supplier_name": "AeroPrime Defense & Space",
+    "name": "PrimeBus-1000",
+    "category": "medium_1000kg",
+    "description": "Plateforme institutionnelle de classe 1 tonne à très haute stabilité",
+    "dimensions_mm": [
+      1900,
+      1750,
+      2500
+    ],
+    "deployed_span_m": 9.5,
+    "dry_mass_kg": 520.0,
+    "max_payload_mass_kg": 520.0,
+    "max_launch_mass_kg": 1200.0,
+    "payload_volume_liters": 800.0,
+    "orbit_avg_power_w": 1800.0,
+    "payload_avg_power_w": 1250.0,
+    "payload_peak_power_w": 3200.0,
+    "bus_voltage_v": 100.0,
+    "battery_capacity_wh": 5000.0,
+    "battery_max_dod": 0.25,
+    "pointing_accuracy_deg": 0.0025,
+    "pointing_stability_arcsec_s": 0.2,
+    "slew_rate_deg_s": 4.0,
+    "jitter_arcsec": 0.25,
+    "payload_thermal_dissipation_w": 1050.0,
+    "launch_environment_compatible": [
+      "vega_c",
+      "falcon9",
+      "ariane6"
+    ],
+    "design_lifetime_years": 10.0,
+    "rad_tolerance_krad": 80.0,
+    "base_price_meur": 21.0,
+    "base_lead_time_months": 24,
+    "trl": 9,
+    "image": "platform_large.jpg",
+    "long_description": "Version compacte de la gamme PrimeBus d'AeroPrime, dimensionnée pour un lancement sur Vega-C ou Falcon 9. Elle reprend l'architecture redondée et la très haute stabilité de pointage de la PrimeBus-1500 pour un coût et une masse réduits.",
+    "key_features": [
+      "520 kg / 800 L de charge utile",
+      "Compatible Vega-C en lancement dédié",
+      "Pointage 0,0025°, stabilité 0,2 arcsec/s",
+      "Durée de vie 10 ans, 80 krad"
+    ],
+    "interfaces": [
+      "Bus 100 V régulé",
+      "SpaceFibre / MIL-1553B redondé",
+      "Adaptateur 937 ou 1194 mm"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "allowed_equipment_ids": [
+          "prop_electric_hall_1kw",
+          "prop_ion_500w",
+          "prop_monoprop_1n",
+          "prop_biprop_400n"
+        ],
+        "included_equipment_ids": [
+          "prop_monoprop_1n"
+        ],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.4,
+        "integration_cost_pct": 8.0,
+        "interface_mass_kg": 6.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "ttc",
+        "allowed_equipment_ids": [
+          "ttc_sband_dual_redundant",
+          "ttc_xband_tmtc"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_dual_redundant"
+        ],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "payload_downlink",
+        "allowed_equipment_ids": [
+          "downlink_xband_tx_1200mbps",
+          "downlink_kaband_tx_2gbps"
+        ],
+        "included_equipment_ids": [
+          "downlink_kaband_tx_2gbps"
+        ],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "mass_memory",
+        "allowed_equipment_ids": [
+          "mass_mem_2tb_highrel",
+          "mass_mem_8tb"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_2tb_highrel"
+        ],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "adcs",
+        "allowed_equipment_ids": [
+          "adcs_agile_wheels_medium",
+          "adcs_cmg_agility_pack",
+          "adcs_ultra_stable"
+        ],
+        "included_equipment_ids": [
+          "adcs_ultra_stable"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      }
+    ]
+  },
+  {
+    "id": "plat_europrime_3000",
+    "supplier_id": "heritage_prime",
+    "supplier_name": "AeroPrime Defense & Space",
+    "name": "PrimeBus-3000",
+    "category": "heavy_3000kg",
+    "description": "Plateforme lourde de 3 tonnes pour grands observatoires et multi-charges utiles",
+    "dimensions_mm": [
+      2600,
+      2400,
+      3800
+    ],
+    "deployed_span_m": 15.0,
+    "dry_mass_kg": 1400.0,
+    "max_payload_mass_kg": 1500.0,
+    "max_launch_mass_kg": 3400.0,
+    "payload_volume_liters": 2500.0,
+    "orbit_avg_power_w": 4500.0,
+    "payload_avg_power_w": 3200.0,
+    "payload_peak_power_w": 8000.0,
+    "bus_voltage_v": 100.0,
+    "battery_capacity_wh": 14000.0,
+    "battery_max_dod": 0.25,
+    "pointing_accuracy_deg": 0.0015,
+    "pointing_stability_arcsec_s": 0.1,
+    "slew_rate_deg_s": 3.0,
+    "jitter_arcsec": 0.15,
+    "payload_thermal_dissipation_w": 2800.0,
+    "launch_environment_compatible": [
+      "ariane6",
+      "falcon9"
+    ],
+    "design_lifetime_years": 15.0,
+    "rad_tolerance_krad": 120.0,
+    "base_price_meur": 48.0,
+    "base_lead_time_months": 34,
+    "trl": 9,
+    "image": "platform_large.jpg",
+    "long_description": "La plus grande plateforme du catalogue, destinée aux missions phares d'observation ou de télécommunications gouvernementales. Elle peut emporter simultanément plusieurs grands instruments (télescope métrique, radar bande L, terminaux laser) avec 15 ans de durée de vie, au prix d'un budget et d'un lanceur lourd.",
+    "key_features": [
+      "1500 kg / 2500 L de charge utile",
+      "3,2 kW moyens / 8 kW crête",
+      "Stabilité 0,1 arcsec/s",
+      "Durée de vie 15 ans"
+    ],
+    "interfaces": [
+      "Bus 100 V régulé",
+      "Réseau SpaceFibre redondé",
+      "Adaptateur lanceur lourd 1194 / 1666 mm"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "allowed_equipment_ids": [
+          "prop_electric_hall_1kw",
+          "prop_ion_500w",
+          "prop_biprop_400n"
+        ],
+        "included_equipment_ids": [
+          "prop_biprop_400n"
+        ],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.6,
+        "integration_cost_pct": 10.0,
+        "interface_mass_kg": 10.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "ttc",
+        "allowed_equipment_ids": [
+          "ttc_sband_dual_redundant",
+          "ttc_xband_tmtc"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_dual_redundant"
+        ],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "payload_downlink",
+        "allowed_equipment_ids": [
+          "downlink_xband_tx_1200mbps",
+          "downlink_kaband_tx_2gbps"
+        ],
+        "included_equipment_ids": [
+          "downlink_kaband_tx_2gbps"
+        ],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "mass_memory",
+        "allowed_equipment_ids": [
+          "mass_mem_2tb_highrel",
+          "mass_mem_8tb"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_8tb"
+        ],
+        "min_qty": 1,
+        "max_qty": 2,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
+      },
+      {
+        "function": "adcs",
+        "allowed_equipment_ids": [
+          "adcs_cmg_agility_pack",
+          "adcs_ultra_stable"
+        ],
+        "included_equipment_ids": [
+          "adcs_ultra_stable"
+        ],
+        "min_qty": 1,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.0,
+        "integration_cost_pct": 0.0,
+        "interface_mass_kg": 0.0,
+        "equipment_overrides": {}
       }
     ]
   }

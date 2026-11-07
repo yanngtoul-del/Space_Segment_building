@@ -1,8 +1,10 @@
 """Main interactive PySide6 graphical user interface for teachers and examiners."""
 
-import sys
 import json
+import sys
 from pathlib import Path
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QColor, QFont
 from PySide6.QtWidgets import (
     QApplication,
     QMainWindow,
@@ -20,12 +22,11 @@ from PySide6.QtWidgets import (
     QLineEdit,
     QDoubleSpinBox,
     QFormLayout,
-    QGroupBox,
 )
-from PySide6.QtCore import Qt
-from PySide6.QtGui import QColor, QFont
 
 from ssb.catalog.database import CatalogDatabase
+from ssb.catalog.datasheet import PAYLOAD_TYPE_LABELS_FR, FUNCTION_LABELS_FR
+from ssb.core.paths import catalogs_dir
 from ssb.core.mission import (
     MissionSpecification,
     MissionRequirement,
@@ -35,18 +36,19 @@ from ssb.core.mission import (
 )
 from ssb.core.project import StudentProject
 from ssb.system.evaluator import SystemEvaluator, CheckStatus
+from ssb.ui_common.catalog_browser import CatalogBrowser
 
 
 class TeacherMainWindow(QMainWindow):
-    """Teacher interface to create mission topics and verify student project submissions."""
+    """Teacher interface to create mission topics, browse catalogs, and verify student project submissions."""
 
-    def __init__(self, catalog_dir: Path | str = "data/catalogs") -> None:
+    def __init__(self, catalog_dir: Path | str | None = None) -> None:
         super().__init__()
-        self.setWindowTitle("Space Segment Builder — Module Enseignant (Sujets & Évaluation)")
-        self.resize(1100, 750)
+        self.setWindowTitle("Space Segment Builder — Module Enseignant (Sujets, Catalogues & Évaluation)")
+        self.resize(1340, 820)
 
         self.catalog = CatalogDatabase()
-        self.catalog.load_from_directory(catalog_dir)
+        self.catalog.load_from_directory(catalog_dir or catalogs_dir())
         self.evaluator = SystemEvaluator(self.catalog)
 
         self._setup_ui()
@@ -56,9 +58,8 @@ class TeacherMainWindow(QMainWindow):
         self.setCentralWidget(central)
         main_layout = QVBoxLayout(central)
 
-        # Header
-        header = QLabel("<h2>Espace Enseignant — Contrôle des Projets & Édition des Sujets</h2>")
-        header.setAlignment(Qt.AlignCenter)
+        header = QLabel("<h2>Espace Enseignant — Contrôle des Projets, Catalogues & Édition des Sujets</h2>")
+        header.setAlignment(Qt.AlignmentFlag.AlignCenter)
         main_layout.addWidget(header)
 
         self.tabs = QTabWidget()
@@ -70,7 +71,9 @@ class TeacherMainWindow(QMainWindow):
 
         btn_row = QHBoxLayout()
         self.btn_load_project = QPushButton("Ouvrir un Projet Étudiant (.json)")
-        self.btn_load_project.setStyleSheet("background-color: #27ae60; color: white; font-weight: bold; padding: 6px 14px;")
+        self.btn_load_project.setStyleSheet(
+            "background-color: #27ae60; color: white; font-weight: bold; padding: 6px 14px;"
+        )
         self.btn_load_project.clicked.connect(self.load_student_project)
         btn_row.addWidget(self.btn_load_project)
         btn_row.addStretch()
@@ -80,8 +83,10 @@ class TeacherMainWindow(QMainWindow):
         l_ins.addWidget(self.lbl_student_status)
 
         self.t_student_results = QTableWidget(0, 4)
-        self.t_student_results.setHorizontalHeaderLabels(["Règle / Exigence", "Statut Rejeu", "Valeur Calculée", "Observation"])
-        self.t_student_results.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.t_student_results.setHorizontalHeaderLabels(
+            ["Règle / Exigence", "Statut Rejeu", "Valeur Calculée", "Observation"]
+        )
+        self.t_student_results.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         l_ins.addWidget(self.t_student_results)
 
         self.tabs.addTab(tab_inspect, "1. Rejeu & Contrôle Étudiant")
@@ -106,12 +111,27 @@ class TeacherMainWindow(QMainWindow):
         l_cr.addLayout(form)
 
         btn_save_subject = QPushButton("Enregistrer le Sujet (.mission.json)")
-        btn_save_subject.setStyleSheet("background-color: #2980b9; color: white; font-weight: bold; padding: 6px 12px;")
+        btn_save_subject.setStyleSheet(
+            "background-color: #2980b9; color: white; font-weight: bold; padding: 6px 12px;"
+        )
         btn_save_subject.clicked.connect(self.save_mission_subject)
         l_cr.addWidget(btn_save_subject)
         l_cr.addStretch()
 
         self.tabs.addTab(tab_create, "2. Créateur de Sujet")
+
+        # Tab 3: Complete Reference Catalog Browser (Payloads, Platforms, Equipment, Launchers)
+        cat_tabs = QTabWidget()
+        for cat, title, opts in [
+            ("payload", f"Charges utiles ({len(self.catalog.payloads)})", list(PAYLOAD_TYPE_LABELS_FR.items())),
+            ("platform", f"Plateformes ({len(self.catalog.platforms)})", None),
+            ("equipment", f"Équipements ({len(self.catalog.equipments)})", list(FUNCTION_LABELS_FR.items())),
+            ("launcher", f"Lanceurs ({len(self.catalog.launchers)})", None),
+        ]:
+            br = CatalogBrowser(self.catalog, cat, type_filter_options=opts)
+            br.btn_action.setVisible(False)
+            cat_tabs.addTab(br, title)
+        self.tabs.addTab(cat_tabs, "3. Exploration des Catalogues & Datasheets")
 
     def load_student_project(self) -> None:
         file_path, _ = QFileDialog.getOpenFileName(
@@ -125,15 +145,18 @@ class TeacherMainWindow(QMainWindow):
                 data = json.load(f)
             proj = StudentProject.model_validate(data)
 
-            # Integrity check (SHA-256)
             is_valid_hash = proj.verify_integrity()
-            hash_tag = "<b style='color:green;'>VALIDÉE (Intact)</b>" if is_valid_hash else "<b style='color:red;'>CORROMPUE (Fichier modifié manuellement)</b>"
-
-            self.lbl_student_status.setText(
-                f"<b>Étudiant :</b> {proj.student_name} (ID: {proj.student_id}) | <b>Projet :</b> {proj.project_id} | <b>Signature :</b> {hash_tag}"
+            hash_tag = (
+                "<b style='color:green;'>VALIDÉE (Intact)</b>"
+                if is_valid_hash
+                else "<b style='color:red;'>CORROMPUE (Fichier modifié manuellement)</b>"
             )
 
-            # Replay evaluation on teacher engine:
+            self.lbl_student_status.setText(
+                f"<b>Étudiant :</b> {proj.student_name} (ID: {proj.student_id}) | "
+                f"<b>Projet :</b> {proj.project_id} | <b>Signature :</b> {hash_tag}"
+            )
+
             budgets = self.evaluator.evaluate(proj.configuration, proj.mission)
             all_checks = budgets.compliance_checks + budgets.rule_checks
 
@@ -153,7 +176,7 @@ class TeacherMainWindow(QMainWindow):
                 else:
                     item_status.setBackground(QColor(242, 215, 213))
                     item_status.setForeground(QColor(146, 43, 33))
-                item_status.setFont(QFont("Segoe UI", 9, QFont.Bold))
+                item_status.setFont(QFont("Segoe UI", 9, QFont.Weight.Bold))
                 self.t_student_results.setItem(row, 1, item_status)
 
                 val_str = f"{chk.current_value} {chk.unit}" if chk.current_value is not None else "-"
@@ -163,7 +186,8 @@ class TeacherMainWindow(QMainWindow):
             QMessageBox.information(
                 self,
                 "Rejeu Terminé",
-                f"Projet rejoué avec succès !\nConformité : {pass_count}/{len(all_checks)} vérifications validées.\nEmpreinte intégrité : {'OK' if is_valid_hash else 'NON VALIDE'}",
+                f"Projet rejoué avec succès !\nConformité : {pass_count}/{len(all_checks)} vérifications validées.\n"
+                f"Empreinte intégrité : {'OK' if is_valid_hash else 'NON VALIDE'}",
             )
 
         except Exception as e:

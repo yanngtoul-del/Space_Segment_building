@@ -1,6 +1,5 @@
 # -*- mode: python ; coding: utf-8 -*-
 import os
-from PyInstaller.utils.hooks import collect_data_files
 
 block_cipher = None
 
@@ -8,6 +7,8 @@ project_root = os.path.abspath(os.path.join(SPECPATH, '..'))
 
 added_files = [
     (os.path.join(project_root, 'data', 'catalogs', '*'), 'data/catalogs'),
+    (os.path.join(project_root, 'data', 'images', '*'), 'data/images'),
+    (os.path.join(project_root, 'data', 'missions', '*'), 'data/missions'),
 ]
 
 a = Analysis(
@@ -17,6 +18,9 @@ a = Analysis(
     datas=added_files,
     hiddenimports=[
         'ssb.catalog.database',
+        'ssb.catalog.datasheet',
+        'ssb.core.catalog_meta',
+        'ssb.core.paths',
         'ssb.core.constants',
         'ssb.core.mission',
         'ssb.core.orbit',
@@ -30,10 +34,15 @@ a = Analysis(
         'ssb.payload.spectrometer_model',
         'ssb.payload.comm_model',
         'ssb.payload.qkd_model',
+        'ssb.system.checks',
         'ssb.system.configurator',
         'ssb.system.evaluator',
+        'ssb.system.payload_evaluator',
         'ssb.conops.simulator',
         'ssb.report.generator',
+        'ssb.ui_common.schematic',
+        'ssb.ui_common.catalog_browser',
+        'ssb.ui_common.platform_slots_widget',
         'scipy.integrate',
         'scipy.spatial.transform',
         'docx',
