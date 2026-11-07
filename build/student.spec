@@ -1,0 +1,81 @@
+# -*- mode: python ; coding: utf-8 -*-
+import os
+from PyInstaller.utils.hooks import collect_data_files
+
+block_cipher = None
+
+project_root = os.path.abspath(os.path.join(SPECPATH, '..'))
+
+added_files = [
+    (os.path.join(project_root, 'data', 'catalogs', '*'), 'data/catalogs'),
+]
+
+a = Analysis(
+    [os.path.join(project_root, 'src', 'ssb', 'student_app', 'main.py')],
+    pathex=[os.path.join(project_root, 'src')],
+    binaries=[],
+    datas=added_files,
+    hiddenimports=[
+        'ssb.catalog.database',
+        'ssb.core.constants',
+        'ssb.core.mission',
+        'ssb.core.orbit',
+        'ssb.core.payload',
+        'ssb.core.platform',
+        'ssb.core.project',
+        'ssb.orbit.propagator',
+        'ssb.orbit.station_access',
+        'ssb.payload.optical_model',
+        'ssb.payload.sar_model',
+        'ssb.payload.spectrometer_model',
+        'ssb.payload.comm_model',
+        'ssb.payload.qkd_model',
+        'ssb.system.configurator',
+        'ssb.system.evaluator',
+        'ssb.conops.simulator',
+        'ssb.report.generator',
+        'scipy.integrate',
+        'scipy.spatial.transform',
+        'docx',
+        'matplotlib',
+    ],
+    hookspath=[],
+    hooksconfig={},
+    runtime_hooks=[],
+    excludes=['tkinter', 'unittest'],
+    win_no_prefer_redirects=False,
+    win_private_assemblies=False,
+    cipher=block_cipher,
+    noarchive=False,
+)
+
+pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
+
+exe = EXE(
+    pyz,
+    a.scripts,
+    [],
+    exclude_binaries=True,
+    name='SpaceSegmentBuilder-Student',
+    debug=False,
+    bootloader_ignore_signals=False,
+    strip=False,
+    upx=True,
+    console=False,
+    disable_windowed_traceback=False,
+    argv_emulation=False,
+    target_arch=None,
+    codesign_identity=None,
+    entitlements_file=None,
+)
+
+coll = COLLECT(
+    exe,
+    a.binaries,
+    a.zipfiles,
+    a.datas,
+    strip=False,
+    upx=True,
+    upx_exclude=[],
+    name='SpaceSegmentBuilder-Student',
+)
