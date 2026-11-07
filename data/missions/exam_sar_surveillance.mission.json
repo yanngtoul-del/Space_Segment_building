@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0.0",
+  "id": "EXAM-2026-SAR",
+  "title": "Mission RadarGuard — Surveillance Maritime & Terrestre Tout-Temps",
+  "context": "Concevoir un satellite d'observation radar à synthèse d'ouverture (SAR) capable d'imager les zones côtières et terrestres de jour comme de nuit, indépendamment de la couverture nuageuse, pour la détection de navires et le suivi des glaces.",
+  "mission_type": "sar_eo",
+  "max_budget_meur": 25.0,
+  "target_lifetime_years": 5.0,
+  "min_trl": 8,
+  "requirements": [
+    {
+      "id": "REQ-SAR-AZ-01",
+      "title": "Résolution Azimutale Stripmap",
+      "description": "Résolution azimutale le long de la trace <= 2.0 m",
+      "req_type": "payload_perf",
+      "parameter": "azimuth_resolution_stripmap_m",
+      "operator": "<=",
+      "threshold": 2.0,
+      "goal": 1.5,
+      "unit": "m",
+      "weight": 1.0
+    },
+    {
+      "id": "REQ-SAR-SWATH-01",
+      "title": "Fauchée au Sol",
+      "description": "Largeur de fauchée au sol >= 15.0 km",
+      "req_type": "payload_perf",
+      "parameter": "swath_width_ground_km",
+      "operator": ">=",
+      "threshold": 15.0,
+      "goal": 25.0,
+      "unit": "km",
+      "weight": 1.0
+    },
+    {
+      "id": "REQ-SAR-NESZ-01",
+      "title": "Sensibilité Radiométrique (NESZ)",
+      "description": "Noise Equivalent Sigma Zero <= -15.0 dB pour détecter les cibles de faible réflectivité",
+      "req_type": "payload_perf",
+      "parameter": "nesz_db",
+      "operator": "<=",
+      "threshold": -15.0,
+      "goal": -22.0,
+      "unit": "dB",
+      "weight": 1.0
+    }
+  ],
+  "ground_stations": [
+    {
+      "id": "svalbard_sta",
+      "name": "Svalbard Arctic Station",
+      "latitude_deg": 78.22,
+      "longitude_deg": 15.4,
+      "altitude_m": 450.0,
+      "min_elevation_deg": 5.0,
+      "bands_supported": ["S", "X", "Ka"],
+      "cost_per_pass_eur": 250.0
+    },
+    {
+      "id": "inuvik_sta",
+      "name": "Inuvik Canadian Station",
+      "latitude_deg": 68.36,
+      "longitude_deg": -133.72,
+      "altitude_m": 100.0,
+      "min_elevation_deg": 5.0,
+      "bands_supported": ["S", "X"],
+      "cost_per_pass_eur": 220.0
+    }
+  ],
+  "target_zones": [
+    {
+      "id": "zone_baltic",
+      "name": "Mer Baltique & Détroits",
+      "points_lat_lon": [
+        [54.0, 10.0],
+        [60.0, 18.0],
+        [65.0, 24.0]
+      ],
+      "priority": 1
+    }
+  ]
+}

@@ -1,7 +1,6 @@
 """Overall system budget calculations and rule verification."""
 
 from dataclasses import dataclass, field
-from enum import Enum
 from typing import Any
 from ssb.core.orbit import OrbitDefinition
 from ssb.core.project import SystemConfiguration, Launcher
@@ -9,24 +8,8 @@ from ssb.core.mission import MissionSpecification, RequirementOperator
 from ssb.core.payload import BasePayload, OpticalImagerPayload, PayloadType
 from ssb.catalog.database import CatalogDatabase
 from ssb.system.configurator import PlatformConfigurator, ConfiguredPlatform
-from ssb.payload.optical_model import OpticalImagerModel, OpticalImagerPerformance
-
-
-class CheckStatus(str, Enum):
-    PASS = "pass"
-    WARNING = "warning"
-    FAIL = "fail"
-
-
-@dataclass
-class RuleCheckResult:
-    rule_id: str
-    category: str
-    status: CheckStatus
-    message: str
-    current_value: float | str | None = None
-    target_value: float | str | None = None
-    unit: str = ""
+from ssb.system.checks import CheckStatus, RuleCheckResult
+from ssb.system.payload_evaluator import evaluate_payload_requirements
 
 
 @dataclass
@@ -133,7 +116,6 @@ class SystemEvaluator:
         pl_mass = sum(p.mass_kg for p in payloads)
         opt_mass = sum(opt.final_mass_kg for opt in conf_plat.resolved_options)
 
-        # Look for propellant in options
         prop_mass = 0.0
         for opt in conf_plat.resolved_options:
             if opt.equipment.function.value == "propulsion":
@@ -141,7 +123,7 @@ class SystemEvaluator:
 
         sys_dry_kg = plat_base.dry_mass_kg + opt_mass + pl_mass
         wet_mass_kg = sys_dry_kg + prop_mass
-        margin_pct = 20.0  # standard phase A/B margin
+        margin_pct = 20.0
         launch_mass_with_margin_kg = wet_mass_kg * (1.0 + margin_pct / 100.0)
 
         mass_b = MassBudget(
@@ -156,7 +138,6 @@ class SystemEvaluator:
             platform_capacity_kg=plat_base.max_payload_mass_kg,
         )
 
-        # Platform Payload Mass Limit check
         if pl_mass > plat_base.max_payload_mass_kg:
             rule_checks.append(
                 RuleCheckResult(
@@ -183,10 +164,8 @@ class SystemEvaluator:
             )
 
         # 2. Power Budget
-        # Payload operational power is drawn during imaging passes (e.g. ~25% duty cycle nominal)
         pl_power_avg = sum(p.operational_power_w for p in payloads) * 0.25
 
-        # For options: propulsion uses standby power during nominal orbit, operational during burns
         opt_power_avg = 0.0
         for opt in conf_plat.resolved_options:
             if opt.equipment.function.value == "propulsion":
@@ -309,13 +288,28 @@ class SystemEvaluator:
             )
 
         # 4. Pointing Compatibility Check
-        # Effective platform pointing accuracy takes into account high-accuracy ADCS packs if installed
         effective_pointing_accuracy_deg = plat_base.pointing_accuracy_deg
         for opt in conf_plat.resolved_options:
             if opt.equipment.function.value == "adcs":
                 adcs_acc = opt.equipment.specs.get("pointing_accuracy_deg")
                 if adcs_acc is not None and adcs_acc < effective_pointing_accuracy_deg:
                     effective_pointing_accuracy_deg = adcs_acc
+
+        for req in mission.requirements:
+            if req.parameter == "pointing_accuracy_deg":
+                thresh = float(req.threshold)
+                pass_pt = effective_pointing_accuracy_deg <= thresh if req.operator == RequirementOperator.LE else False
+                compliance_checks.append(
+                    RuleCheckResult(
+                        rule_id=req.id,
+                        category="Mission Requirement",
+                        status=CheckStatus.PASS if pass_pt else CheckStatus.FAIL,
+                        message=f"{req.title}: platform pointing accuracy = {effective_pointing_accuracy_deg}° (threshold: {thresh}°)",
+                        current_value=effective_pointing_accuracy_deg,
+                        target_value=thresh,
+                        unit="deg",
+                    )
+                )
 
         for pl in payloads:
             if effective_pointing_accuracy_deg > pl.required_pointing_accuracy_deg:
@@ -343,50 +337,12 @@ class SystemEvaluator:
                     )
                 )
 
-        # 5. Payload Performances & Mission Requirements Verification
+        # 5. Generic Payload Performances & Mission Requirements Verification
         payload_perfs: dict[str, Any] = {}
         for pl in payloads:
-            if pl.payload_type == PayloadType.OPTICAL_IMAGER:
-                assert isinstance(pl, OpticalImagerPayload)
-                perf = OpticalImagerModel.compute(pl, config.orbit)
-                payload_perfs[pl.id] = perf
-
-                # Check against mission requirements
-                for req in mission.requirements:
-                    if req.parameter == "gsd_nadir_m":
-                        pass_req = (
-                            perf.gsd_nadir_m <= float(req.threshold)
-                            if req.operator == RequirementOperator.LE
-                            else False
-                        )
-                        compliance_checks.append(
-                            RuleCheckResult(
-                                rule_id=req.id,
-                                category="Mission Requirement",
-                                status=CheckStatus.PASS if pass_req else CheckStatus.FAIL,
-                                message=f"{req.title}: computed GSD = {perf.gsd_nadir_m:.2f} m (threshold: {req.threshold} m)",
-                                current_value=perf.gsd_nadir_m,
-                                target_value=float(req.threshold),
-                                unit="m",
-                            )
-                        )
-                    elif req.parameter == "swath_width_km":
-                        pass_req = (
-                            perf.swath_width_km >= float(req.threshold)
-                            if req.operator == RequirementOperator.GE
-                            else False
-                        )
-                        compliance_checks.append(
-                            RuleCheckResult(
-                                rule_id=req.id,
-                                category="Mission Requirement",
-                                status=CheckStatus.PASS if pass_req else CheckStatus.FAIL,
-                                message=f"{req.title}: computed Swath = {perf.swath_width_km:.1f} km (threshold: {req.threshold} km)",
-                                current_value=perf.swath_width_km,
-                                target_value=float(req.threshold),
-                                unit="km",
-                            )
-                        )
+            p_dict, p_compliance = evaluate_payload_requirements(pl, config.orbit, mission)
+            payload_perfs[pl.id] = p_dict
+            compliance_checks.extend(p_compliance)
 
         return SystemBudgets(
             configured_platform=conf_plat,
