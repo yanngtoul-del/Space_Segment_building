@@ -451,3 +451,137 @@ def test_spectrometer_telescope_slit_chain_coupling():
     assert rule_no_slit.status == CheckStatus.FAIL
     spec_perf_no_slit = b_no_slit.payload_performances.get("pl_spec_atmo_tropo_ghg", {})
     assert spec_perf_no_slit.get("gsd_spatial_nadir_m", 0.0) == 0.0
+
+
+def test_calibration_catalog_and_datasheets():
+    db = CatalogDatabase()
+    db.load_from_directory()
+    assert len(db.calibrations) >= 6
+
+    # Verify supplier association
+    calib_suppliers = db.suppliers_for("calibration")
+    sup_ids = {s.id for s in calib_suppliers}
+    assert "cso_intespace_fr" in sup_ids
+    assert "iabg_test_centre_de" in sup_ids
+    assert "csl_liege_be" in sup_ids
+    assert "estec_test_centre_nl" in sup_ids
+
+    # Verify TVAC vs Ambient calibration entries
+    tvac_opt = db.calibrations["calib_optical_tvac"]
+    assert tvac_opt.is_tvac is True
+    assert tvac_opt.is_thermal_vacuum is True
+    assert tvac_opt.cost_meur == 0.48
+    assert tvac_opt.duration_weeks == 4.0
+    assert "optical_imager" in tvac_opt.compatible_payload_types
+
+    amb = db.calibrations["calib_cleanroom_std"]
+    assert amb.is_tvac is False
+    assert amb.cost_meur == 0.12
+
+    # Verify datasheet building
+    from ssb.catalog.datasheet import build_datasheet
+    ds_tvac = build_datasheet(tvac_opt)
+    assert "Vide Thermique" in ds_tvac.category_label
+    assert ds_tvac.item_id == "calib_optical_tvac"
+    assert len(ds_tvac.sections) >= 3
+
+    ds_amb = build_datasheet(amb)
+    assert "ISO 5" in ds_amb.category_label
+
+
+def test_calibration_system_evaluation_and_rules():
+    from pathlib import Path
+    db = CatalogDatabase()
+    db.load_from_directory()
+    evaluator = SystemEvaluator(db)
+    ms = MissionSpecification.model_validate_json(
+        (missions_dir() / "exam_optical_earth_observation.mission.json").read_text(encoding="utf-8")
+    )
+    orbit = OrbitDefinition(altitude_km=500.0, inclination_deg=97.4)
+
+    # 1. Config with NO calibration selected -> triggers RULE_CALIB_NONE
+    cfg_no_calib = SystemConfiguration(
+        orbit=orbit,
+        platform_id="plat_apex_pro500",
+        selected_payload_ids=["pl_opt_submeter_highres"],
+        selected_calibration_ids=[],
+        launcher_id="ln_rideshare_sso",
+    )
+    b0 = evaluator.evaluate(cfg_no_calib, ms)
+    assert b0.cost.calibration_total_meur == 0.0
+    r_none = next((c for c in b0.rule_checks if c.rule_id == "RULE_CALIB_NONE"), None)
+    assert r_none is not None
+    assert r_none.status == CheckStatus.WARNING
+
+    # 2. Config with Ambient cleanroom calibration only -> RULE_CALIB_SELECTED PASS, RULE_CALIB_TVAC_QUALIFIED WARNING
+    cfg_amb = SystemConfiguration(
+        orbit=orbit,
+        platform_id="plat_apex_pro500",
+        selected_payload_ids=["pl_opt_submeter_highres"],
+        selected_calibration_ids=["calib_cleanroom_std"],
+        launcher_id="ln_rideshare_sso",
+    )
+    b_amb = evaluator.evaluate(cfg_amb, ms)
+    assert b_amb.cost.calibration_total_meur == 0.12
+    r_sel = next((c for c in b_amb.rule_checks if c.rule_id == "RULE_CALIB_SELECTED"), None)
+    assert r_sel is not None and r_sel.status == CheckStatus.PASS
+    r_tvac_warn = next((c for c in b_amb.rule_checks if c.rule_id == "RULE_CALIB_TVAC_QUALIFIED"), None)
+    assert r_tvac_warn is not None and r_tvac_warn.status == CheckStatus.WARNING
+
+    # 3. Config with TVAC calibration -> RULE_CALIB_TVAC_QUALIFIED PASS + geo return contribution
+    cfg_tvac = SystemConfiguration(
+        orbit=orbit,
+        platform_id="plat_apex_pro500",
+        selected_payload_ids=["pl_opt_submeter_highres"],
+        selected_calibration_ids=["calib_optical_tvac"],
+        launcher_id="ln_rideshare_sso",
+    )
+    b_tvac = evaluator.evaluate(cfg_tvac, ms)
+    assert b_tvac.cost.calibration_total_meur == 0.48
+    r_tvac_pass = next((c for c in b_tvac.rule_checks if c.rule_id == "RULE_CALIB_TVAC_QUALIFIED"), None)
+    assert r_tvac_pass is not None and r_tvac_pass.status == CheckStatus.PASS
+    # Intespace Toulouse is in France -> cost included in France geo return
+    assert "France" in b_tvac.cost.cost_by_country_meur
+    assert b_tvac.cost.cost_by_country_meur["France"] >= 0.48
+
+
+def test_calibration_gui_integration_offscreen():
+    import os
+    os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
+    from PySide6.QtWidgets import QApplication
+    from ssb.student_app.main_window import StudentMainWindow
+
+    app = QApplication.instance() or QApplication([])
+    win = StudentMainWindow()
+
+    # 9 Tabs total
+    assert win.tabs.count() == 9
+    assert "Calibration & Essais Sol (TVAC)" in win.tabs.tabText(5)
+    assert "Lanceurs" in win.tabs.tabText(6)
+    assert "Analyses" in win.tabs.tabText(7)
+    assert "Rapport" in win.tabs.tabText(8)
+
+    # Verify Tab 6: Calibration selection
+    win.tabs.setCurrentIndex(5)
+    cal = win.catalog.calibrations["calib_optical_tvac"]
+    win.browser_calibrations.item_activated.emit(cal)
+    app.processEvents()
+
+    assert "calib_optical_tvac" in win.project.configuration.selected_calibration_ids
+    assert win.t_active_calibrations.rowCount() == 1
+    assert win.current_budgets.cost.calibration_total_meur == 0.48
+
+    # Verify Global Architecture Table reflects the calibration row
+    arch_calib_rows = [
+        row for row in range(win.global_arch_widget.table.rowCount())
+        if "Calibration" in win.global_arch_widget.table.item(row, 0).text()
+    ]
+    assert len(arch_calib_rows) == 1
+
+    # Verify clearing calibrations
+    win._clear_calibrations()
+    app.processEvents()
+    assert len(win.project.configuration.selected_calibration_ids) == 0
+    assert win.t_active_calibrations.rowCount() == 0
+    assert win.current_budgets.cost.calibration_total_meur == 0.0
+    win.close()

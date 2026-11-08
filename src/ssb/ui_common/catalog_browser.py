@@ -19,6 +19,7 @@ from PySide6.QtWidgets import (
     QTableWidget,
     QTableWidgetItem,
     QHeaderView,
+    QDialog,
 )
 from ssb.catalog.database import CatalogDatabase
 from ssb.catalog.datasheet import build_datasheet, DatasheetData
@@ -214,6 +215,25 @@ class DatasheetView(QScrollArea):
             tbl.setFixedHeight(min(360, max(76, h_total)))
             self._tables_layout.addWidget(tbl)
 
+    @staticmethod
+    def open_modal(ds: DatasheetData, parent: QWidget | None = None) -> None:
+        """Open a modal dialog presenting the full datasheet."""
+        dlg = QDialog(parent)
+        dlg.setWindowTitle(f"Fiche Technique & Datasheet — {ds.name}")
+        dlg.resize(950, 720)
+        l = QVBoxLayout(dlg)
+        v = DatasheetView(dlg)
+        v.set_datasheet(ds)
+        l.addWidget(v, stretch=1)
+        btn_row = QHBoxLayout()
+        btn_row.addStretch()
+        btn_close = QPushButton("Fermer")
+        btn_close.setStyleSheet("padding: 6px 18px; font-weight: bold;")
+        btn_close.clicked.connect(dlg.accept)
+        btn_row.addWidget(btn_close)
+        l.addLayout(btn_row)
+        dlg.exec()
+
 
 class CatalogBrowser(QWidget):
     """Three-column browser: Suppliers -> Supplier's catalog items -> Complete Datasheet + action button."""
@@ -288,15 +308,17 @@ class CatalogBrowser(QWidget):
                 font-size: 12px;
             }
             QListWidget::item {
+                padding: 6px;
+                border-bottom: 1px solid #f1f5f9;
                 color: #0f172a;
-                padding: 4px;
             }
             QListWidget::item:selected {
-                background-color: #2563eb;
-                color: #ffffff;
+                background-color: #dbeafe;
+                color: #1e3a8a;
+                font-weight: bold;
             }
             QListWidget::item:hover {
-                background-color: #f1f5f9;
+                background-color: #f8fafc;
                 color: #0f172a;
             }
         """
@@ -343,6 +365,7 @@ class CatalogBrowser(QWidget):
             "payload": list(self.catalog.payloads.values()),
             "equipment": list(self.catalog.equipments.values()),
             "launcher": list(self.catalog.launchers.values()),
+            "calibration": list(self.catalog.calibrations.values()),
         }
         items = mapping[self.category]
         if self.cmb_type and self.cmb_type.currentData():
@@ -355,6 +378,8 @@ class CatalogBrowser(QWidget):
                 items = [x for x in items if code in x.category]
             elif self.category == "launcher":
                 items = [x for x in items if x.launcher_type == code]
+            elif self.category == "calibration":
+                items = [x for x in items if x.facility_type.value == code]
         return items
 
     def _refresh_suppliers(self) -> None:
@@ -464,6 +489,9 @@ class CatalogBrowser(QWidget):
             return f"{x.price_meur:.2f} M€ | {x.mass_kg:.1f} kg | {x.volume_liters:.1f} L | {x.power_w:.0f} W"
         if self.category == "launcher":
             return f"{x.price_base_meur:.2f} M€ | max {x.max_total_mass_kg:.0f} kg ({x.launcher_type})"
+        if self.category == "calibration":
+            tvac_str = "TVAC" if x.is_thermal_vacuum else "Ambiant"
+            return f"{x.price_meur:.2f} M€ | {tvac_str} | {x.duration_weeks:.1f} sem. | {x.test_center}"
         return ""
 
     def _on_item_changed(self, current: QListWidgetItem | None, _prev: QListWidgetItem | None) -> None:

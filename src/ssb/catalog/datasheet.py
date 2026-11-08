@@ -15,6 +15,7 @@ from ssb.core.payload import (
     PayloadType,
 )
 from ssb.core.project import Launcher
+from ssb.core.calibration import PayloadCalibration
 from ssb.payload.optical_model import OpticalImagerModel
 from ssb.payload.spectrometer_model import SpectrometerModel
 from ssb.payload.sar_model import SarModel
@@ -76,9 +77,15 @@ def _fmt_dims(dims: tuple[float, float, float]) -> str:
     return f"{dims[0]:.0f} × {dims[1]:.0f} × {dims[2]:.0f} mm"
 
 
-def build_datasheet(item: Any, ref_orbit: OrbitDefinition | None = None) -> DatasheetData:
-    """Build a complete French datasheet for a Platform, Payload, Equipment, or Launcher."""
-    orbit = ref_orbit or OrbitDefinition(altitude_km=500.0, inclination_deg=97.4)
+def build_datasheet(item: Any, *args: Any, ref_orbit: OrbitDefinition | None = None, **kwargs: Any) -> DatasheetData:
+    """Build a complete French datasheet for a Platform, Payload, Equipment, Launcher, or Calibration."""
+    orbit = ref_orbit
+    for a in args:
+        if isinstance(a, OrbitDefinition):
+            orbit = a
+    if orbit is None and "orbit" in kwargs and isinstance(kwargs["orbit"], OrbitDefinition):
+        orbit = kwargs["orbit"]
+    orbit = orbit or OrbitDefinition(altitude_km=500.0, inclination_deg=97.4)
 
     if isinstance(item, PlatformBase):
         return _from_platform(item)
@@ -88,6 +95,8 @@ def build_datasheet(item: Any, ref_orbit: OrbitDefinition | None = None) -> Data
         return _from_equipment(item)
     if isinstance(item, Launcher):
         return _from_launcher(item)
+    if isinstance(item, PayloadCalibration):
+        return _from_calibration(item)
     raise TypeError(f"Unsupported item type for datasheet: {type(item)}")
 
 
@@ -476,4 +485,56 @@ def _from_launcher(ln: Launcher) -> DatasheetData:
         key_features=ln.key_features,
         interfaces=ln.interfaces,
         sections=[gen, caps_sec],
+    )
+
+
+
+def _from_calibration(cal: PayloadCalibration) -> DatasheetData:
+    env_type = "Cuve Vide Thermique (TVAC / Simulation spatiale)" if cal.is_thermal_vacuum else "Salle blanche ambiante (ISO 5)"
+    vac_str = f"{cal.vacuum_level_mbar:.1e} mbar" if cal.is_thermal_vacuum else "Pression atmosph?rique ambiante (1013 mbar)"
+    temp_str = f"{cal.temp_min_c:.0f} ?C ? {cal.temp_max_c:.0f} ?C (cyclage r?gul?)" if cal.is_thermal_vacuum else "20 ?C ? 1 ?C r?gul?"
+
+    phys = DatasheetSection(
+        "Moyens d'essais & Environnement de simulation spatiale",
+        [
+            ("Centre technique & laboratoire d'essais", cal.test_center),
+            ("Environnement de test", env_type),
+            ("Niveau de vide spatial", vac_str),
+            ("Plage de temp?rature de cyclage", temp_str),
+            ("Dur?e de la campagne d'essais", f"{cal.duration_weeks:.1f} semaines ({cal.duration_weeks * 7:.0f} jours de banc)"),
+            ("Charges utiles admissibles", ", ".join(cal.compatible_payload_types)),
+        ],
+    )
+    meas_rows = [
+        ("Incertitude radiom?trique / RF garantie", f"? {cal.radiometric_accuracy_pct:.1f} %"),
+        ("Caract?risation de la d?focalisation thermique", "Oui (cartographie foyer vs gradient d'orbite)" if cal.thermal_defocus_mitigated else "Non applicable"),
+        ("Qualification multipactor haute puissance", "Oui (marge 6 dB selon ECSS-E-ST-20-01C)" if cal.multipactor_qualification else "Non applicable"),
+    ]
+    for idx_m, m in enumerate(cal.measurements_performed, 1):
+        meas_rows.append((f"Mesure protocolaire #{idx_m}", m))
+    spec_sec = DatasheetSection("Mesures m?trologiques & Protocoles de calibration", meas_rows)
+
+    comm = DatasheetSection(
+        "Conditions contractuelles & H?ritage",
+        [
+            ("Op?rateur du centre d'essais", cal.supplier_name),
+            ("Co?t forfaitaire de la campagne cl? en main", f"{cal.price_meur:.2f} M?"),
+            ("Maturit? des bancs d'essais", f"TRL {cal.trl_level} (Moyens spatiaux certifi?s ESA/CNES/DLR)"),
+        ],
+    )
+    return DatasheetData(
+        item_id=cal.id,
+        name=cal.name,
+        supplier_name=cal.supplier_name,
+        category_label=f"Calibration Sol ? {env_type}",
+        short_description=cal.description,
+        long_description=cal.long_description or cal.description,
+        image=cal.image,
+        price_label=f"{cal.price_meur:.2f} M? (forfait)",
+        dimensions_mm=(2000.0, 2000.0, 3000.0),
+        volume_label=f"Dur?e : {cal.duration_weeks:.1f} sem.",
+        mass_label=f"Vide : {vac_str}",
+        key_features=cal.key_features,
+        interfaces=cal.measurements_performed,
+        sections=[phys, spec_sec, comm],
     )

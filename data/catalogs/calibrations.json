@@ -1,0 +1,231 @@
+[
+  {
+    "id": "calib_cleanroom_std",
+    "name": "Calibration Optique & Radiométrique Ambiante (ISO 5)",
+    "facility_type": "ambient_cleanroom",
+    "test_center": "Intespace Test Centre (Toulouse)",
+    "supplier_id": "cso_intespace_fr",
+    "supplier_name": "Intespace Test Centre (Toulouse)",
+    "category": "optical",
+    "description": "Caractérisation optique, FPN et MTF sur banc collimateur hors-axe en salle blanche ISO 5 à température ambiante (20 °C).",
+    "long_description": "Campagne standard de vérification fonctionnelle et métrologique pour instruments optiques et spectromètres. Réalisée sur marbre optique antivibratoire sous flux laminaire ISO 5. Comprend la mesure du front d'onde (WFE), de la fonction de transfert de modulation (MTF), du bruit spatial fixe (FPN) et un étalonnage radiométrique relatif avec sphère intégrante étalon. Ne comprend pas d'essais sous vide ni de cyclage thermique.",
+    "is_thermal_vacuum": false,
+    "vacuum_level_mbar": 1013.25,
+    "temp_min_c": 20.0,
+    "temp_max_c": 22.0,
+    "duration_weeks": 1.5,
+    "price_meur": 0.12,
+    "compatible_payload_types": [
+      "optical_imager",
+      "spectrometer",
+      "optical_comm",
+      "qkd"
+    ],
+    "key_features": [
+      "Banc collimateur hors-axe Ø 400 mm",
+      "Sphère intégrante étalon NIST (VNIR/SWIR)",
+      "Mesure WFE Shack-Hartmann et MTF",
+      "Salle blanche ISO 5 (classe 100)"
+    ],
+    "measurements_performed": [
+      "Mesure de la réponse radiométrique relative (Flat-Field)",
+      "Cartographie des pixels défectueux et courant d'obscurité ambiant",
+      "Mesure MTF axiale et en champ sur mire de résolvance",
+      "Vérification de l'alignement mécanique du plan focal"
+    ],
+    "radiometric_accuracy_pct": 5.5,
+    "thermal_defocus_mitigated": false,
+    "multipactor_qualification": false,
+    "image": "payload_optical_small.jpg",
+    "trl_level": 9
+  },
+  {
+    "id": "calib_optical_tvac",
+    "name": "Calibration Optique & Radiométrique en Cuve Vide Thermique (TVAC SIMLES)",
+    "facility_type": "tvac_optical",
+    "test_center": "Intespace Test Centre (Toulouse)",
+    "supplier_id": "cso_intespace_fr",
+    "supplier_name": "Intespace Test Centre (Toulouse)",
+    "category": "optical",
+    "description": "Étalonnage radiométrique absolu et cartographie de défocalisation thermique sous vide spatial poussé (10⁻⁶ mbar, -30 °C à +55 °C).",
+    "long_description": "Campagne d'essais sous simulation d'environnement spatial dans la cuve vide thermique SIMLES (Ø 3 m). Équipée d'un collimateur optique externe injectant le flux étalon à travers un hublot optique athermalisé de haute planéité. Permet de mesurer précisément le déplacement du plan focal (thermal defocus) en fonction des gradients thermiques de la structure télescope, et d'ajuster le calage optique avant vol. Crucial pour les missions d'observation haute résolution et multispectrales.",
+    "is_thermal_vacuum": true,
+    "vacuum_level_mbar": 0.000001,
+    "temp_min_c": -30.0,
+    "temp_max_c": 55.0,
+    "duration_weeks": 4.0,
+    "price_meur": 0.48,
+    "compatible_payload_types": [
+      "optical_imager",
+      "spectrometer"
+    ],
+    "key_features": [
+      "Cuve vide thermique SIMLES Ø 3 m (vide 10⁻⁶ mbar)",
+      "Cyclage thermique régulé de -30 °C à +55 °C",
+      "Hublot optique athermalisé interférométrique",
+      "Mesure continue du meilleur foyer vs température"
+    ],
+    "measurements_performed": [
+      "Caractérisation de la défocalisation thermique (défocalisation vs température)",
+      "Étalonnage radiométrique absolu à température de vol stabilisée",
+      "Mesure du rapport signal sur bruit (SNR) en conditions de vide",
+      "Validation de l'athermalisation de la structure et du barillet optique"
+    ],
+    "radiometric_accuracy_pct": 1.8,
+    "thermal_defocus_mitigated": true,
+    "multipactor_qualification": false,
+    "image": "payload_optical_large.jpg",
+    "trl_level": 9
+  },
+  {
+    "id": "calib_cryo_spectral_tvac",
+    "name": "Calibration Radiométrique & Spectrale Cryo-Vide (Cuve FOCAL)",
+    "facility_type": "tvac_cryo_spectral",
+    "test_center": "Centre Spatial de Liège (CSL)",
+    "supplier_id": "csl_liege_be",
+    "supplier_name": "Centre Spatial de Liège (CSL)",
+    "category": "spectrometer",
+    "description": "Calibration hyperspectrale absolue sub-nanométrique et cryogénie 80 K en cuve cryo-vide pour spectromètres atmosphériques et GHG.",
+    "long_description": "Campagne de référence européenne pour spectromètres imageurs atmosphériques et infrarouges (SWIR/MWIR) nécessitant un banc optique refroidi et un détecteur cryogénique. Réalisée dans la cuve FOCAL 5 du CSL, dotée d'écrans thermiques régulés à l'azote liquide (80 K). Intègre un banc laser accordable picométrique, des cellules de gaz étalons (CH4, CO2) sous vide, et des corps noirs de référence certifiés. Garantit la précision spectrale et l'inversion quantitative des colonnes de gaz à effet de serre.",
+    "is_thermal_vacuum": true,
+    "vacuum_level_mbar": 0.0000001,
+    "temp_min_c": -40.0,
+    "temp_max_c": 60.0,
+    "duration_weeks": 6.0,
+    "price_meur": 0.85,
+    "compatible_payload_types": [
+      "spectrometer",
+      "optical_imager"
+    ],
+    "key_features": [
+      "Cuve cryo-vide FOCAL 5 avec écran thermique LN2 (80 K)",
+      "Laser accordable et monochromateur haute finesse (0,05 nm)",
+      "Cellules étalons CH4 / CO2 sous pression contrôlée",
+      "Mesure du profil instrumental (ISRF / FWHM) sous vide"
+    ],
+    "measurements_performed": [
+      "Centrage spectral canal par canal et mesure de la résolution FWHM sous vide",
+      "Étalonnage radiométrique absolu sur corps noir cryogénique certifié",
+      "Vérification de la puissance frigorifique du cryoréfrigérateur et du temps de descente en froid",
+      "Caractérisation de la réponse spectrale en fonction du gradient thermique d'orbite"
+    ],
+    "radiometric_accuracy_pct": 0.9,
+    "thermal_defocus_mitigated": true,
+    "multipactor_qualification": false,
+    "image": "payload_spectrometer.jpg",
+    "trl_level": 9
+  },
+  {
+    "id": "calib_sar_catr_tvac",
+    "name": "Qualification RF Forte Puissance, Multipactor & Base CATR en Cuve TVAC",
+    "facility_type": "tvac_rf_multipactor",
+    "test_center": "IABG Space Test Centre (Ottobrunn)",
+    "supplier_id": "iabg_test_centre_de",
+    "supplier_name": "IABG Space Test Centre (Ottobrunn)",
+    "category": "sar",
+    "description": "Validation du diagramme d'antenne en base compacte (CATR) et essai multipactor sous vide thermique jusqu'à 2 kW crête (ECSS-E-ST-20-01C).",
+    "long_description": "Campagne d'essais combinés RF et environnement spatial pour radars à synthèse d'ouverture (SAR) et charges utiles RF haute puissance. Réalisée dans les installations spécialisées de l'IABG à Ottobrunn. Comprend la qualification du seuil d'amorçage multipactor sous vide (10⁻⁶ mbar) avec marge de sécurité de 6 dB selon la norme ECSS, la mesure du diagramme de rayonnement d'antenne en base anéchoïque compacte (CATR), et la stabilité de phase du chirp radar lors de cyclages thermiques extrêmes.",
+    "is_thermal_vacuum": true,
+    "vacuum_level_mbar": 0.000001,
+    "temp_min_c": -40.0,
+    "temp_max_c": 70.0,
+    "duration_weeks": 5.0,
+    "price_meur": 0.65,
+    "compatible_payload_types": [
+      "sar",
+      "radio_comm"
+    ],
+    "key_features": [
+      "Base anéchoïque compacte CATR (mesure de diagramme 1 à 40 GHz)",
+      "Cuve vide thermique d'injection RF haute puissance (2 kW crête)",
+      "Détection multipactor temps réel par émission électronique et harmoniques",
+      "Conformité garantie à la norme spatiale ECSS-E-ST-20-01C"
+    ],
+    "measurements_performed": [
+      "Mesure de diagramme de rayonnement 3D d'antenne (gain, lobes secondaires, cross-pol)",
+      "Qualification multipactor à pleine puissance RF sous vide thermique (marge 6 dB)",
+      "Stabilité de phase et gigue temporelle du chirp radar en cyclage thermique",
+      "Mesure des intermodulations passives (PIM) sous sollicitation thermique"
+    ],
+    "radiometric_accuracy_pct": 2.0,
+    "thermal_defocus_mitigated": false,
+    "multipactor_qualification": true,
+    "image": "payload_sar.jpg",
+    "trl_level": 9
+  },
+  {
+    "id": "calib_laser_pat_tvac",
+    "name": "Calibration Pointage Fin (PAT), Front d'Onde & TVAC Laser / QKD",
+    "facility_type": "tvac_laser_pat",
+    "test_center": "ESA ESTEC Test Centre (Noordwijk)",
+    "supplier_id": "estec_test_centre_nl",
+    "supplier_name": "ESA ESTEC Test Centre (Noordwijk)",
+    "category": "laser_comm",
+    "description": "Validation du système de pointage fin sub-microradian (PAT), front d'onde laser et rendement mono-photonique QKD en cuve LSS.",
+    "long_description": "Campagne d'essais métrologiques de pointe pour terminaux de communication optique laser et charges utiles quantiques QKD. Réalisée dans le grand simulateur spatial LSS de l'ESTEC sur marbre suspendu découplé des vibrations sismiques. Permet d'étalonner les boucles de poursuite rapide (Fine Pointing Mechanism) à moins de 0,5 µrad, de vérifier le front d'onde laser en présence de gradients thermiques d'orbite, et de caractériser le bruit d'obscurité et le rendement des photodiodes à avalanche mono-photon (SPAD) refroidies.",
+    "is_thermal_vacuum": true,
+    "vacuum_level_mbar": 0.000001,
+    "temp_min_c": -25.0,
+    "temp_max_c": 50.0,
+    "duration_weeks": 4.0,
+    "price_meur": 0.52,
+    "compatible_payload_types": [
+      "optical_comm",
+      "qkd"
+    ],
+    "key_features": [
+      "Grand simulateur LSS sur table optique découplée (bruit sismique ultra-faible)",
+      "Interféromètre laser de suivi fin à résolution sub-nanoradian",
+      "Source photonique étalonnée pour comptage mono-photon (QKD)",
+      "Chambre froide pour détecteurs SPAD et lasers à rétroaction distribuée (DFB)"
+    ],
+    "measurements_performed": [
+      "Précision et bande passante de la boucle de pointage, acquisition et poursuite (PAT)",
+      "Déformation du front d'onde d'émission laser (WFE) en cyclage thermique sous vide",
+      "Taux d'erreur binaire optique (BER) et taux d'erreur quantique (QBER) sous vide",
+      "Pertes d'insertion optique et réjection de lumière parasite (stray light)"
+    ],
+    "radiometric_accuracy_pct": 2.5,
+    "thermal_defocus_mitigated": true,
+    "multipactor_qualification": false,
+    "image": "payload_laser.jpg",
+    "trl_level": 9
+  },
+  {
+    "id": "calib_rf_transponder_tvac",
+    "name": "Recette Transpondeur Télécom & Bilan de Linéarité en Cuve TVAC",
+    "facility_type": "tvac_telecom_npr",
+    "test_center": "IABG Space Test Centre (Ottobrunn)",
+    "supplier_id": "iabg_test_centre_de",
+    "supplier_name": "IABG Space Test Centre (Ottobrunn)",
+    "category": "rf_comm",
+    "description": "Mesure NPR (Noise Power Ratio), linéarité AM/AM et AM/PM et dérive en fréquence des oscillateurs sous vide thermique.",
+    "long_description": "Campagne de recette et caractérisation thermique pour répéteurs télécom GEO/MEO/LEO, transpondeurs de données haut débit et charges utiles radiofréquences. Réalisée en cuve vide thermique équipée d'analyseurs de bruit NPR et d'analyseurs de réseaux multivoies. Permet de mesurer précisément le point de compression à 1 dB des amplificateurs SSPA/TWTA, la pureté spectrale, et la stabilité fréquentielle de l'oscillateur local pilote sous cyclage thermique prolongé.",
+    "is_thermal_vacuum": true,
+    "vacuum_level_mbar": 0.00001,
+    "temp_min_c": -20.0,
+    "temp_max_c": 65.0,
+    "duration_weeks": 3.0,
+    "price_meur": 0.38,
+    "compatible_payload_types": [
+      "radio_comm"
+    ],
+    "key_features": [
+      "Banc de test multivoie Ku/Ka/S/X-Band en cuve TVAC",
+      "Mesure de bruit NPR pour charges utiles multiporteurs",
+      "Caractérisation AM/AM, AM/PM et group delay vs température",
+      "Stabilité fréquentielle d'oscillateur ultra-stable (USO) en vide thermique"
+    ],
+    "measurements_performed": [
+      "Linéarité dynamique et rapport puissance de bruit (NPR) en régime multi-porteuse",
+      "Dérive de fréquence et bruit de phase des transpondeurs en fonction de la température",
+      "Consommation électrique et dissipation thermique sous excitation RF maximale",
+      "Isolement entre canaux et réjection hors-bande sous vide spatial"
+    ],
+    "radiometric_accuracy_pct": 2.2,
+    "thermal_defocus_mitigated": false,
+    "multipactor_qualification": true,
+    "image": "payload_radio.jpg",
+    "trl_level": 9
+  }
+]

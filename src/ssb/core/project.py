@@ -72,6 +72,8 @@ class SystemConfiguration(BaseModel):
     selected_options: list[SelectedOption] = Field(default_factory=list)
     selected_payload_ids: list[str] = Field(default_factory=list)
     launcher_id: str | None = None
+    selected_calibration_ids: list[str] = Field(default_factory=list)
+    payload_calibrations: dict[str, str] = Field(default_factory=dict)
 
 
 class StudentProject(BaseModel):

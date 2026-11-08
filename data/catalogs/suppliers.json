@@ -432,5 +432,53 @@
     "founded": 2019,
     "description": "Entreprise NewSpace britannique développant des émetteurs quantiques à puce photonique intégrée pour CubeSats et petits satellites commerciaux, abaissant drastiquement la masse et le coût d'accès au chiffrement quantique. Inspiré de Craft Prospect, d'Arqit et de Toshiba UK.",
     "country_code": "UK"
+  },
+  {
+    "id": "cso_intespace_fr",
+    "name": "Intespace Test Centre (Toulouse)",
+    "country": "France",
+    "kind": "historique",
+    "categories": [
+      "calibration"
+    ],
+    "founded": 1983,
+    "description": "Centre d'essais spatial majeur situé à Toulouse (adjacent au CNES). Dispose de cuves de simulation d'environnement spatial (SIMLES, SIMVIA), de bancs optiques collimatés et de moyens vibratoires et acoustiques pour charges utiles institutionnelles et commerciales.",
+    "country_code": "FR"
+  },
+  {
+    "id": "iabg_test_centre_de",
+    "name": "IABG Space Test Centre (Ottobrunn)",
+    "country": "Allemagne",
+    "kind": "historique",
+    "categories": [
+      "calibration"
+    ],
+    "founded": 1961,
+    "description": "Centre d'essais spatial européen de référence situé en Bavière. Équipé de cuves vide thermique haute performance (WSA), de bases anéchoïques compactes CATR pour charges utiles SAR/télécom et d'installations de qualification multipactor fortes puissances.",
+    "country_code": "DE"
+  },
+  {
+    "id": "csl_liege_be",
+    "name": "Centre Spatial de Liège (CSL)",
+    "country": "Belgique",
+    "kind": "historique",
+    "categories": [
+      "calibration"
+    ],
+    "founded": 1964,
+    "description": "Institut de recherche appliquée et centre d'essais spatial de l'Université de Liège, spécialisé dans l'étalonnage radiométrique et spectral ultra-précis sous cryo-vide pour télescopes et spectromètres spatiaux (cuves FOCAL 5, FOCAL 2).",
+    "country_code": "BE"
+  },
+  {
+    "id": "estec_test_centre_nl",
+    "name": "ESA ESTEC Test Centre (Noordwijk)",
+    "country": "Pays-Bas",
+    "kind": "historique",
+    "categories": [
+      "calibration"
+    ],
+    "founded": 1968,
+    "description": "Plus grand centre technique et d'essais spatiaux d'Europe, géré par l'Agence Spatiale Européenne (ESA). Abrite le grand simulateur spatial LSS (Large Space Simulator) et des laboratoires de métrologie optique et laser de classe mondiale.",
+    "country_code": "NL"
   }
 ]

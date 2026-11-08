@@ -17,6 +17,7 @@ from ssb.core.payload import (
     PayloadType,
 )
 from ssb.core.project import Launcher, PayloadUnion
+from ssb.core.calibration import PayloadCalibration
 
 
 def parse_payload(data: dict[str, Any]) -> PayloadUnion:
@@ -40,7 +41,7 @@ def parse_payload(data: dict[str, Any]) -> PayloadUnion:
 
 
 class CatalogDatabase:
-    """In-memory catalog containing suppliers, platforms, equipments, payloads, launchers."""
+    """In-memory catalog containing suppliers, platforms, equipments, payloads, launchers, calibrations."""
 
     def __init__(self) -> None:
         self.suppliers: dict[str, Supplier] = {}
@@ -48,6 +49,7 @@ class CatalogDatabase:
         self.equipments: dict[str, Equipment] = {}
         self.payloads: dict[str, PayloadUnion] = {}
         self.launchers: dict[str, Launcher] = {}
+        self.calibrations: dict[str, PayloadCalibration] = {}
 
     def load_from_directory(self, catalog_dir: Path | str | None = None) -> None:
         """Load and cross-validate all JSON catalog files from directory."""
@@ -88,10 +90,17 @@ class CatalogDatabase:
                     ln = Launcher.model_validate(item)
                     self.launchers[ln.id] = ln
 
+        cal_file = cdir / "calibrations.json"
+        if cal_file.exists():
+            with open(cal_file, "r", encoding="utf-8") as f:
+                for item in json.load(f):
+                    cal = PayloadCalibration.model_validate(item)
+                    self.calibrations[cal.id] = cal
+
         self.validate_cross_references()
 
     def suppliers_for(self, category: str) -> list[Supplier]:
-        """Return suppliers active in a category ('platform', 'payload', 'equipment', 'launcher')."""
+        """Return suppliers active in a category ('platform', 'payload', 'equipment', 'launcher', 'calibration')."""
         return [s for s in self.suppliers.values() if category in s.categories]
 
     def items_by_supplier(self, supplier_id: str, category: str) -> list[Any]:
@@ -100,8 +109,16 @@ class CatalogDatabase:
             "payload": self.payloads,
             "equipment": self.equipments,
             "launcher": self.launchers,
+            "calibration": self.calibrations,
         }[category]
         return [x for x in pool.values() if x.supplier_id == supplier_id]
+
+    def calibrations_for_payload(self, payload_type: str) -> list[PayloadCalibration]:
+        """Return all calibration options compatible with a given payload type."""
+        return [
+            c for c in self.calibrations.values()
+            if not c.compatible_payload_types or payload_type in c.compatible_payload_types
+        ]
 
     def validate_cross_references(self) -> list[str]:
         """Verify that platform slots reference existing equipment IDs and suppliers exist."""
@@ -124,6 +141,7 @@ class CatalogDatabase:
                 ("payload", self.payloads),
                 ("equipment", self.equipments),
                 ("launcher", self.launchers),
+                ("calibration", self.calibrations),
             ]:
                 for item_id, item in coll.items():
                     if item.supplier_id not in self.suppliers:

@@ -48,6 +48,7 @@ class CostBudget:
     mission_budget_limit_meur: float
     cost_margin_meur: float
     satellite_cost_meur: float = 0.0
+    calibration_total_meur: float = 0.0
     cost_by_country_meur: dict[str, float] = field(default_factory=dict)
     cost_by_country_pct: dict[str, float] = field(default_factory=dict)
 
@@ -369,15 +370,22 @@ class SystemEvaluator:
                 )
             )
 
+        # Calibration cost and facility contracts
+        calib_items = []
+        for cid in getattr(config, "selected_calibration_ids", []):
+            if hasattr(self.catalog, "calibrations") and cid in self.catalog.calibrations:
+                calib_items.append(self.catalog.calibrations[cid])
+
+        calib_cost = sum(c.price_meur for c in calib_items)
         plat_cost = plat_base.base_price_meur
         opt_cost = sum(opt.final_price_meur for opt in conf_plat.resolved_options)
         pl_cost = sum(p.price_meur for p in payloads)
-        total_cost = plat_cost + opt_cost + pl_cost + launcher_cost
+        total_cost = plat_cost + opt_cost + pl_cost + launcher_cost + calib_cost
         cost_margin = mission.max_budget_meur - total_cost
 
         # Geographic return accounting across satellite industrial contracts
-        # (Platform base + Options + Payloads)
-        sat_cost = plat_cost + opt_cost + pl_cost
+        # (Platform base + Options + Payloads + Ground Calibration Test Center)
+        sat_cost = plat_cost + opt_cost + pl_cost + calib_cost
         cost_by_country_meur: dict[str, float] = {}
 
         def _add_country_cost(sup_id: str, amount: float) -> None:
@@ -390,6 +398,8 @@ class SystemEvaluator:
             _add_country_cost(opt.equipment.supplier_id, opt.final_price_meur)
         for p in payloads:
             _add_country_cost(p.supplier_id, p.price_meur)
+        for c in calib_items:
+            _add_country_cost(c.supplier_id, c.price_meur)
 
         cost_by_country_pct: dict[str, float] = {}
         for c, amt in cost_by_country_meur.items():
@@ -405,9 +415,63 @@ class SystemEvaluator:
             mission_budget_limit_meur=mission.max_budget_meur,
             cost_margin_meur=round(cost_margin, 2),
             satellite_cost_meur=round(sat_cost, 2),
+            calibration_total_meur=round(calib_cost, 2),
             cost_by_country_meur=cost_by_country_meur,
             cost_by_country_pct=cost_by_country_pct,
         )
+
+        # Calibration rules
+        if calib_items:
+            has_tvac = any(c.is_thermal_vacuum for c in calib_items)
+            tvac_str = "avec cuve vide thermique (TVAC)" if has_tvac else "en salle blanche ambiante"
+            tot_weeks = sum(c.duration_weeks for c in calib_items)
+            c_names = ", ".join(f"'{c.name}'" for c in calib_items)
+            rule_checks.append(
+                RuleCheckResult(
+                    rule_id="RULE_CALIB_SELECTED",
+                    category="AIT & Calibration Sol",
+                    status=CheckStatus.PASS,
+                    message=(
+                        f"Campagne(s) de calibration sol configurée(s) : {c_names} "
+                        f"({tvac_str}, durée cumulée {tot_weeks:.1f} sem., budget AIT +{calib_cost:.2f} M€)."
+                    ),
+                    current_value=calib_cost,
+                    unit="M€",
+                )
+            )
+            if has_tvac:
+                rule_checks.append(
+                    RuleCheckResult(
+                        rule_id="RULE_CALIB_TVAC_QUALIFIED",
+                        category="AIT & Calibration Sol",
+                        status=CheckStatus.PASS,
+                        message=(
+                            "Qualification en vide thermique (TVAC) validée : l'instrument est caractérisé "
+                            "sous vide poussé et cyclage thermique représentatif du vol spatial (athermalisation et cryogénie qualifiées)."
+                        ),
+                    )
+                )
+            else:
+                rule_checks.append(
+                    RuleCheckResult(
+                        rule_id="RULE_CALIB_TVAC_QUALIFIED",
+                        category="AIT & Calibration Sol",
+                        status=CheckStatus.WARNING,
+                        message=(
+                            "Essais sol limités aux conditions ambiantes ISO 5. Attention : l'absence d'essais en cuve à vide thermique (TVAC) "
+                            "ne permet pas de valider la tenue sous vide spatial ni la stabilité du plan focal lors des cyclages d'orbite."
+                        ),
+                    )
+                )
+        else:
+            rule_checks.append(
+                RuleCheckResult(
+                    rule_id="RULE_CALIB_NONE",
+                    category="AIT & Calibration Sol",
+                    status=CheckStatus.WARNING,
+                    message="Aucune campagne d'essais/calibration sol dédiée sélectionnée : risque d'anomalie radiométrique ou de défocalisation thermique en orbite.",
+                )
+            )
 
         if total_cost > mission.max_budget_meur:
             compliance_checks.append(

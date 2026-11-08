@@ -37,6 +37,7 @@ CATEGORY_ICONS = {
     "payload_downlink": "📶 Liaison descendante CU",
     "mass_memory": "💾 Mémoire de masse",
     "adcs": "🧭 ADCS & Guidage",
+    "calibration": "🔬 Essais & Calibration Sol",
     "launcher": "🚀 Service de Lancement",
 }
 
@@ -44,7 +45,7 @@ CATEGORY_ICONS = {
 class GlobalArchitectureWidget(QWidget):
     """Unified comprehensive view of everything selected in the space segment:
 
-    Platform, Payloads, Configured Platform Options / Equipments, and Launcher.
+    Platform, Payloads, Configured Platform Options / Equipments, Calibration & Ground Tests, and Launcher.
     """
 
     def __init__(
@@ -70,9 +71,10 @@ class GlobalArchitectureWidget(QWidget):
         self.kpi_plat = QLabel()
         self.kpi_pl = QLabel()
         self.kpi_opts = QLabel()
+        self.kpi_calib = QLabel()
         self.kpi_ln = QLabel()
 
-        for lbl in (self.kpi_plat, self.kpi_pl, self.kpi_opts, self.kpi_ln):
+        for lbl in (self.kpi_plat, self.kpi_pl, self.kpi_opts, self.kpi_calib, self.kpi_ln):
             lbl.setStyleSheet(
                 "background: #ffffff; color: #0f172a; border: 1px solid #cbd5e1; border-radius: 4px; padding: 6px; font-size: 11px;"
             )
@@ -150,6 +152,11 @@ class GlobalArchitectureWidget(QWidget):
         plat = self.catalog.platforms.get(cfg.platform_id or "")
         pls = [self.catalog.payloads[pid] for pid in cfg.selected_payload_ids if pid in self.catalog.payloads]
         ln = self.catalog.launchers.get(cfg.launcher_id or "")
+        calibs = [
+            self.catalog.calibrations[cid]
+            for cid in getattr(cfg, "selected_calibration_ids", [])
+            if cid in self.catalog.calibrations
+        ]
 
         # Update KPI Cards
         plat_txt = (
@@ -180,6 +187,17 @@ class GlobalArchitectureWidget(QWidget):
             f"Masse ajouts : {sum(o.final_mass_kg for o in resolved_opts):.1f} kg"
         )
         self.kpi_opts.setText(opt_txt)
+
+        tot_calib_cost = sum(c.cost_meur for c in calibs)
+        tot_calib_duration = sum(c.duration_weeks for c in calibs)
+        calib_txt = (
+            f"🔬 <b>Essais Sol / TVAC :</b> {len(calibs)} sélectionné(s)<br>"
+            f"Coût essais : +{tot_calib_cost:.2f} M€<br>"
+            f"Durée sol : {tot_calib_duration:.1f} sem."
+            if calibs
+            else "🔬 <b>Essais Sol / TVAC :</b> <span style='color:#64748b;'>Non configuré</span>"
+        )
+        self.kpi_calib.setText(calib_txt)
 
         m_launch = budgets.mass.launch_mass_with_margin_kg if budgets else 0.0
         ln_cap = launcher_capacity_for_orbit(ln, cfg.orbit) if ln else 0.0
@@ -260,7 +278,28 @@ class GlobalArchitectureWidget(QWidget):
                 }
             )
 
-        # 4. Launcher Row
+        # 4. Calibration & Ground Test campaigns
+        for calib in calibs:
+            sup = self.catalog.suppliers.get(calib.supplier_id)
+            c_flag = country_with_flag(sup.country if sup else "")
+            mode_tag = "🔬 Vide Thermique (TVAC)" if calib.is_tvac else "🌡️ Essai Ambiant ISO 5"
+            rows.append(
+                {
+                    "item": calib,
+                    "cat": "🔬 Essai & Calibration Sol",
+                    "name": calib.name,
+                    "supplier": f"{calib.facility_name} [{c_flag}]",
+                    "details": f"{mode_tag} | Durée : {calib.duration_weeks:.1f} sem. ({calib.vacuum_level_mbar or 'P_amb'})",
+                    "mass": "0,0 kg (Sol)",
+                    "power": "0,0 W (Sol)",
+                    "cost": f"+{calib.cost_meur:.2f} M€",
+                    "bg": QColor(245, 243, 255),
+                    "fg": QColor("#581c87"),
+                    "bold": False,
+                }
+            )
+
+        # 5. Launcher Row
         if ln:
             ln_sup = self.catalog.suppliers.get(ln.supplier_id)
             c_flag = country_with_flag(ln_sup.country if ln_sup else "")
@@ -280,16 +319,16 @@ class GlobalArchitectureWidget(QWidget):
                 }
             )
 
-        # 5. Subtotal Satellite Row
+        # 6. Subtotal Satellite Row
         if budgets:
             b = budgets
             rows.append(
                 {
                     "item": None,
                     "cat": "🛰️ SOUS-TOTAL SATELLITE",
-                    "name": "Ensemble plateforme + options + charges utiles + ergols",
+                    "name": "Ensemble plateforme + options + charges utiles + ergols + essais",
                     "supplier": "Assiette retour géo ESA",
-                    "details": f"Masse sèche: {b.mass.system_dry_mass_kg:.1f} kg + Ergols: {b.mass.propellant_mass_kg:.1f} kg",
+                    "details": f"Masse sèche: {b.mass.system_dry_mass_kg:.1f} kg + Ergols: {b.mass.propellant_mass_kg:.1f} kg | Essais sol: {b.cost.calibration_total_meur:.2f} M€",
                     "mass": f"{b.mass.system_wet_mass_kg:.1f} kg humide",
                     "power": f"Consom. moy: {b.power.total_avg_consumption_w:.1f} W",
                     "cost": f"{b.cost.satellite_cost_meur:.2f} M€",
@@ -299,7 +338,7 @@ class GlobalArchitectureWidget(QWidget):
                 }
             )
 
-            # 6. Grand Total Space Segment
+            # 7. Grand Total Space Segment
             cost_status = f"(Marge: {b.cost.cost_margin_meur:+.2f} M€)"
             rows.append(
                 {

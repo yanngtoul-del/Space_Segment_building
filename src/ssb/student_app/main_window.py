@@ -51,6 +51,7 @@ from ssb.core.mission import (
 from ssb.core.platform import PlatformBase
 from ssb.core.payload import BasePayload, PayloadType
 from ssb.core.project import StudentProject, SystemConfiguration, Launcher
+from ssb.core.calibration import PayloadCalibration
 from ssb.system.evaluator import SystemEvaluator, CheckStatus, SystemBudgets, launcher_capacity_for_orbit
 from ssb.orbit.propagator import OrbitPropagator
 from ssb.report.generator import ReportGenerator
@@ -217,6 +218,7 @@ class StudentMainWindow(QMainWindow):
         self._build_tab_payloads()
         self._build_tab_platform()
         self._build_tab_equipment_catalog()
+        self._build_tab_calibration()
         self._build_tab_launcher()
         self._build_tab_evaluation()
         self._build_tab_report_text()
@@ -583,6 +585,8 @@ class StudentMainWindow(QMainWindow):
                     )
             else:
                 self.lbl_spectro_chain_hint.setVisible(False)
+        if hasattr(self, "browser_calibrations"):
+            self.browser_calibrations.refresh()
 
     def _view_selected_payload_datasheet(self) -> None:
         cur = self.list_selected_payloads.currentItem()
@@ -907,7 +911,211 @@ class StudentMainWindow(QMainWindow):
                 return True, f"Option autorisée sur {plat.name} (max {s.max_qty})"
         return False, f"Non qualifié sur {plat.name}"
 
-    # ------------------------------------------------------------------ Tab 6: Launcher
+    # ------------------------------------------------------------------ Tab 6: Calibration & Ground Tests (TVAC)
+    def _build_tab_calibration(self) -> None:
+        tab = QWidget()
+        l = QVBoxLayout(tab)
+
+        # Highlight box for selected calibrations
+        self.box_selected_calibration = QGroupBox("Campagnes de calibration sol & essais en vide thermique (TVAC) retenues")
+        box_calib_layout = QVBoxLayout(self.box_selected_calibration)
+
+        top_row = QHBoxLayout()
+        self.lbl_chosen_calibration = QLabel()
+        self.lbl_chosen_calibration.setWordWrap(True)
+        self.lbl_chosen_calibration.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        self.lbl_chosen_calibration.setMinimumWidth(100)
+        top_row.addWidget(self.lbl_chosen_calibration, stretch=1)
+
+        self.btn_view_calib_ds = QPushButton("Voir Datasheet Campagne")
+        self.btn_view_calib_ds.setStyleSheet("font-weight: bold; padding: 4px 10px;")
+        self.btn_view_calib_ds.clicked.connect(self._open_selected_calibration_datasheet)
+        self.btn_view_calib_ds.setEnabled(False)
+        top_row.addWidget(self.btn_view_calib_ds)
+
+        self.btn_clear_calib = QPushButton("Tout retirer")
+        self.btn_clear_calib.setStyleSheet("background-color: #fef2f2; color: #b91c1c; border: 1px solid #fca5a5; padding: 4px 10px;")
+        self.btn_clear_calib.clicked.connect(self._clear_calibrations)
+        top_row.addWidget(self.btn_clear_calib)
+        box_calib_layout.addLayout(top_row)
+
+        self.t_active_calibrations = QTableWidget(0, 6)
+        self.t_active_calibrations.setStyleSheet("""
+            QTableWidget {
+                background-color: #ffffff;
+                color: #0f172a;
+                gridline-color: #cbd5e1;
+                font-size: 12px;
+                selection-background-color: #2563eb;
+                selection-color: #ffffff;
+            }
+            QHeaderView::section {
+                background-color: #0f2744;
+                color: #ffffff;
+                font-weight: bold;
+                padding: 5px;
+                border: 1px solid #1e3a5f;
+            }
+            QTableWidget::item {
+                color: #0f172a;
+                padding: 3px;
+            }
+        """)
+        self.t_active_calibrations.setHorizontalHeaderLabels([
+            "Campagne d'essais", "Centre spatial & Pays", "Type d'environnement", "Niveau de vide / T°", "Durée", "Coût forfait"
+        ])
+        self.t_active_calibrations.setMaximumHeight(140)
+        self.t_active_calibrations.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
+        self.t_active_calibrations.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
+        self.t_active_calibrations.horizontalHeader().setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
+        self.t_active_calibrations.horizontalHeader().setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
+        self.t_active_calibrations.horizontalHeader().setSectionResizeMode(4, QHeaderView.ResizeMode.ResizeToContents)
+        self.t_active_calibrations.horizontalHeader().setSectionResizeMode(5, QHeaderView.ResizeMode.ResizeToContents)
+        self.t_active_calibrations.cellDoubleClicked.connect(self._on_active_calibration_double_clicked)
+        box_calib_layout.addWidget(self.t_active_calibrations)
+        l.addWidget(self.box_selected_calibration)
+
+        info = QLabel(
+            "Les essais au sol en cuve à vide thermique (TVAC) reproduisent le vide spatial (10⁻⁶ mbar) et les gradients thermiques d'orbite (-30°C à +55°C). "
+            "Selon les normes ECSS, une qualification en vide thermique est indispensable pour garantir la stabilité de focalisation des télescopes/spectromètres, "
+            "l'absence d'effet multipactor sur les charges utiles RF de forte puissance et le pointage sub-microrad des liaisons optiques laser/QKD. "
+            "Les centres techniques européens certifiés (Intespace Toulouse 🇫🇷, CSL Liège 🇧🇪, IABG Ottobrunn 🇩🇪, ESTEC Noordwijk 🇳🇱) contribuent au retour géographique ESA."
+        )
+        info.setWordWrap(True)
+        info.setStyleSheet("font-size: 11px; color: #475569;")
+        l.addWidget(info)
+
+        calib_type_opts = [
+            ("optical_thermal_vacuum", "Vide Thermique Optique (TVAC SIMLES)"),
+            ("cryogenic_vacuum", "Cryo-Vide Spatial & Spectrométrie (CSL FOCAL)"),
+            ("rf_catr_vacuum", "Base CATR & Vide Thermique Multipactor (IABG)"),
+            ("laser_optical_bench", "Banc Laser PAT & Simulation Solaire LSS (ESTEC)"),
+            ("cleanroom_ambient", "Contrôle Radiométrique Ambiant ISO 5"),
+        ]
+        self.browser_calibrations = CatalogBrowser(
+            catalog=self.catalog,
+            category="calibration",
+            action_button_text="✓ Retenir cette campagne d'essais",
+            type_filter_options=calib_type_opts,
+            compatibility_fn=self._check_calibration_compat,
+            orbit_provider=self._current_orbit,
+        )
+        self.browser_calibrations.item_activated.connect(self._on_calibration_chosen)
+        l.addWidget(self.browser_calibrations, stretch=1)
+        self.tabs.addTab(tab, f"6. Calibration & Essais Sol (TVAC) ({len(self.catalog.calibrations)} réf.)")
+        self._update_selected_calibration_card()
+
+    def _update_selected_calibration_card(self) -> None:
+        cids = getattr(self.project.configuration, "selected_calibration_ids", [])
+        calibs = [self.catalog.calibrations[cid] for cid in cids if cid in self.catalog.calibrations]
+
+        if not calibs:
+            self.lbl_chosen_calibration.setText(
+                "<span style='color:#dc2626; font-weight:bold;'>Aucune campagne de calibration sol sélectionnée.</span> "
+                "<i>Sans calibration TVAC, la mission présente un risque de défocalisation thermique et d'anomalie de calibration en orbite.</i>"
+            )
+            if hasattr(self, "btn_view_calib_ds"):
+                self.btn_view_calib_ds.setEnabled(False)
+            if hasattr(self, "t_active_calibrations"):
+                self.t_active_calibrations.setRowCount(0)
+            return
+
+        if hasattr(self, "btn_view_calib_ds"):
+            self.btn_view_calib_ds.setEnabled(True)
+
+        tot_cost = sum(c.price_meur for c in calibs)
+        tot_dur = sum(c.duration_weeks for c in calibs)
+        has_tvac = any(c.is_thermal_vacuum for c in calibs)
+        tvac_badge = "<span style='color:#15803d; font-weight:bold;'>✔ Qualification TVAC spatiale couverte</span>" if has_tvac else "<span style='color:#b45309; font-weight:bold;'>⚠️ Uniquement essais ambiants (non qualifié TVAC)</span>"
+
+        self.lbl_chosen_calibration.setText(
+            f"🔬 <b>{len(calibs)} campagne(s) d'essais retenue(s)</b> &nbsp;|&nbsp; "
+            f"<b>Durée cumulée sur banc :</b> {tot_dur:.1f} semaines ({tot_dur * 7:.0f} jours) &nbsp;|&nbsp; "
+            f"<b>Coût forfaitaire total :</b> <b>{tot_cost:.2f} M€</b> &nbsp;|&nbsp; "
+            f"{tvac_badge}"
+        )
+
+        if hasattr(self, "t_active_calibrations"):
+            self.t_active_calibrations.setRowCount(len(calibs))
+            for row_idx, cal in enumerate(calibs):
+                sup = self.catalog.suppliers.get(cal.supplier_id)
+                c_flag = country_with_flag(sup.country if sup else "")
+                env_tag = "🔬 Vide Thermique (TVAC)" if cal.is_thermal_vacuum else "🌡️ Ambiant ISO 5"
+                vac_tag = f"{cal.vacuum_level_mbar:.1e} mbar | {cal.temp_min_c:.0f} à {cal.temp_max_c:.0f}°C" if cal.is_thermal_vacuum else "1013 mbar (Ambiant)"
+
+                items = [
+                    QTableWidgetItem(cal.name),
+                    QTableWidgetItem(f"{cal.test_center} [{c_flag}]"),
+                    QTableWidgetItem(env_tag),
+                    QTableWidgetItem(vac_tag),
+                    QTableWidgetItem(f"{cal.duration_weeks:.1f} sem."),
+                    QTableWidgetItem(f"{cal.price_meur:.2f} M€"),
+                ]
+                for col_idx, itm in enumerate(items):
+                    itm.setForeground(QColor("#0f172a"))
+                    itm.setBackground(QColor("#ffffff"))
+                    itm.setData(Qt.ItemDataRole.UserRole, cal)
+                    self.t_active_calibrations.setItem(row_idx, col_idx, itm)
+
+    def _open_selected_calibration_datasheet(self) -> None:
+        cur_row = self.t_active_calibrations.currentRow()
+        cal = None
+        if cur_row >= 0:
+            itm = self.t_active_calibrations.item(cur_row, 0)
+            if itm:
+                cal = itm.data(Qt.ItemDataRole.UserRole)
+        if not cal:
+            cids = getattr(self.project.configuration, "selected_calibration_ids", [])
+            if cids:
+                cal = self.catalog.calibrations.get(cids[0])
+        if cal:
+            ds = build_datasheet(cal, self._current_orbit())
+            DatasheetView.open_modal(ds, self)
+
+    def _on_active_calibration_double_clicked(self, row: int, _col: int) -> None:
+        itm = self.t_active_calibrations.item(row, 0)
+        if itm:
+            cal = itm.data(Qt.ItemDataRole.UserRole)
+            if cal:
+                ds = build_datasheet(cal, self._current_orbit())
+                DatasheetView.open_modal(ds, self)
+
+    def _on_calibration_chosen(self, cal: PayloadCalibration) -> None:
+        cids = getattr(self.project.configuration, "selected_calibration_ids", [])
+        if cal.id in cids:
+            cids.remove(cal.id)
+            msg = f"Campagne « {cal.name} » retirée des essais sol."
+        else:
+            cids.append(cal.id)
+            msg = f"✔ Campagne « {cal.name} » ({cal.test_center}) retenue pour la qualification sol !"
+        self.project.configuration.selected_calibration_ids = cids
+        self._update_selected_calibration_card()
+        if hasattr(self, "browser_calibrations"):
+            self.browser_calibrations.refresh()
+        self.refresh_evaluation()
+        self.statusBar().showMessage(msg, 4000)
+
+    def _clear_calibrations(self) -> None:
+        self.project.configuration.selected_calibration_ids.clear()
+        self._update_selected_calibration_card()
+        if hasattr(self, "browser_calibrations"):
+            self.browser_calibrations.refresh()
+        self.refresh_evaluation()
+        self.statusBar().showMessage("Toutes les campagnes de calibration ont été retirées.", 4000)
+
+    def _check_calibration_compat(self, cal: PayloadCalibration) -> tuple[bool, str]:
+        pls = [self.catalog.payloads[pid] for pid in self.project.configuration.selected_payload_ids if pid in self.catalog.payloads]
+        if not pls:
+            return True, "En attente de sélection de charge utile"
+
+        pl_types = {p.payload_type.value for p in pls}
+        compat_types = set(cal.compatible_payload_types)
+        matching = pl_types.intersection(compat_types)
+        if matching:
+            return True, f"Qualifié pour vos instruments ({', '.join(matching)})"
+        return False, f"Non prévu pour vos CU (spécifique : {', '.join(cal.compatible_payload_types)})"
+
+    # ------------------------------------------------------------------ Tab 7: Launcher
     def _build_tab_launcher(self) -> None:
         tab = QWidget()
         l = QVBoxLayout(tab)
@@ -938,7 +1146,7 @@ class StudentMainWindow(QMainWindow):
         )
         self.browser_launchers.item_activated.connect(self._on_launcher_chosen)
         l.addWidget(self.browser_launchers, stretch=1)
-        self.tabs.addTab(tab, f"6. Lanceurs ({len(self.catalog.launchers)} réf.)")
+        self.tabs.addTab(tab, f"7. Lanceurs ({len(self.catalog.launchers)} réf.)")
         self._update_selected_launcher_card()
 
     def _update_selected_launcher_card(self) -> None:
@@ -1032,7 +1240,7 @@ class StudentMainWindow(QMainWindow):
         self.t_eval.horizontalHeader().setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
         self.t_eval.horizontalHeader().setSectionResizeMode(4, QHeaderView.ResizeMode.Stretch)
         l.addWidget(self.t_eval, stretch=1)
-        self.tabs.addTab(tab, "7. Analyses & Conformité")
+        self.tabs.addTab(tab, "8. Analyses & Conformité")
 
     # ------------------------------------------------------------------ Tab 8: Student Written Sections
     def _build_tab_report_text(self) -> None:
@@ -1051,7 +1259,7 @@ class StudentMainWindow(QMainWindow):
         l.addWidget(lbl_q3)
         self.txt_risks = QTextEdit()
         l.addWidget(self.txt_risks)
-        self.tabs.addTab(tab, "8. Rédaction Rapport")
+        self.tabs.addTab(tab, "9. Rédaction Rapport")
 
     def _sync_legacy_combos(self) -> None:
         self.combo_payloads = QComboBox()
@@ -1121,7 +1329,7 @@ class StudentMainWindow(QMainWindow):
             f"Consommation moyenne : {b.power.total_avg_consumption_w:.1f} W (Options {b.power.options_avg_power_w:.1f} W + CU {b.power.payloads_avg_power_w:.1f} W) | "
             f"<b>Marge : {b.power.power_margin_w:.1f} W ({b.power.power_margin_pct:.1f}%)</b> | Crête : {b.power.peak_consumption_w:.0f} W<br>"
             f"<b>Bilan Financier :</b> Plateforme base {b.cost.platform_base_meur:.2f} M€ + Options & intégration {b.cost.options_total_meur:.2f} M€ + "
-            f"Charges utiles {b.cost.payloads_total_meur:.2f} M€ + Lanceur {b.cost.launcher_meur:.2f} M€ = "
+            f"Charges utiles {b.cost.payloads_total_meur:.2f} M€ + Essais sol {b.cost.calibration_total_meur:.2f} M€ + Lanceur {b.cost.launcher_meur:.2f} M€ = "
             f"<b>{b.cost.space_segment_total_meur:.2f} M€</b> (plafond {b.cost.mission_budget_limit_meur:.2f} M€, marge {b.cost.cost_margin_meur:+.2f} M€)"
         )
         if b.cost.cost_by_country_pct:
@@ -1171,6 +1379,7 @@ class StudentMainWindow(QMainWindow):
 
         self._update_selected_platform_card()
         self._update_active_equipments_table()
+        self._update_selected_calibration_card()
         self._update_selected_launcher_card()
         if hasattr(self, "global_arch_widget"):
             self.global_arch_widget.refresh(self.project, self.current_budgets)
