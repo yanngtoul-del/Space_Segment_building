@@ -31,6 +31,7 @@ from PySide6.QtWidgets import (
 
 from ssb.catalog.database import CatalogDatabase
 from ssb.catalog.datasheet import PAYLOAD_TYPE_LABELS_FR, FUNCTION_LABELS_FR
+from ssb.ui_common.global_architecture_view import GlobalArchitectureWidget
 from ssb.core.paths import catalogs_dir, missions_dir
 from ssb.core.mission import (
     MissionSpecification,
@@ -87,6 +88,9 @@ class TeacherMainWindow(QMainWindow):
 
         self.lbl_student_status = QLabel("<i>Aucun projet chargé.</i>")
         l_ins.addWidget(self.lbl_student_status)
+
+        self.global_arch_widget = GlobalArchitectureWidget(self.catalog)
+        l_ins.addWidget(self.global_arch_widget)
 
         self.t_student_results = QTableWidget(0, 4)
         self.t_student_results.setHorizontalHeaderLabels(
@@ -318,6 +322,7 @@ class TeacherMainWindow(QMainWindow):
             )
 
             budgets = self.evaluator.evaluate(proj.configuration, proj.mission)
+            self.global_arch_widget.refresh(proj, budgets)
             all_checks = budgets.compliance_checks + budgets.rule_checks
 
             self.t_student_results.setRowCount(len(all_checks))

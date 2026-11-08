@@ -31,7 +31,10 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt
 
 from ssb.catalog.database import CatalogDatabase
-from ssb.catalog.datasheet import PAYLOAD_TYPE_LABELS_FR, FUNCTION_LABELS_FR
+from ssb.catalog.datasheet import PAYLOAD_TYPE_LABELS_FR, FUNCTION_LABELS_FR, build_datasheet
+from ssb.core.catalog_meta import country_with_flag
+from ssb.ui_common.catalog_browser import CatalogBrowser, DatasheetView
+from ssb.ui_common.global_architecture_view import GlobalArchitectureWidget, GlobalArchitectureDialog
 from ssb.core.paths import catalogs_dir, missions_dir
 from ssb.core.orbit import OrbitDefinition, OrbitType
 from ssb.core.mission import (
@@ -47,7 +50,6 @@ from ssb.core.project import StudentProject, SystemConfiguration, Launcher
 from ssb.system.evaluator import SystemEvaluator, CheckStatus, SystemBudgets, launcher_capacity_for_orbit
 from ssb.orbit.propagator import OrbitPropagator
 from ssb.report.generator import ReportGenerator
-from ssb.ui_common.catalog_browser import CatalogBrowser
 from ssb.ui_common.platform_slots_widget import PlatformSlotsWidget
 from ssb.ui_common.mission_sheet_view import MissionSheetView
 
@@ -181,6 +183,11 @@ class StudentMainWindow(QMainWindow):
         btn_save_proj.setStyleSheet("background-color: #0f766e; color: white; font-weight: bold; padding: 5px 10px;")
         btn_save_proj.clicked.connect(self.save_project_json)
         banner.addWidget(btn_save_proj)
+
+        self.btn_global_view = QPushButton("📋 Vue Globale du Satellite")
+        self.btn_global_view.setStyleSheet("background-color: #1e3a8a; color: white; font-weight: bold; padding: 5px 12px; border-radius: 4px;")
+        self.btn_global_view.clicked.connect(self._open_global_architecture_dialog)
+        banner.addWidget(self.btn_global_view)
 
         self.btn_export_report = QPushButton("Générer Rapport Word (.docx)")
         self.btn_export_report.setStyleSheet("background-color: #1a5276; color: white; font-weight: bold; padding: 5px 12px;")
@@ -394,13 +401,18 @@ class StudentMainWindow(QMainWindow):
         self.list_selected_payloads = QListWidget()
         self.list_selected_payloads.setMaximumHeight(95)
         self.list_selected_payloads.currentItemChanged.connect(self._on_basket_payload_clicked)
+        self.list_selected_payloads.itemDoubleClicked.connect(self._on_basket_payload_double_clicked)
         bl.addWidget(self.list_selected_payloads, stretch=1)
 
         btn_col = QVBoxLayout()
+        btn_view_pl_ds = QPushButton("Voir Datasheet CU")
+        btn_view_pl_ds.setStyleSheet("font-weight: bold;")
+        btn_view_pl_ds.clicked.connect(self._view_selected_payload_datasheet)
         btn_remove_pl = QPushButton("Retirer la charge utile sélectionnée")
         btn_remove_pl.clicked.connect(self._remove_selected_payload)
         btn_clear_pl = QPushButton("Tout vider")
         btn_clear_pl.clicked.connect(self._clear_payloads)
+        btn_col.addWidget(btn_view_pl_ds)
         btn_col.addWidget(btn_remove_pl)
         btn_col.addWidget(btn_clear_pl)
         bl.addLayout(btn_col)
@@ -468,19 +480,59 @@ class StudentMainWindow(QMainWindow):
             pl = self.catalog.payloads.get(pid)
             if not pl:
                 continue
+            sup = self.catalog.suppliers.get(pl.supplier_id)
+            c_flag = country_with_flag(sup.country if sup else "")
             it = QListWidgetItem(
-                f"• {pl.name} ({pl.supplier_name}) — {pl.mass_kg:.1f} kg | {pl.volume_liters:.1f} L | "
-                f"{pl.operational_power_w:.0f} W | {pl.price_meur:.2f} M€"
+                f"• {pl.name} — Fournisseur : {pl.supplier_name} [{c_flag}] | Masse : {pl.mass_kg:.1f} kg | "
+                f"Volume : {pl.volume_liters:.1f} L | Puissance : {pl.operational_power_w:.0f} W crête ({pl.operational_power_w * 0.25:.1f} W moy.) | "
+                f"Prix : {pl.price_meur:.2f} M€"
             )
             it.setData(Qt.ItemDataRole.UserRole, pid)
             self.list_selected_payloads.addItem(it)
 
+    def _view_selected_payload_datasheet(self) -> None:
+        cur = self.list_selected_payloads.currentItem()
+        if not cur:
+            QMessageBox.information(self, "Information", "Veuillez sélectionner une charge utile dans la liste.")
+            return
+        pid = cur.data(Qt.ItemDataRole.UserRole)
+        pl = self.catalog.payloads.get(pid)
+        if pl:
+            ds = build_datasheet(pl, self.catalog, self._current_orbit())
+            DatasheetView.open_modal(ds, self)
+
+    def _on_basket_payload_double_clicked(self, item: QListWidgetItem) -> None:
+        pid = item.data(Qt.ItemDataRole.UserRole)
+        pl = self.catalog.payloads.get(pid)
+        if pl:
+            ds = build_datasheet(pl, self.catalog, self._current_orbit())
+            DatasheetView.open_modal(ds, self)
+
     # ------------------------------------------------------------------ Tab 4: Platform & Options
     def _build_tab_platform(self) -> None:
         tab = QWidget()
-        vsplit = QSplitter(Qt.Orientation.Vertical)
         l = QVBoxLayout(tab)
-        l.addWidget(vsplit)
+
+        # Highlight box for currently selected platform
+        self.box_selected_platform = QGroupBox("Plateforme retenue pour le satellite")
+        box_plat_layout = QHBoxLayout(self.box_selected_platform)
+        self.lbl_selected_platform = QLabel()
+        self.lbl_selected_platform.setWordWrap(True)
+        box_plat_layout.addWidget(self.lbl_selected_platform, stretch=1)
+
+        btn_plat_col = QVBoxLayout()
+        self.btn_view_plat_ds = QPushButton("Voir Datasheet Plateforme")
+        self.btn_view_plat_ds.setStyleSheet("font-weight: bold; padding: 4px 10px;")
+        self.btn_view_plat_ds.clicked.connect(self._open_selected_platform_datasheet)
+        self.btn_clear_plat = QPushButton("Changer de plateforme")
+        self.btn_clear_plat.clicked.connect(self._clear_selected_platform)
+        btn_plat_col.addWidget(self.btn_view_plat_ds)
+        btn_plat_col.addWidget(self.btn_clear_plat)
+        box_plat_layout.addLayout(btn_plat_col)
+        l.addWidget(self.box_selected_platform)
+
+        vsplit = QSplitter(Qt.Orientation.Vertical)
+        l.addWidget(vsplit, stretch=1)
 
         cat_opts = [
             ("cubesat", "CubeSats (6U à 16U)"),
@@ -509,6 +561,58 @@ class StudentMainWindow(QMainWindow):
         vsplit.setStretchFactor(0, 3)
         vsplit.setStretchFactor(1, 2)
         self.tabs.addTab(tab, f"4. Plateforme & Options ({len(self.catalog.platforms)} réf.)")
+        self._update_selected_platform_card()
+
+    def _update_selected_platform_card(self) -> None:
+        plat_id = self.project.configuration.platform_id
+        plat = self.catalog.platforms.get(plat_id) if plat_id else None
+        if not plat:
+            self.lbl_selected_platform.setText(
+                "<span style='color:#dc2626; font-weight:bold;'>Aucune plateforme sélectionnée.</span> "
+                "<i>Veuillez choisir une plateforme dans le catalogue ci-dessous en cliquant sur « ✓ Choisir cette plateforme pour le satellite ».</i>"
+            )
+            self.btn_view_plat_ds.setEnabled(False)
+            self.btn_clear_plat.setEnabled(False)
+            return
+
+        self.btn_view_plat_ds.setEnabled(True)
+        self.btn_clear_plat.setEnabled(True)
+        sup = self.catalog.suppliers.get(plat.supplier_id)
+        c_flag = country_with_flag(sup.country if sup else "")
+
+        pls = [self.catalog.payloads[pid] for pid in self.project.configuration.selected_payload_ids if pid in self.catalog.payloads]
+        tot_pl_m = sum(p.mass_kg for p in pls)
+        tot_pl_v = sum(p.volume_liters for p in pls)
+
+        self.lbl_selected_platform.setText(
+            f"<div style='font-size:12px;'>"
+            f"🛰️ <b>{plat.name}</b> (Catégorie : <b>{plat.category}</b>) — Fournisseur : <b>{plat.supplier_name} [{c_flag}]</b><br>"
+            f"<b>Prix de base :</b> {plat.base_price_meur:.2f} M€ &nbsp;|&nbsp; "
+            f"<b>Masse sèche :</b> {plat.dry_mass_kg:.1f} kg &nbsp;|&nbsp; "
+            f"<b>Masse max lancement :</b> {plat.max_launch_mass_kg:.0f} kg &nbsp;|&nbsp; "
+            f"<b>Capacité CU max :</b> {plat.max_payload_mass_kg:.0f} kg (actuel : {tot_pl_m:.1f} kg) &nbsp;|&nbsp; "
+            f"<b>Volume CU :</b> {plat.payload_volume_liters:.0f} L (actuel : {tot_pl_v:.1f} L) &nbsp;|&nbsp; "
+            f"<b>Puissance disponible CU :</b> {plat.payload_avg_power_w:.0f} W &nbsp;|&nbsp; "
+            f"<b>Précision pointage :</b> ±{plat.pointing_accuracy_deg:.4f}°"
+            f"</div>"
+        )
+
+    def _open_selected_platform_datasheet(self) -> None:
+        plat_id = self.project.configuration.platform_id
+        plat = self.catalog.platforms.get(plat_id) if plat_id else None
+        if plat:
+            ds = build_datasheet(plat, self.catalog, self._current_orbit())
+            DatasheetView.open_modal(ds, self)
+
+    def _clear_selected_platform(self) -> None:
+        self.project.configuration.platform_id = None
+        self.project.configuration.selected_options.clear()
+        self.slots_widget.set_platform(None)
+        self._update_selected_platform_card()
+        self._update_active_equipments_table()
+        self.browser_payloads.refresh()
+        self.browser_launchers.refresh()
+        self.refresh_evaluation()
 
     def _check_platform_compat(self, plat: PlatformBase) -> tuple[bool, str]:
         pls = [self.catalog.payloads[pid] for pid in self.project.configuration.selected_payload_ids if pid in self.catalog.payloads]
@@ -543,11 +647,42 @@ class StudentMainWindow(QMainWindow):
     def _build_tab_equipment_catalog(self) -> None:
         tab = QWidget()
         l = QVBoxLayout(tab)
+
+        self.box_active_equipments = QGroupBox("Équipements & Options actuellement configurés sur la plateforme")
+        box_eq_layout = QVBoxLayout(self.box_active_equipments)
+
+        eq_top_row = QHBoxLayout()
+        self.lbl_active_eq_summary = QLabel()
+        eq_top_row.addWidget(self.lbl_active_eq_summary, stretch=1)
+        btn_goto_plat = QPushButton("⚙️ Modifier ces options dans l'Onglet 4 (Plateforme & Options)")
+        btn_goto_plat.setStyleSheet("font-weight: bold; padding: 4px 10px;")
+        btn_goto_plat.clicked.connect(lambda: self.tabs.setCurrentIndex(3))
+        eq_top_row.addWidget(btn_goto_plat)
+        box_eq_layout.addLayout(eq_top_row)
+
+        self.t_active_equipments = QTableWidget(0, 7)
+        self.t_active_equipments.setHorizontalHeaderLabels([
+            "Sous-système (Slot)", "Équipement configuré", "Fournisseur & Pays", "Qté", "Masse totale", "Puissance", "Surcoût / Statut"
+        ])
+        self.t_active_equipments.setMaximumHeight(140)
+        self.t_active_equipments.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+        self.t_active_equipments.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
+        self.t_active_equipments.horizontalHeader().setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
+        self.t_active_equipments.horizontalHeader().setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
+        self.t_active_equipments.horizontalHeader().setSectionResizeMode(4, QHeaderView.ResizeMode.ResizeToContents)
+        self.t_active_equipments.horizontalHeader().setSectionResizeMode(5, QHeaderView.ResizeMode.ResizeToContents)
+        self.t_active_equipments.horizontalHeader().setSectionResizeMode(6, QHeaderView.ResizeMode.ResizeToContents)
+        self.t_active_equipments.cellDoubleClicked.connect(self._on_active_equipment_double_clicked)
+        box_eq_layout.addWidget(self.t_active_equipments)
+        l.addWidget(self.box_active_equipments)
+
         info = QLabel(
-            "Explorez ici les catalogues de tous les équipementiers (propulsion chimique/électrique, TT&C, émetteurs X/Ka, "
-            "mémoires de masse, suites ADCS). Pour activer une option sur votre plateforme, utilisez le tableau en bas de l'onglet 4."
+            "Explorez ci-dessous les catalogues de tous les équipementiers (propulsion chimique/électrique, TT&C, émetteurs X/Ka, "
+            "mémoires de masse, suites ADCS). Double-cliquez sur une ligne pour ouvrir sa datasheet complète. "
+            "Pour activer ou remplacer une option, rendez-vous sur l'onglet 4 (Plateforme & Options)."
         )
         info.setWordWrap(True)
+        info.setStyleSheet("font-size: 11px; color: #475569;")
         l.addWidget(info)
 
         fn_opts = [(k, v) for k, v in FUNCTION_LABELS_FR.items()]
@@ -562,6 +697,53 @@ class StudentMainWindow(QMainWindow):
         self.browser_equipments.btn_action.setVisible(False)
         l.addWidget(self.browser_equipments, stretch=1)
         self.tabs.addTab(tab, f"5. Catalogue Équipements ({len(self.catalog.equipments)} réf.)")
+        self._update_active_equipments_table()
+
+    def _update_active_equipments_table(self) -> None:
+        plat_id = self.project.configuration.platform_id
+        plat = self.catalog.platforms.get(plat_id) if plat_id else None
+        if not plat:
+            self.lbl_active_eq_summary.setText("<i>Aucune plateforme sélectionnée — Choisissez une plateforme à l'onglet 4 pour configurer ses options.</i>")
+            self.t_active_equipments.setRowCount(0)
+            return
+
+        resolved = self.current_budgets.configured_platform.resolved_options if self.current_budgets else []
+        tot_opt_cost = sum(o.final_price_meur for o in resolved)
+        tot_opt_mass = sum(o.final_mass_kg for o in resolved)
+        self.lbl_active_eq_summary.setText(
+            f"<b>Plateforme : {plat.name}</b> &nbsp;|&nbsp; "
+            f"<b>{len(resolved)} équipement(s) configuré(s)</b> (Masse ajoutée : {tot_opt_mass:.1f} kg | Surcoût options : +{tot_opt_cost:.2f} M€) &nbsp; "
+            f"<i>(Double-cliquez sur une ligne pour voir sa datasheet)</i>"
+        )
+        self.t_active_equipments.setRowCount(len(resolved))
+        for row_idx, opt in enumerate(resolved):
+            eq = opt.equipment
+            sup = self.catalog.suppliers.get(eq.supplier_id)
+            c_flag = country_with_flag(sup.country if sup else "")
+
+            fn_label = FUNCTION_LABELS_FR.get(eq.function.value, eq.function.value.upper())
+            cost_str = "0,00 M€ (Inclus)" if opt.is_included else f"+{opt.final_price_meur:.2f} M€"
+
+            items = [
+                QTableWidgetItem(fn_label),
+                QTableWidgetItem(eq.name),
+                QTableWidgetItem(f"{eq.supplier_name} [{c_flag}]"),
+                QTableWidgetItem("1"),
+                QTableWidgetItem(f"{opt.final_mass_kg:.1f} kg"),
+                QTableWidgetItem(f"{eq.power_w:.1f} W"),
+                QTableWidgetItem(cost_str),
+            ]
+            for col_idx, itm in enumerate(items):
+                itm.setData(Qt.ItemDataRole.UserRole, eq)
+                self.t_active_equipments.setItem(row_idx, col_idx, itm)
+
+    def _on_active_equipment_double_clicked(self, row: int, _col: int) -> None:
+        itm = self.t_active_equipments.item(row, 1)
+        if itm:
+            eq = itm.data(Qt.ItemDataRole.UserRole)
+            if eq:
+                ds = build_datasheet(eq, self.catalog, self._current_orbit())
+                DatasheetView.open_modal(ds, self)
 
     def _check_equipment_compat(self, eq: Any) -> tuple[bool, str]:
         plat_id = self.project.configuration.platform_id
@@ -579,11 +761,18 @@ class StudentMainWindow(QMainWindow):
     def _build_tab_launcher(self) -> None:
         tab = QWidget()
         l = QVBoxLayout(tab)
+
+        self.box_selected_launcher = QGroupBox("Service de lancement retenu pour la mission")
+        box_ln_layout = QHBoxLayout(self.box_selected_launcher)
         self.lbl_chosen_launcher = QLabel()
-        self.lbl_chosen_launcher.setStyleSheet(
-            "background: #eff6ff; border: 1px solid #93c5fd; border-radius: 4px; padding: 6px; font-weight: bold;"
-        )
-        l.addWidget(self.lbl_chosen_launcher)
+        self.lbl_chosen_launcher.setWordWrap(True)
+        box_ln_layout.addWidget(self.lbl_chosen_launcher, stretch=1)
+
+        self.btn_view_ln_ds = QPushButton("Voir Datasheet Lanceur")
+        self.btn_view_ln_ds.setStyleSheet("font-weight: bold; padding: 4px 10px;")
+        self.btn_view_ln_ds.clicked.connect(self._open_selected_launcher_datasheet)
+        box_ln_layout.addWidget(self.btn_view_ln_ds)
+        l.addWidget(self.box_selected_launcher)
 
         ltype_opts = [("rideshare", "Covoiturage (Rideshare / Dispenser)"), ("dedicated", "Lanceur dédié")]
         self.browser_launchers = CatalogBrowser(
@@ -597,6 +786,41 @@ class StudentMainWindow(QMainWindow):
         self.browser_launchers.item_activated.connect(self._on_launcher_chosen)
         l.addWidget(self.browser_launchers, stretch=1)
         self.tabs.addTab(tab, f"6. Lanceurs ({len(self.catalog.launchers)} réf.)")
+        self._update_selected_launcher_card()
+
+    def _update_selected_launcher_card(self) -> None:
+        ln_id = self.project.configuration.launcher_id
+        ln = self.catalog.launchers.get(ln_id or "")
+        if not ln:
+            self.lbl_chosen_launcher.setText("<span style='color:#dc2626; font-weight:bold;'>Aucun service de lancement sélectionné.</span> <i>Cliquez sur « ✓ Retenir ce service de lancement » ci-dessous.</i>")
+            if hasattr(self, "btn_view_ln_ds"):
+                self.btn_view_ln_ds.setEnabled(False)
+            return
+
+        if hasattr(self, "btn_view_ln_ds"):
+            self.btn_view_ln_ds.setEnabled(True)
+        sup = self.catalog.suppliers.get(ln.supplier_id)
+        c_flag = country_with_flag(sup.country if sup else "")
+
+        b = self.current_budgets
+        m_launch = b.mass.launch_mass_with_margin_kg if b else 0.0
+        ln_cap = launcher_capacity_for_orbit(ln, self._current_orbit())
+        cost = b.cost.launcher_meur if b else ln.price_base_meur
+        margin_cap = ln_cap - m_launch
+
+        self.lbl_chosen_launcher.setText(
+            f"🚀 <b>{ln.name}</b> (Type : <b>{ln.launcher_type}</b>) — Fournisseur : <b>{ln.supplier_name} [{c_flag}]</b><br>"
+            f"<b>Capacité sur l'orbite cible :</b> {ln_cap:.0f} kg  &nbsp;|&nbsp; "
+            f"<b>Masse satellite au lancement :</b> {m_launch:.1f} kg (Marge capacité : <b>{margin_cap:+.1f} kg</b>)  &nbsp;|&nbsp; "
+            f"<b>Coût lancement estimé :</b> <b>{cost:.2f} M€</b> (Base {ln.price_base_meur:.2f} M€ + {ln.price_per_kg_meur * 1000:.0f} k€/kg)"
+        )
+
+    def _open_selected_launcher_datasheet(self) -> None:
+        ln_id = self.project.configuration.launcher_id
+        ln = self.catalog.launchers.get(ln_id or "")
+        if ln:
+            ds = build_datasheet(ln, self.catalog, self._current_orbit())
+            DatasheetView.open_modal(ds, self)
 
     def _check_launcher_compat(self, ln: Launcher) -> tuple[bool, str]:
         m_launch = self.current_budgets.mass.launch_mass_with_margin_kg if self.current_budgets else 0.0
@@ -614,6 +838,9 @@ class StudentMainWindow(QMainWindow):
     def _build_tab_evaluation(self) -> None:
         tab = QWidget()
         l = QVBoxLayout(tab)
+
+        self.global_arch_widget = GlobalArchitectureWidget(self.catalog, self.project, self.current_budgets, self)
+        l.addWidget(self.global_arch_widget)
 
         self.lbl_budgets_cards = QLabel()
         self.lbl_budgets_cards.setWordWrap(True)
@@ -752,6 +979,16 @@ class StudentMainWindow(QMainWindow):
             val_str = f"{chk.current_value} {chk.unit}" if chk.current_value is not None else "—"
             self.t_eval.setItem(row, 3, QTableWidgetItem(val_str))
             self.t_eval.setItem(row, 4, QTableWidgetItem(chk.message))
+
+        self._update_selected_platform_card()
+        self._update_active_equipments_table()
+        self._update_selected_launcher_card()
+        if hasattr(self, "global_arch_widget"):
+            self.global_arch_widget.refresh(self.project, self.current_budgets)
+
+    def _open_global_architecture_dialog(self) -> None:
+        dlg = GlobalArchitectureDialog(self.catalog, self.project, self.current_budgets, self)
+        dlg.exec()
 
     # ------------------------------------------------------------------ Save / Open / Export
     def _sync_project_fields(self) -> None:

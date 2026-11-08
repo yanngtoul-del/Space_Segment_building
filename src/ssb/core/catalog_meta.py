@@ -3,6 +3,34 @@
 from pydantic import BaseModel, Field
 
 
+COUNTRY_FLAGS: dict[str, str] = {
+    "France": "🇫🇷",
+    "Allemagne": "🇩🇪",
+    "Italie": "🇮🇹",
+    "Espagne": "🇪🇸",
+    "Suisse": "🇨🇭",
+    "Royaume-Uni": "🇬🇧",
+    "Belgique": "🇧🇪",
+    "Pays-Bas": "🇳🇱",
+    "Suède": "🇸🇪",
+    "Finlande": "🇫🇮",
+    "Norvège": "🇳🇴",
+    "Danemark": "🇩🇰",
+    "Autriche": "🇦🇹",
+    "Canada": "🇨🇦",
+    "États-Unis": "🇺🇸",
+    "Japon": "🇯🇵",
+}
+
+
+def country_with_flag(country: str) -> str:
+    """Format country name with its corresponding flag emoji."""
+    if not country:
+        return "—"
+    flag = COUNTRY_FLAGS.get(country, "🌍")
+    return f"{flag} {country}"
+
+
 class CatalogMeta(BaseModel):
     """Datasheet-oriented fields shared by every catalog item."""
 

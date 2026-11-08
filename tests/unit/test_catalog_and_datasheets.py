@@ -281,9 +281,24 @@ def test_student_and_teacher_gui_offscreen():
     win._add_payload_from_browser(second_pl)
     assert len(win.project.configuration.selected_payload_ids) == 2
 
+    # Verify the selection highlight boxes across all tabs
+    assert win.box_selected_platform is not None
+    assert win.box_active_equipments is not None
+    assert win.box_selected_launcher is not None
+    assert win.global_arch_widget is not None
+    assert win.global_arch_widget.table.rowCount() >= 3
+    assert win.t_active_equipments.rowCount() >= 1
+
+    # Verify Global Architecture modal dialog creation
+    from ssb.ui_common.global_architecture_view import GlobalArchitectureDialog
+    dlg = GlobalArchitectureDialog(win.catalog, win.project, win.current_budgets, win)
+    assert dlg.widget.table.rowCount() >= 3
+    dlg.close()
+
     twin = TeacherMainWindow()
     assert twin.tabs.count() == 3
     assert twin.cmb_existing_missions.count() >= 7
+    assert twin.global_arch_widget is not None
     twin.cmb_existing_missions.setCurrentIndex(1)
     win.close()
     twin.close()
