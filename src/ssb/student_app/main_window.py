@@ -326,7 +326,7 @@ class StudentMainWindow(QMainWindow):
         self.lbl_orbit_details = QLabel()
         self.lbl_orbit_details.setWordWrap(True)
         self.lbl_orbit_details.setStyleSheet(
-            "background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 5px; padding: 10px; font-size: 12px;"
+            "background: #f1f5f9; color: #0f172a; border: 1px solid #cbd5e1; border-radius: 5px; padding: 10px; font-size: 12px;"
         )
         l.addWidget(self.lbl_orbit_details)
         l.addStretch(1)
@@ -399,6 +399,23 @@ class StudentMainWindow(QMainWindow):
         basket_box = QGroupBox("Charges utiles embarquées sur le satellite (sélection multiple possible)")
         bl = QHBoxLayout(basket_box)
         self.list_selected_payloads = QListWidget()
+        self.list_selected_payloads.setStyleSheet("""
+            QListWidget {
+                background-color: #ffffff;
+                color: #0f172a;
+                border: 1px solid #cbd5e1;
+                border-radius: 4px;
+                font-size: 12px;
+            }
+            QListWidget::item {
+                color: #0f172a;
+                padding: 4px;
+            }
+            QListWidget::item:selected {
+                background-color: #2563eb;
+                color: #ffffff;
+            }
+        """)
         self.list_selected_payloads.setMaximumHeight(95)
         self.list_selected_payloads.currentItemChanged.connect(self._on_basket_payload_clicked)
         self.list_selected_payloads.itemDoubleClicked.connect(self._on_basket_payload_double_clicked)
@@ -661,6 +678,27 @@ class StudentMainWindow(QMainWindow):
         box_eq_layout.addLayout(eq_top_row)
 
         self.t_active_equipments = QTableWidget(0, 7)
+        self.t_active_equipments.setStyleSheet("""
+            QTableWidget {
+                background-color: #ffffff;
+                color: #0f172a;
+                gridline-color: #cbd5e1;
+                font-size: 12px;
+                selection-background-color: #2563eb;
+                selection-color: #ffffff;
+            }
+            QHeaderView::section {
+                background-color: #0f2744;
+                color: #ffffff;
+                font-weight: bold;
+                padding: 5px;
+                border: 1px solid #1e3a5f;
+            }
+            QTableWidget::item {
+                color: #0f172a;
+                padding: 3px;
+            }
+        """)
         self.t_active_equipments.setHorizontalHeaderLabels([
             "Sous-système (Slot)", "Équipement configuré", "Fournisseur & Pays", "Qté", "Masse totale", "Puissance", "Surcoût / Statut"
         ])
@@ -734,6 +772,8 @@ class StudentMainWindow(QMainWindow):
                 QTableWidgetItem(cost_str),
             ]
             for col_idx, itm in enumerate(items):
+                itm.setForeground(QColor("#0f172a"))
+                itm.setBackground(QColor("#ffffff"))
                 itm.setData(Qt.ItemDataRole.UserRole, eq)
                 self.t_active_equipments.setItem(row_idx, col_idx, itm)
 
@@ -845,12 +885,33 @@ class StudentMainWindow(QMainWindow):
         self.lbl_budgets_cards = QLabel()
         self.lbl_budgets_cards.setWordWrap(True)
         self.lbl_budgets_cards.setStyleSheet(
-            "background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 5px; padding: 10px; font-size: 12px;"
+            "background: #f8fafc; color: #0f172a; border: 1px solid #cbd5e1; border-radius: 5px; padding: 10px; font-size: 12px;"
         )
         l.addWidget(self.lbl_budgets_cards)
 
         l.addWidget(QLabel("<b>Vérifications de conformité au cahier des charges & règles d'ingénierie système :</b>"))
         self.t_eval = QTableWidget(0, 5)
+        self.t_eval.setStyleSheet("""
+            QTableWidget {
+                background-color: #ffffff;
+                color: #0f172a;
+                gridline-color: #cbd5e1;
+                font-size: 12px;
+                selection-background-color: #2563eb;
+                selection-color: #ffffff;
+            }
+            QHeaderView::section {
+                background-color: #0f2744;
+                color: #ffffff;
+                font-weight: bold;
+                padding: 6px;
+                border: 1px solid #1e3a5f;
+            }
+            QTableWidget::item {
+                color: #0f172a;
+                padding: 4px;
+            }
+        """)
         self.t_eval.setHorizontalHeaderLabels(["Code", "Catégorie", "Statut", "Valeur Calculée", "Diagnostic détaillé"])
         self.t_eval.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
         self.t_eval.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
@@ -960,8 +1021,13 @@ class StudentMainWindow(QMainWindow):
 
         self.t_eval.setRowCount(len(all_checks))
         for row, chk in enumerate(all_checks):
-            self.t_eval.setItem(row, 0, QTableWidgetItem(chk.rule_id))
-            self.t_eval.setItem(row, 1, QTableWidgetItem(chk.category))
+            it0 = QTableWidgetItem(chk.rule_id)
+            it0.setForeground(QColor("#0f172a"))
+            self.t_eval.setItem(row, 0, it0)
+
+            it1 = QTableWidgetItem(chk.category)
+            it1.setForeground(QColor("#0f172a"))
+            self.t_eval.setItem(row, 1, it1)
 
             item_status = QTableWidgetItem(chk.status.value.upper())
             if chk.status == CheckStatus.PASS:
@@ -977,8 +1043,13 @@ class StudentMainWindow(QMainWindow):
             self.t_eval.setItem(row, 2, item_status)
 
             val_str = f"{chk.current_value} {chk.unit}" if chk.current_value is not None else "—"
-            self.t_eval.setItem(row, 3, QTableWidgetItem(val_str))
-            self.t_eval.setItem(row, 4, QTableWidgetItem(chk.message))
+            it3 = QTableWidgetItem(val_str)
+            it3.setForeground(QColor("#0f172a"))
+            self.t_eval.setItem(row, 3, it3)
+
+            it4 = QTableWidgetItem(chk.message)
+            it4.setForeground(QColor("#0f172a"))
+            self.t_eval.setItem(row, 4, it4)
 
         self._update_selected_platform_card()
         self._update_active_equipments_table()

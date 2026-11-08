@@ -88,7 +88,7 @@ class DatasheetView(QScrollArea):
         # Descriptive text box
         desc_frame = QFrame()
         desc_frame.setStyleSheet(
-            "QFrame { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 5px; padding: 6px; }"
+            "QFrame { background: #f8fafc; color: #0f172a; border: 1px solid #cbd5e1; border-radius: 5px; padding: 6px; }"
             "QLabel { color: #0f172a; }"
         )
         dl = QVBoxLayout(desc_frame)
@@ -171,6 +171,25 @@ class DatasheetView(QScrollArea):
             self._tables_layout.addWidget(sec_lbl)
 
             tbl = QTableWidget(len(sec.rows), 2)
+            tbl.setStyleSheet("""
+                QTableWidget {
+                    background-color: #ffffff;
+                    color: #0f172a;
+                    gridline-color: #cbd5e1;
+                    font-size: 12px;
+                    alternate-background-color: #f8fafc;
+                }
+                QHeaderView::section {
+                    background-color: #0f2744;
+                    color: #ffffff;
+                    font-weight: bold;
+                    padding: 5px;
+                    border: 1px solid #1e3a5f;
+                }
+                QTableWidget::item {
+                    color: #0f172a;
+                }
+            """)
             tbl.setHorizontalHeaderLabels(["Paramètre", "Valeur"])
             tbl.verticalHeader().setVisible(False)
             tbl.setWordWrap(True)
@@ -182,10 +201,12 @@ class DatasheetView(QScrollArea):
             tbl.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
             for r, (k, v) in enumerate(sec.rows):
                 k_item = QTableWidgetItem(k)
+                k_item.setForeground(QColor("#0f172a"))
                 f = QFont()
                 f.setBold(True)
                 k_item.setFont(f)
                 v_item = QTableWidgetItem(v)
+                v_item.setForeground(QColor("#0f172a"))
                 tbl.setItem(r, 0, k_item)
                 tbl.setItem(r, 1, v_item)
                 tbl.setRowHeight(r, 24)
@@ -258,7 +279,29 @@ class CatalogBrowser(QWidget):
         lbl_s = QLabel("1. Fournisseurs")
         lbl_s.setStyleSheet("font-weight: bold; color: #0f2744;")
         sup_l.addWidget(lbl_s)
+        list_style = """
+            QListWidget {
+                background-color: #ffffff;
+                color: #0f172a;
+                border: 1px solid #cbd5e1;
+                border-radius: 4px;
+                font-size: 12px;
+            }
+            QListWidget::item {
+                color: #0f172a;
+                padding: 4px;
+            }
+            QListWidget::item:selected {
+                background-color: #2563eb;
+                color: #ffffff;
+            }
+            QListWidget::item:hover {
+                background-color: #f1f5f9;
+                color: #0f172a;
+            }
+        """
         self.list_suppliers = QListWidget()
+        self.list_suppliers.setStyleSheet(list_style)
         self.list_suppliers.currentItemChanged.connect(self._on_supplier_changed)
         sup_l.addWidget(self.list_suppliers, stretch=1)
         self.lbl_supplier_info = QLabel("Sélectionnez un fournisseur pour afficher son profil et son catalogue.")
@@ -277,6 +320,7 @@ class CatalogBrowser(QWidget):
         self.lbl_items_header.setStyleSheet("font-weight: bold; color: #0f2744;")
         item_l.addWidget(self.lbl_items_header)
         self.list_items = QListWidget()
+        self.list_items.setStyleSheet(list_style)
         self.list_items.currentItemChanged.connect(self._on_item_changed)
         self.list_items.itemDoubleClicked.connect(lambda _: self._on_action_clicked())
         item_l.addWidget(self.list_items, stretch=1)

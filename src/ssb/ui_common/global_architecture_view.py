@@ -73,7 +73,7 @@ class GlobalArchitectureWidget(QWidget):
 
         for lbl in (self.kpi_plat, self.kpi_pl, self.kpi_opts, self.kpi_ln):
             lbl.setStyleSheet(
-                "background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 6px; font-size: 11px;"
+                "background: #ffffff; color: #0f172a; border: 1px solid #cbd5e1; border-radius: 4px; padding: 6px; font-size: 11px;"
             )
             kpi_layout.addWidget(lbl, stretch=1)
 
@@ -92,6 +92,27 @@ class GlobalArchitectureWidget(QWidget):
         layout.addLayout(hdr_layout)
 
         self.table = QTableWidget(0, 7)
+        self.table.setStyleSheet("""
+            QTableWidget {
+                background-color: #ffffff;
+                color: #0f172a;
+                gridline-color: #cbd5e1;
+                font-size: 12px;
+                selection-background-color: #2563eb;
+                selection-color: #ffffff;
+            }
+            QHeaderView::section {
+                background-color: #0f2744;
+                color: #ffffff;
+                font-weight: bold;
+                padding: 6px;
+                border: 1px solid #1e3a5f;
+            }
+            QTableWidget::item {
+                color: #0f172a;
+                padding: 4px;
+            }
+        """)
         self.table.setHorizontalHeaderLabels(
             [
                 "Poste / Sous-système",
@@ -186,6 +207,7 @@ class GlobalArchitectureWidget(QWidget):
                     "power": f"— (Bus {plat.payload_avg_power_w:.0f} W)",
                     "cost": f"{plat.base_price_meur:.2f} M€",
                     "bg": QColor(240, 249, 255),
+                    "fg": QColor("#0369a1"),
                     "bold": True,
                 }
             )
@@ -205,6 +227,7 @@ class GlobalArchitectureWidget(QWidget):
                     "power": f"{p.operational_power_w * 0.25:.1f} W (crête {p.operational_power_w:.0f} W)",
                     "cost": f"{p.price_meur:.2f} M€",
                     "bg": QColor(254, 243, 199),
+                    "fg": QColor("#78350f"),
                     "bold": False,
                 }
             )
@@ -228,6 +251,7 @@ class GlobalArchitectureWidget(QWidget):
                     "power": f"{eq.power_w:.1f} W",
                     "cost": cost_str,
                     "bg": QColor(241, 245, 249),
+                    "fg": QColor("#0f172a"),
                     "bold": False,
                 }
             )
@@ -247,6 +271,7 @@ class GlobalArchitectureWidget(QWidget):
                     "power": "—",
                     "cost": f"{ln_cost:.2f} M€",
                     "bg": QColor(237, 233, 254),
+                    "fg": QColor("#5b21b6"),
                     "bold": True,
                 }
             )
@@ -265,6 +290,7 @@ class GlobalArchitectureWidget(QWidget):
                     "power": f"Consom. moy: {b.power.total_avg_consumption_w:.1f} W",
                     "cost": f"{b.cost.satellite_cost_meur:.2f} M€",
                     "bg": QColor(224, 242, 254),
+                    "fg": QColor("#0369a1"),
                     "bold": True,
                 }
             )
@@ -282,6 +308,7 @@ class GlobalArchitectureWidget(QWidget):
                     "power": f"Marge P: {b.power.power_margin_w:+.1f} W",
                     "cost": f"{b.cost.space_segment_total_meur:.2f} M€ {cost_status}",
                     "bg": QColor(220, 252, 231) if b.cost.cost_margin_meur >= 0 else QColor(254, 226, 226),
+                    "fg": QColor("#14532d") if b.cost.cost_margin_meur >= 0 else QColor("#991b1b"),
                     "bold": True,
                 }
             )
@@ -297,11 +324,13 @@ class GlobalArchitectureWidget(QWidget):
                 r["power"],
                 r["cost"],
             ]
+            fg_color = r.get("fg", QColor("#0f172a"))
             for col_idx, val in enumerate(col_vals):
                 item = QTableWidgetItem(val)
                 if r["bold"]:
                     item.setFont(QFont("Segoe UI", 9, QFont.Weight.Bold))
                 item.setBackground(r["bg"])
+                item.setForeground(fg_color)
                 if r["item"]:
                     item.setData(Qt.ItemDataRole.UserRole, r["item"])
                 self.table.setItem(row_idx, col_idx, item)

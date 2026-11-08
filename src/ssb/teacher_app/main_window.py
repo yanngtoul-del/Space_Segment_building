@@ -93,6 +93,27 @@ class TeacherMainWindow(QMainWindow):
         l_ins.addWidget(self.global_arch_widget)
 
         self.t_student_results = QTableWidget(0, 4)
+        self.t_student_results.setStyleSheet("""
+            QTableWidget {
+                background-color: #ffffff;
+                color: #0f172a;
+                gridline-color: #cbd5e1;
+                font-size: 12px;
+                selection-background-color: #2563eb;
+                selection-color: #ffffff;
+            }
+            QHeaderView::section {
+                background-color: #0f2744;
+                color: #ffffff;
+                font-weight: bold;
+                padding: 5px;
+                border: 1px solid #1e3a5f;
+            }
+            QTableWidget::item {
+                color: #0f172a;
+                padding: 4px;
+            }
+        """)
         self.t_student_results.setHorizontalHeaderLabels(
             ["Règle / Exigence", "Statut Rejeu", "Valeur Calculée", "Observation"]
         )
@@ -329,7 +350,9 @@ class TeacherMainWindow(QMainWindow):
             pass_count = sum(1 for c in all_checks if c.status == CheckStatus.PASS)
 
             for row, chk in enumerate(all_checks):
-                self.t_student_results.setItem(row, 0, QTableWidgetItem(chk.rule_id))
+                it0 = QTableWidgetItem(chk.rule_id)
+                it0.setForeground(QColor("#0f172a"))
+                self.t_student_results.setItem(row, 0, it0)
 
                 item_status = QTableWidgetItem(chk.status.value.upper())
                 if chk.status == CheckStatus.PASS:
@@ -345,8 +368,12 @@ class TeacherMainWindow(QMainWindow):
                 self.t_student_results.setItem(row, 1, item_status)
 
                 val_str = f"{chk.current_value} {chk.unit}" if chk.current_value is not None else "-"
-                self.t_student_results.setItem(row, 2, QTableWidgetItem(val_str))
-                self.t_student_results.setItem(row, 3, QTableWidgetItem(chk.message))
+                it2 = QTableWidgetItem(val_str)
+                it2.setForeground(QColor("#0f172a"))
+                self.t_student_results.setItem(row, 2, it2)
+                it3 = QTableWidgetItem(chk.message)
+                it3.setForeground(QColor("#0f172a"))
+                self.t_student_results.setItem(row, 3, it3)
 
             QMessageBox.information(
                 self,

@@ -49,6 +49,26 @@ class PlatformSlotsWidget(QWidget):
         layout.addWidget(self.lbl_rules)
 
         self.table = QTableWidget(0, 8)
+        self.table.setStyleSheet("""
+            QTableWidget {
+                background-color: #ffffff;
+                color: #0f172a;
+                gridline-color: #cbd5e1;
+                font-size: 12px;
+                selection-background-color: #2563eb;
+                selection-color: #ffffff;
+            }
+            QHeaderView::section {
+                background-color: #0f2744;
+                color: #ffffff;
+                font-weight: bold;
+                padding: 5px;
+                border: 1px solid #1e3a5f;
+            }
+            QTableWidget::item {
+                color: #0f172a;
+            }
+        """)
         self.table.setHorizontalHeaderLabels(
             [
                 "Sous-système (Slot)",
@@ -203,8 +223,12 @@ class PlatformSlotsWidget(QWidget):
                 (7, it_cost),
             ]:
                 if not allowed:
-                    cell.setForeground(QBrush(QColor("#94a3b8")))
-                    cell.setBackground(QBrush(QColor("#f1f5f9")))
+                    cell.setForeground(QBrush(QColor("#334155")))
+                    cell.setBackground(QBrush(QColor("#e2e8f0")))
+                else:
+                    if c_idx != 4 or not (slot and eq.id in slot.included_equipment_ids):
+                        cell.setForeground(QBrush(QColor("#0f172a")))
+                    cell.setBackground(QBrush(QColor("#ffffff")))
                 self.table.setItem(r, c_idx, cell)
 
     def _incompatibility_reason(self, plat: PlatformBase, eq: Equipment) -> str:

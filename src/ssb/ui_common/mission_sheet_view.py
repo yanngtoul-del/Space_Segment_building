@@ -1,7 +1,7 @@
 """Dedicated Mission Specification Sheet (Fiche de Spécification Mission) viewer widget."""
 
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QFont
+from PySide6.QtGui import QFont, QColor
 from PySide6.QtWidgets import (
     QScrollArea,
     QWidget,
@@ -80,14 +80,14 @@ class MissionSheetView(QScrollArea):
         # 2. Narrative card: Context, Primary Objective, Secondary Objectives, Need, Orbit & CONOPS guidance
         card = QFrame()
         card.setStyleSheet(
-            "QFrame { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px; }"
+            "QFrame { background: #f8fafc; color: #0f172a; border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px; }"
             "QLabel { color: #0f172a; }"
         )
         cl = QVBoxLayout(card)
         self.lbl_narrative = QLabel()
         self.lbl_narrative.setWordWrap(True)
         self.lbl_narrative.setTextFormat(Qt.TextFormat.RichText)
-        self.lbl_narrative.setStyleSheet("font-size: 12px;")
+        self.lbl_narrative.setStyleSheet("font-size: 12px; color: #0f172a;")
         cl.addWidget(self.lbl_narrative)
         self._layout.addWidget(card)
 
@@ -96,7 +96,29 @@ class MissionSheetView(QScrollArea):
         lbl_req.setStyleSheet("font-weight: bold; font-size: 13px; color: #0f2744;")
         self._layout.addWidget(lbl_req)
 
+        tbl_style = """
+            QTableWidget {
+                background-color: #ffffff;
+                color: #0f172a;
+                gridline-color: #cbd5e1;
+                font-size: 12px;
+                alternate-background-color: #f8fafc;
+                selection-background-color: #2563eb;
+                selection-color: #ffffff;
+            }
+            QHeaderView::section {
+                background-color: #0f2744;
+                color: #ffffff;
+                font-weight: bold;
+                padding: 5px;
+                border: 1px solid #1e3a5f;
+            }
+            QTableWidget::item {
+                color: #0f172a;
+            }
+        """
         self.t_reqs = QTableWidget(0, 6)
+        self.t_reqs.setStyleSheet(tbl_style)
         self.t_reqs.setHorizontalHeaderLabels(
             ["Code", "Intitulé de l'exigence", "Paramètre système", "Seuil obligatoire", "Objectif (Goal)", "Description"]
         )
@@ -117,6 +139,7 @@ class MissionSheetView(QScrollArea):
         self._layout.addWidget(self.lbl_geo)
 
         self.t_georeturn = QTableWidget(0, 4)
+        self.t_georeturn.setStyleSheet(tbl_style)
         self.t_georeturn.setHorizontalHeaderLabels(
             ["État Membre (Pays)", "Fourchette requise (%)", "Fourchette estimée (M€)", "Rôle industriel & Justification souscription"]
         )
@@ -135,6 +158,7 @@ class MissionSheetView(QScrollArea):
         self._layout.addWidget(lbl_gs)
 
         self.t_stations = QTableWidget(0, 5)
+        self.t_stations.setStyleSheet(tbl_style)
         self.t_stations.setHorizontalHeaderLabels(
             ["Station Sol / Zone", "Coordonnées (Lat, Lon)", "Altitude / Élévation min.", "Bandes supportées", "Coût / passage"]
         )
@@ -204,6 +228,7 @@ class MissionSheetView(QScrollArea):
         ]
         for c_idx, val in enumerate(budget_cells):
             it = QTableWidgetItem(val)
+            it.setForeground(QColor("#0f172a"))
             if c_idx in (0, 3):
                 it.setFont(b_font)
             self.t_reqs.setItem(0, c_idx, it)
@@ -221,6 +246,7 @@ class MissionSheetView(QScrollArea):
             ]
             for c_idx, val in enumerate(vals):
                 it = QTableWidgetItem(val)
+                it.setForeground(QColor("#0f172a"))
                 if c_idx in (0, 3):
                     it.setFont(b_font)
                 self.t_reqs.setItem(r, c_idx, it)
@@ -250,11 +276,15 @@ class MissionSheetView(QScrollArea):
                 max_m = m.max_budget_meur * (grc.max_pct / 100.0)
 
                 it_c = QTableWidgetItem(country_label)
+                it_c.setForeground(QColor("#0f172a"))
                 it_c.setFont(b_font)
                 it_range = QTableWidgetItem(f"[{grc.min_pct:.1f} %, {grc.max_pct:.1f} %]")
+                it_range.setForeground(QColor("#0f172a"))
                 it_range.setFont(b_font)
                 it_meur = QTableWidgetItem(f"~{min_m:.2f} à {max_m:.2f} M€")
+                it_meur.setForeground(QColor("#0f172a"))
                 it_rat = QTableWidgetItem(grc.rationale or "Souscription industrielle obligatoire au programme")
+                it_rat.setForeground(QColor("#0f172a"))
 
                 self.t_georeturn.setItem(r_idx, 0, it_c)
                 self.t_georeturn.setItem(r_idx, 1, it_range)
