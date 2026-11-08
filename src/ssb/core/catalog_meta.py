@@ -22,6 +22,27 @@ COUNTRY_FLAGS: dict[str, str] = {
     "Japon": "🇯🇵",
 }
 
+ESA_MEMBER_STATES: set[str] = {
+    "France",
+    "Allemagne",
+    "Italie",
+    "Espagne",
+    "Suisse",
+    "Royaume-Uni",
+    "Belgique",
+    "Pays-Bas",
+    "Suède",
+    "Finlande",
+    "Norvège",
+    "Danemark",
+    "Autriche",
+}
+
+
+def is_esa_member(country: str) -> bool:
+    """Return True if the country is an ESA member or participating European state."""
+    return country in ESA_MEMBER_STATES
+
 
 def country_with_flag(country: str) -> str:
     """Format country name with its corresponding flag emoji."""

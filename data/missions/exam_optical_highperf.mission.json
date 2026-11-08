@@ -140,5 +140,6 @@
     }
   ],
   "geo_return_constraints": [],
-  "metadata": {}
+  "metadata": {},
+  "max_non_esa_spend_pct": 15.0
 }

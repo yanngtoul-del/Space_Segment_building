@@ -244,7 +244,8 @@ def test_mission_specification_sheets_and_solutions():
         assert not failed, f"Mission {mid} failed checks: {[(c.rule_id, c.message) for c in failed]}"
         if ms.geo_return_constraints:
             geo_checks = [c for c in b.compliance_checks if c.rule_id.startswith("RULE_GEORETURN_")]
-            assert len(geo_checks) == len(ms.geo_return_constraints)
+            # N member state checks + 1 non-ESA ceiling check (RULE_GEORETURN_NON_ESA_CAP)
+            assert len(geo_checks) == len(ms.geo_return_constraints) + 1
             assert all(c.status == CheckStatus.PASS for c in geo_checks)
 
 
@@ -303,3 +304,53 @@ def test_student_and_teacher_gui_offscreen():
     win.close()
     twin.close()
     assert app is not None
+
+
+def test_geo_return_non_esa_spending_flexibility():
+    """Verify that ESA missions allow up to 15% non-European procurement (COTS / US / CA / JP),
+    and reject configurations exceeding this 15% ceiling."""
+    db = CatalogDatabase()
+    db.load_from_directory(catalogs_dir())
+    evaluator = SystemEvaluator(db)
+
+    ms = MissionSpecification.model_validate_json(
+        (missions_dir() / "exam_optical_earth_observation.mission.json").read_text(encoding="utf-8")
+    )
+    assert ms.max_non_esa_spend_pct == 15.0
+
+    # Baseline configuration (100% European): France ~47%, Italie ~40.5%, Allemagne ~12.5%
+    orbit = OrbitDefinition(altitude_km=500.0, inclination_deg=97.4)
+    cfg_eu = SystemConfiguration(
+        orbit=orbit,
+        platform_id="plat_astra_flex150",  # France (3.80 M€)
+        selected_options=[
+            SelectedOption(slot_function="propulsion", equipment_id="prop_electric_hemp_de"),  # Allemagne (0.75 M€)
+            SelectedOption(slot_function="ttc", equipment_id="ttc_sband_gallia_fr"),  # France (0.42 M€)
+            SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_1tb_de"),  # Allemagne (0.55 M€)
+            SelectedOption(slot_function="adcs", equipment_id="adcs_sodern_auriga_fr"),  # France (0.65 M€)
+        ],
+        selected_payload_ids=["pl_opt_stellara_35cm"],  # Italie (4.20 M€)
+        launcher_id="ln_rideshare_sso",
+    )
+    b_eu = evaluator.evaluate(cfg_eu, ms)
+    non_esa_check_eu = next(c for c in b_eu.compliance_checks if c.rule_id == "RULE_GEORETURN_NON_ESA_CAP")
+    assert non_esa_check_eu.status == CheckStatus.PASS
+    assert non_esa_check_eu.current_value == 0.0
+
+    # Non-European procurement test (e.g. US platform apex_pro500 ~5.2 M€ out of ~11.7 M€ = 44% > 15%)
+    cfg_non_esa_exceeded = SystemConfiguration(
+        orbit=orbit,
+        platform_id="plat_apex_pro500",  # États-Unis (5.20 M€)
+        selected_options=[
+            SelectedOption(slot_function="propulsion", equipment_id="prop_electric_hemp_de"),
+            SelectedOption(slot_function="ttc", equipment_id="ttc_sband_gallia_fr"),
+            SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_1tb_de"),
+            SelectedOption(slot_function="adcs", equipment_id="adcs_sodern_auriga_fr"),
+        ],
+        selected_payload_ids=["pl_opt_stellara_35cm"],
+        launcher_id="ln_rideshare_sso",
+    )
+    b_excess = evaluator.evaluate(cfg_non_esa_exceeded, ms)
+    non_esa_check_excess = next(c for c in b_excess.compliance_checks if c.rule_id == "RULE_GEORETURN_NON_ESA_CAP")
+    assert non_esa_check_excess.status == CheckStatus.FAIL
+    assert non_esa_check_excess.current_value > 15.0

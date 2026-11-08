@@ -138,10 +138,21 @@ class MissionSheetView(QScrollArea):
         self.lbl_geo.setStyleSheet("font-weight: bold; font-size: 13px; color: #0f2744;")
         self._layout.addWidget(self.lbl_geo)
 
+        self.lbl_geo_hint = QLabel(
+            "ℹ️ <b>Règle du retour géographique ESA :</b> Les souscriptions nationales fixent les quotes-parts budgétaires par État membre "
+            "sans imposer de type d'équipement particulier (choix libre plateforme / charges utiles / équipements). "
+            "Une enveloppe jusqu'à <b>15 %</b> est autorisée pour des composants hors Europe (COTS mondiaux : USA, Canada, Japon...)."
+        )
+        self.lbl_geo_hint.setStyleSheet(
+            "background-color: #f1f5f9; color: #0f172a; border-left: 4px solid #2563eb; padding: 6px 10px; border-radius: 4px; font-size: 11px;"
+        )
+        self.lbl_geo_hint.setWordWrap(True)
+        self._layout.addWidget(self.lbl_geo_hint)
+
         self.t_georeturn = QTableWidget(0, 4)
         self.t_georeturn.setStyleSheet(tbl_style)
         self.t_georeturn.setHorizontalHeaderLabels(
-            ["État Membre (Pays)", "Fourchette requise (%)", "Fourchette estimée (M€)", "Rôle industriel & Justification souscription"]
+            ["État Membre / Origine", "Fourchette requise (%)", "Fourchette estimée (M€)", "Justification souscription ESA & Clé de répartition"]
         )
         self.t_georeturn.verticalHeader().setVisible(False)
         self.t_georeturn.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
@@ -268,8 +279,10 @@ class MissionSheetView(QScrollArea):
         }
         if m.geo_return_constraints:
             self.lbl_geo.setVisible(True)
+            self.lbl_geo_hint.setVisible(True)
             self.t_georeturn.setVisible(True)
-            self.t_georeturn.setRowCount(len(m.geo_return_constraints))
+            n_rows = len(m.geo_return_constraints) + 1
+            self.t_georeturn.setRowCount(n_rows)
             for r_idx, grc in enumerate(m.geo_return_constraints):
                 country_label = flag_map.get(grc.country, grc.country)
                 min_m = m.max_budget_meur * (grc.min_pct / 100.0)
@@ -291,9 +304,40 @@ class MissionSheetView(QScrollArea):
                 self.t_georeturn.setItem(r_idx, 2, it_meur)
                 self.t_georeturn.setItem(r_idx, 3, it_rat)
                 self.t_georeturn.setRowHeight(r_idx, 26)
-            self.t_georeturn.setFixedHeight(min(180, 32 + 26 * len(m.geo_return_constraints)))
+
+            # Extra row for non-ESA third-country allowance
+            max_non_esa = getattr(m, "max_non_esa_spend_pct", 15.0)
+            max_non_esa_m = m.max_budget_meur * (max_non_esa / 100.0)
+            last_idx = len(m.geo_return_constraints)
+
+            it_c_ext = QTableWidgetItem("🌍 Pays tiers (Hors Europe / COTS)")
+            it_c_ext.setForeground(QColor("#1e293b"))
+            it_c_ext.setFont(b_font)
+            it_c_ext.setBackground(QColor("#f8fafc"))
+
+            it_r_ext = QTableWidgetItem(f"[0.0 %, {max_non_esa:.1f} %]")
+            it_r_ext.setForeground(QColor("#1e293b"))
+            it_r_ext.setFont(b_font)
+            it_r_ext.setBackground(QColor("#f8fafc"))
+
+            it_m_ext = QTableWidgetItem(f"jusqu'à ~{max_non_esa_m:.2f} M€")
+            it_m_ext.setForeground(QColor("#1e293b"))
+            it_m_ext.setBackground(QColor("#f8fafc"))
+
+            it_rat_ext = QTableWidgetItem("Approvisionnements autorisés hors États membres ESA (COTS mondiaux / USA / Japon / Canada)")
+            it_rat_ext.setForeground(QColor("#475569"))
+            it_rat_ext.setBackground(QColor("#f8fafc"))
+
+            self.t_georeturn.setItem(last_idx, 0, it_c_ext)
+            self.t_georeturn.setItem(last_idx, 1, it_r_ext)
+            self.t_georeturn.setItem(last_idx, 2, it_m_ext)
+            self.t_georeturn.setItem(last_idx, 3, it_rat_ext)
+            self.t_georeturn.setRowHeight(last_idx, 26)
+
+            self.t_georeturn.setFixedHeight(min(220, 32 + 26 * n_rows))
         else:
             self.lbl_geo.setVisible(False)
+            self.lbl_geo_hint.setVisible(False)
             self.t_georeturn.setVisible(False)
 
         # Populate ground stations + target zones

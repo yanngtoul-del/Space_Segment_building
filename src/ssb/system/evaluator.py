@@ -7,6 +7,7 @@ from ssb.core.project import SystemConfiguration, Launcher
 from ssb.core.mission import MissionSpecification, RequirementOperator
 from ssb.core.payload import BasePayload
 from ssb.catalog.database import CatalogDatabase
+from ssb.core.catalog_meta import ESA_MEMBER_STATES
 from ssb.system.configurator import PlatformConfigurator, ConfiguredPlatform
 from ssb.system.checks import CheckStatus, RuleCheckResult
 from ssb.system.payload_evaluator import evaluate_payload_requirements
@@ -449,7 +450,7 @@ class SystemEvaluator:
                 msg = (
                     f"Retour géographique {grc.country} : {act_pct:.1f}% ({act_meur:.2f} M€) — "
                     f"Hors fourchette ESA [{grc.min_pct:.1f} %, {grc.max_pct:.1f} %]. "
-                    f"Ajuster les options de plateforme pour respecter le juste retour !"
+                    f"Ajuster la répartition des fournisseurs (plateforme, options ou charges utiles) pour respecter le juste retour !"
                 )
 
             compliance_checks.append(
@@ -460,6 +461,46 @@ class SystemEvaluator:
                     message=msg,
                     current_value=act_pct,
                     target_value=grc.min_pct,
+                    unit="%",
+                )
+            )
+
+        # 3c. Non-ESA / Third-Country Procurement Ceiling Check (marge COTS / mondial)
+        if mission.geo_return_constraints:
+            max_non_esa = getattr(mission, "max_non_esa_spend_pct", 15.0)
+            non_esa_meur = sum(
+                amt for c_name, amt in cost_by_country_meur.items()
+                if c_name not in ESA_MEMBER_STATES and c_name != "Inconnu"
+            )
+            non_esa_pct = round((non_esa_meur / sat_cost) * 100.0, 1) if sat_cost > 0 else 0.0
+            is_non_esa_ok = (non_esa_pct <= max_non_esa)
+            status_non_esa = CheckStatus.PASS if is_non_esa_ok else CheckStatus.FAIL
+
+            if is_non_esa_ok:
+                if non_esa_pct > 0:
+                    msg_non_esa = (
+                        f"Achats hors États membres ESA (pays tiers / COTS) : {non_esa_pct:.1f}% ({non_esa_meur:.2f} M€) — "
+                        f"Conforme au plafond autorisé de {max_non_esa:.1f} %"
+                    )
+                else:
+                    msg_non_esa = (
+                        f"Achats hors États membres ESA : 0.0% — Conforme (100% européen, marge autorisée max {max_non_esa:.1f} % pour composants tiers/COTS)"
+                    )
+            else:
+                msg_non_esa = (
+                    f"Achats hors États membres ESA : {non_esa_pct:.1f}% ({non_esa_meur:.2f} M€) — "
+                    f"Dépasse le plafond autorisé de {max_non_esa:.1f} % pour les pays tiers (COTS mondiaux / hors Europe). "
+                    f"Privilégier des fournisseurs européens pour rester sous les {max_non_esa:.1f} % !"
+                )
+
+            compliance_checks.append(
+                RuleCheckResult(
+                    rule_id="RULE_GEORETURN_NON_ESA_CAP",
+                    category="Retour Géographique ESA",
+                    status=status_non_esa,
+                    message=msg_non_esa,
+                    current_value=non_esa_pct,
+                    target_value=max_non_esa,
                     unit="%",
                 )
             )

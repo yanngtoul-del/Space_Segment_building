@@ -95,22 +95,23 @@
   "geo_return_constraints": [
     {
       "country": "France",
-      "min_pct": 35.0,
+      "min_pct": 30.0,
       "max_pct": 60.0,
-      "rationale": "Souscription CNES (50 %) — Plateforme et maîtrise d'œuvre segment spatial"
+      "rationale": "Souscription CNES au programme de transmission optique ESA (quote-part nationale 45 %)"
     },
     {
       "country": "Allemagne",
-      "min_pct": 30.0,
+      "min_pct": 25.0,
       "max_pct": 55.0,
-      "rationale": "Souscription DLR (40 %) — Terminal laser optique très haut débit TeraLink"
+      "rationale": "Souscription DLR au programme de transmission optique ESA (quote-part nationale 40 %)"
     },
     {
       "country": "Suisse",
       "min_pct": 2.0,
-      "max_pct": 12.0,
-      "rationale": "Souscription Swiss Space Office (10 %) — Mémoire de masse spatiale Helvetia"
+      "max_pct": 15.0,
+      "rationale": "Souscription Swiss Space Office au programme ESA (quote-part nationale 10 %)"
     }
   ],
-  "metadata": {}
+  "metadata": {},
+  "max_non_esa_spend_pct": 15.0
 }

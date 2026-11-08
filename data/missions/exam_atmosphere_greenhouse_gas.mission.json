@@ -128,22 +128,23 @@
   "geo_return_constraints": [
     {
       "country": "France",
-      "min_pct": 35.0,
+      "min_pct": 30.0,
       "max_pct": 60.0,
-      "rationale": "Souscription CNES (50 %) — Instrument SWIR AtmoSonde et plateforme"
+      "rationale": "Souscription CNES au programme de surveillance atmosphérique ESA (quote-part nationale 45 %)"
     },
     {
       "country": "Allemagne",
       "min_pct": 10.0,
-      "max_pct": 30.0,
-      "rationale": "Souscription DLR (25 %) — Sous-systèmes bord (EuroSpace / SpectraStore)"
+      "max_pct": 35.0,
+      "rationale": "Souscription DLR au programme de surveillance atmosphérique ESA (quote-part nationale 20 %)"
     },
     {
       "country": "Espagne",
       "min_pct": 5.0,
       "max_pct": 20.0,
-      "rationale": "Souscription CDTI (15 %) — Calculateur de bord et mémoire Starlight"
+      "rationale": "Souscription CDTI au programme de surveillance atmosphérique ESA (quote-part nationale 10 %)"
     }
   ],
-  "metadata": {}
+  "metadata": {},
+  "max_non_esa_spend_pct": 15.0
 }

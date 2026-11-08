@@ -73,12 +73,15 @@ class TargetZone(BaseModel):
 
 
 class GeoReturnConstraint(BaseModel):
-    """Geographical return (juste retour géographique) constraint as enforced in ESA programmes."""
+    """Geographical return (juste retour géographique) constraint as enforced in ESA programmes.
+
+    Sets industrial spending percentage targets per member state without imposing specific equipment types.
+    """
 
     country: str = Field(..., description="Target member state, e.g. France, Allemagne, Italie, Espagne")
     min_pct: float = Field(..., ge=0.0, le=100.0, description="Minimum industrial spend percentage (e.g. 25.0 %)")
     max_pct: float = Field(..., ge=0.0, le=100.0, description="Maximum industrial spend percentage (e.g. 45.0 %)")
-    rationale: str = Field("", description="Justification based on national subscription / ESA delegate agreement")
+    rationale: str = Field("", description="Justification based on national subscription / programmatic share")
 
 
 class MissionSpecification(BaseModel):
@@ -139,5 +142,11 @@ class MissionSpecification(BaseModel):
     geo_return_constraints: list[GeoReturnConstraint] = Field(
         default_factory=list,
         description="ESA-style geographic return constraints (ranges of industrial spending per country)",
+    )
+    max_non_esa_spend_pct: float = Field(
+        15.0,
+        ge=0.0,
+        le=100.0,
+        description="Plafond autorisé pour les achats industriels hors États membres ESA (pays tiers COTS mondiaux, max 15 %)",
     )
     metadata: dict[str, Any] = Field(default_factory=dict)

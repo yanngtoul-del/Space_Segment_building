@@ -82,22 +82,23 @@
   "geo_return_constraints": [
     {
       "country": "France",
-      "min_pct": 35.0,
+      "min_pct": 30.0,
       "max_pct": 55.0,
-      "rationale": "Souscription CNES (45 %) — Plateforme et servitudes"
+      "rationale": "Souscription CNES au programme d'observation de la Terre ESA (quote-part nationale 45 %)"
     },
     {
       "country": "Italie",
-      "min_pct": 25.0,
+      "min_pct": 20.0,
       "max_pct": 45.0,
-      "rationale": "Souscription ASI (35 %) — Instrument optique haute résolution"
+      "rationale": "Souscription ASI au programme d'observation de la Terre ESA (quote-part nationale 35 %)"
     },
     {
       "country": "Allemagne",
-      "min_pct": 8.0,
+      "min_pct": 5.0,
       "max_pct": 25.0,
-      "rationale": "Souscription DLR (20 %) — Équipements de bord (ADCS, propulsion HEMP, télémesure)"
+      "rationale": "Souscription DLR au programme d'observation de la Terre ESA (quote-part nationale 15 %)"
     }
   ],
-  "metadata": {}
+  "metadata": {},
+  "max_non_esa_spend_pct": 15.0
 }

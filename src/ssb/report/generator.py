@@ -10,6 +10,7 @@ import numpy as np
 
 from ssb.core.project import StudentProject
 from ssb.system.evaluator import SystemBudgets
+from ssb.core.catalog_meta import ESA_MEMBER_STATES
 
 
 class ReportGenerator:
@@ -206,8 +207,11 @@ class ReportGenerator:
                 if country in geo_targets:
                     t = geo_targets[country]
                     rg[3].text = f"Cible : [{t.min_pct:.1f} %, {t.max_pct:.1f} %]"
+                elif country not in ESA_MEMBER_STATES:
+                    max_non_esa = getattr(m, "max_non_esa_spend_pct", 15.0)
+                    rg[3].text = f"Pays tiers hors Europe (Plafond max {max_non_esa:.1f} %)"
                 else:
-                    rg[3].text = "Hors souscription spécifique"
+                    rg[3].text = "État membre hors souscription spécifique"
 
         # 5. Matrice de Conformité aux Exigences
         doc.add_heading("5. Matrice de Conformité aux Exigences & Règles", level=1)

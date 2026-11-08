@@ -984,8 +984,9 @@ class StudentMainWindow(QMainWindow):
 
         geo_status = ""
         if getattr(self.mission, "geo_return_constraints", None):
-            n_geo_pass = sum(1 for c in all_checks if c.category == "Retour Géographique ESA" and c.status == CheckStatus.PASS)
-            geo_status = f"  |  Géo ESA : {n_geo_pass}/{len(self.mission.geo_return_constraints)}"
+            geo_checks = [c for c in all_checks if c.category == "Retour Géographique ESA"]
+            n_geo_pass = sum(1 for c in geo_checks if c.status == CheckStatus.PASS)
+            geo_status = f"  |  Géo ESA : {n_geo_pass}/{len(geo_checks)}"
 
         self.lbl_live_summary.setText(
             f"Coût total : {b.cost.space_segment_total_meur:.2f} / {self.mission.max_budget_meur:.1f} M€  |  "

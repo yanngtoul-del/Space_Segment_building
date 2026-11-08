@@ -129,22 +129,23 @@
   "geo_return_constraints": [
     {
       "country": "France",
-      "min_pct": 45.0,
+      "min_pct": 40.0,
       "max_pct": 75.0,
-      "rationale": "Souscription CNES/Eutelsat (60 %) — Plateforme géostationnaire SmallGEO"
+      "rationale": "Souscription CNES au programme de télécommunication ESA (quote-part nationale 55 %)"
     },
     {
       "country": "Suisse",
-      "min_pct": 20.0,
+      "min_pct": 15.0,
       "max_pct": 40.0,
-      "rationale": "Souscription Swiss Space Office (30 %) — Charge utile répéteurs Helvetia"
+      "rationale": "Souscription Swiss Space Office (SSO) au programme ESA (quote-part nationale 25 %)"
     },
     {
       "country": "Allemagne",
       "min_pct": 3.0,
-      "max_pct": 15.0,
-      "rationale": "Souscription DLR (10 %) — Équipements de servitudes bord (TT&C, ADCS, mémoire)"
+      "max_pct": 20.0,
+      "rationale": "Souscription DLR au programme de télécommunication ESA (quote-part nationale 10 %)"
     }
   ],
-  "metadata": {}
+  "metadata": {},
+  "max_non_esa_spend_pct": 15.0
 }

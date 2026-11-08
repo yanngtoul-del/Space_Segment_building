@@ -116,22 +116,23 @@
   "geo_return_constraints": [
     {
       "country": "Allemagne",
-      "min_pct": 40.0,
+      "min_pct": 35.0,
       "max_pct": 65.0,
-      "rationale": "Souscription DLR (50 %) — Charge utile radar SAR et contrôle d'attitude"
+      "rationale": "Souscription DLR au programme radar SAR ESA (quote-part nationale 50 %)"
     },
     {
       "country": "France",
-      "min_pct": 30.0,
+      "min_pct": 25.0,
       "max_pct": 50.0,
-      "rationale": "Souscription CNES (40 %) — Fourniture de la plateforme et propulsion"
+      "rationale": "Souscription CNES au programme radar SAR ESA (quote-part nationale 35 %)"
     },
     {
       "country": "Italie",
       "min_pct": 3.0,
-      "max_pct": 15.0,
-      "rationale": "Souscription ASI (10 %) — Chaîne de télémesure / TT&C (Meridian)"
+      "max_pct": 20.0,
+      "rationale": "Souscription ASI au programme radar SAR ESA (quote-part nationale 10 %)"
     }
   ],
-  "metadata": {}
+  "metadata": {},
+  "max_non_esa_spend_pct": 15.0
 }
