@@ -33,6 +33,7 @@ FUNCTION_LABELS_FR = {
     SubsystemFunction.OBC.value: "Calculateur de bord",
     SubsystemFunction.THERMAL.value: "Contrôle thermique",
     SubsystemFunction.DEORBIT_DEVICE.value: "Dispositif de désorbitation",
+    SubsystemFunction.OPTICAL_INTERFACE.value: "Interface Optique / Fente Spectrométrique",
 }
 
 PAYLOAD_TYPE_LABELS_FR = {
@@ -218,8 +219,9 @@ def _from_payload(pl: BasePayload, orbit: OrbitDefinition) -> DatasheetData:
         ]
     elif isinstance(pl, SpectrometerPayload):
         spec_rows = [
-            ("Diamètre d'ouverture", f"{pl.aperture_diameter_m * 100:.1f} cm"),
-            ("Longueur focale", f"{pl.focal_length_m:.2f} m"),
+            ("Architecture instrumentale", "Banc dispersif (fente + réseau/prisme + matrice détecteur)"),
+            ("Optique collectrice requise", "Télescope avant (Charge utile optique)"),
+            ("Interface mécanique/optique", "Option « Interface Optique / Fente Spectrométrique »"),
             ("Pas des pixels", f"{pl.pixel_pitch_um:.2f} µm"),
             ("Pixels spatiaux (fauchée)", f"{pl.detector_spatial_pixels}"),
             ("Domaine spectral", f"{pl.spectral_range_min_nm:.0f} – {pl.spectral_range_max_nm:.0f} nm"),
@@ -228,12 +230,21 @@ def _from_payload(pl: BasePayload, orbit: OrbitDefinition) -> DatasheetData:
             ("Quantification", f"{pl.quantization_bits} bits"),
         ]
         perf = SpectrometerModel.compute(pl, orbit)
-        perf_rows = [
-            (f"GSD spatial au nadir (@ {h:.0f} km)", f"{perf.gsd_spatial_nadir_m:.2f} m"),
-            (f"Fauchée (@ {h:.0f} km)", f"{perf.swath_width_km:.1f} km"),
-            ("SNR moyen par bande (TDI)", f"{perf.mean_snr_estimate:.1f}"),
-            ("Débit brut / compressé calculé", f"{perf.data_rate_raw_mbps:.0f} / {perf.data_rate_compressed_mbps:.0f} Mbit/s"),
-        ]
+        if perf.gsd_spatial_nadir_m > 0:
+            perf_rows = [
+                (f"GSD spatial au nadir (@ {h:.0f} km)", f"{perf.gsd_spatial_nadir_m:.2f} m"),
+                (f"Fauchée (@ {h:.0f} km)", f"{perf.swath_width_km:.1f} km"),
+                ("SNR moyen par bande (TDI)", f"{perf.mean_snr_estimate:.1f}"),
+                ("Débit brut / compressé calculé", f"{perf.data_rate_raw_mbps:.0f} / {perf.data_rate_compressed_mbps:.0f} Mbit/s"),
+            ]
+        else:
+            perf_rows = [
+                ("Échantillonnage spectral", f"{perf.spectral_sampling_nm:.2f} nm"),
+                ("Nombre de canaux spectraux", f"{perf.spectral_bands_count}"),
+                ("Résolution spatiale (GSD)", "Couplage requis (dépend de la focale f du télescope avant)"),
+                ("SNR radiométrique", "Couplage requis (dépend de la pupille D du télescope avant)"),
+                ("Chaîne optomécanique", "[Télescope CU] -> [Option Fente] -> [Spectromètre CU]"),
+            ]
     elif isinstance(pl, SarPayload):
         spec_rows = [
             ("Bande radar & fréquence centrale", f"Bande {pl.band_name} ({pl.frequency_ghz:.3f} GHz)"),
@@ -322,22 +333,18 @@ def _from_payload(pl: BasePayload, orbit: OrbitDefinition) -> DatasheetData:
             ("Marge de liaison", f"{perf.link_margin_db:.1f} dB"),
         ]
 
+    spec_sec = DatasheetSection("Spécifications fonctionnelles de l'instrument", spec_rows)
+    perf_sec = DatasheetSection("Performances en mission (modèle analytique)", perf_rows)
     comm = DatasheetSection(
-        "Informations commerciales & maturité",
+        "Maturité, héritage & conditions commerciales",
         [
             ("Fournisseur", pl.supplier_name),
             ("Prix catalogue de l'instrument", f"{pl.price_meur:.2f} M€"),
             ("Niveau de maturité (TRL)", f"TRL {pl.trl}"),
-            ("Héritage en vol", pl.flight_heritage or "Qualifié"),
+            ("Héritage en vol", pl.flight_heritage or "Nouveau développement"),
         ],
     )
-    sections = [
-        phys,
-        DatasheetSection("Paramètres techniques de l'instrument", spec_rows),
-        DatasheetSection(f"Performances calculées sur l'orbite courante ({h:.0f} km)", perf_rows),
-        point,
-        comm,
-    ]
+    sections = [phys, point, spec_sec, perf_sec, comm]
     return DatasheetData(
         item_id=pl.id,
         name=pl.name,

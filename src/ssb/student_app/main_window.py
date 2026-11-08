@@ -49,7 +49,7 @@ from ssb.core.mission import (
     GroundStationTarget,
 )
 from ssb.core.platform import PlatformBase
-from ssb.core.payload import BasePayload
+from ssb.core.payload import BasePayload, PayloadType
 from ssb.core.project import StudentProject, SystemConfiguration, Launcher
 from ssb.system.evaluator import SystemEvaluator, CheckStatus, SystemBudgets, launcher_capacity_for_orbit
 from ssb.orbit.propagator import OrbitPropagator
@@ -463,6 +463,11 @@ class StudentMainWindow(QMainWindow):
         bl.addWidget(btn_col_box)
         l.addWidget(basket_box)
 
+        self.lbl_spectro_chain_hint = QLabel()
+        self.lbl_spectro_chain_hint.setWordWrap(True)
+        self.lbl_spectro_chain_hint.setVisible(False)
+        l.addWidget(self.lbl_spectro_chain_hint)
+
         type_opts = [(k, v) for k, v in PAYLOAD_TYPE_LABELS_FR.items()]
         self.browser_payloads = CatalogBrowser(
             catalog=self.catalog,
@@ -521,10 +526,16 @@ class StudentMainWindow(QMainWindow):
 
     def _refresh_selected_payloads_list(self) -> None:
         self.list_selected_payloads.clear()
+        has_spectro = False
+        has_telescope = False
         for pid in self.project.configuration.selected_payload_ids:
             pl = self.catalog.payloads.get(pid)
             if not pl:
                 continue
+            if pl.payload_type == PayloadType.SPECTROMETER:
+                has_spectro = True
+            elif pl.payload_type == PayloadType.OPTICAL_IMAGER:
+                has_telescope = True
             sup = self.catalog.suppliers.get(pl.supplier_id)
             c_flag = country_with_flag(sup.country if sup else "")
             it = QListWidgetItem(
@@ -535,6 +546,43 @@ class StudentMainWindow(QMainWindow):
             it.setData(Qt.ItemDataRole.UserRole, pid)
             it.setToolTip(f"{pl.name} — Fournisseur : {pl.supplier_name} [{c_flag}]\nDouble-cliquez pour ouvrir la datasheet complète.")
             self.list_selected_payloads.addItem(it)
+
+        if hasattr(self, "lbl_spectro_chain_hint"):
+            has_slit = any(
+                opt.slot_function == "optical_interface" for opt in self.project.configuration.selected_options
+            )
+            if has_spectro:
+                self.lbl_spectro_chain_hint.setVisible(True)
+                if has_telescope and has_slit:
+                    self.lbl_spectro_chain_hint.setStyleSheet(
+                        "background-color: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; border-radius: 4px; padding: 6px; font-size: 11px;"
+                    )
+                    self.lbl_spectro_chain_hint.setText(
+                        "✔ <b>Chaîne spectrométrique complète couplée</b> : Télescope avant ➔ Option « Fente spectrométrique » ➔ Banc spectromètre dispersif."
+                    )
+                elif not has_telescope and not has_slit:
+                    self.lbl_spectro_chain_hint.setStyleSheet(
+                        "background-color: #fffbeb; color: #92400e; border: 1px solid #fde68a; border-radius: 4px; padding: 6px; font-size: 11px;"
+                    )
+                    self.lbl_spectro_chain_hint.setText(
+                        "ℹ️ <b>Banc spectromètre sélectionné</b> : Pour fonctionner, le spectromètre doit être couplé à un <b>Télescope avant</b> (à ajouter ci-dessous) et à une option <b>« Interface Optique / Fente Spectrométrique »</b> (à activer à l'<b>Onglet 4 - Plateforme & Options</b> ou à l'<b>Onglet 5 - Catalogue Équipements</b>)."
+                    )
+                elif not has_telescope:
+                    self.lbl_spectro_chain_hint.setStyleSheet(
+                        "background-color: #fffbeb; color: #92400e; border: 1px solid #fde68a; border-radius: 4px; padding: 6px; font-size: 11px;"
+                    )
+                    self.lbl_spectro_chain_hint.setText(
+                        "⚠️ <b>Télescope avant manquant</b> : Ajoutez une charge utile optique (Télescope) ci-dessous pour collecter le flux incident vers le banc spectromètre."
+                    )
+                else:
+                    self.lbl_spectro_chain_hint.setStyleSheet(
+                        "background-color: #fffbeb; color: #92400e; border: 1px solid #fde68a; border-radius: 4px; padding: 6px; font-size: 11px;"
+                    )
+                    self.lbl_spectro_chain_hint.setText(
+                        "⚠️ <b>Interface Fente manquante</b> : Le télescope et le spectromètre sont choisis, mais il manque l'option « <b>Interface Optique / Fente Spectrométrique</b> » ! Activez-la à l'<b>Onglet 4 (Plateforme & Options)</b> ou double-cliquez sur une fente à l'<b>Onglet 5 (Catalogue Équipements)</b>."
+                    )
+            else:
+                self.lbl_spectro_chain_hint.setVisible(False)
 
     def _view_selected_payload_datasheet(self) -> None:
         cur = self.list_selected_payloads.currentItem()
@@ -692,6 +740,8 @@ class StudentMainWindow(QMainWindow):
 
     def _on_slot_options_changed(self) -> None:
         self.project.configuration.selected_options = self.slots_widget.selected_options()
+        self._refresh_selected_payloads_list()
+        self._update_active_equipments_table()
         self.browser_launchers.refresh()
         self.refresh_evaluation()
 
@@ -830,6 +880,7 @@ class StudentMainWindow(QMainWindow):
         if ok:
             self.project.configuration.selected_options = self.slots_widget.selected_options()
             self._update_active_equipments_table()
+            self._refresh_selected_payloads_list()
             self.browser_launchers.refresh()
             self.refresh_evaluation()
             self.statusBar().showMessage(f"✔ {eq.name} équipé avec succès sur la plateforme !", 4000)
