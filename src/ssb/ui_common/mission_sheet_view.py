@@ -12,6 +12,7 @@ from PySide6.QtWidgets import (
     QTableWidget,
     QTableWidgetItem,
     QHeaderView,
+    QSizePolicy,
 )
 from ssb.core.mission import MissionSpecification
 
@@ -53,8 +54,14 @@ class MissionSheetView(QScrollArea):
         left_col = QVBoxLayout()
         self.lbl_title = QLabel()
         self.lbl_title.setStyleSheet("font-size: 16px; font-weight: bold; color: #ffffff;")
+        self.lbl_title.setWordWrap(True)
+        self.lbl_title.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        self.lbl_title.setMinimumWidth(100)
         self.lbl_subtitle = QLabel()
         self.lbl_subtitle.setStyleSheet("font-size: 12px; color: #93c5fd;")
+        self.lbl_subtitle.setWordWrap(True)
+        self.lbl_subtitle.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        self.lbl_subtitle.setMinimumWidth(100)
         left_col.addWidget(self.lbl_title)
         left_col.addWidget(self.lbl_subtitle)
         bl.addLayout(left_col, stretch=1)

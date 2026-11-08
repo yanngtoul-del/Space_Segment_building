@@ -290,6 +290,21 @@ def test_student_and_teacher_gui_offscreen():
     assert win.global_arch_widget.table.rowCount() >= 3
     assert win.t_active_equipments.rowCount() >= 1
 
+    # Verify Tab 5: double-clicking an equipment in the catalog adds/equips it onto the platform
+    win.tabs.setCurrentIndex(4)
+    eq = win.catalog.equipments["prop_electric_hemp_de"]
+    win.browser_equipments.item_activated.emit(eq)
+    app.processEvents()
+    active_ids = [opt.equipment_id for opt in win.project.configuration.selected_options]
+    assert "prop_electric_hemp_de" in active_ids
+    assert win.t_active_equipments.rowCount() >= 2
+
+    # Verify Tab 3: basket box buttons remain fixed and within the visible box bounds
+    basket_box = win.list_selected_payloads.parentWidget()
+    btn_col_box = basket_box.layout().itemAt(1).widget()
+    assert btn_col_box.width() == 240
+    assert btn_col_box.x() + btn_col_box.width() <= basket_box.width()
+
     # Verify Global Architecture modal dialog creation
     from ssb.ui_common.global_architecture_view import GlobalArchitectureDialog
     dlg = GlobalArchitectureDialog(win.catalog, win.project, win.current_budgets, win)

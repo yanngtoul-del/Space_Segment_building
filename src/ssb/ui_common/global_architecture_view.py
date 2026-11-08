@@ -14,6 +14,7 @@ from PySide6.QtWidgets import (
     QDialog,
     QPushButton,
     QGroupBox,
+    QAbstractScrollArea,
 )
 
 from ssb.catalog.database import CatalogDatabase
@@ -75,6 +76,7 @@ class GlobalArchitectureWidget(QWidget):
             lbl.setStyleSheet(
                 "background: #ffffff; color: #0f172a; border: 1px solid #cbd5e1; border-radius: 4px; padding: 6px; font-size: 11px;"
             )
+            lbl.setWordWrap(True)
             kpi_layout.addWidget(lbl, stretch=1)
 
         layout.addWidget(self.kpi_box)
@@ -131,6 +133,8 @@ class GlobalArchitectureWidget(QWidget):
         self.table.horizontalHeader().setSectionResizeMode(4, QHeaderView.ResizeMode.ResizeToContents)
         self.table.horizontalHeader().setSectionResizeMode(5, QHeaderView.ResizeMode.ResizeToContents)
         self.table.horizontalHeader().setSectionResizeMode(6, QHeaderView.ResizeMode.ResizeToContents)
+        self.table.setSizeAdjustPolicy(QAbstractScrollArea.SizeAdjustPolicy.AdjustIgnored)
+        self.table.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
         self.table.cellDoubleClicked.connect(self._on_cell_double_clicked)
         layout.addWidget(self.table, stretch=1)
 

@@ -27,7 +27,11 @@ from PySide6.QtWidgets import (
     QListWidget,
     QListWidgetItem,
     QLineEdit,
+    QSizePolicy,
+    QAbstractScrollArea,
+    QAbstractItemView,
 )
+from ssb.core.platform import Equipment
 from PySide6.QtCore import Qt
 
 from ssb.catalog.database import CatalogDatabase
@@ -163,37 +167,46 @@ class StudentMainWindow(QMainWindow):
         main_layout = QVBoxLayout(central)
         main_layout.setContentsMargins(8, 8, 8, 8)
 
-        # ---- Top status & action bar
-        banner = QHBoxLayout()
+        # ---- Top status & action bar (Row 1: Mission title + live status badge)
+        banner_row1 = QHBoxLayout()
         self.lbl_mission_title = QLabel()
-        self.lbl_mission_title.setStyleSheet("font-size: 13px;")
-        banner.addWidget(self.lbl_mission_title, stretch=1)
+        self.lbl_mission_title.setStyleSheet("font-size: 13px; color: #0f172a;")
+        self.lbl_mission_title.setWordWrap(True)
+        self.lbl_mission_title.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        self.lbl_mission_title.setMinimumWidth(120)
+        banner_row1.addWidget(self.lbl_mission_title, stretch=1)
 
         self.lbl_live_summary = QLabel()
         self.lbl_live_summary.setStyleSheet(
-            "background: #0f2744; color: #f8fafc; padding: 5px 10px; border-radius: 4px; font-weight: bold;"
+            "background: #0f2744; color: #f8fafc; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 12px;"
         )
-        banner.addWidget(self.lbl_live_summary)
+        self.lbl_live_summary.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        banner_row1.addWidget(self.lbl_live_summary)
+        main_layout.addLayout(banner_row1)
 
-        btn_open_proj = QPushButton("Ouvrir Projet (.json)")
+        # ---- Top action buttons bar (Row 2: Project files + Global view + Export)
+        banner_row2 = QHBoxLayout()
+        btn_open_proj = QPushButton("📂 Ouvrir Projet (.json)")
+        btn_open_proj.setStyleSheet("padding: 4px 10px;")
         btn_open_proj.clicked.connect(self.open_project_json)
-        banner.addWidget(btn_open_proj)
+        banner_row2.addWidget(btn_open_proj)
 
-        btn_save_proj = QPushButton("Enregistrer Projet (.json)")
-        btn_save_proj.setStyleSheet("background-color: #0f766e; color: white; font-weight: bold; padding: 5px 10px;")
+        btn_save_proj = QPushButton("💾 Enregistrer Projet (.json)")
+        btn_save_proj.setStyleSheet("background-color: #0f766e; color: white; font-weight: bold; padding: 4px 10px;")
         btn_save_proj.clicked.connect(self.save_project_json)
-        banner.addWidget(btn_save_proj)
+        banner_row2.addWidget(btn_save_proj)
 
         self.btn_global_view = QPushButton("📋 Vue Globale du Satellite")
-        self.btn_global_view.setStyleSheet("background-color: #1e3a8a; color: white; font-weight: bold; padding: 5px 12px; border-radius: 4px;")
+        self.btn_global_view.setStyleSheet("background-color: #1e3a8a; color: white; font-weight: bold; padding: 4px 12px; border-radius: 4px;")
         self.btn_global_view.clicked.connect(self._open_global_architecture_dialog)
-        banner.addWidget(self.btn_global_view)
+        banner_row2.addWidget(self.btn_global_view)
 
-        self.btn_export_report = QPushButton("Générer Rapport Word (.docx)")
-        self.btn_export_report.setStyleSheet("background-color: #1a5276; color: white; font-weight: bold; padding: 5px 12px;")
+        self.btn_export_report = QPushButton("📄 Générer Rapport Word (.docx)")
+        self.btn_export_report.setStyleSheet("background-color: #1a5276; color: white; font-weight: bold; padding: 4px 12px;")
         self.btn_export_report.clicked.connect(self.export_docx_report)
-        banner.addWidget(self.btn_export_report)
-        main_layout.addLayout(banner)
+        banner_row2.addWidget(self.btn_export_report)
+        banner_row2.addStretch(1)
+        main_layout.addLayout(banner_row2)
 
         # ---- Main workflow tabs
         self.tabs = QTabWidget()
@@ -218,6 +231,10 @@ class StudentMainWindow(QMainWindow):
         top_row = QHBoxLayout()
         top_row.addWidget(QLabel("<b>Fiche de spécification mission :</b>"))
         self.cmb_preset_missions = QComboBox()
+        self.cmb_preset_missions.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToMinimumContentsLengthWithIcon)
+        self.cmb_preset_missions.setMinimumContentsLength(30)
+        self.cmb_preset_missions.setMaximumWidth(600)
+        self.cmb_preset_missions.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         mdir = missions_dir()
         added_files = 0
         if mdir.exists():
@@ -416,23 +433,34 @@ class StudentMainWindow(QMainWindow):
                 color: #ffffff;
             }
         """)
+        self.list_selected_payloads.setSizeAdjustPolicy(QAbstractScrollArea.SizeAdjustPolicy.AdjustIgnored)
+        self.list_selected_payloads.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
+        self.list_selected_payloads.setHorizontalScrollMode(QAbstractItemView.ScrollMode.ScrollPerPixel)
+        self.list_selected_payloads.setMinimumWidth(100)
+        self.list_selected_payloads.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
         self.list_selected_payloads.setMaximumHeight(95)
         self.list_selected_payloads.currentItemChanged.connect(self._on_basket_payload_clicked)
         self.list_selected_payloads.itemDoubleClicked.connect(self._on_basket_payload_double_clicked)
         bl.addWidget(self.list_selected_payloads, stretch=1)
 
-        btn_col = QVBoxLayout()
+        btn_col_box = QWidget()
+        btn_col = QVBoxLayout(btn_col_box)
+        btn_col.setContentsMargins(0, 0, 0, 0)
+        btn_col.setSpacing(4)
         btn_view_pl_ds = QPushButton("Voir Datasheet CU")
-        btn_view_pl_ds.setStyleSheet("font-weight: bold;")
+        btn_view_pl_ds.setStyleSheet("font-weight: bold; padding: 4px 8px;")
         btn_view_pl_ds.clicked.connect(self._view_selected_payload_datasheet)
         btn_remove_pl = QPushButton("Retirer la charge utile sélectionnée")
+        btn_remove_pl.setStyleSheet("padding: 4px 8px;")
         btn_remove_pl.clicked.connect(self._remove_selected_payload)
         btn_clear_pl = QPushButton("Tout vider")
+        btn_clear_pl.setStyleSheet("padding: 4px 8px;")
         btn_clear_pl.clicked.connect(self._clear_payloads)
         btn_col.addWidget(btn_view_pl_ds)
         btn_col.addWidget(btn_remove_pl)
         btn_col.addWidget(btn_clear_pl)
-        bl.addLayout(btn_col)
+        btn_col_box.setFixedWidth(240)
+        bl.addWidget(btn_col_box)
         l.addWidget(basket_box)
 
         type_opts = [(k, v) for k, v in PAYLOAD_TYPE_LABELS_FR.items()]
@@ -500,11 +528,12 @@ class StudentMainWindow(QMainWindow):
             sup = self.catalog.suppliers.get(pl.supplier_id)
             c_flag = country_with_flag(sup.country if sup else "")
             it = QListWidgetItem(
-                f"• {pl.name} — Fournisseur : {pl.supplier_name} [{c_flag}] | Masse : {pl.mass_kg:.1f} kg | "
-                f"Volume : {pl.volume_liters:.1f} L | Puissance : {pl.operational_power_w:.0f} W crête ({pl.operational_power_w * 0.25:.1f} W moy.) | "
-                f"Prix : {pl.price_meur:.2f} M€"
+                f"• {pl.name} ({pl.supplier_name} [{c_flag}]) | Masse: {pl.mass_kg:.1f} kg | "
+                f"Vol: {pl.volume_liters:.1f} L | P: {pl.operational_power_w:.0f} W crête ({pl.operational_power_w * 0.25:.1f} W moy.) | "
+                f"Prix: {pl.price_meur:.2f} M€"
             )
             it.setData(Qt.ItemDataRole.UserRole, pid)
+            it.setToolTip(f"{pl.name} — Fournisseur : {pl.supplier_name} [{c_flag}]\nDouble-cliquez pour ouvrir la datasheet complète.")
             self.list_selected_payloads.addItem(it)
 
     def _view_selected_payload_datasheet(self) -> None:
@@ -535,9 +564,14 @@ class StudentMainWindow(QMainWindow):
         box_plat_layout = QHBoxLayout(self.box_selected_platform)
         self.lbl_selected_platform = QLabel()
         self.lbl_selected_platform.setWordWrap(True)
+        self.lbl_selected_platform.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        self.lbl_selected_platform.setMinimumWidth(100)
         box_plat_layout.addWidget(self.lbl_selected_platform, stretch=1)
 
-        btn_plat_col = QVBoxLayout()
+        btn_plat_box = QWidget()
+        btn_plat_col = QVBoxLayout(btn_plat_box)
+        btn_plat_col.setContentsMargins(0, 0, 0, 0)
+        btn_plat_col.setSpacing(4)
         self.btn_view_plat_ds = QPushButton("Voir Datasheet Plateforme")
         self.btn_view_plat_ds.setStyleSheet("font-weight: bold; padding: 4px 10px;")
         self.btn_view_plat_ds.clicked.connect(self._open_selected_platform_datasheet)
@@ -545,7 +579,8 @@ class StudentMainWindow(QMainWindow):
         self.btn_clear_plat.clicked.connect(self._clear_selected_platform)
         btn_plat_col.addWidget(self.btn_view_plat_ds)
         btn_plat_col.addWidget(self.btn_clear_plat)
-        box_plat_layout.addLayout(btn_plat_col)
+        btn_plat_box.setFixedWidth(220)
+        box_plat_layout.addWidget(btn_plat_box)
         l.addWidget(self.box_selected_platform)
 
         vsplit = QSplitter(Qt.Orientation.Vertical)
@@ -670,6 +705,9 @@ class StudentMainWindow(QMainWindow):
 
         eq_top_row = QHBoxLayout()
         self.lbl_active_eq_summary = QLabel()
+        self.lbl_active_eq_summary.setWordWrap(True)
+        self.lbl_active_eq_summary.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        self.lbl_active_eq_summary.setMinimumWidth(100)
         eq_top_row.addWidget(self.lbl_active_eq_summary, stretch=1)
         btn_goto_plat = QPushButton("⚙️ Modifier ces options dans l'Onglet 4 (Plateforme & Options)")
         btn_goto_plat.setStyleSheet("font-weight: bold; padding: 4px 10px;")
@@ -727,12 +765,13 @@ class StudentMainWindow(QMainWindow):
         self.browser_equipments = CatalogBrowser(
             catalog=self.catalog,
             category="equipment",
-            action_button_text="Voir compatibilité sur la plateforme",
+            action_button_text="＋ Équiper cet élément sur la plateforme",
             type_filter_options=fn_opts,
             compatibility_fn=self._check_equipment_compat,
             orbit_provider=self._current_orbit,
         )
-        self.browser_equipments.btn_action.setVisible(False)
+        self.browser_equipments.btn_action.setVisible(True)
+        self.browser_equipments.item_activated.connect(self._on_equipment_activated_from_browser)
         l.addWidget(self.browser_equipments, stretch=1)
         self.tabs.addTab(tab, f"5. Catalogue Équipements ({len(self.catalog.equipments)} réf.)")
         self._update_active_equipments_table()
@@ -777,6 +816,26 @@ class StudentMainWindow(QMainWindow):
                 itm.setData(Qt.ItemDataRole.UserRole, eq)
                 self.t_active_equipments.setItem(row_idx, col_idx, itm)
 
+    def _on_equipment_activated_from_browser(self, eq: Equipment) -> None:
+        plat_id = self.project.configuration.platform_id
+        if not plat_id:
+            QMessageBox.warning(
+                self,
+                "Aucune plateforme sélectionnée",
+                "Veuillez d'abord sélectionner une plateforme dans l'Onglet 4 (Plateforme & Options) pour pouvoir lui associer cet équipement."
+            )
+            return
+
+        ok, msg = self.slots_widget.equip_item(eq.id)
+        if ok:
+            self.project.configuration.selected_options = self.slots_widget.selected_options()
+            self._update_active_equipments_table()
+            self.browser_launchers.refresh()
+            self.refresh_evaluation()
+            self.statusBar().showMessage(f"✔ {eq.name} équipé avec succès sur la plateforme !", 4000)
+        else:
+            QMessageBox.warning(self, "Équipement non configurable", msg)
+
     def _on_active_equipment_double_clicked(self, row: int, _col: int) -> None:
         itm = self.t_active_equipments.item(row, 1)
         if itm:
@@ -806,11 +865,14 @@ class StudentMainWindow(QMainWindow):
         box_ln_layout = QHBoxLayout(self.box_selected_launcher)
         self.lbl_chosen_launcher = QLabel()
         self.lbl_chosen_launcher.setWordWrap(True)
+        self.lbl_chosen_launcher.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        self.lbl_chosen_launcher.setMinimumWidth(100)
         box_ln_layout.addWidget(self.lbl_chosen_launcher, stretch=1)
 
         self.btn_view_ln_ds = QPushButton("Voir Datasheet Lanceur")
         self.btn_view_ln_ds.setStyleSheet("font-weight: bold; padding: 4px 10px;")
         self.btn_view_ln_ds.clicked.connect(self._open_selected_launcher_datasheet)
+        self.btn_view_ln_ds.setFixedWidth(200)
         box_ln_layout.addWidget(self.btn_view_ln_ds)
         l.addWidget(self.box_selected_launcher)
 
@@ -928,10 +990,14 @@ class StudentMainWindow(QMainWindow):
         l.addWidget(QLabel("<b>1. Description du CONOPS (Modes, acquisition, gestion mémoire/liaison, éclipses, survie) :</b>"))
         self.txt_conops = QTextEdit()
         l.addWidget(self.txt_conops)
-        l.addWidget(QLabel("<b>2. Justification des choix d'architecture & arbitrages (plateforme, options, charge utile, lanceur) :</b>"))
+        lbl_q2 = QLabel("<b>2. Justification des choix d'architecture & arbitrages (plateforme, options, charge utile, lanceur) :</b>")
+        lbl_q2.setWordWrap(True)
+        l.addWidget(lbl_q2)
         self.txt_justif = QTextEdit()
         l.addWidget(self.txt_justif)
-        l.addWidget(QLabel("<b>3. Analyse des risques, limitations et marges système :</b>"))
+        lbl_q3 = QLabel("<b>3. Analyse des risques, limitations et marges système :</b>")
+        lbl_q3.setWordWrap(True)
+        l.addWidget(lbl_q3)
         self.txt_risks = QTextEdit()
         l.addWidget(self.txt_risks)
         self.tabs.addTab(tab, "8. Rédaction Rapport")
@@ -989,10 +1055,10 @@ class StudentMainWindow(QMainWindow):
             geo_status = f"  |  Géo ESA : {n_geo_pass}/{len(geo_checks)}"
 
         self.lbl_live_summary.setText(
-            f"Coût total : {b.cost.space_segment_total_meur:.2f} / {self.mission.max_budget_meur:.1f} M€  |  "
+            f"Coût : {b.cost.space_segment_total_meur:.2f} / {self.mission.max_budget_meur:.1f} M€  |  "
             f"Masse : {b.mass.launch_mass_with_margin_kg:.0f} kg  |  "
             f"Marge P : {b.power.power_margin_pct:.0f}%{geo_status}  |  "
-            f"Vérifications : {n_pass}/{len(all_checks)} ({status_tag})"
+            f"{n_pass}/{len(all_checks)} ({status_tag})"
         )
 
         cards_html = (

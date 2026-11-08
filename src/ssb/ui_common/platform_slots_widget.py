@@ -250,6 +250,45 @@ class PlatformSlotsWidget(QWidget):
                 out.append(SelectedOption(slot_function=fn, equipment_id=eq_id, quantity=sp.value()))
         return out
 
+    def equip_item(self, eq_id: str) -> tuple[bool, str]:
+        """Attempt to equip/activate this equipment on the platform slots.
+        Returns (success, message)."""
+        if not self._platform:
+            return False, "Aucune plateforme sélectionnée. Veuillez d'abord choisir une plateforme à l'Onglet 4."
+
+        eq = self.catalog.equipments.get(eq_id)
+        if not eq:
+            return False, f"Équipement '{eq_id}' introuvable dans le catalogue."
+
+        target_slot = None
+        for slot in self._platform.slots:
+            if slot.function.value == eq.function.value:
+                target_slot = slot
+                break
+
+        if not target_slot:
+            return False, f"La plateforme {self._platform.name} ne dispose pas de slot pour la fonction '{eq.function.value}'."
+
+        if eq_id not in target_slot.allowed_equipment_ids:
+            reason = self._incompatibility_reason(self._platform, eq)
+            return False, f"L'équipement '{eq.name}' n'est pas qualifié pour {self._platform.name} ({reason})."
+
+        found_sp = None
+        for fn, e_id, sp, slot_rule in self._spinners:
+            if fn == eq.function.value:
+                if e_id == eq_id:
+                    found_sp = sp
+                elif slot_rule.max_qty <= 1:
+                    sp.blockSignals(True)
+                    sp.setValue(0)
+                    sp.blockSignals(False)
+
+        if found_sp is not None:
+            found_sp.setValue(1)
+            return True, f"'{eq.name}' a été équipé avec succès sur la plateforme {self._platform.name}."
+
+        return False, "Sélecteur introuvable pour cet équipement."
+
     def _on_row_double_clicked(self, row: int, _col: int) -> None:
         it = self.table.item(row, 2)
         if not it:
