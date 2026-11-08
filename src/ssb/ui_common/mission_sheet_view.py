@@ -1,7 +1,7 @@
 """Dedicated Mission Specification Sheet (Fiche de Spécification Mission) viewer widget."""
 
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QFont, QColor
+from PySide6.QtGui import QFont, QColor, QPixmap
 from PySide6.QtWidgets import (
     QScrollArea,
     QWidget,
@@ -15,6 +15,7 @@ from PySide6.QtWidgets import (
     QSizePolicy,
 )
 from ssb.core.mission import MissionSpecification
+from ssb.core.paths import images_dir
 
 
 MISSION_TYPE_BADGES_FR = {
@@ -43,22 +44,32 @@ class MissionSheetView(QScrollArea):
         self._layout.setSpacing(10)
         self.setWidget(self._container)
 
-        # 1. Top dark-blue banner: Title, ID, Client, Domain, Total Budget, Lifetime, Min TRL
+        # 1. Top dark-blue banner: Illustration, Title, ID, Client, Domain, Total Budget, Lifetime, Min TRL
         banner = QFrame()
         banner.setStyleSheet(
             "QFrame { background: #0f2744; border: 1px solid #1e4976; border-radius: 6px; padding: 8px; }"
             "QLabel { color: #f8fafc; }"
         )
         bl = QHBoxLayout(banner)
+        bl.setSpacing(12)
+
+        self.lbl_image = QLabel()
+        self.lbl_image.setFixedSize(160, 90)
+        self.lbl_image.setStyleSheet(
+            "background: #0b192c; border: 1px solid #38bdf8; border-radius: 5px;"
+        )
+        self.lbl_image.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.lbl_image.setScaledContents(True)
+        bl.addWidget(self.lbl_image)
 
         left_col = QVBoxLayout()
         self.lbl_title = QLabel()
-        self.lbl_title.setStyleSheet("font-size: 16px; font-weight: bold; color: #ffffff;")
+        self.lbl_title.setStyleSheet("font-size: 15px; font-weight: bold; color: #ffffff;")
         self.lbl_title.setWordWrap(True)
         self.lbl_title.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
         self.lbl_title.setMinimumWidth(100)
         self.lbl_subtitle = QLabel()
-        self.lbl_subtitle.setStyleSheet("font-size: 12px; color: #93c5fd;")
+        self.lbl_subtitle.setStyleSheet("font-size: 11px; color: #93c5fd;")
         self.lbl_subtitle.setWordWrap(True)
         self.lbl_subtitle.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
         self.lbl_subtitle.setMinimumWidth(100)
@@ -71,13 +82,13 @@ class MissionSheetView(QScrollArea):
         self.lbl_budget_box.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.lbl_budget_box.setStyleSheet(
             "background: #1e3a5f; border: 1px solid #fbbf24; border-radius: 5px; padding: 6px 12px; "
-            "color: #fbbf24; font-weight: bold; font-size: 13px;"
+            "color: #fbbf24; font-weight: bold; font-size: 12px;"
         )
         self.lbl_life_box = QLabel()
         self.lbl_life_box.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.lbl_life_box.setStyleSheet(
             "background: #1e3a5f; border: 1px solid #38bdf8; border-radius: 5px; padding: 6px 12px; "
-            "color: #e0f2fe; font-weight: bold; font-size: 12px;"
+            "color: #e0f2fe; font-weight: bold; font-size: 11px;"
         )
         right_col.addWidget(self.lbl_budget_box)
         right_col.addWidget(self.lbl_life_box)
@@ -193,6 +204,27 @@ class MissionSheetView(QScrollArea):
         self.lbl_title.setText(f"FICHE DE SPÉCIFICATION MISSION — {m.title}   [{m.id}]")
         self.lbl_subtitle.setText(f"Domaine : {domain}   •   Commanditaire : {m.client_agency}")
 
+        # Mission illustration
+        if m.image:
+            img_path = images_dir() / m.image
+            if img_path.exists():
+                pix = QPixmap(str(img_path))
+                self.lbl_image.setPixmap(
+                    pix.scaled(
+                        self.lbl_image.size(),
+                        Qt.AspectRatioMode.KeepAspectRatioByExpanding,
+                        Qt.TransformationMode.SmoothTransformation,
+                    )
+                )
+                self.lbl_image.setToolTip(f"Illustration conceptuelle : {m.title}")
+                self.lbl_image.setVisible(True)
+            else:
+                self.lbl_image.clear()
+                self.lbl_image.setVisible(False)
+        else:
+            self.lbl_image.clear()
+            self.lbl_image.setVisible(False)
+
         self.lbl_budget_box.setText(f"BUDGET TOTAL PLAFOND\n{m.max_budget_meur:.2f} M€ TTC\n(Segment spatial + Lanceur)")
         self.lbl_life_box.setText(f"DURÉE DE VIE CIBLE : {m.target_lifetime_years:.1f} ans\nTRL minimal exigé : TRL {m.min_trl}")
 
@@ -238,134 +270,75 @@ class MissionSheetView(QScrollArea):
         b_font.setBold(True)
         budget_cells = [
             "REQ-BUDGET",
-            "Plafond budgétaire total mission",
-            "space_segment_total_meur",
+            "Plafond Budgétaire Global",
+            "total_cost_meur",
             f"<= {m.max_budget_meur:.2f} M€",
             f"<= {m.max_budget_meur * 0.90:.2f} M€",
-            "Coût complet : plateforme de base + options & intégration + charge(s) utile(s) + lancement.",
+            "Le coût consolidé (plateforme, options, charges utiles, lancement) ne doit pas dépasser le plafond.",
         ]
-        for c_idx, val in enumerate(budget_cells):
-            it = QTableWidgetItem(val)
-            it.setForeground(QColor("#0f172a"))
-            if c_idx in (0, 3):
-                it.setFont(b_font)
-            self.t_reqs.setItem(0, c_idx, it)
-        self.t_reqs.setRowHeight(0, 26)
+        for col_idx, val in enumerate(budget_cells):
+            item = QTableWidgetItem(val)
+            item.setFont(b_font)
+            item.setBackground(QColor("#fef3c7"))
+            item.setForeground(QColor("#78350f"))
+            self.t_reqs.setItem(0, col_idx, item)
 
-        for r, req in enumerate(m.requirements, start=1):
-            goal_str = f"{req.operator.value} {req.goal} {req.unit}".strip() if req.goal is not None else "—"
-            vals = [
-                req.id,
-                req.title,
-                req.parameter,
-                f"{req.operator.value} {req.threshold} {req.unit}".strip(),
+        for row_idx, r in enumerate(m.requirements, start=1):
+            goal_str = f"{r.goal} {r.unit}".strip() if r.goal is not None else "—"
+            thresh_str = f"{r.operator.value} {r.threshold} {r.unit}".strip()
+            row_vals = [
+                r.id,
+                r.title,
+                r.parameter,
+                thresh_str,
                 goal_str,
-                req.description,
+                r.description,
             ]
-            for c_idx, val in enumerate(vals):
-                it = QTableWidgetItem(val)
-                it.setForeground(QColor("#0f172a"))
-                if c_idx in (0, 3):
-                    it.setFont(b_font)
-                self.t_reqs.setItem(r, c_idx, it)
-            self.t_reqs.setRowHeight(r, 26)
-        self.t_reqs.setFixedHeight(min(260, 32 + 26 * total_rows))
+            for col_idx, val in enumerate(row_vals):
+                item = QTableWidgetItem(str(val))
+                self.t_reqs.setItem(row_idx, col_idx, item)
 
-        # Populate geographic return constraints (ESA juste retour)
-        flag_map = {
-            "France": "🇫🇷 France",
-            "Allemagne": "🇩🇪 Allemagne",
-            "Italie": "🇮🇹 Italie",
-            "Espagne": "🇪🇸 Espagne",
-            "Royaume-Uni": "🇬🇧 Royaume-Uni",
-            "Suisse": "🇨🇭 Suisse",
-            "Belgique": "🇧🇪 Belgique",
-            "Pays-Bas": "🇳🇱 Pays-Bas",
-            "Suède": "🇸🇪 Suède",
-            "Finlande": "🇫🇮 Finlande",
-        }
-        if m.geo_return_constraints:
-            self.lbl_geo.setVisible(True)
-            self.lbl_geo_hint.setVisible(True)
-            self.t_georeturn.setVisible(True)
-            n_rows = len(m.geo_return_constraints) + 1
-            self.t_georeturn.setRowCount(n_rows)
-            for r_idx, grc in enumerate(m.geo_return_constraints):
-                country_label = flag_map.get(grc.country, grc.country)
-                min_m = m.max_budget_meur * (grc.min_pct / 100.0)
-                max_m = m.max_budget_meur * (grc.max_pct / 100.0)
+        # Populate Geographic Return Constraints table (ESA-style)
+        self.t_georeturn.setRowCount(len(m.geo_return_constraints))
+        for row_idx, geo in enumerate(m.geo_return_constraints):
+            min_meur = (geo.min_pct / 100.0) * m.max_budget_meur
+            max_meur = (geo.max_pct / 100.0) * m.max_budget_meur
+            pct_str = f"[{geo.min_pct:.1f} %  –  {geo.max_pct:.1f} %]"
+            meur_str = f"[{min_meur:.2f} M€  –  {max_meur:.2f} M€]"
+            country_label = f"🇪🇺 {geo.country}" if geo.country in [
+                "France", "Allemagne", "Italie", "Espagne", "Royaume-Uni", "Belgique", "Suisse", "Pays-Bas", "Suède"
+            ] else geo.country
 
-                it_c = QTableWidgetItem(country_label)
-                it_c.setForeground(QColor("#0f172a"))
-                it_c.setFont(b_font)
-                it_range = QTableWidgetItem(f"[{grc.min_pct:.1f} %, {grc.max_pct:.1f} %]")
-                it_range.setForeground(QColor("#0f172a"))
-                it_range.setFont(b_font)
-                it_meur = QTableWidgetItem(f"~{min_m:.2f} à {max_m:.2f} M€")
-                it_meur.setForeground(QColor("#0f172a"))
-                it_rat = QTableWidgetItem(grc.rationale or "Souscription industrielle obligatoire au programme")
-                it_rat.setForeground(QColor("#0f172a"))
+            c_item = QTableWidgetItem(country_label)
+            c_item.setFont(b_font)
+            p_item = QTableWidgetItem(pct_str)
+            p_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            m_item = QTableWidgetItem(meur_str)
+            m_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            r_item = QTableWidgetItem(geo.rationale or "Souscription au programme ESA")
 
-                self.t_georeturn.setItem(r_idx, 0, it_c)
-                self.t_georeturn.setItem(r_idx, 1, it_range)
-                self.t_georeturn.setItem(r_idx, 2, it_meur)
-                self.t_georeturn.setItem(r_idx, 3, it_rat)
-                self.t_georeturn.setRowHeight(r_idx, 26)
+            self.t_georeturn.setItem(row_idx, 0, c_item)
+            self.t_georeturn.setItem(row_idx, 1, p_item)
+            self.t_georeturn.setItem(row_idx, 2, m_item)
+            self.t_georeturn.setItem(row_idx, 3, r_item)
 
-            # Extra row for non-ESA third-country allowance
-            max_non_esa = getattr(m, "max_non_esa_spend_pct", 15.0)
-            max_non_esa_m = m.max_budget_meur * (max_non_esa / 100.0)
-            last_idx = len(m.geo_return_constraints)
-
-            it_c_ext = QTableWidgetItem("🌍 Pays tiers (Hors Europe / COTS)")
-            it_c_ext.setForeground(QColor("#1e293b"))
-            it_c_ext.setFont(b_font)
-            it_c_ext.setBackground(QColor("#f8fafc"))
-
-            it_r_ext = QTableWidgetItem(f"[0.0 %, {max_non_esa:.1f} %]")
-            it_r_ext.setForeground(QColor("#1e293b"))
-            it_r_ext.setFont(b_font)
-            it_r_ext.setBackground(QColor("#f8fafc"))
-
-            it_m_ext = QTableWidgetItem(f"jusqu'à ~{max_non_esa_m:.2f} M€")
-            it_m_ext.setForeground(QColor("#1e293b"))
-            it_m_ext.setBackground(QColor("#f8fafc"))
-
-            it_rat_ext = QTableWidgetItem("Approvisionnements autorisés hors États membres ESA (COTS mondiaux / USA / Japon / Canada)")
-            it_rat_ext.setForeground(QColor("#475569"))
-            it_rat_ext.setBackground(QColor("#f8fafc"))
-
-            self.t_georeturn.setItem(last_idx, 0, it_c_ext)
-            self.t_georeturn.setItem(last_idx, 1, it_r_ext)
-            self.t_georeturn.setItem(last_idx, 2, it_m_ext)
-            self.t_georeturn.setItem(last_idx, 3, it_rat_ext)
-            self.t_georeturn.setRowHeight(last_idx, 26)
-
-            self.t_georeturn.setFixedHeight(min(220, 32 + 26 * n_rows))
-        else:
-            self.lbl_geo.setVisible(False)
-            self.lbl_geo_hint.setVisible(False)
-            self.t_georeturn.setVisible(False)
-
-        # Populate ground stations + target zones
-        gs_rows = len(m.ground_stations) + len(m.target_zones)
-        self.t_stations.setRowCount(gs_rows)
+        # Populate ground stations & target zones
+        total_gs_rows = len(m.ground_stations) + len(m.target_zones)
+        self.t_stations.setRowCount(total_gs_rows)
         row_i = 0
         for gs in m.ground_stations:
-            self.t_stations.setItem(row_i, 0, QTableWidgetItem(f"Station : {gs.name} [{gs.id}]"))
-            self.t_stations.setItem(row_i, 1, QTableWidgetItem(f"{gs.latitude_deg:.2f}°, {gs.longitude_deg:.2f}°"))
-            self.t_stations.setItem(row_i, 2, QTableWidgetItem(f"Alt. {gs.altitude_m:.0f} m | Élév. ≥ {gs.min_elevation_deg:.0f}°"))
-            self.t_stations.setItem(row_i, 3, QTableWidgetItem(", ".join(gs.bands_supported)))
-            self.t_stations.setItem(row_i, 4, QTableWidgetItem(f"{gs.cost_per_pass_eur:.0f} € / passage"))
-            self.t_stations.setRowHeight(row_i, 24)
+            coords = f"{gs.latitude_deg:.2f}°, {gs.longitude_deg:.2f}°"
+            alt = f"{gs.altitude_m:.0f} m / elev. min {gs.min_elevation_deg:.1f}°"
+            bands = ", ".join(gs.bands_supported)
+            cost = f"{gs.cost_per_pass_eur:.0f} €" if gs.cost_per_pass_eur > 0 else "Inclus / sans frais"
+            for col_idx, val in enumerate([f"Station Sol — {gs.name} [{gs.id}]", coords, alt, bands, cost]):
+                self.t_stations.setItem(row_i, col_idx, QTableWidgetItem(val))
             row_i += 1
+
         for tz in m.target_zones:
-            pts = " ; ".join(f"({lat:.1f}°, {lon:.1f}°)" for lat, lon in tz.points_lat_lon[:4])
-            self.t_stations.setItem(row_i, 0, QTableWidgetItem(f"Zone cible : {tz.name}"))
-            self.t_stations.setItem(row_i, 1, QTableWidgetItem(pts))
-            self.t_stations.setItem(row_i, 2, QTableWidgetItem(f"Priorité {tz.priority}"))
-            self.t_stations.setItem(row_i, 3, QTableWidgetItem("—"))
-            self.t_stations.setItem(row_i, 4, QTableWidgetItem("—"))
-            self.t_stations.setRowHeight(row_i, 24)
+            pts = ", ".join(f"({lat:.1f}, {lon:.1f})" for lat, lon in tz.points_lat_lon[:3])
+            if len(tz.points_lat_lon) > 3:
+                pts += " ..."
+            for col_idx, val in enumerate([f"Zone d'intérêt — {tz.name}", pts or "Nadir global", f"Priorité {tz.priority}", "Capteurs bord", "—"]):
+                self.t_stations.setItem(row_i, col_idx, QTableWidgetItem(val))
             row_i += 1
-        self.t_stations.setFixedHeight(min(180, max(65, 30 + 24 * max(1, gs_rows))))

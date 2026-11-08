@@ -1,13 +1,13 @@
 {
   "schema_version": "1.0.0",
   "id": "EXAM-2026-EO-LIGHT",
-  "title": "Mission PicOptic — Observation Optique Légère et Bas-Coût (NewSpace)",
+  "title": "Mission EcoSat-Earth — Observation Optique Compacte & Constellation Low-Cost",
   "context": "Dans le cadre d'un programme d'amorçage NewSpace pour le suivi de la déforestation, des incendies et des cultures agricoles, l'agence souhaite déployer un satellite d'observation optique ultra-économique en orbite héliosynchrone pour un budget total inférieur ou égal à 2,80 M€ tout compris.",
   "mission_type": "optical_eo",
   "max_budget_meur": 2.8,
   "target_lifetime_years": 3.0,
   "client_agency": "Agence Régionale de Surveillance Environnementale & Pépinière NewSpace",
-  "domain_label": "Observation de la Terre — Imagerie optique compacte et économique",
+  "domain_label": "Observation de la Terre — Imagerie optique compacte et constellation low-cost",
   "primary_objective": "Délivrer des images multispectrales ou panchromatiques avec une résolution spatiale au nadir (GSD) inférieure ou égale à 3,5 m (objectif 2,5 m) et une fauchée au sol d'au moins 12,0 km (objectif 20 km), avec un SNR radiométrique supérieur ou égal à 50, en utilisant une plateforme nanosatellite ou microsatellite légère.",
   "secondary_objectives": [
     "Contenir la masse au lancement sous 40 kg pour exploiter les vols partagés (rideshare CubeSat ou petit plateau).",
@@ -101,5 +101,6 @@
   ],
   "geo_return_constraints": [],
   "metadata": {},
-  "max_non_esa_spend_pct": 15.0
+  "max_non_esa_spend_pct": 15.0,
+  "image": "mission_eo_light.jpg"
 }

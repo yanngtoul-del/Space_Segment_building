@@ -58,7 +58,7 @@ def test_mission_specification_sheets_and_solutions():
     evaluator = SystemEvaluator(db)
 
     mfiles = sorted(missions_dir().glob("*.mission.json"))
-    assert len(mfiles) >= 6
+    assert len(mfiles) >= 10, f"Expected 10 missions, got {len(mfiles)}"
 
     missions: dict[str, MissionSpecification] = {}
     for mf in mfiles:
@@ -68,6 +68,9 @@ def test_mission_specification_sheets_and_solutions():
         assert len(ms.primary_objective) >= 80
         assert len(ms.domain_label) >= 10
         assert len(ms.requirements) >= 2
+        assert ms.image, f"Mission {ms.id} has no image defined"
+        img_file = images_dir() / ms.image
+        assert img_file.exists(), f"Mission image {ms.image} not found on disk for {ms.id}"
         missions[ms.id] = ms
 
     # Reference valid student solutions across multiple competing suppliers,
@@ -274,6 +277,8 @@ def test_student_and_teacher_gui_offscreen():
     for idx in range(win.cmb_preset_missions.count()):
         win.cmb_preset_missions.setCurrentIndex(idx)
         assert win.mission_sheet_view.t_reqs.rowCount() >= 3
+        assert win.mission_sheet_view.lbl_image.pixmap() is not None
+        assert not win.mission_sheet_view.lbl_image.pixmap().isNull()
 
     win.browser_payloads.list_suppliers.setCurrentRow(1)
     assert win.browser_payloads.list_items.count() >= 1

@@ -1,13 +1,13 @@
 {
   "schema_version": "1.0.0",
   "id": "EXAM-2026-QKD",
-  "title": "Mission QuantumShield — Relais Sécurisé Gouvernemental par Clés Quantiques",
+  "title": "Mission QuantumShield — Distribution Quantique Sécurisée de Clés Cryptographiques (QKD)",
   "context": "Concevoir un satellite de distribution quantique de clés (QKD) en orbite basse (LEO) pour alimenter les centres de calcul souverains en clés cryptographiques inviolables par faisceau laser nocturne.",
   "mission_type": "qkd",
   "max_budget_meur": 22.0,
   "target_lifetime_years": 4.0,
   "client_agency": "Agence Nationale de Sécurité des Communications Souveraines",
-  "domain_label": "Télécommunications Quantiques — Distribution quantique de clés (QKD)",
+  "domain_label": "Télécommunications Quantiques — Distribution spatiale de clés cryptographiques (QKD)",
   "primary_objective": "Distribuer des clés quantiques (BB84 à états leurres à 850 nm) avec un taux d'erreur quantique QBER <= 6,0 % et un débit de clé secrète asymptotique >= 1 000 bit/s.",
   "secondary_objectives": [
     "Garantir un pointage plateforme <= 0,008°.",
@@ -79,5 +79,6 @@
   "target_zones": [],
   "geo_return_constraints": [],
   "metadata": {},
-  "max_non_esa_spend_pct": 15.0
+  "max_non_esa_spend_pct": 15.0,
+  "image": "mission_quantum_shield.jpg"
 }

@@ -1,13 +1,13 @@
 {
   "schema_version": "1.0.0",
   "id": "EXAM-2026-EO-HIGHPERF",
-  "title": "Mission Iris-Vanguard — Imagerie Optique Sub-Métrique Très Haute Performance",
+  "title": "Mission Iris-Vanguard — Reconnaissance Optique Sub-Métrique Très Haute Performance (GSD ≤ 0,40 m)",
   "context": "La DGOSS requiert une capacité d'imagerie optique d'élite pour la reconnaissance tactique, la sécurité des frontières et le renseignement stratégique. Le satellite doit fournir des détails d'identification d'une extrême précision (GSD <= 0,40 m) avec un diamètre d'ouverture d'au moins 0,70 m.",
   "mission_type": "optical_eo",
   "max_budget_meur": 35.0,
   "target_lifetime_years": 7.0,
   "client_agency": "Délégation Générale à l'Observation Spatiale Souveraine (DGOSS)",
-  "domain_label": "Observation de la Terre — Imagerie optique sub-métrique de très haute performance",
+  "domain_label": "Observation de la Terre — Reconnaissance optique sub-métrique de très haute performance",
   "primary_objective": "Délivrer des scènes optiques panchromatiques avec une résolution spatiale au nadir (GSD) <= 0,40 m (objectif 0,35 m), un miroir primaire d'ouverture >= 0,70 m, un rapport SNR >= 60 et une plateforme ultra-stable offrant une précision de pointage <= 0,004° avec contrôle de ligne de visée agile.",
   "secondary_objectives": [
     "Maintenir une durée de vie opérationnelle garantie d'au moins 7 ans en orbite basse.",
@@ -141,5 +141,6 @@
   ],
   "geo_return_constraints": [],
   "metadata": {},
-  "max_non_esa_spend_pct": 15.0
+  "max_non_esa_spend_pct": 15.0,
+  "image": "mission_eo_highperf.jpg"
 }

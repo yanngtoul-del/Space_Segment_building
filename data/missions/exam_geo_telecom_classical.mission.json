@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "id": "EXAM-2026-GEO-COMMS",
-  "title": "Mission EuroCom-GEO — Télécommunications Régionales en Orbite Géostationnaire",
+  "title": "Mission AstraGEO-Broadband — Télécommunications Géostationnaires Régionales Ku/Ka",
   "context": "Pour assurer la connectivité souveraine et la diffusion audiovisuelle et de données sécurisées 24h/24 sans interruption au-dessus de l'Europe et du bassin méditerranéen, l'opérateur lance le dimensionnement d'un satellite géostationnaire (GEO, altitude 35 786 km, inclinaison 0,0°).",
   "mission_type": "telecom_radio",
   "max_budget_meur": 55.0,
@@ -147,5 +147,6 @@
     }
   ],
   "metadata": {},
-  "max_non_esa_spend_pct": 15.0
+  "max_non_esa_spend_pct": 15.0,
+  "image": "mission_geo_comms.jpg"
 }

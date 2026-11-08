@@ -1,13 +1,13 @@
 {
   "schema_version": "1.0.0",
   "id": "EXAM-2026-ATMO-GHG",
-  "title": "Mission AtmoWatch — Chimie de l'Atmosphère Terrestre & Panaches de Gaz à Effet de Serre (SWIR)",
+  "title": "Mission AURA-GHG — Surveillance Atmosphérique & Cartographie des Gaz à Effet de Serre (SWIR)",
   "context": "Dans le cadre de la surveillance indépendante des émissions anthropiques et des traités internationaux, l'ISCA requiert un spectromètre imageur dans les bandes infrarouges courtes (SWIR, 1,6–1,7 µm) capable de détecter et quantifier les panaches de méthane (CH4) et de dioxyde de carbone (CO2).",
   "mission_type": "atmosphere",
   "max_budget_meur": 16.5,
   "target_lifetime_years": 5.0,
   "client_agency": "Institut Spatial du Climat & de l'Atmosphère (ISCA)",
-  "domain_label": "Connaissance de l'Atmosphère Terrestre — Spectrométrie SWIR pour gaz atmosphériques",
+  "domain_label": "Connaissance de l'Atmosphère Terrestre — Spectrométrie SWIR pour gaz à effet de serre",
   "primary_objective": "Mesurer par spectrométrie imageuse dans le SWIR (jusqu'à au moins 1650 nm) les colonnes atmosphériques de CH4 et CO2 avec une résolution spectrale <= 1,0 nm (objectif 0,3 nm), une résolution spatiale au nadir <= 10 m permettant d'attribuer les émissions aux sites industriels sources, et un SNR spectral moyen >= 50.",
   "secondary_objectives": [
     "Couvrir les principaux bassins industriels et gaziers mondiaux avec un temps de revisite inférieur à 5 jours.",
@@ -146,5 +146,6 @@
     }
   ],
   "metadata": {},
-  "max_non_esa_spend_pct": 15.0
+  "max_non_esa_spend_pct": 15.0,
+  "image": "mission_atmosphere_swir.jpg"
 }

@@ -1,13 +1,13 @@
 {
   "schema_version": "1.0.0",
   "id": "EXAM-2026-DATARATE",
-  "title": "Mission TeraRelay — Établissement d'une Liaison Optique Très Haut Débit (>= 25 Gbit/s)",
+  "title": "Mission OptiRelay-Laser — Dorsale Spatiale Optique Inter-Satellites (Liaison Laser ≥ 25 Gbps)",
   "context": "Pour désengorger les liaisons radio-fréquence saturées et rapatrier en temps quasi-réel des téraoctets de données issues de capteurs spatiaux, l'opérateur souhaite déployer un terminal laser capable d'établir une liaison directe vers le sol à un débit supérieur ou égal à 25 Gbit/s.",
   "mission_type": "telecom_opt",
   "max_budget_meur": 15.0,
   "target_lifetime_years": 6.0,
   "client_agency": "Opérateur Européen de Dorsale Spatiale Souveraine",
-  "domain_label": "Télécommunications Spatiales — Établir un très haut débit de données laser optique",
+  "domain_label": "Télécommunications Spatiales — Établissement d'une liaison optique laser très haut débit",
   "primary_objective": "Établir une liaison descendante laser à 1550 nm délivrant un débit effectif >= 25,0 Gbit/s vers des stations sol optiques de 80 cm, avec une marge de liaison d'au moins 6,0 dB en ciel clair et une précision de pointage plateforme inférieure ou égale à 0,008° pour garantir l'acquisition rapide du faisceau optique.",
   "secondary_objectives": [
     "Respecter le plafond budgétaire de 15,0 M€ pour permettre la réplication en constellation.",
@@ -113,5 +113,6 @@
     }
   ],
   "metadata": {},
-  "max_non_esa_spend_pct": 15.0
+  "max_non_esa_spend_pct": 15.0,
+  "image": "mission_datarate_laser.jpg"
 }

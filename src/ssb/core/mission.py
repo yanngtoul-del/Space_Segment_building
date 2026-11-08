@@ -97,7 +97,8 @@ class MissionSpecification(BaseModel):
     max_budget_meur: float = Field(..., description="Total budget ceiling in M€ (platform + options + payloads + launch)")
     target_lifetime_years: float = Field(5.0, ge=0.5)
 
-    # Rich specification sheet fields
+    # Visual illustration & rich specification sheet fields
+    image: str = Field("", description="Illustration image filename in data/images")
     client_agency: str = Field(
         "Agence Spatiale / Institution",
         description="Sponsoring agency or client organization",

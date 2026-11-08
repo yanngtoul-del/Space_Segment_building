@@ -11,6 +11,7 @@ import numpy as np
 from ssb.core.project import StudentProject
 from ssb.system.evaluator import SystemBudgets
 from ssb.core.catalog_meta import ESA_MEMBER_STATES
+from ssb.core.paths import images_dir
 
 
 class ReportGenerator:
@@ -39,28 +40,34 @@ class ReportGenerator:
         seg_lons: list[float] = []
         seg_lats: list[float] = []
         for i in range(len(lons)):
-            if i > 0 and abs(lons[i] - lons[i - 1]) > 180:
-                ax.plot(seg_lons, seg_lats, color="#00d2d3", linewidth=1.5, alpha=0.85)
-                seg_lons = [lons[i]]
-                seg_lats = [lats[i]]
-            else:
-                seg_lons.append(lons[i])
-                seg_lats.append(lats[i])
+            seg_lons.append(lons[i])
+            seg_lats.append(lats[i])
+            if i < len(lons) - 1 and abs(lons[i + 1] - lons[i]) > 180:
+                ax.plot(seg_lons, seg_lats, color="#00ffff", linewidth=1.5, alpha=0.85)
+                seg_lons = []
+                seg_lats = []
         if seg_lons:
-            ax.plot(seg_lons, seg_lats, color="#00d2d3", linewidth=1.5, label="Satellite Track")
+            ax.plot(seg_lons, seg_lats, color="#00ffff", linewidth=1.5, alpha=0.85)
 
-        eclipse_lons = [lons[i] for i in range(len(lons)) if eclipses[i]]
-        eclipse_lats = [lats[i] for i in range(len(lats)) if eclipses[i]]
-        if eclipse_lons:
-            ax.scatter(eclipse_lons, eclipse_lats, color="#ff6b6b", s=8, alpha=0.7, label="Eclipse")
+        ecl_lons = [lons[i] for i, e in enumerate(eclipses) if e]
+        ecl_lats = [lats[i] for i, e in enumerate(eclipses) if e]
+        if ecl_lons:
+            ax.scatter(ecl_lons, ecl_lats, color="#34495e", s=6, label="Éclipse (ombre)", zorder=3)
 
-        ax.set_title("Satellite Ground Track & Eclipse Passes", color="#1e272e", fontsize=11, fontweight="bold")
-        ax.set_xlabel("Longitude (°)", fontsize=9)
-        ax.set_ylabel("Latitude (°)", fontsize=9)
-        ax.legend(loc="lower right", facecolor="#ffffff", edgecolor="#bdc3c7", fontsize=8)
+        sun_lons = [lons[i] for i, e in enumerate(eclipses) if not e]
+        sun_lats = [lats[i] for i, e in enumerate(eclipses) if not e]
+        if sun_lons:
+            ax.scatter(sun_lons, sun_lats, color="#f1c40f", s=8, label="Ensoleillé", zorder=4)
 
+        if lons:
+            ax.scatter([lons[0]], [lats[0]], color="#2ecc71", s=60, marker="o", edgecolors="white", label="Point initial (t0)", zorder=5)
+
+        ax.set_xlabel("Longitude (°)", fontsize=9, color="#1e293b")
+        ax.set_ylabel("Latitude (°)", fontsize=9, color="#1e293b")
+        ax.set_title("Trace au Sol Orbitale — 24 heures de propagation", fontsize=11, fontweight="bold", color="#0f2744")
+        ax.legend(loc="lower right", fontsize=8, facecolor="#ffffff", framealpha=0.9)
         plt.tight_layout()
-        plt.savefig(output_image_path, format="png")
+        fig.savefig(output_image_path, bbox_inches="tight")
         plt.close(fig)
 
     @classmethod
@@ -68,18 +75,22 @@ class ReportGenerator:
         cls,
         project: StudentProject,
         budgets: SystemBudgets,
-        output_docx_path: Path | str,
+        compliance_matrix: list[dict] | None = None,
         ground_track: list | None = None,
+        out_path: Path | None = None,
+        output_docx_path: Path | str | None = None,
     ) -> Path:
-        out_path = Path(output_docx_path)
-        out_path.parent.mkdir(parents=True, exist_ok=True)
+        resolved_path = Path(out_path or output_docx_path)
+        compliance_matrix = compliance_matrix or []
 
         doc = Document()
-        primary_color = RGBColor(26, 82, 118)
 
-        # 1. Document Title
+        # Styles definition
+        primary_color = RGBColor(15, 39, 68)  # Deep Navy #0f2744
+
+        # 1. Page de Garde / En-tête
         title_p = doc.add_paragraph()
-        title_run = title_p.add_run("RAPPORT DE CONCEPTION SYSTÈME SPATIAL")
+        title_run = title_p.add_run("RAPPORT D'AVANT-PROJET SPATIAL — SEGMENT VOL")
         title_run.font.size = Pt(20)
         title_run.font.bold = True
         title_run.font.color.rgb = primary_color
@@ -98,6 +109,21 @@ class ReportGenerator:
         # 2. Fiche de Spécification Mission & Exigences
         h2 = doc.add_heading("1. Fiche de Spécification de la Mission et Exigences", level=1)
         h2.paragraph_format.space_before = Pt(12)
+
+        # Mission illustration
+        if m.image:
+            img_path = images_dir() / m.image
+            if img_path.exists():
+                p_img = doc.add_paragraph()
+                p_img.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                p_img_run = p_img.add_run()
+                p_img_run.add_picture(str(img_path), width=Inches(4.8))
+                cap = doc.add_paragraph()
+                cap.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                cap_run = cap.add_run(f"Figure 1 : Vue d'artiste / concept opérationnel — {m.title}")
+                cap_run.font.size = Pt(9)
+                cap_run.font.italic = True
+
         p_bud = doc.add_paragraph()
         p_bud.add_run(
             f"Budget total plafond alloué : {m.max_budget_meur:.2f} M€ TTC (plateforme + options + charge utile + lancement) "
@@ -147,7 +173,7 @@ class ReportGenerator:
             p_arch.add_run(f"   - [{opt.equipment.function.value.upper()}] {opt.equipment.name}{inc_tag}\n")
 
         if ground_track:
-            plot_path = out_path.parent / f"ground_track_{project.project_id}.png"
+            plot_path = resolved_path.parent / f"ground_track_{project.project_id}.png"
             cls.generate_ground_track_plot(ground_track, plot_path)
             doc.add_picture(str(plot_path), width=Inches(6.0))
 
@@ -173,91 +199,96 @@ class ReportGenerator:
         r_pow[0].text = "Consommation Moyenne Orbite"
         r_pow[1].text = f"{budgets.power.total_avg_consumption_w:.1f} W"
         r_pow[2].text = f"{budgets.power.platform_generation_w:.1f} W"
-        r_pow[3].text = f"{budgets.power.power_margin_pct:.1f} %"
+        r_pow[3].text = f"{budgets.power.power_margin_pct:+.1f} %"
 
         r_cost = t_bud.add_row().cells
-        r_cost[0].text = "Coût Total Segment Spatial"
+        r_cost[0].text = "Coût Total Estimé (avec 15% réserve)"
         r_cost[1].text = f"{budgets.cost.space_segment_total_meur:.2f} M€"
         r_cost[2].text = f"{budgets.cost.mission_budget_limit_meur:.2f} M€"
         r_cost[3].text = f"{budgets.cost.cost_margin_meur:+.2f} M€"
 
-        # 4b. Retour Géographique Industriel ESA
-        if budgets.cost.cost_by_country_pct:
-            doc.add_heading("4. Retour Géographique Industriel (Principe du Juste Retour ESA)", level=1)
-            p_geo = doc.add_paragraph(
-                f"Ventilation des dépenses industrielles allouées sur le satellite ({budgets.cost.satellite_cost_meur:.2f} M€) par État membre :"
-            )
-            t_geo = doc.add_table(rows=1, cols=4)
-            t_geo.alignment = WD_TABLE_ALIGNMENT.CENTER
-            h_geo = t_geo.rows[0].cells
-            h_geo[0].text = "État Membre"
-            h_geo[1].text = "Montant Alloué"
-            h_geo[2].text = "Part Industrielle"
-            h_geo[3].text = "Souscription / Cible ESA"
-            for c in h_geo:
-                c.paragraphs[0].runs[0].font.bold = True
-
-            geo_targets = {grc.country: grc for grc in m.geo_return_constraints}
-            for country, pct in sorted(budgets.cost.cost_by_country_pct.items(), key=lambda x: x[1], reverse=True):
-                amt = budgets.cost.cost_by_country_meur.get(country, 0.0)
-                rg = t_geo.add_row().cells
-                rg[0].text = country
-                rg[1].text = f"{amt:.2f} M€"
-                rg[2].text = f"{pct:.1f} %"
-                if country in geo_targets:
-                    t = geo_targets[country]
-                    rg[3].text = f"Cible : [{t.min_pct:.1f} %, {t.max_pct:.1f} %]"
-                elif country not in ESA_MEMBER_STATES:
-                    max_non_esa = getattr(m, "max_non_esa_spend_pct", 15.0)
-                    rg[3].text = f"Pays tiers hors Europe (Plafond max {max_non_esa:.1f} %)"
-                else:
-                    rg[3].text = "État membre hors souscription spécifique"
-
-        # 5. Matrice de Conformité aux Exigences
-        doc.add_heading("5. Matrice de Conformité aux Exigences & Règles", level=1)
-        t_comp = doc.add_table(rows=1, cols=4)
-        t_comp.alignment = WD_TABLE_ALIGNMENT.CENTER
-        h_comp = t_comp.rows[0].cells
-        h_comp[0].text = "Exigence / Règle"
-        h_comp[1].text = "Statut"
-        h_comp[2].text = "Valeur"
-        h_comp[3].text = "Commentaire"
-        for c in h_comp:
+        # 5. Répartition Géographique (Juste Retour Industriel ESA)
+        doc.add_heading("4. Analyse du Retour Géographique Industriel", level=1)
+        p_geo = doc.add_paragraph()
+        p_geo.add_run(
+            "Dans le cadre des règles d'approvisionnement inspirées des programmes ESA, les achats industriels "
+            "(plateforme, options, charges utiles, lanceur) sont ventilés selon le pays d'origine du fournisseur. "
+            "Les achats hors Europe (COTS mondiaux) sont plafonnés à 15 % du total.\n"
+        )
+        t_geo = doc.add_table(rows=1, cols=3)
+        t_geo.alignment = WD_TABLE_ALIGNMENT.CENTER
+        h_geo = t_geo.rows[0].cells
+        h_geo[0].text = "Pays / Région Fournisseur"
+        h_geo[1].text = "Montant Dépensé (M€)"
+        h_geo[2].text = "Part Industrielle (%)"
+        for c in h_geo:
             c.paragraphs[0].runs[0].font.bold = True
 
-        for chk in (budgets.compliance_checks + budgets.rule_checks):
-            r = t_comp.add_row().cells
-            r[0].text = chk.rule_id
-            r[1].text = chk.status.value.upper()
-            val_txt = f"{chk.current_value} {chk.unit}" if chk.current_value is not None else "-"
-            r[2].text = val_txt
-            r[3].text = chk.message
+        tot_spend = sum(budgets.cost.cost_by_country_meur.values()) or 1.0
+        for country, amount in sorted(budgets.cost.cost_by_country_meur.items(), key=lambda x: -x[1]):
+            pct = budgets.cost.cost_by_country_pct.get(country, (amount / tot_spend) * 100.0)
+            r_g = t_geo.add_row().cells
+            flag = "🇪🇺 " if country in ESA_MEMBER_STATES else "🌐 "
+            r_g[0].text = f"{flag}{country}"
+            r_g[1].text = f"{amount:.2f} M€"
+            r_g[2].text = f"{pct:.1f} %"
 
-        # 6. Sections à compléter par l'étudiant
-        doc.add_page_break()
-        doc.add_heading("6. Concept d'Opérations (CONOPS) — À Rédiger par l'Étudiant", level=1)
-        p_conops_intro = doc.add_paragraph()
-        p_conops_intro.add_run(
+        # 6. Matrice de Conformité
+        doc.add_heading("5. Matrice de Conformité aux Exigences", level=1)
+        t_mat = doc.add_table(rows=1, cols=4)
+        t_mat.alignment = WD_TABLE_ALIGNMENT.CENTER
+        h_mat = t_mat.rows[0].cells
+        h_mat[0].text = "Exigence"
+        h_mat[1].text = "Spécifié"
+        h_mat[2].text = "Obtenu"
+        h_mat[3].text = "Statut"
+        for c in h_mat:
+            c.paragraphs[0].runs[0].font.bold = True
+
+        for item in compliance_matrix:
+            row = t_mat.add_row().cells
+            row[0].text = item.get("id", "")
+            row[1].text = item.get("required", "")
+            row[2].text = item.get("actual", "")
+            status = item.get("status", "")
+            row[3].text = status
+            if status == "COMPLIANT":
+                row[3].paragraphs[0].runs[0].font.color.rgb = RGBColor(46, 204, 113)
+            elif status == "NON_COMPLIANT":
+                row[3].paragraphs[0].runs[0].font.color.rgb = RGBColor(231, 76, 60)
+            elif status == "WARNING":
+                row[3].paragraphs[0].runs[0].font.color.rgb = RGBColor(241, 196, 15)
+
+        # 7. Cadres Rédactionnels Étudiants
+        doc.add_heading("6. Justifications Techniques & Arbitrages Étudiant", level=1)
+
+        doc.add_heading("6.1. Justification du choix de la plateforme et des marges de masse/puissance", level=2)
+        p_ed1 = doc.add_paragraph(
+            "[CADRE ÉTUDIANT - DÉTAILLEZ ICI L'ARBITRAGE DE LA PLATEFORME RETENUE, LA GESTION DES MODES ÉCLIPSE/JOUR ET LES MARGES SYSTÈME]\n"
+        )
+        p_ed1.runs[0].font.italic = True
+        p_ed1.runs[0].font.color.rgb = RGBColor(127, 140, 141)
+
+        doc.add_heading("6.2. Analyse des performances charge utile et compromis d'altitude", level=2)
+        p_ed2 = doc.add_paragraph(
+            "[CADRE ÉTUDIANT - EXPLIQUEZ LE COMPROMIS ENTRE L'ALTITUDE, LA RÉSOLUTION/DÉBIT, LA FAUCHÉE ET LE TAUX DE REVISITE]\n"
+        )
+        p_ed2.runs[0].font.italic = True
+        p_ed2.runs[0].font.color.rgb = RGBColor(127, 140, 141)
+
+        doc.add_heading("6.3. Justification du retour géographique et de l'enveloppe non-ESA", level=2)
+        p_ed3 = doc.add_paragraph(
+            "[CADRE ÉTUDIANT - JUSTIFIEZ LA RÉPARTITION INDUSTRIELLE PAR PAYS, L'ÉVENTUEL RECOURS AUX COMPOSANTS HORS EUROPE (< 15%) ET LA COMPATIBILITÉ AVEC LES RÈGLES ESA]\n"
+        )
+        p_ed3.runs[0].font.italic = True
+        p_ed3.runs[0].font.color.rgb = RGBColor(127, 140, 141)
+
+        doc.add_heading("6.4. Concepts d'Opérations (CONOPS) et Segment Sol", level=2)
+        p_ed4 = doc.add_paragraph(
             "[CADRE ÉTUDIANT - DÉCRIVEZ LES MODES OPÉRATIONNELS (LEOP, COMMISSIONING, NOMINAL, VISIBILITÉ STATIONS, GESTION DES ANOMALIES)]\n"
-        ).italic = True
-        conops_box = doc.add_paragraph(project.conops_text if project.conops_text else "\n\n\n\n\n")
-        conops_box.paragraph_format.left_indent = Inches(0.5)
+        )
+        p_ed4.runs[0].font.italic = True
+        p_ed4.runs[0].font.color.rgb = RGBColor(127, 140, 141)
 
-        doc.add_heading("7. Justification des Choix Techniques & Arbitrages", level=1)
-        p_just_intro = doc.add_paragraph()
-        p_just_intro.add_run(
-            "[CADRE ÉTUDIANT - JUSTIFIEZ LE COMPROMIS ENTRE L'OUVERTURE DE L'INSTRUMENT, L'ALTITUDE D'ORBITE, LE CHOIX DE LA PLATEFORME ET LE COÛT]\n"
-        ).italic = True
-        just_box = doc.add_paragraph(project.justification_text if project.justification_text else "\n\n\n\n\n")
-        just_box.paragraph_format.left_indent = Inches(0.5)
-
-        doc.add_heading("7. Analyse des Risques et Perspectives", level=1)
-        p_risk_intro = doc.add_paragraph()
-        p_risk_intro.add_run(
-            "[CADRE ÉTUDIANT - ANALYSE DE LA DURÉE DE VIE, MARGES DE DÉPENSES ÉNERGÉTIQUES, DÉGRADATION DES PERFORMANCES EN FIN DE VIE]\n"
-        ).italic = True
-        risk_box = doc.add_paragraph(project.risk_analysis_text if project.risk_analysis_text else "\n\n\n\n\n")
-        risk_box.paragraph_format.left_indent = Inches(0.5)
-
-        doc.save(str(out_path))
-        return out_path
+        doc.save(resolved_path)
+        return resolved_path

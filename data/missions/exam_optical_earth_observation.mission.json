@@ -1,13 +1,13 @@
 {
   "schema_version": "1.0.0",
   "id": "EXAM-2026-EO-OPT",
-  "title": "Mission Sentinel-Vision — Observation de la Terre Haute Résolution",
+  "title": "Mission TerraScope-HR — Imagerie Multispectrale Haute Résolution (Classe Microsatellite)",
   "context": "L'agence souhaite déployer un microsatellite d'observation optique sub-métrique en orbite héliosynchrone pour le suivi quotidien des infrastructures critiques et la cartographie urbaine fine.",
   "mission_type": "optical_eo",
   "max_budget_meur": 18.0,
   "target_lifetime_years": 5.0,
   "client_agency": "Agence Européenne d'Observation Civile & Sécurité (AEOCS)",
-  "domain_label": "Observation de la Terre — Imagerie optique métrique standard",
+  "domain_label": "Observation de la Terre — Imagerie optique multispectrale métrique standard",
   "primary_objective": "Fournir des images optiques panchromatiques et multispectrales avec une résolution au sol au nadir inférieure ou égale à 1,0 m (objectif 0,80 m) et une fauchée d'au moins 10 km, tout en garantissant un rapport signal-sur-bruit supérieur à 55 (objectif 80).",
   "secondary_objectives": [
     "Permettre des prises de vue dépointées pour réduire le temps de revisite.",
@@ -100,5 +100,6 @@
     }
   ],
   "metadata": {},
-  "max_non_esa_spend_pct": 15.0
+  "max_non_esa_spend_pct": 15.0,
+  "image": "mission_eo_opt.jpg"
 }

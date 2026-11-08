@@ -1,13 +1,13 @@
 {
   "schema_version": "1.0.0",
   "id": "EXAM-2026-COSMO",
-  "title": "Mission DarkLens — Cosmologie, Lentilles Gravitationnelles & Champ Profond",
+  "title": "Mission DarkLens — Cosmologie, Lentilles Gravitationnelles & Cartographie de la Matière Noire",
   "context": "Pour cartographier la distribution de matière noire par cisaillement gravitationnel faible et suivre les supernovæ distantes, le consortium souhaite placer en orbite un télescope optique à grand diamètre primaire.",
   "mission_type": "cosmology",
   "max_budget_meur": 32.0,
   "target_lifetime_years": 6.0,
   "client_agency": "Consortium Scientifique Européen d'Astrophysique & Cosmologie",
-  "domain_label": "Cosmologie & Astrophysique — Télescope spatial à grand collecteur",
+  "domain_label": "Cosmologie & Astrophysique — Télescope spatial à grand collecteur pour l'univers profond",
   "primary_objective": "Disposer d'un télescope spatial d'au moins 0,60 m d'ouverture primaire (objectif 0,70 m) limité par la diffraction, monté sur une plateforme garantissant une précision de pointage <= 0,004°.",
   "secondary_objectives": [
     "Assurer un stockage bord d'au moins 1 à 2 To.",
@@ -99,5 +99,6 @@
     }
   ],
   "metadata": {},
-  "max_non_esa_spend_pct": 15.0
+  "max_non_esa_spend_pct": 15.0,
+  "image": "mission_cosmo_deepfield.jpg"
 }

@@ -1,13 +1,13 @@
 {
   "schema_version": "1.0.0",
   "id": "EXAM-2026-CUBESAT-RF",
-  "title": "Mission NanoSentinel — CubeSat Bas-Coût de Collecte IoT/AIS & Imagerie Côtière",
-  "context": "Un consortium universitaire dispose d'un budget strictement plafonné à 1,60 M€ pour déployer un nanosatellite CubeSat dédié à la collecte de données maritimes.",
+  "title": "Mission SeaTrack-IoT — Nanosatellite Maritime AIS & Télémétrie RF",
+  "context": "Un consortium universitaire et maritime dispose d'un budget strictement plafonné à 1,60 M€ pour déployer un nanosatellite CubeSat dédié à la collecte de données maritimes AIS et de télémétrie balises mobiles.",
   "mission_type": "telecom_radio",
   "max_budget_meur": 1.6,
   "target_lifetime_years": 2.5,
   "client_agency": "Pôle Universitaire & Maritime NewSpace",
-  "domain_label": "Nanosatellite Bas-Coût — Collecte de données RF sous budget strict",
+  "domain_label": "Nanosatellite Bas-Coût — Collecte Maritime AIS & Télémétrie RF",
   "primary_objective": "Établir une liaison descendante RF d'au moins 15 Mbit/s avec une marge >= 3,0 dB sous 1,60 M€.",
   "secondary_objectives": [
     "Contenir la masse dans un déployeur CubeSat <= 32 kg."
@@ -66,5 +66,6 @@
   "target_zones": [],
   "geo_return_constraints": [],
   "metadata": {},
-  "max_non_esa_spend_pct": 15.0
+  "max_non_esa_spend_pct": 15.0,
+  "image": "mission_cubesat_rf.jpg"
 }

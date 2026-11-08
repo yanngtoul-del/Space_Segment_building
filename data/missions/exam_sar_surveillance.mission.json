@@ -1,13 +1,13 @@
 {
   "schema_version": "1.0.0",
   "id": "EXAM-2026-SAR",
-  "title": "Mission RadarGuard — Surveillance Maritime & Terrestre Tout-Temps par Radar SAR",
+  "title": "Mission RadarGuard-SAR — Surveillance Maritime & Polaire Tout-Temps par Radar Micro-Ondes",
   "context": "Concevoir un satellite d'observation radar à synthèse d'ouverture (SAR) capable d'imager les zones maritimes, les détroits stratégiques et les glaces arctiques de jour comme de nuit, indépendamment de la couverture nuageuse.",
   "mission_type": "sar_eo",
   "max_budget_meur": 25.0,
   "target_lifetime_years": 5.0,
   "client_agency": "Direction de la Surveillance Maritime & Polaire (DSMP)",
-  "domain_label": "Observation de la Terre — Imagerie Radar SAR micro-ondes tout-temps",
+  "domain_label": "Observation de la Terre — Imagerie radar SAR micro-ondes tout-temps",
   "primary_objective": "Assurer l'imagerie radar tout-temps en mode Stripmap avec une résolution azimutale <= 2,0 m (objectif 1,5 m), une fauchée au sol d'au moins 15 km et une sensibilité radiométrique (NESZ) <= -15,0 dB afin de détecter les navires non coopératifs, les pollutions marines et la dérive des glaces.",
   "secondary_objectives": [
     "Dimensionner l'alimentation électrique pour absorber la puissance crête RF élevée de l'antenne réseau active.",
@@ -134,5 +134,6 @@
     }
   ],
   "metadata": {},
-  "max_non_esa_spend_pct": 15.0
+  "max_non_esa_spend_pct": 15.0,
+  "image": "mission_sar_radar.jpg"
 }
