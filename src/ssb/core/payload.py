@@ -71,12 +71,12 @@ class OpticalImagerPayload(BasePayload):
 
 
 class SpectrometerPayload(BasePayload):
-    """Imaging spectrometer / hyperspectral sensor."""
+    """Back-end imaging spectrometer / hyperspectral dispersive sensor (requires front telescope + slit interface)."""
 
     payload_type: Literal[PayloadType.SPECTROMETER] = PayloadType.SPECTROMETER
 
-    aperture_diameter_m: float = Field(..., ge=0.01)
-    focal_length_m: float = Field(..., ge=0.05)
+    aperture_diameter_m: float = Field(0.0, ge=0.0, description="Inherited from coupled front telescope")
+    focal_length_m: float = Field(0.0, ge=0.0, description="Inherited from coupled front telescope")
     pixel_pitch_um: float = Field(..., ge=1.0)
     detector_spatial_pixels: int = Field(..., ge=100)
     spectral_range_min_nm: float = Field(400.0, ge=200.0)
@@ -84,6 +84,7 @@ class SpectrometerPayload(BasePayload):
     number_of_spectral_bands: int = Field(..., ge=10, le=500)
     spectral_resolution_nm: float = Field(..., ge=0.1)
     quantization_bits: int = Field(14, ge=10, le=16)
+    requires_front_telescope: bool = True
 
 
 class SarPayload(BasePayload):

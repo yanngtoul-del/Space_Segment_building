@@ -17,7 +17,7 @@ def test_enriched_catalog_counts_and_datasheets():
     assert len(db.suppliers) >= 35
     assert len(db.platforms) >= 16
     assert len(db.payloads) >= 50
-    assert len(db.equipments) >= 31
+    assert len(db.equipments) >= 35
     assert len(db.launchers) >= 8
 
     plat_suppliers = db.suppliers_for("platform")
@@ -109,19 +109,21 @@ def test_mission_specification_sheets_and_solutions():
             ),
         ),
         # 3. Atmosphere GHG — AtmoSonde Scientific Instruments (SWIR 1720 nm)
-        # Geo-return: France [35-60%], Allemagne [10-30%], Espagne [5-20%]
+        # Coupled architecture: Telescope [WideView-18] -> Slit [SpectraSpace] -> Spectrometer [TropoSonde-CH4]
+        # Geo-return: France [30-60%], Allemagne [10-35%], Espagne [5-20%]
         (
             "EXAM-2026-ATMO-GHG",
             SystemConfiguration(
                 orbit=OrbitDefinition(altitude_km=500.0, inclination_deg=97.4),
                 platform_id="plat_sstl_mini150",
                 selected_options=[
+                    SelectedOption(slot_function="optical_interface", equipment_id="opt_slit_athermal_ghg"),
                     SelectedOption(slot_function="propulsion", equipment_id="prop_electric_hemp_de"),
                     SelectedOption(slot_function="ttc", equipment_id="ttc_xband_tmtc"),
                     SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_1tb"),
                     SelectedOption(slot_function="adcs", equipment_id="adcs_high_accuracy_pack"),
                 ],
-                selected_payload_ids=["pl_spec_atmo_tropo_ghg"],
+                selected_payload_ids=["pl_opt_wide_swath_18cm", "pl_spec_atmo_tropo_ghg"],
                 launcher_id="ln_rideshare_sso",
             ),
         ),
@@ -374,3 +376,78 @@ def test_geo_return_non_esa_spending_flexibility():
     non_esa_check_excess = next(c for c in b_excess.compliance_checks if c.rule_id == "RULE_GEORETURN_NON_ESA_CAP")
     assert non_esa_check_excess.status == CheckStatus.FAIL
     assert non_esa_check_excess.current_value > 15.0
+
+
+def test_spectrometer_telescope_slit_chain_coupling():
+    """Verify pedagogical optical telescope + spectrometer slit interface chain validation:
+    - Complete chain (Telescope + Slit option + Spectrometer): PASS with computed GSD and SNR.
+    - Missing telescope: FAIL (RULE_SPECTRO_MISSING_TELESCOPE).
+    - Missing slit interface: FAIL (RULE_SPECTRO_MISSING_SLIT).
+    """
+    db = CatalogDatabase()
+    db.load_from_directory(catalogs_dir())
+    evaluator = SystemEvaluator(db)
+
+    ms = MissionSpecification.model_validate_json(
+        (missions_dir() / "exam_atmosphere_greenhouse_gas.mission.json").read_text(encoding="utf-8")
+    )
+    orbit = OrbitDefinition(altitude_km=500.0, inclination_deg=97.4)
+
+    # 1. Complete chain: WideView-18 (D=0.18 m, f=0.90 m) + Slit + TropoSonde-CH4
+    cfg_complete = SystemConfiguration(
+        orbit=orbit,
+        platform_id="plat_sstl_mini150",
+        selected_options=[
+            SelectedOption(slot_function="optical_interface", equipment_id="opt_slit_athermal_ghg"),
+            SelectedOption(slot_function="propulsion", equipment_id="prop_electric_hemp_de"),
+            SelectedOption(slot_function="ttc", equipment_id="ttc_xband_tmtc"),
+            SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_1tb"),
+            SelectedOption(slot_function="adcs", equipment_id="adcs_high_accuracy_pack"),
+        ],
+        selected_payload_ids=["pl_opt_wide_swath_18cm", "pl_spec_atmo_tropo_ghg"],
+        launcher_id="ln_rideshare_sso",
+    )
+    b_comp = evaluator.evaluate(cfg_complete, ms)
+    rule_chain_ok = next((c for c in b_comp.compliance_checks if c.rule_id == "RULE_SPECTRO_CHAIN_OK"), None)
+    assert rule_chain_ok is not None
+    assert rule_chain_ok.status == CheckStatus.PASS
+    spec_perf = b_comp.payload_performances.get("pl_spec_atmo_tropo_ghg", {})
+    assert spec_perf.get("gsd_spatial_nadir_m", 0.0) == 6.67
+    assert spec_perf.get("mean_snr_estimate", 0.0) > 50.0
+
+    # 2. Missing telescope (only spectrometer + slit)
+    cfg_no_tel = SystemConfiguration(
+        orbit=orbit,
+        platform_id="plat_sstl_mini150",
+        selected_options=[
+            SelectedOption(slot_function="optical_interface", equipment_id="opt_slit_athermal_ghg"),
+            SelectedOption(slot_function="ttc", equipment_id="ttc_xband_tmtc"),
+            SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_1tb"),
+        ],
+        selected_payload_ids=["pl_spec_atmo_tropo_ghg"],
+        launcher_id="ln_rideshare_sso",
+    )
+    b_no_tel = evaluator.evaluate(cfg_no_tel, ms)
+    rule_no_tel = next((c for c in b_no_tel.compliance_checks if c.rule_id == "RULE_SPECTRO_MISSING_TELESCOPE"), None)
+    assert rule_no_tel is not None
+    assert rule_no_tel.status == CheckStatus.FAIL
+    spec_perf_no_tel = b_no_tel.payload_performances.get("pl_spec_atmo_tropo_ghg", {})
+    assert spec_perf_no_tel.get("gsd_spatial_nadir_m", 0.0) == 0.0
+
+    # 3. Missing slit interface (telescope + spectrometer, but no optical_interface slot option selected)
+    cfg_no_slit = SystemConfiguration(
+        orbit=orbit,
+        platform_id="plat_sstl_mini150",
+        selected_options=[
+            SelectedOption(slot_function="ttc", equipment_id="ttc_xband_tmtc"),
+            SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_1tb"),
+        ],
+        selected_payload_ids=["pl_opt_wide_swath_18cm", "pl_spec_atmo_tropo_ghg"],
+        launcher_id="ln_rideshare_sso",
+    )
+    b_no_slit = evaluator.evaluate(cfg_no_slit, ms)
+    rule_no_slit = next((c for c in b_no_slit.compliance_checks if c.rule_id == "RULE_SPECTRO_MISSING_SLIT"), None)
+    assert rule_no_slit is not None
+    assert rule_no_slit.status == CheckStatus.FAIL
+    spec_perf_no_slit = b_no_slit.payload_performances.get("pl_spec_atmo_tropo_ghg", {})
+    assert spec_perf_no_slit.get("gsd_spatial_nadir_m", 0.0) == 0.0

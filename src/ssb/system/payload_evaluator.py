@@ -37,6 +37,8 @@ def evaluate_payload_requirements(
     payload: BasePayload,
     orbit: OrbitDefinition,
     mission: MissionSpecification,
+    all_payloads: list[BasePayload] | None = None,
+    resolved_options: list | None = None,
 ) -> tuple[dict, list[RuleCheckResult]]:
     """Compute performance for any payload type and verify against mission requirements."""
     perfs: dict = {}
@@ -55,7 +57,91 @@ def evaluate_payload_requirements(
 
     elif payload.payload_type == PayloadType.SPECTROMETER:
         assert isinstance(payload, SpectrometerPayload)
-        p = SpectrometerModel.compute(payload, orbit)
+
+        # Detect front optical telescope
+        telescope: OpticalImagerPayload | None = None
+        if all_payloads:
+            for p_cand in all_payloads:
+                if isinstance(p_cand, OpticalImagerPayload) and p_cand.id != payload.id:
+                    telescope = p_cand
+                    break
+
+        # Detect optical slit interface
+        slit_opt = None
+        if resolved_options:
+            for opt in resolved_options:
+                fn = getattr(opt.equipment, "function", None)
+                fn_val = fn.value if hasattr(fn, "value") else str(fn)
+                if fn_val == "optical_interface":
+                    slit_opt = opt.equipment
+                    break
+
+        # Verification of the complete spectrometer chain
+        if telescope is not None and slit_opt is not None:
+            p = SpectrometerModel.compute(
+                payload,
+                orbit,
+                aperture_diameter_m=telescope.aperture_diameter_m,
+                focal_length_m=telescope.focal_length_m,
+            )
+            compliance.append(
+                RuleCheckResult(
+                    rule_id="RULE_SPECTRO_CHAIN_OK",
+                    category="Chaîne Instrumentale Spectromètre",
+                    status=CheckStatus.PASS,
+                    message=(
+                        f"Chaîne spectrométrique complète couplée : "
+                        f"Télescope avant '{telescope.name}' (D={telescope.aperture_diameter_m:.2f} m, f={telescope.focal_length_m:.2f} m) "
+                        f"-> Interface '{slit_opt.name}' "
+                        f"-> Spectromètre dispersif '{payload.name}'."
+                    ),
+                )
+            )
+        elif telescope is None and slit_opt is None:
+            if payload.aperture_diameter_m > 0 and payload.focal_length_m > 0:
+                p = SpectrometerModel.compute(payload, orbit)
+            else:
+                p = SpectrometerModel.compute(payload, orbit, aperture_diameter_m=0.0, focal_length_m=0.0)
+                compliance.append(
+                    RuleCheckResult(
+                        rule_id="RULE_SPECTRO_MISSING_TELESCOPE",
+                        category="Chaîne Instrumentale Spectromètre",
+                        status=CheckStatus.FAIL,
+                        message=(
+                            f"Chaîne spectrométrique incomplète : Le banc spectromètre '{payload.name}' "
+                            f"nécessite un télescope collecteur avant (charge utile optique) "
+                            f"et une interface « Fente spectrométrique »."
+                        ),
+                    )
+                )
+        elif telescope is None:
+            p = SpectrometerModel.compute(payload, orbit, aperture_diameter_m=0.0, focal_length_m=0.0)
+            compliance.append(
+                RuleCheckResult(
+                    rule_id="RULE_SPECTRO_MISSING_TELESCOPE",
+                    category="Chaîne Instrumentale Spectromètre",
+                    status=CheckStatus.FAIL,
+                    message=(
+                        f"Chaîne spectrométrique incomplète : Le banc spectromètre '{payload.name}' "
+                        f"nécessite un télescope avant pour collecter le flux incident."
+                    ),
+                )
+            )
+        else:  # telescope is present, but slit_opt is missing
+            p = SpectrometerModel.compute(payload, orbit, aperture_diameter_m=0.0, focal_length_m=0.0)
+            compliance.append(
+                RuleCheckResult(
+                    rule_id="RULE_SPECTRO_MISSING_SLIT",
+                    category="Chaîne Instrumentale Spectromètre",
+                    status=CheckStatus.FAIL,
+                    message=(
+                        f"Interface optomécanique manquante : Le plan focal du télescope '{telescope.name}' "
+                        f"doit être équipé de l'option « Fente spectrométrique » (sous-système Interface Optique) "
+                        f"pour alimenter le spectromètre '{payload.name}'."
+                    ),
+                )
+            )
+
         perfs = p.__dict__
         perfs["spectral_resolution_nm"] = payload.spectral_resolution_nm
         perfs["spectral_range_max_nm"] = payload.spectral_range_max_nm

@@ -17,6 +17,7 @@ class SubsystemFunction(str, Enum):
     OBC = "obc"
     THERMAL = "thermal"
     DEORBIT_DEVICE = "deorbit_device"
+    OPTICAL_INTERFACE = "optical_interface"
 
 
 class Equipment(CatalogMeta):

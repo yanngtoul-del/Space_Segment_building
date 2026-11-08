@@ -1674,5 +1674,156 @@
       "Lignes ergols NTO/MMH 1/4 pouce",
       "Bride de poussée titane"
     ]
+  },
+  {
+    "id": "opt_slit_std_vnir",
+    "supplier_id": "heritage_optics",
+    "supplier_name": "Helios Space Instruments",
+    "name": "Fente Spectrométrique Standard (VNIR/SWIR)",
+    "function": "optical_interface",
+    "description": "Unité d'interface au plan focal remplaçant la matrice imageur par une fente optomécanique calibrée (25 µm) pour alimenter un spectrographe.",
+    "mass_kg": 1.2,
+    "power_w": 0.5,
+    "peak_power_w": 2.0,
+    "standby_power_w": 0.1,
+    "volume_liters": 0.6,
+    "dimensions_mm": [
+      120,
+      80,
+      60
+    ],
+    "price_meur": 0.28,
+    "trl": 9,
+    "specs": {
+      "slit_width_um": 25.0,
+      "spectral_compatibility": "VNIR_SWIR",
+      "thermal_stability": "standard"
+    },
+    "image": "equip_electronics.jpg",
+    "long_description": "Unité optomécanique de haute précision montée directement au plan focal intermédiaire du télescope collecteur avant. Elle intègre une fente d'entrée de 25 µm gravée par lithographie sur substrat Invar athermique, un miroir de renvoi à 90° et une optique de relais télécentrique pour injecter le faisceau spatial dans le collimateur du banc spectrométrique.",
+    "key_features": [
+      "Fente lithographiée 25 µm athermique",
+      "Optique de relais télécentrique intégrée",
+      "Monture Invar compensée en dilatation",
+      "Transmission optique > 96 % sur 400-2400 nm"
+    ],
+    "interfaces": [
+      "Bride de fixation plan focal télescope ISO-8",
+      "Liaison optomécanique étanche vers banc spectromètre",
+      "Capteur de température PT1000 intégré"
+    ]
+  },
+  {
+    "id": "opt_slit_athermal_ghg",
+    "supplier_id": "spectra_tech",
+    "supplier_name": "SpectraSpace Instruments",
+    "name": "Fente Haute Précision Athermique & Cryogénique (SWIR/GHG)",
+    "function": "optical_interface",
+    "description": "Fente d'entrée à régulation thermique active et découplage cryogénique pour spectrométrie fine des gaz à effet de serre (SWIR).",
+    "mass_kg": 1.8,
+    "power_w": 1.0,
+    "peak_power_w": 4.0,
+    "standby_power_w": 0.2,
+    "volume_liters": 0.9,
+    "dimensions_mm": [
+      140,
+      90,
+      70
+    ],
+    "price_meur": 0.45,
+    "trl": 9,
+    "specs": {
+      "slit_width_um": 20.0,
+      "spectral_compatibility": "SWIR_TIR",
+      "thermal_stability": "athermal_cryo"
+    },
+    "image": "equip_electronics.jpg",
+    "long_description": "Module d'interface au plan focal haute performance spécifiquement optimisé pour les missions de surveillance atmosphérique et de détection des gaz à effet de serre (CH4, CO2) dans la bande SWIR (1,6–2,4 µm). Comprend un écran thermique froid, un couplage thermique bas bruit et des bords de fente biseautés anti-diffraction pour maximiser la finesse spectrale.",
+    "key_features": [
+      "Fente fine 20 µm optimisée SWIR / GHG",
+      "Régulation athermique active (dérive < 0.05 µm/K)",
+      "Écran thermique refroidi pour réjection du rayonnement parasite",
+      "Revêtement optique or ultra-haute réflectivité"
+    ],
+    "interfaces": [
+      "Interface cryogénique vers cryocooler Pulse-Tube",
+      "Fixation sur barillet télescope SiC / Zerodur",
+      "Télémesure température 4 fils haute résolution"
+    ]
+  },
+  {
+    "id": "opt_slit_wide_mapper",
+    "supplier_id": "stellare_ottica",
+    "supplier_name": "Stellara Ottica",
+    "name": "Fente Grand Champ Multispectrale",
+    "function": "optical_interface",
+    "description": "Interface plan focal à fente allongée (large fauchée) pour imagerie hyperspectrale pushbroom sur grands télescopes.",
+    "mass_kg": 2.2,
+    "power_w": 0.8,
+    "peak_power_w": 3.0,
+    "standby_power_w": 0.1,
+    "volume_liters": 1.1,
+    "dimensions_mm": [
+      160,
+      100,
+      80
+    ],
+    "price_meur": 0.38,
+    "trl": 9,
+    "specs": {
+      "slit_width_um": 30.0,
+      "spectral_compatibility": "VNIR_SWIR_Full",
+      "thermal_stability": "standard"
+    },
+    "image": "equip_electronics.jpg",
+    "long_description": "Fente d'échantillonnage de champ de grande longueur focale (jusqu'à 45 mm utiles) conçue pour les télescopes à large champ (Korsch à 3 miroirs TMA ou Schmidt). Elle permet une fauchée au sol étendue tout en préservant un échantillonnage spectral uniforme sans distorsion en sourire (smile) ni distorsion de trapèze (keystone).",
+    "key_features": [
+      "Fente longue 45 mm pour large fauchée au sol",
+      "Correction intégrée des distorsions smile/keystone",
+      "Monture titane haute rigidité",
+      "Bande passante étendue 400 nm à 2500 nm"
+    ],
+    "interfaces": [
+      "Interface optomécanique grands télescopes (> 30 cm)",
+      "Connecteur télémétrie RS-422",
+      "Purge azote pour intégration en salle blanche"
+    ]
+  },
+  {
+    "id": "opt_slit_micro_nanosat",
+    "supplier_id": "lumina_hyperspec",
+    "supplier_name": "Lumina Hyperspectral Oy",
+    "name": "Micro-Fente Compacte CubeSat/Nanosat",
+    "function": "optical_interface",
+    "description": "Module fente ultraléger pour nanosatellites et CubeSat 6U/12U, assurant la liaison entre télescope compact et mini-spectromètre.",
+    "mass_kg": 0.45,
+    "power_w": 0.2,
+    "peak_power_w": 1.0,
+    "standby_power_w": 0.05,
+    "volume_liters": 0.25,
+    "dimensions_mm": [
+      60,
+      50,
+      40
+    ],
+    "price_meur": 0.15,
+    "trl": 8,
+    "specs": {
+      "slit_width_um": 35.0,
+      "spectral_compatibility": "VNIR",
+      "thermal_stability": "cubesat_compact"
+    },
+    "image": "equip_electronics.jpg",
+    "long_description": "Fente d'interface compacte et ultra-légère conçue pour les missions CubeSat de 6U à 16U. Elle s'intercale directement entre les télescopes miniatures de 6 cm à 12 cm et les mini-spectromètres intégrés pour offrir des capacités d'observation hyperspectrale à bas coût.",
+    "key_features": [
+      "Masse ultra-faible < 500 g",
+      "Facteur de forme standard CubeSat 0.5U",
+      "Consommation négligeable 0.2 W",
+      "Compatibilité optique directe monture C/CS"
+    ],
+    "interfaces": [
+      "Interface mécanique métrique CubeSat",
+      "Alimentation 3.3 V / 5 V bus I2C"
+    ]
   }
 ]

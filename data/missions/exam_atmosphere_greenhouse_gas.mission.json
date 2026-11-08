@@ -4,7 +4,7 @@
   "title": "Mission AURA-GHG — Surveillance Atmosphérique & Cartographie des Gaz à Effet de Serre (SWIR)",
   "context": "Dans le cadre de la surveillance indépendante des émissions anthropiques et des traités internationaux, l'ISCA requiert un spectromètre imageur dans les bandes infrarouges courtes (SWIR, 1,6–1,7 µm) capable de détecter et quantifier les panaches de méthane (CH4) et de dioxyde de carbone (CO2).",
   "mission_type": "atmosphere",
-  "max_budget_meur": 16.5,
+  "max_budget_meur": 18.5,
   "target_lifetime_years": 5.0,
   "client_agency": "Institut Spatial du Climat & de l'Atmosphère (ISCA)",
   "domain_label": "Connaissance de l'Atmosphère Terrestre — Spectrométrie SWIR pour gaz à effet de serre",
@@ -12,7 +12,7 @@
   "secondary_objectives": [
     "Couvrir les principaux bassins industriels et gaziers mondiaux avec un temps de revisite inférieur à 5 jours.",
     "Garantir une compatibilité thermique avec la cryogénie passive/active du détecteur SWIR.",
-    "Maintenir le coût complet du segment spatial sous le plafond de 16,5 M€."
+    "Maintenir le coût complet du segment spatial sous le plafond de 18,5 M€."
   ],
   "scientific_or_operational_need": "La détection précise des fuites fugitives de méthane requiert d'isoler des raies d'absorption très étroites dans la fenêtre SWIR au-delà de 1600 nm sans être confondues avec la vapeur d'eau ou le CO2 ambiant.",
   "orbit_constraints_description": "Orbite basse héliosynchrone (SSO) entre 500 km et 650 km d'altitude avec heure de passage solaire LTAN 11h30–13h00 afin de disposer du flux solaire réfléchi maximal dans le SWIR.",

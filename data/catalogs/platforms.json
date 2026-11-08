@@ -115,6 +115,19 @@
         "integration_cost_pct": 0.0,
         "interface_mass_kg": 0.0,
         "equipment_overrides": {}
+      },
+      {
+        "function": "optical_interface",
+        "allowed_equipment_ids": [
+          "opt_slit_micro_nanosat",
+          "opt_slit_std_vnir"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 2.0,
+        "interface_mass_kg": 0.2
       }
     ],
     "image": "platform_cubesat.jpg",
@@ -244,6 +257,21 @@
         "integration_cost_pct": 5.0,
         "interface_mass_kg": 0.8,
         "equipment_overrides": {}
+      },
+      {
+        "function": "optical_interface",
+        "allowed_equipment_ids": [
+          "opt_slit_std_vnir",
+          "opt_slit_athermal_ghg",
+          "opt_slit_wide_mapper",
+          "opt_slit_micro_nanosat"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 2.0,
+        "interface_mass_kg": 0.2
       }
     ],
     "image": "platform_smallsat.jpg",
@@ -387,6 +415,21 @@
         "integration_cost_fixed_meur": 0.1,
         "integration_cost_pct": 5.0,
         "interface_mass_kg": 1.0
+      },
+      {
+        "function": "optical_interface",
+        "allowed_equipment_ids": [
+          "opt_slit_std_vnir",
+          "opt_slit_athermal_ghg",
+          "opt_slit_wide_mapper",
+          "opt_slit_micro_nanosat"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 2.0,
+        "interface_mass_kg": 0.2
       }
     ],
     "image": "platform_smallsat.jpg",
@@ -528,6 +571,21 @@
         ],
         "min_qty": 1,
         "max_qty": 1
+      },
+      {
+        "function": "optical_interface",
+        "allowed_equipment_ids": [
+          "opt_slit_std_vnir",
+          "opt_slit_athermal_ghg",
+          "opt_slit_wide_mapper",
+          "opt_slit_micro_nanosat"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 2.0,
+        "interface_mass_kg": 0.2
       }
     ],
     "image": "platform_medium.jpg",
@@ -661,6 +719,21 @@
         ],
         "min_qty": 1,
         "max_qty": 1
+      },
+      {
+        "function": "optical_interface",
+        "allowed_equipment_ids": [
+          "opt_slit_std_vnir",
+          "opt_slit_athermal_ghg",
+          "opt_slit_wide_mapper",
+          "opt_slit_micro_nanosat"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 2.0,
+        "interface_mass_kg": 0.2
       }
     ],
     "image": "platform_large.jpg",
@@ -818,6 +891,19 @@
         "integration_cost_pct": 0.0,
         "interface_mass_kg": 0.0,
         "equipment_overrides": {}
+      },
+      {
+        "function": "optical_interface",
+        "allowed_equipment_ids": [
+          "opt_slit_micro_nanosat",
+          "opt_slit_std_vnir"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 2.0,
+        "interface_mass_kg": 0.2
       }
     ]
   },
@@ -960,6 +1046,19 @@
         "integration_cost_pct": 0.0,
         "interface_mass_kg": 0.0,
         "equipment_overrides": {}
+      },
+      {
+        "function": "optical_interface",
+        "allowed_equipment_ids": [
+          "opt_slit_micro_nanosat",
+          "opt_slit_std_vnir"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 2.0,
+        "interface_mass_kg": 0.2
       }
     ]
   },
@@ -1100,6 +1199,21 @@
         "integration_cost_pct": 5.0,
         "interface_mass_kg": 0.6,
         "equipment_overrides": {}
+      },
+      {
+        "function": "optical_interface",
+        "allowed_equipment_ids": [
+          "opt_slit_std_vnir",
+          "opt_slit_athermal_ghg",
+          "opt_slit_wide_mapper",
+          "opt_slit_micro_nanosat"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 2.0,
+        "interface_mass_kg": 0.2
       }
     ]
   },
@@ -1242,6 +1356,21 @@
         "integration_cost_pct": 5.0,
         "interface_mass_kg": 0.8,
         "equipment_overrides": {}
+      },
+      {
+        "function": "optical_interface",
+        "allowed_equipment_ids": [
+          "opt_slit_std_vnir",
+          "opt_slit_athermal_ghg",
+          "opt_slit_wide_mapper",
+          "opt_slit_micro_nanosat"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 2.0,
+        "interface_mass_kg": 0.2
       }
     ]
   },
@@ -1390,6 +1519,21 @@
         "integration_cost_pct": 5.0,
         "interface_mass_kg": 1.0,
         "equipment_overrides": {}
+      },
+      {
+        "function": "optical_interface",
+        "allowed_equipment_ids": [
+          "opt_slit_std_vnir",
+          "opt_slit_athermal_ghg",
+          "opt_slit_wide_mapper",
+          "opt_slit_micro_nanosat"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 2.0,
+        "interface_mass_kg": 0.2
       }
     ]
   },
@@ -1541,6 +1685,21 @@
         "integration_cost_pct": 0.0,
         "interface_mass_kg": 0.0,
         "equipment_overrides": {}
+      },
+      {
+        "function": "optical_interface",
+        "allowed_equipment_ids": [
+          "opt_slit_std_vnir",
+          "opt_slit_athermal_ghg",
+          "opt_slit_wide_mapper",
+          "opt_slit_micro_nanosat"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 2.0,
+        "interface_mass_kg": 0.2
       }
     ]
   },
@@ -1693,6 +1852,21 @@
         "integration_cost_pct": 0.0,
         "interface_mass_kg": 0.0,
         "equipment_overrides": {}
+      },
+      {
+        "function": "optical_interface",
+        "allowed_equipment_ids": [
+          "opt_slit_std_vnir",
+          "opt_slit_athermal_ghg",
+          "opt_slit_wide_mapper",
+          "opt_slit_micro_nanosat"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 2.0,
+        "interface_mass_kg": 0.2
       }
     ]
   },
@@ -1843,6 +2017,21 @@
         "integration_cost_pct": 0.0,
         "interface_mass_kg": 0.0,
         "equipment_overrides": {}
+      },
+      {
+        "function": "optical_interface",
+        "allowed_equipment_ids": [
+          "opt_slit_std_vnir",
+          "opt_slit_athermal_ghg",
+          "opt_slit_wide_mapper",
+          "opt_slit_micro_nanosat"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 2.0,
+        "interface_mass_kg": 0.2
       }
     ]
   },
@@ -1993,6 +2182,21 @@
         "integration_cost_pct": 0.0,
         "interface_mass_kg": 0.0,
         "equipment_overrides": {}
+      },
+      {
+        "function": "optical_interface",
+        "allowed_equipment_ids": [
+          "opt_slit_std_vnir",
+          "opt_slit_athermal_ghg",
+          "opt_slit_wide_mapper",
+          "opt_slit_micro_nanosat"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 2.0,
+        "interface_mass_kg": 0.2
       }
     ]
   },
@@ -2143,6 +2347,21 @@
         "integration_cost_pct": 0.0,
         "interface_mass_kg": 0.0,
         "equipment_overrides": {}
+      },
+      {
+        "function": "optical_interface",
+        "allowed_equipment_ids": [
+          "opt_slit_std_vnir",
+          "opt_slit_athermal_ghg",
+          "opt_slit_wide_mapper",
+          "opt_slit_micro_nanosat"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 2.0,
+        "interface_mass_kg": 0.2
       }
     ]
   },
@@ -2290,6 +2509,21 @@
         "integration_cost_pct": 0.0,
         "interface_mass_kg": 0.0,
         "equipment_overrides": {}
+      },
+      {
+        "function": "optical_interface",
+        "allowed_equipment_ids": [
+          "opt_slit_std_vnir",
+          "opt_slit_athermal_ghg",
+          "opt_slit_wide_mapper",
+          "opt_slit_micro_nanosat"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 2.0,
+        "interface_mass_kg": 0.2
       }
     ]
   },
@@ -2415,6 +2649,21 @@
         "integration_cost_fixed_meur": 0.0,
         "integration_cost_pct": 0.0,
         "interface_mass_kg": 0.0
+      },
+      {
+        "function": "optical_interface",
+        "allowed_equipment_ids": [
+          "opt_slit_std_vnir",
+          "opt_slit_athermal_ghg",
+          "opt_slit_wide_mapper",
+          "opt_slit_micro_nanosat"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 2.0,
+        "interface_mass_kg": 0.2
       }
     ]
   },
@@ -2538,6 +2787,21 @@
         "integration_cost_fixed_meur": 0.0,
         "integration_cost_pct": 0.0,
         "interface_mass_kg": 0.0
+      },
+      {
+        "function": "optical_interface",
+        "allowed_equipment_ids": [
+          "opt_slit_std_vnir",
+          "opt_slit_athermal_ghg",
+          "opt_slit_wide_mapper",
+          "opt_slit_micro_nanosat"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 2.0,
+        "interface_mass_kg": 0.2
       }
     ]
   },
@@ -2659,6 +2923,21 @@
         "integration_cost_fixed_meur": 0.0,
         "integration_cost_pct": 0.0,
         "interface_mass_kg": 0.0
+      },
+      {
+        "function": "optical_interface",
+        "allowed_equipment_ids": [
+          "opt_slit_std_vnir",
+          "opt_slit_athermal_ghg",
+          "opt_slit_wide_mapper",
+          "opt_slit_micro_nanosat"
+        ],
+        "included_equipment_ids": [],
+        "min_qty": 0,
+        "max_qty": 1,
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 2.0,
+        "interface_mass_kg": 0.2
       }
     ]
   }

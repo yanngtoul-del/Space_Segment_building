@@ -581,7 +581,11 @@ class SystemEvaluator:
         payload_perfs: dict[str, Any] = {}
         for pl in payloads:
             p_dict, p_compliance = evaluate_payload_requirements(
-                pl, config.orbit, mission
+                pl,
+                config.orbit,
+                mission,
+                all_payloads=payloads,
+                resolved_options=conf_plat.resolved_options,
             )
             payload_perfs[pl.id] = p_dict
             compliance_checks.extend(p_compliance)

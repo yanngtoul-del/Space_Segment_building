@@ -265,8 +265,8 @@
     "compressed_data_rate_mbps": 420.0,
     "price_meur": 3.8,
     "trl": 9,
-    "aperture_diameter_m": 0.18,
-    "focal_length_m": 1.1,
+    "aperture_diameter_m": 0.0,
+    "focal_length_m": 0.0,
     "pixel_pitch_um": 7.5,
     "detector_spatial_pixels": 2048,
     "spectral_range_min_nm": 400.0,
@@ -292,7 +292,8 @@
       "Alimentation 28 V",
       "SpaceFibre / SpaceWire",
       "Fixation 3 points"
-    ]
+    ],
+    "requires_front_telescope": true
   },
   {
     "id": "pl_sar_xband_micro",
@@ -897,15 +898,16 @@
       "SpaceFibre / SpaceWire",
       "Radiateur thermique dédié"
     ],
-    "aperture_diameter_m": 0.1,
-    "focal_length_m": 0.55,
+    "aperture_diameter_m": 0.0,
+    "focal_length_m": 0.0,
     "pixel_pitch_um": 8.0,
     "detector_spatial_pixels": 1024,
     "spectral_range_min_nm": 420.0,
     "spectral_range_max_nm": 980.0,
     "number_of_spectral_bands": 60,
     "spectral_resolution_nm": 9.5,
-    "quantization_bits": 12
+    "quantization_bits": 12,
+    "requires_front_telescope": true
   },
   {
     "id": "pl_spec_swir_180",
@@ -946,15 +948,16 @@
       "SpaceFibre / SpaceWire",
       "Radiateur thermique dédié"
     ],
-    "aperture_diameter_m": 0.22,
-    "focal_length_m": 1.2,
+    "aperture_diameter_m": 0.0,
+    "focal_length_m": 0.0,
     "pixel_pitch_um": 12.0,
     "detector_spatial_pixels": 1500,
     "spectral_range_min_nm": 900.0,
     "spectral_range_max_nm": 2500.0,
     "number_of_spectral_bands": 180,
     "spectral_resolution_nm": 9.0,
-    "quantization_bits": 14
+    "quantization_bits": 14,
+    "requires_front_telescope": true
   },
   {
     "id": "pl_spec_vnir_swir_full",
@@ -995,15 +998,16 @@
       "SpaceFibre / SpaceWire",
       "Radiateur thermique dédié"
     ],
-    "aperture_diameter_m": 0.28,
-    "focal_length_m": 1.5,
+    "aperture_diameter_m": 0.0,
+    "focal_length_m": 0.0,
     "pixel_pitch_um": 9.0,
     "detector_spatial_pixels": 2048,
     "spectral_range_min_nm": 400.0,
     "spectral_range_max_nm": 2500.0,
     "number_of_spectral_bands": 240,
     "spectral_resolution_nm": 8.5,
-    "quantization_bits": 14
+    "quantization_bits": 14,
+    "requires_front_telescope": true
   },
   {
     "id": "pl_spec_ghg_sounder",
@@ -1044,15 +1048,16 @@
       "SpaceFibre / SpaceWire",
       "Radiateur thermique dédié"
     ],
-    "aperture_diameter_m": 0.2,
-    "focal_length_m": 1.0,
+    "aperture_diameter_m": 0.0,
+    "focal_length_m": 0.0,
     "pixel_pitch_um": 12.0,
     "detector_spatial_pixels": 1200,
     "spectral_range_min_nm": 1590.0,
     "spectral_range_max_nm": 1680.0,
     "number_of_spectral_bands": 300,
     "spectral_resolution_nm": 0.3,
-    "quantization_bits": 14
+    "quantization_bits": 14,
+    "requires_front_telescope": true
   },
   {
     "id": "pl_sar_xband_compact",
@@ -2560,15 +2565,16 @@
       "SpaceWire / SpaceFibre",
       "Fixation 3 points"
     ],
-    "aperture_diameter_m": 0.15,
-    "focal_length_m": 0.95,
+    "aperture_diameter_m": 0.0,
+    "focal_length_m": 0.0,
     "pixel_pitch_um": 9.0,
     "detector_spatial_pixels": 1600,
     "spectral_range_min_nm": 450.0,
     "spectral_range_max_nm": 1700.0,
     "number_of_spectral_bands": 100,
     "spectral_resolution_nm": 8.0,
-    "quantization_bits": 12
+    "quantization_bits": 12,
+    "requires_front_telescope": true
   },
   {
     "id": "pl_spec_atmo_tropo_ghg",
@@ -2609,15 +2615,16 @@
       "SpaceFibre redondé",
       "Cryorefroidisseur Pulse-Tube longue durée"
     ],
-    "aperture_diameter_m": 0.24,
-    "focal_length_m": 1.2,
+    "aperture_diameter_m": 0.0,
+    "focal_length_m": 0.0,
     "pixel_pitch_um": 12.0,
     "detector_spatial_pixels": 1500,
     "spectral_range_min_nm": 1550.0,
     "spectral_range_max_nm": 1720.0,
     "number_of_spectral_bands": 420,
     "spectral_resolution_nm": 0.22,
-    "quantization_bits": 14
+    "quantization_bits": 14,
+    "requires_front_telescope": true
   },
   {
     "id": "pl_qkd_edelweiss_entangled",
