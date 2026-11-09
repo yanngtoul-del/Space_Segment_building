@@ -1,84 +1,102 @@
 {
-  "schema_version": "1.0.0",
   "id": "EXAM-2026-ATMO-GHG",
-  "title": "Mission AURA-GHG — Surveillance Atmosphérique & Cartographie des Gaz à Effet de Serre (SWIR)",
-  "context": "Dans le cadre de la surveillance indépendante des émissions anthropiques et des traités internationaux, l'ISCA requiert un spectromètre imageur dans les bandes infrarouges courtes (SWIR, 1,6–1,7 µm) capable de détecter et quantifier les panaches de méthane (CH4) et de dioxyde de carbone (CO2).",
+  "title": "AURA-GHG — Sondage Spectral des Gaz à Effet de Serre (CO₂ & CH₄)",
   "mission_type": "atmosphere",
-  "max_budget_meur": 18.5,
-  "target_lifetime_years": 5.0,
-  "client_agency": "Institut Spatial du Climat & de l'Atmosphère (ISCA)",
-  "domain_label": "Connaissance de l'Atmosphère Terrestre — Spectrométrie SWIR pour gaz à effet de serre",
-  "primary_objective": "Mesurer par spectrométrie imageuse dans le SWIR (jusqu'à au moins 1650 nm) les colonnes atmosphériques de CH4 et CO2 avec une résolution spectrale <= 1,0 nm (objectif 0,3 nm), une résolution spatiale au nadir <= 10 m permettant d'attribuer les émissions aux sites industriels sources, et un SNR spectral moyen >= 50.",
+  "image": "mission_atmosphere_swir.jpg",
+  "domain_label": "Connaissance de l'Atmosphère — Spectrométrie Infrarouge à Ondes Courtes (SWIR)",
+  "client_agency": "Agence Spatiale Européenne (ESA) / Programme Copernicus — Surveillance Atmosphérique (CAMS)",
+  "context": "La détection des panaches ponctuels de méthane (CH₄ vers 1650 nm) et de dioxyde de carbone (CO₂ vers 1600–2050 nm) issus des sites industriels, pipelines et bassins miniers exige une chaîne instrumentale dispersive complète couplant : (1) un télescope collecteur avant (charge utile optique), (2) une fente spectrométrique d'interface au plan focal (sous-système « Interface Optique ») et (3) un banc spectromètre SWIR refroidi. Ce cahier des charges confronte l'architecte à un trilemme optique sévère entre résolution spatiale (objectif <= 3.5 m, seuil <= 6.8 m), largeur de fauchée spectrométrique (>= 9.5 km), résolution spectrale fine (<= 0.50 nm) et SNR (>= 70).",
+  "primary_objective": "Assembler et qualifier une chaîne spectrométrique SWIR complète (Télescope avant + Fente spectrométrique + Spectromètre SWIR >= 1650 nm) en orbite SSO permettant de résoudre les raies d'absorption fines du CH₄/CO₂ (dLambda <= 0.50 nm) avec une fauchée spectrométrique >= 9.5 km, un GSD spatial <= 6.80 m (objectif <= 3.50 m), un SNR >= 70 et un étalonnage cryo-vide (Cryo-TVAC <= 1.0 %).",
   "secondary_objectives": [
-    "Couvrir les principaux bassins industriels et gaziers mondiaux avec un temps de revisite inférieur à 5 jours.",
-    "Garantir une compatibilité thermique avec la cryogénie passive/active du détecteur SWIR.",
-    "Maintenir le coût complet du segment spatial sous le plafond de 18,5 M€."
+    "Maîtriser le couplage optique Télescope + Fente + Spectromètre : le spectromètre seul ne possède pas d'optique collectrice frontale ; son GSD, sa fauchée et son nombre d'ouverture F/# dépendent directement du diamètre D et de la focale f du télescope associé.",
+    "Analyser le dilemme de focale du télescope avant : associer un télescope à courte focale et grande ouverture numérique comme WideView-18 (D=18 cm, f=0.90 m, F/5) offre une fauchée de 10.0 km et un SNR de 84.6 mais limite le GSD à 6.67 m ; à l'inverse, choisir STELLA-20 (f=1.80 m, F/9) ou Altair-25 (f=2.20 m) améliore le GSD à 3.33 m / 2.73 m (atteignant l'objectif <= 3.5 m) mais réduit la fauchée à 5.0 km / 4.1 km et fait chuter le SNR sous 26 (en raison de l'ouverture F/9 deux fois moins lumineuse !).",
+    "Intégrer l'étalonnage spectral cryogénique sous vide thermique (Cryo-TVAC 80 K–350 K au CSL Liège, 0.85 M€) indispensable pour stabiliser le plan focal MCT refroidi et respecter les quotas de retour géographique ESA."
   ],
-  "scientific_or_operational_need": "La détection précise des fuites fugitives de méthane requiert d'isoler des raies d'absorption très étroites dans la fenêtre SWIR au-delà de 1600 nm sans être confondues avec la vapeur d'eau ou le CO2 ambiant.",
-  "orbit_constraints_description": "Orbite basse héliosynchrone (SSO) entre 500 km et 650 km d'altitude avec heure de passage solaire LTAN 11h30–13h00 afin de disposer du flux solaire réfléchi maximal dans le SWIR.",
-  "conops_guidance": "Observations au nadir le long de la trace sur les continents éclairés. Vidage de la mémoire de masse vers les stations polaires de Kiruna et Kourou.",
+  "scientific_or_operational_need": "Pour inverser les colonnes intégrées XCO₂ et XCH₄ avec une précision inférieure à 1 % sans biais systématique, il faut simultanément séparer les raies rovibrationnelles (dLambda <= 0.5 nm), disposer d'un SNR > 70 dans le SWIR et étalonner la fonction d'appareil (ISRF) sous vide cryogénique (<= 1.0 %).",
+  "orbit_constraints_description": "Orbite héliosynchrone (SSO) autour de 500 km avec passage à l'équateur vers 13h00 heure solaire locale (maximisation du rayonnement solaire réfléchi en bande SWIR et de la hauteur de couche limite atmosphérique).",
+  "conops_guidance": "Décrire le fonctionnement couplé Télescope + Fente athermique + Spectromètre : refroidissement du détecteur SWIR à 150 K, acquisitions push-broom au nadir au-dessus des continents, campagnes d'étalonnage en vol (visées lunaires/solaires via diffuseur), stockage sur mémoire de masse >= 1 To et vidage en bande X ou S/X.",
   "deliverables_expected": [
-    "Justifier le choix d'un spectromètre imageur SWIR (>= 1650 nm, finesse spectrale <= 1,0 nm) par rapport aux spectromètres VNIR.",
-    "Démontrer la conformité du bilan de puissance et de pointage de la plateforme microsatellite sélectionnée.",
-    "Valider le budget global et le dimensionnement de la télémesure pour écouler le flux de données hyperspectrales."
+    "Justification complète de la chaîne instrumentale à 3 étages : Télescope collecteur avant + Option « Fente spectrométrique » (onglet 4 ou 5) + Banc spectromètre SWIR.",
+    "Analyse chiffrée du dilemme optique entre WideView-18 (f=0.90 m : conforme Fauchée 10 km & SNR 84.6, mais GSD = 6.67 m) et STELLA-20 / Altair-25 (f=1.80–2.20 m : conforme à l'objectif GSD <= 3.5 m, mais non conforme en Fauchée 4–5 km et SNR 23–25).",
+    "Justification du choix entre le sondeur haute résolution français TropoSonde-CH4 (dLambda = 0.22 nm, 6.40 M€), le sondeur américain CarbonWatch-SWIR (0.30 nm, 5.20 M€, qui dépasse le plafond de 15 % hors-ESA !) et l'imageur allemand HyperSWIR-180 (SNR = 431 mais dLambda = 9.0 nm non conforme pour isoler les raies individuelles).",
+    "Validation de la campagne Cryo-TVAC au CSL Liège (Belgique) et du juste retour géographique ESA (France, Allemagne, Espagne)."
   ],
-  "allowed_suppliers": [],
-  "min_trl": 8,
+  "max_budget_meur": 19.2,
+  "min_trl": 7,
+  "target_lifetime_years": 5.0,
   "requirements": [
     {
-      "id": "REQ-ATMO-SRES",
-      "title": "Finesse spectrale (résolution FWHM)",
-      "description": "La résolution spectrale de l'instrument doit être <= 1,0 nm pour résoudre les raies de CH4/CO2.",
-      "req_type": "payload_perf",
-      "parameter": "spectral_resolution_nm",
-      "operator": "<=",
-      "threshold": 1.0,
-      "goal": 0.3,
-      "unit": "nm",
-      "weight": 2.0
-    },
-    {
-      "id": "REQ-ATMO-SWIR",
-      "title": "Couverture spectrale infrarouge (SWIR)",
-      "description": "La longueur d'onde maximale couverte doit atteindre au moins 1650 nm.",
+      "id": "REQ-ATMO-SWIR-RANGE",
+      "title": "Extension Spectrale dans l'Infrarouge Courte Longueur d'Onde (SWIR)",
       "req_type": "payload_perf",
       "parameter": "spectral_range_max_nm",
       "operator": ">=",
       "threshold": 1650.0,
-      "goal": 1680.0,
+      "goal": 2000.0,
       "unit": "nm",
-      "weight": 1.5
+      "description": "Le spectromètre doit couvrir le domaine SWIR au-delà de 1650 nm pour observer les bandes d'absorption du CH₄ (1650 nm) et du CO₂ (1600–2050 nm)."
+    },
+    {
+      "id": "REQ-ATMO-SPEC-RES",
+      "title": "Pouvoir de Résolution Spectrale (FWHM)",
+      "req_type": "payload_perf",
+      "parameter": "spectral_resolution_nm",
+      "operator": "<=",
+      "threshold": 0.5,
+      "goal": 0.25,
+      "unit": "nm",
+      "description": "La résolution spectrale doit être <= 0.50 nm pour séparer les raies individuelles de méthane et de dioxyde de carbone."
     },
     {
       "id": "REQ-ATMO-GSD",
-      "title": "Résolution spatiale d'attribution des panaches",
-      "description": "Le GSD spatial au nadir doit être <= 10,0 m.",
+      "title": "Résolution Spatiale Spectrométrique au Nadir (GSD)",
       "req_type": "payload_perf",
       "parameter": "gsd_spatial_nadir_m",
       "operator": "<=",
-      "threshold": 10.0,
-      "goal": 6.0,
+      "threshold": 6.8,
+      "goal": 3.5,
       "unit": "m",
-      "weight": 1.0
+      "description": "Le pas d'échantillonnage spatial du spectromètre (hérité de la focale du télescope avant) doit être <= 6.80 m (objectif <= 3.50 m pour localiser une cheminée industrielle)."
+    },
+    {
+      "id": "REQ-ATMO-SWATH",
+      "title": "Fauchée du Banc Spectrométrique",
+      "req_type": "payload_perf",
+      "parameter": "spectrometer_swath_km",
+      "operator": ">=",
+      "threshold": 9.5,
+      "goal": 15.0,
+      "unit": "km",
+      "description": "La largeur de fauchée couverte par la fente du spectromètre doit être >= 9.5 km (antagoniste avec le choix d'un télescope à longue focale visant GSD <= 3.5 m)."
     },
     {
       "id": "REQ-ATMO-SNR",
-      "title": "Rapport signal sur bruit spectral moyen",
-      "description": "Le SNR moyen par canal spectral doit être >= 50.",
+      "title": "Rapport Signal sur Bruit Moyen du Spectromètre",
       "req_type": "payload_perf",
       "parameter": "mean_snr_estimate",
       "operator": ">=",
-      "threshold": 50.0,
-      "goal": 80.0,
-      "unit": "",
-      "weight": 1.0
+      "threshold": 70.0,
+      "goal": 120.0,
+      "unit": "ratio",
+      "description": "Le SNR moyen sur les canaux spectraux doit être >= 70 (nécessite un télescope collecteur lumineux à faible nombre d'ouverture F/#)."
+    },
+    {
+      "id": "REQ-ATMO-CALIB",
+      "title": "Étalonnage Radiométrique & Spectral Cryo-Vide (Cryo-TVAC)",
+      "req_type": "payload_perf",
+      "parameter": "radiometric_accuracy_pct",
+      "operator": "<=",
+      "threshold": 1.0,
+      "goal": 0.9,
+      "unit": "%",
+      "description": "L'incertitude radiométrique et spectrale certifiée au sol doit être <= 1.0 %, imposant une campagne en cuve cryo-vide (Cryo-TVAC 80 K–350 K au CSL Liège, 0.9 %)."
     }
   ],
   "ground_stations": [
     {
-      "id": "kiruna_sta",
-      "name": "Station Polaire de Kiruna (Estrack)",
-      "latitude_deg": 67.88,
+      "id": "gs_kiruna_atmo",
+      "name": "Kiruna (Suède — Station Polaire Estrack)",
+      "latitude_deg": 67.85,
       "longitude_deg": 20.96,
       "altitude_m": 400.0,
       "min_elevation_deg": 5.0,
@@ -86,40 +104,38 @@
         "S",
         "X"
       ],
-      "cost_per_pass_eur": 210.0,
-      "cost_per_minute_eur": 0.0
+      "cost_per_pass_eur": 450.0
     },
     {
-      "id": "kourou_sta",
-      "name": "Station Équatoriale de Kourou",
-      "latitude_deg": 5.25,
-      "longitude_deg": -52.8,
-      "altitude_m": 20.0,
-      "min_elevation_deg": 5.0,
+      "id": "gs_maspalomas",
+      "name": "Maspalomas (Espagne — INTA/ESA)",
+      "latitude_deg": 27.76,
+      "longitude_deg": -15.63,
+      "altitude_m": 205.0,
+      "min_elevation_deg": 10.0,
       "bands_supported": [
         "S",
         "X"
       ],
-      "cost_per_pass_eur": 200.0,
-      "cost_per_minute_eur": 0.0
+      "cost_per_pass_eur": 320.0
     }
   ],
   "target_zones": [
     {
-      "id": "zone_permian_me",
-      "name": "Bassins gaziers & industriels (Moyen-Orient / Eurasie / Amérique)",
+      "id": "tz_ghg_hotspots",
+      "name": "Bassins Industriels Européens & Sites d'Extraction",
       "points_lat_lon": [
         [
-          25.0,
-          50.0
+          51.45,
+          7.01
         ],
         [
-          40.0,
-          55.0
+          45.46,
+          9.19
         ],
         [
-          31.0,
-          -102.0
+          50.26,
+          19.02
         ]
       ],
       "priority": 1
@@ -130,22 +146,19 @@
       "country": "France",
       "min_pct": 30.0,
       "max_pct": 60.0,
-      "rationale": "Souscription CNES au programme de surveillance atmosphérique ESA (quote-part nationale 45 %)"
+      "rationale": "Contributeur majeur au programme atmosphérique — Participation librement répartie entre les instruments, la plateforme ou les sous-systèmes."
     },
     {
       "country": "Allemagne",
       "min_pct": 10.0,
       "max_pct": 35.0,
-      "rationale": "Souscription DLR au programme de surveillance atmosphérique ESA (quote-part nationale 20 %)"
+      "rationale": "Co-contributeur scientifique — Participation librement répartie (fente athermique, propulsion, TT&C, spectromètre)."
     },
     {
       "country": "Espagne",
       "min_pct": 5.0,
       "max_pct": 20.0,
-      "rationale": "Souscription CDTI au programme de surveillance atmosphérique ESA (quote-part nationale 10 %)"
+      "rationale": "Partenaire industriel — Participation librement répartie (mémoire de masse, suite ADCS)."
     }
-  ],
-  "metadata": {},
-  "max_non_esa_spend_pct": 15.0,
-  "image": "mission_atmosphere_swir.jpg"
+  ]
 }

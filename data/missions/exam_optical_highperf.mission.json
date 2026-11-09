@@ -1,146 +1,160 @@
 {
-  "schema_version": "1.0.0",
   "id": "EXAM-2026-EO-HIGHPERF",
-  "title": "Mission Iris-Vanguard — Reconnaissance Optique Sub-Métrique Très Haute Performance (GSD ≤ 0,40 m)",
-  "context": "La DGOSS requiert une capacité d'imagerie optique d'élite pour la reconnaissance tactique, la sécurité des frontières et le renseignement stratégique. Le satellite doit fournir des détails d'identification d'une extrême précision (GSD <= 0,40 m) avec un diamètre d'ouverture d'au moins 0,70 m.",
+  "title": "Iris-Vanguard — Imagerie Spatiale Très Haute Résolution (THR) Souveraine",
   "mission_type": "optical_eo",
-  "max_budget_meur": 35.0,
-  "target_lifetime_years": 7.0,
-  "client_agency": "Délégation Générale à l'Observation Spatiale Souveraine (DGOSS)",
-  "domain_label": "Observation de la Terre — Reconnaissance optique sub-métrique de très haute performance",
-  "primary_objective": "Délivrer des scènes optiques panchromatiques avec une résolution spatiale au nadir (GSD) <= 0,40 m (objectif 0,35 m), un miroir primaire d'ouverture >= 0,70 m, un rapport SNR >= 60 et une plateforme ultra-stable offrant une précision de pointage <= 0,004° avec contrôle de ligne de visée agile.",
+  "image": "mission_eo_highperf.jpg",
+  "domain_label": "Observation de la Terre — Imagerie Optique Très Haute Résolution (Classe 30–40 cm)",
+  "client_agency": "Direction Générale de l'Armement (DGA) / Agence Spatiale Européenne — Programme Souveraineté & Défense",
+  "context": "Pour les besoins de renseignement stratégique, de sécurité européenne et d'évaluation des dommages sur infrastructures critiques, ce programme vise un satellite d'observation optique de classe 30 à 40 cm doté d'une haute agilité de basculement. Le cahier des charges confronte l'étudiant à un arbitrage majeur entre deux classes d'architecture : (1) un satellite agile de classe 420 kg autour du télescope Helios-70 (D=0.70 m, GSD=0.39 m à 500 km, fauchée=13.93 km) sur bus AstraFlex-300 (~32 M€), ou (2) un satellite lourd de classe 820 kg autour du télescope Korsch 1.0 m (VHR-100, D=1.00 m, GSD=0.29 m, fauchée=14.00 km) sur bus AstraFlex-700 qui atteint tous les objectifs de performance mais pulvérise le plafond budgétaire de 33.50 M€ (> 52 M€).",
+  "primary_objective": "Déployer un satellite d'observation optique Très Haute Résolution en orbite SSO délivrant un GSD <= 0.40 m (objectif <= 0.30 m), une ouverture >= 0.70 m (objectif >= 1.00 m), une fauchée >= 13.8 km (objectif >= 15.0 km), une précision de pointage <= 0.004° (objectif <= 0.003° avec CMG), une durée de vie >= 8.0 ans et une qualification TVAC optique (<= 2.0 %) sous 33.50 M€.",
   "secondary_objectives": [
-    "Maintenir une durée de vie opérationnelle garantie d'au moins 7 ans en orbite basse.",
-    "Intégrer une mémoire de masse d'au moins 1 To à 2 To pour absorber les acquisitions multiples par orbite.",
-    "Garantir le respect de l'enveloppe budgétaire stricte de 35,0 M€ (lancement et plateforme inclus)."
+    "Analyser la sensibilité extrême de la fauchée et du GSD à l'altitude avec Helios-70 (D=0.70 m, f=8.40 m) : à 500 km, GSD = 0.39 m (<= 0.40 m) et Fauchée = 13.93 km (>= 13.8 km) ; si l'on abaisse l'altitude à 420 km pour viser GSD = 0.33 m, la fauchée tombe à 11.7 km (< 13.8 km) ; si l'on monte à 550 km pour élargir la fauchée à 15.3 km, le GSD se dégrade à 0.43 m (> 0.40 m) !",
+    "Comparer l'architecture Helios-70 sur AstraFlex-300 (~31–33 M€, conforme budget) face à VHR-100 (D=1.0 m, 280 kg, 24.5 M€) qui impose de passer sur AstraFlex-700 et dépasse les 52 M€.",
+    "Arbitrer les équipements sous-systèmes (actionneurs gyroscopiques CMG ±0.003° à 6.5°/s pour l'agilité multi-cibles vs roues de réaction ±0.004°, émetteur X-Band 1200 Mbps ou Ka-Band 2 Gbps, essais TVAC Optique chez Intespace) et respecter le juste retour industriel ESA (France, Allemagne, Italie/Espagne)."
   ],
-  "scientific_or_operational_need": "La distinction d'équipements tactiques fins, de marquages au sol et de détails d'infrastructures sensibles nécessite de descendre sous la barre des 40 cm de résolution avec une dynamique radiométrique élevée.",
-  "orbit_constraints_description": "Orbite basse héliosynchrone (SSO) entre 450 km et 520 km (LTAN 10h30 ou 13h30) pour combiner résolution optimale, fauchée utile et éclairement sous angle d'élévation solaire favorable.",
-  "conops_guidance": "Prises de vue agiles le long de la trace ou en dépointage latéral rapide (pitch/roll). Vidage haute cadence en bande Ka ou lien optique vers les stations polaires (Svalbard/Kiruna).",
+  "scientific_or_operational_need": "L'identification formelle de véhicules, d'aéronefs sur tarmac et d'ouvrages d'art exige un GSD <= 0.40 m (idéalement 0.30 m) associé à une haute agilité de dépointage (roulis/tangage rapide par CMG ou roues de réaction) pour acquérir plusieurs cibles sur un même théâtre d'opérations.",
+  "orbit_constraints_description": "Orbite héliosynchrone (SSO) strictement contrainte autour de 495–510 km si l'on utilise Helios-70 (fenêtre d'altitude étroite où GSD <= 0.40 m et Fauchée >= 13.8 km sont simultanément vérifiés).",
+  "conops_guidance": "Détailler le mode d'acquisition agile : programmation sécurisée en bande S redondée, basculement rapide hors-nadir entre cibles ponctuelles, ralentissement de la vitesse de défilement apparente au sol (TDI — Time Delay Integration), chiffrement et stockage sur mémoire >= 1–2 To, vidage haut débit sur les stations souveraines.",
   "deliverables_expected": [
-    "Justifier le choix du grand instrument optique (diamètre >= 0,70 m) et le respect de la limite GSD <= 0,40 m.",
-    "Valider le couplage avec une plateforme lourde et son pack ADCS garantissant un pointage <= 0,004°.",
-    "Établir le bilan de masse au lancement et sélectionner le lanceur adéquat (rideshare lourd ou lanceur dédié)."
+    "Démonstration mathématique de la fenêtre d'altitude SSO (495–510 km) permettant à Helios-70 de satisfaire simultanément GSD <= 0.40 m et Fauchée >= 13.8 km.",
+    "Comparaison chiffrée entre l'architecture Helios-70 / AstraFlex-300 (conforme budget <= 33.5 M€) et l'architecture VHR-100 / AstraFlex-700 (conforme aux objectifs GSD 0.29 m et D=1.0 m mais hors budget à > 52 M€).",
+    "Justification du choix ADCS (roues de réaction agiles vs pack CMG 4 gyros pour l'agilité tactique), de la chaîne de vidage haut débit et de la campagne TVAC Optique.",
+    "Validation du retour géographique ESA (France, Allemagne) et rédaction d'une Demande de Dérogation si l'étudiant choisit de privilégier le miroir de 1.0 m ou un lanceur dédié."
   ],
-  "allowed_suppliers": [],
+  "max_budget_meur": 33.5,
   "min_trl": 8,
+  "target_lifetime_years": 8.0,
   "requirements": [
     {
       "id": "REQ-HP-GSD",
-      "title": "Résolution spatiale au nadir (GSD)",
-      "description": "Le GSD panchromatique au nadir doit être <= 0,40 m.",
+      "title": "Résolution Spatiale Nadir Très Haute Résolution (GSD)",
       "req_type": "payload_perf",
       "parameter": "gsd_nadir_m",
       "operator": "<=",
       "threshold": 0.4,
-      "goal": 0.35,
+      "goal": 0.3,
       "unit": "m",
-      "weight": 2.0
+      "description": "Le GSD au nadir doit être <= 0.40 m (objectif <= 0.30 m). Note : atteindre 0.30 m à 500 km exige le télescope VHR-100 (1.0 m, 280 kg) hors budget, ou d'abaisser Helios-70 à 400 km (ce qui viole la fauchée)."
     },
     {
       "id": "REQ-HP-APERTURE",
-      "title": "Diamètre d'ouverture du télescope",
-      "description": "Le diamètre du miroir primaire doit être >= 0,70 m.",
+      "title": "Diamètre d'Ouverture du Télescope",
       "req_type": "payload_perf",
       "parameter": "aperture_diameter_m",
       "operator": ">=",
       "threshold": 0.7,
-      "goal": 0.8,
+      "goal": 1.0,
       "unit": "m",
-      "weight": 1.5
+      "description": "Le diamètre du miroir primaire doit être >= 0.70 m (exclut STELLA-60 à 0.60 m sauf demande de dérogation)."
     },
     {
-      "id": "REQ-HP-POINTING",
-      "title": "Précision de pointage plateforme",
-      "description": "La précision de pointage effective doit être <= 0,004 deg pour éviter tout flou dynamique.",
+      "id": "REQ-HP-SWATH",
+      "title": "Largeur de Fauchée au Nadir",
+      "req_type": "payload_perf",
+      "parameter": "swath_width_km",
+      "operator": ">=",
+      "threshold": 13.8,
+      "goal": 16.0,
+      "unit": "km",
+      "description": "La fauchée au nadir doit être >= 13.8 km (interdit de descendre Helios-70 sous 495 km sans dérogation)."
+    },
+    {
+      "id": "REQ-HP-POINT",
+      "title": "Précision de Pointage & Agilité ADCS",
       "req_type": "payload_perf",
       "parameter": "pointing_accuracy_deg",
       "operator": "<=",
       "threshold": 0.004,
-      "goal": 0.002,
+      "goal": 0.003,
       "unit": "deg",
-      "weight": 1.5
+      "description": "La précision de pointage doit être <= 0.004° (objectif <= 0.003° avec le pack CMG haute agilité ou Sodern Auriga)."
     },
     {
-      "id": "REQ-HP-SNR",
-      "title": "Rapport signal sur bruit (SNR)",
-      "description": "Le SNR radiométrique au nadir doit être >= 40.",
+      "id": "REQ-HP-CALIB",
+      "title": "Qualification Opto-Mécanique en Vide Thermique (TVAC)",
       "req_type": "payload_perf",
-      "parameter": "snr_nadir_estimate",
-      "operator": ">=",
-      "threshold": 40.0,
-      "goal": 60.0,
-      "unit": "",
-      "weight": 1.0
+      "parameter": "radiometric_accuracy_pct",
+      "operator": "<=",
+      "threshold": 2.0,
+      "goal": 0.9,
+      "unit": "%",
+      "description": "L'étalonnage interférométrique et radiométrique sous vide thermique doit certifier une précision <= 2.0 % (TVAC Optique Intespace ou Cryo-TVAC CSL)."
     },
     {
-      "id": "REQ-HP-LIFETIME",
-      "title": "Durée de vie nominale de la plateforme",
-      "description": "La durée de vie certifiée de la plateforme doit être >= 7,0 ans.",
+      "id": "REQ-HP-LIFE",
+      "title": "Durée de Vie Opérationnelle",
       "req_type": "lifetime",
       "parameter": "design_lifetime_years",
       "operator": ">=",
-      "threshold": 7.0,
+      "threshold": 8.0,
       "goal": 10.0,
       "unit": "yr",
-      "weight": 1.0
+      "description": "La plateforme doit être qualifiée pour au moins 8.0 ans en orbite basse."
     }
   ],
   "ground_stations": [
     {
-      "id": "svalbard_hp",
-      "name": "Svalbard Satellite Station (KSAT)",
-      "latitude_deg": 78.22,
-      "longitude_deg": 15.4,
-      "altitude_m": 450.0,
+      "id": "gs_creil_toulouse",
+      "name": "Centre de Réception Souverain — Toulouse / Creil (France)",
+      "latitude_deg": 43.56,
+      "longitude_deg": 1.48,
+      "altitude_m": 180.0,
+      "min_elevation_deg": 8.0,
+      "bands_supported": [
+        "S",
+        "X",
+        "Ka"
+      ],
+      "cost_per_pass_eur": 450.0
+    },
+    {
+      "id": "gs_kiruna_hp",
+      "name": "Kiruna — Station Polaire Haute Cadence (Suède)",
+      "latitude_deg": 67.85,
+      "longitude_deg": 20.96,
+      "altitude_m": 400.0,
       "min_elevation_deg": 5.0,
       "bands_supported": [
         "S",
         "X",
         "Ka"
       ],
-      "cost_per_pass_eur": 260.0,
-      "cost_per_minute_eur": 0.0
-    },
-    {
-      "id": "toulouse_hp",
-      "name": "Station Spatiale de Toulouse",
-      "latitude_deg": 43.6,
-      "longitude_deg": 1.44,
-      "altitude_m": 150.0,
-      "min_elevation_deg": 10.0,
-      "bands_supported": [
-        "S",
-        "X",
-        "Ka"
-      ],
-      "cost_per_pass_eur": 190.0,
-      "cost_per_minute_eur": 0.0
+      "cost_per_pass_eur": 500.0
     }
   ],
   "target_zones": [
     {
-      "id": "zone_strategic_eu",
-      "name": "Détroits et corridors maritimes européens",
+      "id": "tz_strategic_theaters",
+      "name": "Théâtres d'Intérêt Stratégique & Infrastructures Critiques",
       "points_lat_lon": [
         [
+          48.85,
+          2.35
+        ],
+        [
           35.0,
-          -6.0
+          33.0
         ],
         [
-          37.0,
-          15.0
-        ],
-        [
-          45.0,
-          30.0
+          60.0,
+          25.0
         ]
       ],
       "priority": 1
     }
   ],
-  "geo_return_constraints": [],
-  "metadata": {},
-  "max_non_esa_spend_pct": 15.0,
-  "image": "mission_eo_highperf.jpg"
+  "geo_return_constraints": [
+    {
+      "country": "France",
+      "min_pct": 70.0,
+      "max_pct": 98.0,
+      "rationale": "Nation cadre du programme THR souverain — Participation librement répartie (plateforme, télescope, propulsion, ADCS ou essais TVAC)."
+    },
+    {
+      "country": "Allemagne",
+      "min_pct": 2.0,
+      "max_pct": 25.0,
+      "rationale": "Partenaire coopérant — Participation librement répartie (émetteur X/Ka, TT&C redondé, ADCS ou propulsion)."
+    }
+  ]
 }

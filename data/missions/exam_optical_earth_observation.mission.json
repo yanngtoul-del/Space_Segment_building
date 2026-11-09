@@ -1,105 +1,164 @@
 {
-  "schema_version": "1.0.0",
   "id": "EXAM-2026-EO-OPT",
-  "title": "Mission TerraScope-HR — Imagerie Multispectrale Haute Résolution (Classe Microsatellite)",
-  "context": "L'agence souhaite déployer un microsatellite d'observation optique sub-métrique en orbite héliosynchrone pour le suivi quotidien des infrastructures critiques et la cartographie urbaine fine.",
+  "title": "TerraScope-HR — Observation de la Terre Optique Sub-Métrique",
   "mission_type": "optical_eo",
-  "max_budget_meur": 18.0,
-  "target_lifetime_years": 5.0,
-  "client_agency": "Agence Européenne d'Observation Civile & Sécurité (AEOCS)",
-  "domain_label": "Observation de la Terre — Imagerie optique multispectrale métrique standard",
-  "primary_objective": "Fournir des images optiques panchromatiques et multispectrales avec une résolution au sol au nadir inférieure ou égale à 1,0 m (objectif 0,80 m) et une fauchée d'au moins 10 km, tout en garantissant un rapport signal-sur-bruit supérieur à 55 (objectif 80).",
+  "image": "mission_eo_opt.jpg",
+  "domain_label": "Observation de la Terre — Imagerie Optique & Multispectrale",
+  "client_agency": "Agence Spatiale Européenne (ESA) / Programme Copernicus — Surveillance Territoriale",
+  "context": "Dans le cadre du renouvellement des capacités européennes de cartographie rapide et de surveillance environnementale et urbaine, l'Agence souhaite déployer un satellite d'observation optique agile en orbite héliosynchrone (SSO). Le cahier des charges comporte une tension physique et programmatique délibérée : le besoin opérationnel réclame simultanément une résolution au nadir sub-métrique fine (objectif <= 0.70 m, seuil <= 0.88 m), une fauchée large (>= 17.0 km, idéalement >= 20 km), une incertitude radiométrique absolue caractérisée en vide thermique (<= 2.0 %) et le respect strict du juste retour industriel entre la France, l'Italie et l'Allemagne sous un plafond global de 15.20 M€.",
+  "primary_objective": "Acquérir des images optiques haute résolution (GSD <= 0.88 m au nadir, idéalement <= 0.70 m) sur les zones d'intérêt européennes et méditerranéennes avec une fauchée minimale de 17 km, un rapport signal-sur-bruit (SNR) supérieur à 58 et un étalonnage radiométrique sous vide thermique (TVAC <= 2.0 %).",
   "secondary_objectives": [
-    "Permettre des prises de vue dépointées pour réduire le temps de revisite.",
-    "Maintenir une marge de puissance moyenne d'au moins 15 % sur l'orbite héliosynchrone choisie.",
-    "Contenir le coût complet sous 18,0 M€."
+    "Arbitrer le dilemme altitude SSO (400 km vs 500 km vs 600 km) : abaisser l'altitude améliore la résolution GSD (atteignant ~0.69 m à 400 km avec un télescope 35 cm) mais réduit la fauchée sous les 14 km (non-conformité fauchée à justifier par dérogation) et augmente la traînée atmosphérique.",
+    "Arbitrer le choix de l'instrument entre un imageur 35 cm italien (STELLA-35, 4.10 M€) et un imageur 45 cm français (EagleEye-45, 6.20 M€) vis-à-vis du plafond budgétaire de 15.20 M€ et des quotas de retour géographique ESA.",
+    "Intégrer une campagne de calibration optique en vide thermique (TVAC chez Intespace ou CSL) tout en maintenant l'équilibre financier et industriel."
   ],
-  "scientific_or_operational_need": "Les services de protection civile ont besoin d'une résolution métrique pour qualifier les dégâts matériels et suivre l'évolution des territoires.",
-  "orbit_constraints_description": "Orbite basse héliosynchrone (SSO) recommandée entre 450 km et 600 km d'altitude.",
-  "conops_guidance": "Acquisition sur les terres éclairées, stockage mémoire et vidage vers la station polaire de Svalbard.",
+  "scientific_or_operational_need": "Les services de sécurité civile, d'urbanisme et d'aménagement côtier ont besoin d'une résolution sub-métrique pour distinguer les infrastructures routières, les bâtiments et les traits de côte, tandis que les hydrologues et agronomes réclament une fauchée de 17 à 20 km et une radiométrie absolue précise (< 2 %) pour le suivi végétal.",
+  "orbit_constraints_description": "Orbite basse héliosynchrone (SSO) recommandée entre 420 km et 550 km d'altitude. Attention au compromis fondamental : GSD = H * p / f et Fauchée = N_pix * GSD. Une orbite à 500 km avec STELLA-35 (D=35 cm, f=3.50 m) offre GSD = 0.86 m et Fauchée = 17.1 km ; descendre à 420 km permet d'atteindre GSD = 0.72 m mais dégrade la fauchée à 14.4 km (< 17 km).",
+  "conops_guidance": "Préciser le profil d'orbite type : prises de vue diurnes à passage descendant (10h30 heure solaire locale), basculement d'attitude (roulis off-nadir grâce au pack ADCS) pour revisiter les cibles prioritaires, stockage bord sur mémoire de masse >= 1 To, vidage en bande X ou S haut débit lors des passages sur Kiruna et Toulouse, et maintien à poste par propulsion électrique (HEMP ou Hall).",
   "deliverables_expected": [
-    "Justifier le choix du télescope et de l'altitude au regard de la résolution et de la fauchée.",
-    "Justifier la plateforme et l'ADCS choisi."
+    "Analyse du compromis d'altitude (GSD vs Fauchée vs SNR vs traînée atmosphérique) et justification de l'orbite SSO retenue.",
+    "Arbitrage détaillé de la chaîne instrumentale (STELLA-35 vs EagleEye-45 vs Altair-25) et de la campagne d'essais sol (TVAC optique vs salle blanche ambiante).",
+    "Justification du respect des quotas de retour géographique ESA (France, Italie, Allemagne) et de la part hors-ESA (<= 15 %).",
+    "En cas de non-conformité résiduelle (ex: privilégier EagleEye-45 pour GSD = 0.77 m au prix d'un dépassement budgétaire, ou abaisser l'orbite à 420 km au prix d'une fauchée < 17 km, ou retenir une calibration ambiante ISO 5 pour économiser 0.36 M€), rédiger une Demande de Dérogation (Request for Waiver) argumentée."
   ],
-  "allowed_suppliers": [],
-  "min_trl": 8,
+  "max_budget_meur": 15.2,
+  "min_trl": 7,
+  "target_lifetime_years": 5.0,
   "requirements": [
     {
-      "id": "REQ-GSD-01",
-      "title": "Résolution spatiale au nadir (GSD)",
-      "description": "La distance d'échantillonnage au sol (GSD) au nadir doit être <= 1,0 m.",
+      "id": "REQ-OPT-GSD",
+      "title": "Résolution Spatiale Nadir (GSD)",
       "req_type": "payload_perf",
       "parameter": "gsd_nadir_m",
       "operator": "<=",
-      "threshold": 1.0,
-      "goal": 0.8,
+      "threshold": 0.88,
+      "goal": 0.7,
       "unit": "m",
-      "weight": 1.5
+      "description": "La distance d'échantillonnage au sol (GSD) au nadir doit être <= 0.88 m (objectif <= 0.70 m). Note : atteindre l'objectif de 0.70 m impose soit un télescope 45 cm (hors budget/quota IT), soit une orbite < 410 km (qui viole l'exigence de fauchée)."
     },
     {
-      "id": "REQ-SWATH-01",
-      "title": "Largeur de fauchée au nadir",
-      "description": "La largeur de fauchée cross-track doit être >= 10,0 km.",
+      "id": "REQ-OPT-SWATH",
+      "title": "Largeur de Fauchée au Nadir",
       "req_type": "payload_perf",
       "parameter": "swath_width_km",
       "operator": ">=",
-      "threshold": 10.0,
-      "goal": 15.0,
+      "threshold": 17.0,
+      "goal": 20.0,
       "unit": "km",
-      "weight": 1.0
+      "description": "La fauchée au sol doit couvrir au minimum 17.0 km au nadir (antagoniste avec la réduction d'altitude ou l'allongement de la focale)."
     },
     {
-      "id": "REQ-SNR-01",
-      "title": "Rapport signal sur bruit radiométrique (SNR)",
-      "description": "Le SNR au nadir doit être >= 55.",
+      "id": "REQ-OPT-SNR",
+      "title": "Rapport Signal sur Bruit (SNR Nadir)",
       "req_type": "payload_perf",
       "parameter": "snr_nadir_estimate",
       "operator": ">=",
-      "threshold": 55.0,
-      "goal": 80.0,
-      "unit": "",
-      "weight": 1.0
+      "threshold": 58.0,
+      "goal": 75.0,
+      "unit": "ratio",
+      "description": "Le rapport signal sur bruit dans la bande panchromatique au nadir doit être >= 58."
+    },
+    {
+      "id": "REQ-OPT-CALIB",
+      "title": "Incertitude Radiométrique Absolue (Étalonnage Sol TVAC)",
+      "req_type": "payload_perf",
+      "parameter": "radiometric_accuracy_pct",
+      "operator": "<=",
+      "threshold": 2.0,
+      "goal": 1.5,
+      "unit": "%",
+      "description": "L'incertitude radiométrique absolue certifiée au sol doit être <= 2.0 %, ce qui impose une campagne en cuve à vide thermique (TVAC optique <= 1.8 % ou cryo-TVAC <= 0.9 %). Une calibration ambiante ISO 5 (5.5 %) génère une non-conformité nécessitant une demande de dérogation."
+    },
+    {
+      "id": "REQ-SYS-POINT",
+      "title": "Précision de Pointage Plateforme / ADCS",
+      "req_type": "payload_perf",
+      "parameter": "pointing_accuracy_deg",
+      "operator": "<=",
+      "threshold": 0.005,
+      "goal": 0.003,
+      "unit": "deg",
+      "description": "La précision de pointage 3 axes (plateforme ou suite ADCS) doit être <= 0.005° pour garantir la géolocalisation sub-métrique."
+    },
+    {
+      "id": "REQ-SYS-LIFE",
+      "title": "Durée de Vie Nominale Plateforme",
+      "req_type": "lifetime",
+      "parameter": "design_lifetime_years",
+      "operator": ">=",
+      "threshold": 5.0,
+      "goal": 7.0,
+      "unit": "yr",
+      "description": "La plateforme sélectionnée doit être qualifiée pour au moins 5 ans en orbite LEO."
     }
   ],
   "ground_stations": [
     {
-      "id": "svalbard",
-      "name": "Svalbard Satellite Station (KSAT)",
-      "latitude_deg": 78.22,
-      "longitude_deg": 15.4,
-      "altitude_m": 450.0,
+      "id": "gs_kiruna",
+      "name": "Kiruna (Suède — Station Polaire Estrack)",
+      "latitude_deg": 67.85,
+      "longitude_deg": 20.96,
+      "altitude_m": 400.0,
       "min_elevation_deg": 5.0,
       "bands_supported": [
         "S",
-        "X",
-        "Ka"
+        "X"
       ],
-      "cost_per_pass_eur": 240.0,
-      "cost_per_minute_eur": 0.0
+      "cost_per_pass_eur": 450.0
+    },
+    {
+      "id": "gs_toulouse",
+      "name": "Toulouse — Aussaguel (France)",
+      "latitude_deg": 43.43,
+      "longitude_deg": 1.49,
+      "altitude_m": 210.0,
+      "min_elevation_deg": 10.0,
+      "bands_supported": [
+        "S",
+        "X"
+      ],
+      "cost_per_pass_eur": 300.0
     }
   ],
-  "target_zones": [],
+  "target_zones": [
+    {
+      "id": "tz_europe",
+      "name": "Europe Occidentale & Bassin Méditerranéen",
+      "points_lat_lon": [
+        [
+          48.85,
+          2.35
+        ],
+        [
+          41.9,
+          12.5
+        ],
+        [
+          37.98,
+          23.72
+        ]
+      ],
+      "priority": 1
+    }
+  ],
   "geo_return_constraints": [
     {
       "country": "France",
-      "min_pct": 30.0,
-      "max_pct": 55.0,
-      "rationale": "Souscription CNES au programme d'observation de la Terre ESA (quote-part nationale 45 %)"
+      "min_pct": 35.0,
+      "max_pct": 60.0,
+      "rationale": "Contributeur majeur ESA — Participation librement répartie entre la plateforme, les équipements sous-systèmes, la charge utile ou les essais TVAC (Intespace Toulouse)."
     },
     {
       "country": "Italie",
-      "min_pct": 20.0,
+      "min_pct": 25.0,
       "max_pct": 45.0,
-      "rationale": "Souscription ASI au programme d'observation de la Terre ESA (quote-part nationale 35 %)"
+      "rationale": "Co-contributeur majeur ESA — Participation librement répartie sur l'ensemble des lots industriels du satellite."
     },
     {
       "country": "Allemagne",
-      "min_pct": 5.0,
+      "min_pct": 8.0,
       "max_pct": 25.0,
-      "rationale": "Souscription DLR au programme d'observation de la Terre ESA (quote-part nationale 15 %)"
+      "rationale": "État participant au programme — Participation librement répartie (propulsion, mémoire, ADCS, liaison descendante ou essais)."
     }
-  ],
-  "metadata": {},
-  "max_non_esa_spend_pct": 15.0,
-  "image": "mission_eo_opt.jpg"
+  ]
 }

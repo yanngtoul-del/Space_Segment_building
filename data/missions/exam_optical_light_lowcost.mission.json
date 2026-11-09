@@ -1,106 +1,134 @@
 {
-  "schema_version": "1.0.0",
   "id": "EXAM-2026-EO-LIGHT",
-  "title": "Mission EcoSat-Earth — Observation Optique Compacte & Constellation Low-Cost",
-  "context": "Dans le cadre d'un programme d'amorçage NewSpace pour le suivi de la déforestation, des incendies et des cultures agricoles, l'agence souhaite déployer un satellite d'observation optique ultra-économique en orbite héliosynchrone pour un budget total inférieur ou égal à 2,80 M€ tout compris.",
+  "title": "EcoSat-Earth — Démonstrateur Optique NewSpace à Bas Coût",
   "mission_type": "optical_eo",
-  "max_budget_meur": 2.8,
-  "target_lifetime_years": 3.0,
-  "client_agency": "Agence Régionale de Surveillance Environnementale & Pépinière NewSpace",
-  "domain_label": "Observation de la Terre — Imagerie optique compacte et constellation low-cost",
-  "primary_objective": "Délivrer des images multispectrales ou panchromatiques avec une résolution spatiale au nadir (GSD) inférieure ou égale à 3,5 m (objectif 2,5 m) et une fauchée au sol d'au moins 12,0 km (objectif 20 km), avec un SNR radiométrique supérieur ou égal à 50, en utilisant une plateforme nanosatellite ou microsatellite légère.",
+  "image": "mission_eo_light.jpg",
+  "domain_label": "Observation de la Terre — Imagerie Multispectrale Légère & Agriculture de Précision",
+  "client_agency": "Start-up Européenne d'AgriTech / Appel à Projets NewSpace Rapide",
+  "context": "Une jeune pousse européenne d'agriculture de précision souhaite déployer le premier satellite tête de série d'une future constellation de suivi hydrique et parcellaire. Le budget d'investissement (CAPEX) est strictement plafonné à 2.35 M€ tout compris (satellite, options, étalonnage sol et lancement). Ce cahier des charges place l'ingénieur face aux compromis classiques du NewSpace : choisir entre un CubeSat 12U/16U (durée de vie 3.0 ans, capacité charge utile 8–10 kg) et un micro-satellite ESPA-60 (durée de vie 4.0 ans, mais hors budget à > 3.6 M€), et arbitrer entre l'étalonnage TVAC optique complet (+0.48 M€, incertitude 1.8 %) et l'étalonnage standard en salle blanche ISO 5 (+0.12 M€, incertitude 5.5 %).",
+  "primary_objective": "Concevoir un nanosatellite d'observation optique multispectrale en orbite SSO délivrant un GSD <= 2.80 m (objectif <= 1.60 m), une fauchée >= 18.0 km (objectif >= 45.0 km), un SNR >= 80 et une durée de vie >= 3.0 ans (objectif >= 4.0 ans) sous une enveloppe globale <= 2.35 M€.",
   "secondary_objectives": [
-    "Contenir la masse au lancement sous 40 kg pour exploiter les vols partagés (rideshare CubeSat ou petit plateau).",
-    "Assurer une durée de vie opérationnelle minimale de 3 ans en orbite basse.",
-    "Garantir une marge de puissance positive sur l'ensemble des modes orbitaux."
+    "Analyser l'incompatibilité entre le plafond budgétaire de 2.35 M€ et les objectifs étendus (Goals) : viser GSD <= 1.60 m (STELLA-20, 11 kg) ou Fauchée >= 45 km (WideView-18, 9.5 kg) ou une durée de vie de 4.0 ans impose de quitter la plateforme CubeSat 12U (max 8 kg, 3.0 ans) pour une plateforme MicroBus-16U ou ESPA-60 qui dépasse le budget ou dégrade le GSD.",
+    "Arbitrer la stratégie AIT / Calibration au sol : démontrer que sur un budget de 2.35 M€, la campagne TVAC Optique complète chez Intespace (0.48 M€) passe tout juste sur MicroBus-12U + CompactPan-12 (coût total ~2.22 M€ avec TVAC ou ~1.86 M€ en salle blanche ambiante ISO 5), mais laisse une marge de puissance électrique très serrée sur le bus 12U si on utilise l'émetteur bande S standard (4.5 %) contre 40.9 % en UHF.",
+    "Optimiser le choix du service de lancement (Déployeur CubeSat P-POD/QuadPack vs Rideshare SSO)."
   ],
-  "scientific_or_operational_need": "Les coopératives agricoles et les services forestiers régionaux nécessitent des passages fréquents à résolution métrique/décamétrique sans encourir le coût prohibitif des satellites institutionnels de grande taille.",
-  "orbit_constraints_description": "Orbite basse héliosynchrone (SSO) standard entre 480 km et 540 km d'altitude (LTAN 10h30–11h30), accessible via les services de lancement partagé fréquents.",
-  "conops_guidance": "Prises de vue programmées au-dessus des forêts et parcelles agricoles le jour, stockage dans la mémoire de masse et vidage rapide en bande S ou X lors des passages au-dessus de la station sol universitaire.",
+  "scientific_or_operational_need": "Fournir des cartes hebdomadaires d'indice de végétation (NDVI) à l'échelle intra-parcellaire (< 3 m) sur les grandes plaines céréalières européennes à un coût par satellite compatible d'une constellation de 12 unités.",
+  "orbit_constraints_description": "Orbite héliosynchrone (SSO) entre 450 km et 550 km d'altitude. À 500 km, l'imageur CompactPan-12 (D=12 cm, f=1.05 m, 4.5 kg) fournit un GSD de 2.62 m et une fauchée de 20.9 km. Baisser l'altitude à 420 km améliore le GSD à 2.20 m mais réduit la fauchée à 17.6 km (< 18 km requis !).",
+  "conops_guidance": "Détailler le profil opérationnel d'un CubeSat 12U : acquisitions diurnes programmées sur les zones agricoles, gestion stricte du bilan énergétique en éclipse (capacité batterie réduite sur 12U), stockage sur mémoire flash 64 Go ou 512 Go, et téléchargement des vignettes compressées.",
   "deliverables_expected": [
-    "Démontrer le respect du plafond budgétaire de 2,80 M€ en justifiant l'arbitrage plateforme (CubeSat 12U/16U vs Smallsat 50 kg).",
-    "Vérifier le compromis d'altitude vis-à-vis du GSD <= 3,5 m et de la fauchée >= 12 km.",
-    "Valider le bilan de masse et de puissance de la plateforme choisie."
+    "Justification du dimensionnement CubeSat 12U + CompactPan-12 face aux alternatives MicroBus-16U + WideView-18 (GSD 3.61 m > 2.80 m) et MicroBus-ESPA60 + STELLA-20 (hors budget > 3.6 M€).",
+    "Arbitrage technico-économique entre la calibration TVAC Optique (0.48 M€, qualifiant l'athermalisation sous vide) et la calibration Salle Blanche ISO 5 (0.12 M€, générant un avertissement TVAC mais économisant 0.36 M€).",
+    "Analyse du compromis sur le sous-système TT&C / liaison descendante vis-à-vis de la marge de puissance électrique du bus 12U (22 W disponibles).",
+    "En cas de choix privilégiant la durée de vie de 4 ans (ESPA-60) ou la fauchée de 58 km (WideView-18), rédiger une Demande de Dérogation (Waiver) justifiée."
   ],
-  "allowed_suppliers": [],
+  "max_budget_meur": 2.35,
   "min_trl": 8,
+  "target_lifetime_years": 3.0,
   "requirements": [
     {
       "id": "REQ-LIGHT-GSD",
-      "title": "Résolution spatiale au nadir (GSD)",
-      "description": "La distance d'échantillonnage au sol (GSD) au nadir doit être <= 3,5 m.",
+      "title": "Résolution Spatiale au Nadir (GSD)",
       "req_type": "payload_perf",
       "parameter": "gsd_nadir_m",
       "operator": "<=",
-      "threshold": 3.5,
-      "goal": 2.5,
+      "threshold": 2.8,
+      "goal": 1.6,
       "unit": "m",
-      "weight": 1.5
+      "description": "Le GSD au nadir doit être <= 2.80 m (objectif <= 1.60 m). Note : descendre sous 1.60 m exige un télescope >= 20 cm (> 11 kg) incompatible avec un CubeSat 12U."
     },
     {
       "id": "REQ-LIGHT-SWATH",
-      "title": "Largeur de fauchée au sol",
-      "description": "La fauchée cross-track au nadir doit être >= 12,0 km.",
+      "title": "Largeur de Fauchée au Sol",
       "req_type": "payload_perf",
       "parameter": "swath_width_km",
       "operator": ">=",
-      "threshold": 12.0,
-      "goal": 20.0,
+      "threshold": 18.0,
+      "goal": 45.0,
       "unit": "km",
-      "weight": 1.0
+      "description": "La fauchée au nadir doit être >= 18.0 km (interdit d'abaisser l'altitude SSO sous 430 km avec CompactPan-12)."
     },
     {
       "id": "REQ-LIGHT-SNR",
-      "title": "Rapport signal sur bruit (SNR)",
-      "description": "Le SNR au nadir doit être >= 50.",
+      "title": "Rapport Signal sur Bruit (SNR Nadir)",
       "req_type": "payload_perf",
       "parameter": "snr_nadir_estimate",
       "operator": ">=",
-      "threshold": 50.0,
-      "goal": 70.0,
-      "unit": "",
-      "weight": 1.0
+      "threshold": 80.0,
+      "goal": 120.0,
+      "unit": "ratio",
+      "description": "Le SNR au nadir doit être >= 80 pour garantir la précision radiométrique des indices végétatifs NDVI."
+    },
+    {
+      "id": "REQ-LIGHT-POINT",
+      "title": "Précision de Pointage ADCS",
+      "req_type": "payload_perf",
+      "parameter": "pointing_accuracy_deg",
+      "operator": "<=",
+      "threshold": 0.06,
+      "goal": 0.03,
+      "unit": "deg",
+      "description": "La précision de pointage doit être <= 0.06° (requiert au minimum le pack ADCS CubeSat Précision ±0.05°)."
+    },
+    {
+      "id": "REQ-LIGHT-LIFE",
+      "title": "Durée de Vie Nominale Plateforme",
+      "req_type": "lifetime",
+      "parameter": "design_lifetime_years",
+      "operator": ">=",
+      "threshold": 3.0,
+      "goal": 4.0,
+      "unit": "yr",
+      "description": "La durée de vie de la plateforme doit être >= 3.0 ans (objectif >= 4.0 ans, mais le passage sur ESPA-60 dépasse le plafond de 2.35 M€)."
     }
   ],
   "ground_stations": [
     {
-      "id": "sta_brest_light",
-      "name": "Station Universitaire de Brest",
-      "latitude_deg": 48.39,
-      "longitude_deg": -4.49,
-      "altitude_m": 50.0,
+      "id": "gs_toulouse_light",
+      "name": "Toulouse — Station Universitaire / NewSpace (France)",
+      "latitude_deg": 43.56,
+      "longitude_deg": 1.48,
+      "altitude_m": 160.0,
       "min_elevation_deg": 10.0,
       "bands_supported": [
+        "UHF",
         "S",
         "X"
       ],
-      "cost_per_pass_eur": 60.0,
-      "cost_per_minute_eur": 0.0
+      "cost_per_pass_eur": 120.0
+    },
+    {
+      "id": "gs_delft",
+      "name": "Delft — Station Sol Nanosat (Pays-Bas)",
+      "latitude_deg": 52.0,
+      "longitude_deg": 4.37,
+      "altitude_m": 15.0,
+      "min_elevation_deg": 10.0,
+      "bands_supported": [
+        "UHF",
+        "S"
+      ],
+      "cost_per_pass_eur": 100.0
     }
   ],
   "target_zones": [
     {
-      "id": "zone_landes",
-      "name": "Massif des Landes & Bassin Aquitain",
+      "id": "tz_agri_plains",
+      "name": "Bassins Céréaliers Européens (Beauce, Pô, Castille)",
       "points_lat_lon": [
         [
-          44.0,
-          -1.0
+          48.2,
+          1.8
         ],
         [
           45.0,
-          0.0
+          10.5
         ],
         [
-          43.5,
-          -0.5
+          41.6,
+          -4.7
         ]
       ],
       "priority": 1
     }
-  ],
-  "geo_return_constraints": [],
-  "metadata": {},
-  "max_non_esa_spend_pct": 15.0,
-  "image": "mission_eo_light.jpg"
+  ]
 }

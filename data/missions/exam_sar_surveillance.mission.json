@@ -1,72 +1,103 @@
 {
-  "schema_version": "1.0.0",
   "id": "EXAM-2026-SAR",
-  "title": "Mission RadarGuard-SAR — Surveillance Maritime & Polaire Tout-Temps par Radar Micro-Ondes",
-  "context": "Concevoir un satellite d'observation radar à synthèse d'ouverture (SAR) capable d'imager les zones maritimes, les détroits stratégiques et les glaces arctiques de jour comme de nuit, indépendamment de la couverture nuageuse.",
+  "title": "RadarGuard-SAR — Surveillance Maritime & Polaire Tout-Temps",
   "mission_type": "sar_eo",
-  "max_budget_meur": 25.0,
-  "target_lifetime_years": 5.0,
-  "client_agency": "Direction de la Surveillance Maritime & Polaire (DSMP)",
-  "domain_label": "Observation de la Terre — Imagerie radar SAR micro-ondes tout-temps",
-  "primary_objective": "Assurer l'imagerie radar tout-temps en mode Stripmap avec une résolution azimutale <= 2,0 m (objectif 1,5 m), une fauchée au sol d'au moins 15 km et une sensibilité radiométrique (NESZ) <= -15,0 dB afin de détecter les navires non coopératifs, les pollutions marines et la dérive des glaces.",
+  "image": "mission_sar_radar.jpg",
+  "domain_label": "Observation de la Terre — Imagerie Radar à Synthèse d'Ouverture (SAR)",
+  "client_agency": "Agence Spatiale Européenne (ESA) / Agence Européenne de Sécurité Maritime (EMSA)",
+  "context": "Pour surveiller le trafic maritime non-coopératif, les dégazages illicites et la dérive des glaces dans l'Arctique indépendamment de la couverture nuageuse et de l'éclairement solaire, l'EMSA et l'ESA lancent le programme RadarGuard-SAR. Cette mission met en évidence le compromis physique fondamental des radars à synthèse d'ouverture (SAR) : en mode Stripmap, la résolution azimutale théorique vaut d_az = L_a / 2 (où L_a est la longueur d'antenne), tandis que le bilan de sensibilité radar (NESZ <= -21.0 dB) exige un produit Puissance x Gain élevé (donc une grande surface d'antenne A et une forte puissance RF).",
+  "primary_objective": "Déployer un satellite SAR en orbite héliosynchrone (SSO, créneau crépusculaire Dawn-Dusk 6h/18h) capable d'acquérir des scènes radar Stripmap avec une résolution azimutale <= 1.80 m (objectif <= 1.30 m), une résolution distance au sol <= 1.00 m, une fauchée >= 30.0 km, une sensibilité NESZ <= -21.0 dB et une qualification antenne/Multipactor en vide thermique (CATR-TVAC).",
   "secondary_objectives": [
-    "Dimensionner l'alimentation électrique pour absorber la puissance crête RF élevée de l'antenne réseau active.",
-    "Maintenir le coût complet du satellite et du lancement sous 25,0 M€."
+    "Analyser l'antagonisme physique SAR entre résolution azimutale et sensibilité NESZ : les petits radars NewSpace (CompactSAR-X à 4.90 M€ ou MicroSAR-X à 7.80 M€) offrent d'excellentes résolutions azimutales (1.25 m à 1.60 m) grâce à leur antenne courte, mais souffrent d'un NESZ dégradé (-2.1 dB à -7.7 dB >> -21 dB) qui rend les nappes d'hydrocarbures invisibles.",
+    "Comparer les radars institutionnels haute sensibilité en bande X (Aegis-X Tactical allemand à 9.40 M€, ALBA-X italien à 10.60 M€, Zephyr-X américain à 5.60 M€/8.40 M€) et en bande C/L vis-à-vis de la puissance plateforme (>= 700 W crête), du plafond de 15 % hors-ESA et du budget global de 24.50 M€.",
+    "Dimensionner la chaîne de télémesure charge utile haute cadence (émetteur bande X >= 500 Mbps ou bande Ka) et qualifier l'antenne active en base compacte sous vide thermique (CATR-TVAC chez IABG Ottobrunn, 0.65 M€)."
   ],
-  "scientific_or_operational_need": "Les zones polaires et les mers septentrionales sont couvertes de nuages plus de 70 % de l'année et plongées dans l'obscurité hivernale : seul un radar imageur actif micro-ondes assure une surveillance continue.",
-  "orbit_constraints_description": "Orbite polaire ou héliosynchrone crépusculaire (dawn-dusk 06h00/18h00) à 500–580 km d'altitude afin de maximiser l'ensoleillement des panneaux solaires et minimiser les cycles d'éclipse lors des tirs radar.",
-  "conops_guidance": "Séquences radar de 60 à 120 secondes par orbite. Stockage des données brutes I/Q dans la mémoire de masse et vidage haut débit bande X vers les stations boréales (Svalbard/Inuvik).",
+  "scientific_or_operational_need": "La détection des pollutions par hydrocarbures (amortissement des vagues capillaires de Bragg) et des petites embarcations en mer formée exige impérativement un plancher de bruit NESZ <= -21 dB, tandis que l'identification des superstructures de navires requiert une résolution métrique.",
+  "orbit_constraints_description": "Orbite héliosynchrone (SSO) entre 450 km et 550 km d'altitude. Le créneau Dawn-Dusk (passage à l'équateur à 06h00 / 18h00) est vivement recommandé dans le CONOPS afin de maintenir les panneaux solaires illuminés en permanence et d'alimenter l'antenne SAR active (720 W à 1250 W en émission). Notez que baisser l'altitude à 400 km améliore le NESZ de ~2.8 dB (loi en R^3) mais réduit la fauchée au sol de 20 %.",
+  "conops_guidance": "Justifier le cycle d'utilisation radar (duty cycle typique <= 15-25 % par orbite) : préchauffage des modules T/R GaN, acquisition radar par salves de 60 à 120 secondes sur les zones côtières et arctiques, enregistrement sur mémoire de masse haute vitesse, vidage sur la station polaire du Svalbard (SvalSat) et de Matera, et gestion thermique du panneau rayonnant.",
   "deliverables_expected": [
-    "Analyser l'influence de l'altitude et de la taille d'antenne sur la résolution SAR et le bilan de bruit NESZ.",
-    "Valider le bilan de puissance moyenne et crête de la plateforme face aux tirs radar.",
-    "Vérifier le choix du lanceur compatible avec la masse humide et ses marges."
+    "Démonstration du compromis physique SAR : pourquoi un petit radar à antenne courte (CompactSAR-X / MicroSAR-X) atteint l'objectif d'azimut <= 1.30 m mais échoue sur le NESZ (-2 à -8 dB vs -21 dB requis), tandis qu'Aegis-X Tactical ou ALBA-X satisfait le NESZ (-22.8 à -24.1 dB) avec un azimut de 1.75–1.80 m.",
+    "Justification du choix de la plateforme (classe 300–500 kg comme AstraFlex-300 ou AlbionMidi-300) et du bilan de puissance crête/moyenne en orbite Dawn-Dusk.",
+    "Validation de la qualification sol en base compacte sous vide thermique (CATR-TVAC IABG) et du juste retour géographique ESA (Allemagne, France, Italie).",
+    "En cas d'architecture alternative présentant une non-conformité (ex: choix de MicroSAR-X pour réduire la masse/coût au détriment du NESZ, ou choix d'ALBA-X dépassant le quota italien ou le budget avec lanceur dédié), formuler une Demande de Dérogation (Waiver) chiffrée."
   ],
-  "allowed_suppliers": [],
-  "min_trl": 8,
+  "max_budget_meur": 24.5,
+  "min_trl": 7,
+  "target_lifetime_years": 6.0,
   "requirements": [
     {
       "id": "REQ-SAR-AZ-01",
       "title": "Résolution Azimutale Stripmap",
-      "description": "Résolution azimutale le long de la trace <= 2.0 m",
       "req_type": "payload_perf",
       "parameter": "azimuth_resolution_stripmap_m",
       "operator": "<=",
-      "threshold": 2.0,
-      "goal": 1.5,
+      "threshold": 1.8,
+      "goal": 1.3,
       "unit": "m",
-      "weight": 1.0
+      "description": "La résolution azimutale en mode Stripmap (L_a / 2) doit être <= 1.80 m (objectif <= 1.30 m). Attention : réduire L_a pour viser 1.30 m dégrade sévèrement le gain d'antenne et le NESZ."
+    },
+    {
+      "id": "REQ-SAR-RG-01",
+      "title": "Résolution Distance au Sol (Ground Range)",
+      "req_type": "payload_perf",
+      "parameter": "ground_range_resolution_m",
+      "operator": "<=",
+      "threshold": 1.0,
+      "goal": 0.65,
+      "unit": "m",
+      "description": "La résolution transversale projetée au sol doit être <= 1.00 m."
     },
     {
       "id": "REQ-SAR-SWATH-01",
-      "title": "Fauchée au Sol",
-      "description": "Largeur de fauchée au sol >= 15.0 km",
+      "title": "Largeur de Fauchée Radar au Sol",
       "req_type": "payload_perf",
       "parameter": "swath_width_ground_km",
       "operator": ">=",
-      "threshold": 15.0,
-      "goal": 25.0,
+      "threshold": 30.0,
+      "goal": 50.0,
       "unit": "km",
-      "weight": 1.0
+      "description": "La fauchée radar en mode Stripmap doit être >= 30.0 km."
     },
     {
       "id": "REQ-SAR-NESZ-01",
-      "title": "Sensibilité Radiométrique (NESZ)",
-      "description": "Noise Equivalent Sigma Zero <= -15.0 dB pour détecter les cibles de faible réflectivité",
+      "title": "Sensibilité Radiométrique Radar (NESZ)",
       "req_type": "payload_perf",
       "parameter": "nesz_db",
       "operator": "<=",
-      "threshold": -15.0,
-      "goal": -22.0,
+      "threshold": -21.0,
+      "goal": -24.0,
       "unit": "dB",
-      "weight": 1.0
+      "description": "Le Noise Equivalent Sigma Zero (NESZ) doit être <= -21.0 dB pour détecter les pollutions marines à faible rétrodiffusion."
+    },
+    {
+      "id": "REQ-SAR-CALIB",
+      "title": "Précision d'Étalonnage Antenne & Multipactor (CATR-TVAC)",
+      "req_type": "payload_perf",
+      "parameter": "radiometric_accuracy_pct",
+      "operator": "<=",
+      "threshold": 2.1,
+      "goal": 1.8,
+      "unit": "%",
+      "description": "L'antenne active SAR doit être étalonnée en base compacte sous vide thermique (CATR-TVAC <= 2.0 %) pour qualifier l'absence d'effet Multipactor et la stabilité de phase des modules T/R."
+    },
+    {
+      "id": "REQ-SAR-LIFE",
+      "title": "Durée de Vie Plateforme",
+      "req_type": "lifetime",
+      "parameter": "design_lifetime_years",
+      "operator": ">=",
+      "threshold": 6.0,
+      "goal": 8.0,
+      "unit": "yr",
+      "description": "La plateforme doit être dimensionnée pour au moins 6 ans d'opérations."
     }
   ],
   "ground_stations": [
     {
-      "id": "svalbard_sta",
-      "name": "Svalbard Arctic Station",
-      "latitude_deg": 78.22,
-      "longitude_deg": 15.4,
+      "id": "gs_svalbard",
+      "name": "Svalbard — SvalSat (Norvège, 78°N)",
+      "latitude_deg": 78.23,
+      "longitude_deg": 15.41,
       "altitude_m": 450.0,
       "min_elevation_deg": 5.0,
       "bands_supported": [
@@ -74,40 +105,38 @@
         "X",
         "Ka"
       ],
-      "cost_per_pass_eur": 250.0,
-      "cost_per_minute_eur": 0.0
+      "cost_per_pass_eur": 550.0
     },
     {
-      "id": "inuvik_sta",
-      "name": "Inuvik Canadian Station",
-      "latitude_deg": 68.36,
-      "longitude_deg": -133.72,
-      "altitude_m": 100.0,
-      "min_elevation_deg": 5.0,
+      "id": "gs_matera",
+      "name": "Matera (Italie — Station ASI/EMSA)",
+      "latitude_deg": 40.65,
+      "longitude_deg": 16.7,
+      "altitude_m": 530.0,
+      "min_elevation_deg": 10.0,
       "bands_supported": [
         "S",
         "X"
       ],
-      "cost_per_pass_eur": 220.0,
-      "cost_per_minute_eur": 0.0
+      "cost_per_pass_eur": 380.0
     }
   ],
   "target_zones": [
     {
-      "id": "zone_baltic",
-      "name": "Mer Baltique & Détroits Arctiques",
+      "id": "tz_arctic_med",
+      "name": "Routes Maritimes Arctiques & Détroits Méditerranéens",
       "points_lat_lon": [
         [
-          54.0,
-          10.0
+          72.0,
+          25.0
         ],
         [
-          60.0,
-          18.0
+          36.0,
+          -5.5
         ],
         [
-          65.0,
-          24.0
+          37.0,
+          15.0
         ]
       ],
       "priority": 1
@@ -116,24 +145,21 @@
   "geo_return_constraints": [
     {
       "country": "Allemagne",
-      "min_pct": 35.0,
+      "min_pct": 40.0,
       "max_pct": 65.0,
-      "rationale": "Souscription DLR au programme radar SAR ESA (quote-part nationale 50 %)"
+      "rationale": "Contributeur principal du programme — Participation librement répartie (instrument SAR, équipements ou essais CATR-TVAC chez IABG Ottobrunn)."
     },
     {
       "country": "France",
-      "min_pct": 25.0,
+      "min_pct": 30.0,
       "max_pct": 50.0,
-      "rationale": "Souscription CNES au programme radar SAR ESA (quote-part nationale 35 %)"
+      "rationale": "Co-contributeur majeur — Participation librement répartie entre la plateforme, la propulsion, l'ADCS ou la télémesure."
     },
     {
       "country": "Italie",
       "min_pct": 3.0,
-      "max_pct": 20.0,
-      "rationale": "Souscription ASI au programme radar SAR ESA (quote-part nationale 10 %)"
+      "max_pct": 15.0,
+      "rationale": "Partenaire industriel associé — Participation librement répartie (émetteurs bande X/Ka, TT&C bande S, ADCS)."
     }
-  ],
-  "metadata": {},
-  "max_non_esa_spend_pct": 15.0,
-  "image": "mission_sar_radar.jpg"
+  ]
 }

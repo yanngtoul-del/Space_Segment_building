@@ -43,12 +43,19 @@ def evaluate_payload_requirements(
     """Compute performance for any payload type and verify against mission requirements."""
     perfs: dict = {}
     compliance: list[RuleCheckResult] = []
+    has_spectrometer_partner = any(
+        isinstance(p_other, SpectrometerPayload) for p_other in (all_payloads or [])
+    )
 
     if payload.payload_type == PayloadType.OPTICAL_IMAGER:
         assert isinstance(payload, OpticalImagerPayload)
         p = OpticalImagerModel.compute(payload, orbit)
-        perfs = p.__dict__
+        perfs = p.__dict__.copy()
         perfs["aperture_diameter_m"] = payload.aperture_diameter_m
+        # If this optical telescope is paired with a dispersive spectrometer,
+        # avoid duplicate swath_width_km checks on the front telescope when the mission is a spectrometer mission
+        if has_spectrometer_partner and mission.mission_type == "atmosphere":
+            perfs.pop("swath_width_km", None)
 
     elif payload.payload_type == PayloadType.SAR:
         assert isinstance(payload, SarPayload)
@@ -142,9 +149,10 @@ def evaluate_payload_requirements(
                 )
             )
 
-        perfs = p.__dict__
+        perfs = p.__dict__.copy()
         perfs["spectral_resolution_nm"] = payload.spectral_resolution_nm
         perfs["spectral_range_max_nm"] = payload.spectral_range_max_nm
+        perfs["spectrometer_swath_km"] = p.swath_width_km
 
     elif payload.payload_type == PayloadType.OPTICAL_COMM:
         assert isinstance(payload, OpticalCommPayload)

@@ -1,126 +1,133 @@
 {
-  "schema_version": "1.0.0",
   "id": "EXAM-2026-GEO-COMMS",
-  "title": "Mission AstraGEO-Broadband — Télécommunications Géostationnaires Régionales Ku/Ka",
-  "context": "Pour assurer la connectivité souveraine et la diffusion audiovisuelle et de données sécurisées 24h/24 sans interruption au-dessus de l'Europe et du bassin méditerranéen, l'opérateur lance le dimensionnement d'un satellite géostationnaire (GEO, altitude 35 786 km, inclinaison 0,0°).",
+  "title": "AstraGEO-Broadband — Relais de Télécommunications Géostationnaire (35 786 km)",
   "mission_type": "telecom_radio",
-  "max_budget_meur": 55.0,
-  "target_lifetime_years": 12.0,
-  "client_agency": "Opérateur Européen de Télécommunications par Satellite (EUTELSAT/ESA)",
-  "domain_label": "Télécommunications Spatiales — Orbite géostationnaire (GEO), répéteurs Ku/Ka et couverture permanente",
-  "primary_objective": "Fournir un débit descendant utile d'au moins 600,0 Mbit/s (objectif 1 800 Mbit/s) sur antenne sol de 4,5 m avec une marge de liaison Eb/N0 >= 3,5 dB en bande Ku/Ka, une durée de vie garantie de la plateforme d'au moins 12 ans (objectif 15 ans) et une précision de maintien à poste et pointage <= 0,05°.",
+  "image": "mission_geo_comms.jpg",
+  "domain_label": "Télécommunications Spatiales — Relais Haut Débit en Orbite Géostationnaire (GEO)",
+  "client_agency": "Agence Spatiale Européenne (ESA) / Opérateur Européen de Télécommunications par Satellite (ARTES)",
+  "context": "Pour assurer une couverture permanente 24h/24 de l'Europe, de la Méditerranée et de l'Afrique subsaharienne, un opérateur institutionnel et commercial lance un satellite de télécommunications en orbite géostationnaire (GEO, altitude 35 786 km, inclinaison 0°). À cette distance, l'affaiblissement d'espace libre atteint ~205 dB, rendant tout répéteur conçu pour l'orbite basse totalement inopérant (marge négative). En outre, le cahier des charges confronte l'étudiant à un dilemme industriel majeur entre trois architectures : (1) SmallGEO-Ku suisse (750 Mbps, 42.93 M€, conforme aux quotas France/Suisse/Allemagne), (2) Meridian C/Ku italien (1 800 Mbps, 51.80 M€, qui atteint l'objectif de débit >= 1 500 Mbps mais écrase le quota suisse et dépasse le budget de 46.0 M€), et (3) le satellite VHTS-Ka français (25 Gbps sur PrimeBus-GEO3000) qui nécessite un lanceur lourd institutionnel à 65 M€ portant le coût total à ~120 M€ !",
+  "primary_objective": "Concevoir un satellite de télécommunications en orbite géostationnaire (GEO, 35 786 km) délivrant un débit >= 700.0 Mbps (objectif >= 1 500.0 Mbps) avec une marge de liaison >= 8.0 dB, une durée de vie >= 15.0 ans et une qualification RF en vide thermique (<= 2.5 %) sous un plafond de 46.0 M€.",
   "secondary_objectives": [
-    "Assurer une visibilité permanente 24h/24 sans interruption d'élévation sur les stations européennes.",
-    "Maintenir le coût complet (plateforme GEO + charge utile répéteur + lancement GTO/GEO) sous 55,0 M€.",
-    "Garantir la tenue aux radiations de l'orbite géostationnaire (blindage 100 krad)."
+    "Sélectionner l'orbite Géostationnaire (GEO, 35 786 km, i = 0°) dans l'onglet Orbite et démontrer pourquoi les charges utiles LEO/MEO échouent sur le bilan de liaison à 36 000 km.",
+    "Analyser le dilemme d'architecture GEO : le répéteur suisse SmallGEO-Ku (750 Mbps, 82 kg, 680 W, 8.20 M€) sur plateforme SmallGEO-500 avec lancement partagé GTO Rideshare (coût total 42.93 M€) respecte le budget de 46.0 M€ et la souscription franco-germano-suisse, mais plafonne à 750 Mbps (en deçà de l'objectif de 1 500 Mbps) ; le transpondeur italien C/Ku (1 800 Mbps, 175 kg, 15.50 M€) franchit l'objectif de 1 500 Mbps mais porte le coût à 51.80 M€ (> 46 M€) et viole le retour géographique suisse (20–40 %).",
+    "Comparer les modes de transfert vers GEO (propulsion électrique Hall 1 kW permettant l'orbit-raising lent depuis GTO vs propulsion chimique bi-ergols 400 N) et intégrer la qualification RF-TVAC chez IABG Ottobrunn (0.38 M€)."
   ],
-  "scientific_or_operational_need": "Contrairement aux constellations LEO dont les satellites défilent à grande vitesse, l'orbite géostationnaire permet à une antenne sol fixe de pointer en continu le même relais spatial, offrant une disponibilité de service de 99,99 % pour les liaisons gouvernementales critiques et les faisceaux de diffusion.",
-  "orbit_constraints_description": "Orbite géostationnaire (GEO) : altitude exacte 35 786 km, inclinaison 0,0°, période de révolution 24h00. Injection via transfert géostationnaire (GTO) ou injection directe GEO.",
-  "conops_guidance": "Fonctionnement permanent des répéteurs RF (100 % du temps d'orbite, y compris durant les courtes éclipses d'équinoxe grâce au parc de batteries lithium-ion). Maintien à poste fin Nord-Sud et Est-Ouest par propulsion électrique ou chimique.",
+  "scientific_or_operational_need": "Fournir une capacité de télédiffusion souveraine, d'interconnexion de réseaux gouvernementaux et de désenclavement numérique à haute disponibilité (> 99.9 %) sur toute la zone Europe-Afrique.",
+  "orbit_constraints_description": "Orbite Géostationnaire équatoriale stricte (altitude = 35 786 km, inclinaison = 0.0°, période = 24h00). Le lancement s'effectue sur orbite de transfert géostationnaire (GTO Rideshare jusqu'à 1 400 kg en GEO/2 500 kg en GTO) suivi d'une circularisation par la propulsion du satellite.",
+  "conops_guidance": "Détailler la phase de mise à poste (LEOP & Electric Orbit Raising — EOR sur 4 à 6 mois avec le propulseur Hall 1 kW ou apogée chimique 400 N), le maintien à poste Nord-Sud et Est-Ouest dans la boîte de 0.05° pendant 15 ans, la gestion thermique des amplificateurs TOP/SSPA en éclipse d'équinoxe et le télécontrôle depuis Redu et Fucino.",
   "deliverables_expected": [
-    "Démontrer la conformité de l'orbite GEO (35 786 km, 0°) et la couverture permanente 24/7 sur les stations sol.",
-    "Établir le bilan de liaison RF à 35 786 km (puissance RF, gain d'antenne satellite, station sol 4,5 m, marge Eb/N0 >= 3,5 dB).",
-    "Justifier le choix de la plateforme GEO (durée de vie >= 12 ans, puissance continue > 2 000 W) et du lanceur GTO."
+    "Justification du bilan de liaison GEO à 35 786 km (EIRP, pertes d'espace libre > 200 dB, G/T station sol 4.5 m, marge >= 8.0 dB).",
+    "Comparaison chiffrée entre l'architecture SmallGEO-500 + SmallGEO-Ku Relay (750 Mbps, 42.93 M€, conforme budget et géo-retour) et les architectures à plus haut débit (Transpondeur C/Ku 1800 Mbps à 51.80 M€ ou VHTS-Ka 25 Gbps à 119.8 M€).",
+    "Arbitrage du sous-système de propulsion (Hall 1 kW vs Bi-ergols 400 N : impact sur la masse d'ergols au lancement et le coût de lancement GTO Rideshare) et qualification RF-TVAC.",
+    "En cas de choix privilégiant l'objectif de débit >= 1 500 Mbps au détriment du plafond de 46 M€ ou du quota suisse, rédiger une Demande de Dérogation (Waiver) argumentée."
   ],
-  "allowed_suppliers": [],
+  "max_budget_meur": 46.0,
   "min_trl": 8,
+  "target_lifetime_years": 15.0,
   "requirements": [
     {
-      "id": "REQ-GEO-DATARATE",
-      "title": "Débit de données RF descendant total",
-      "description": "Le débit RF descendant de la charge utile de télécommunications doit être >= 600,0 Mbit/s.",
+      "id": "REQ-GEO-RATE",
+      "title": "Capacité de Débit Total du Répéteur GEO",
       "req_type": "payload_perf",
       "parameter": "max_data_rate_mbps",
       "operator": ">=",
-      "threshold": 600.0,
-      "goal": 1800.0,
+      "threshold": 700.0,
+      "goal": 1500.0,
       "unit": "Mbps",
-      "weight": 2.0
+      "description": "Le débit agrégé de la charge utile télécom doit être >= 700.0 Mbps (objectif >= 1 500.0 Mbps). Note : atteindre 1 500 Mbps exige le transpondeur C/Ku 1800 Mbps (qui dépasse le budget de 46 M€ et le quota suisse) ou le VHTS-Ka (qui impose PrimeBus-GEO3000 + lanceur lourd)."
     },
     {
       "id": "REQ-GEO-MARGIN",
-      "title": "Marge du bilan de liaison RF (Eb/N0)",
-      "description": "La marge Eb/N0 sur la liaison descendante vers station 4,5 m doit être >= 3,5 dB.",
+      "title": "Marge de Liaison Descendante depuis l'Orbite GEO (35 786 km)",
       "req_type": "payload_perf",
       "parameter": "link_margin_db",
       "operator": ">=",
-      "threshold": 3.5,
-      "goal": 6.0,
+      "threshold": 8.0,
+      "goal": 11.0,
       "unit": "dB",
-      "weight": 1.5
+      "description": "La marge du bilan de liaison à 35 786 km vers un téléport de 4.5 m doit être >= 8.0 dB pour compenser l'affaiblissement de pluie en bande Ku/Ka."
     },
     {
-      "id": "REQ-GEO-LIFETIME",
-      "title": "Durée de vie nominale de la plateforme",
-      "description": "La durée de vie certifiée de la plateforme géostationnaire doit être >= 12,0 ans.",
-      "req_type": "lifetime",
-      "parameter": "design_lifetime_years",
-      "operator": ">=",
-      "threshold": 12.0,
-      "goal": 15.0,
-      "unit": "yr",
-      "weight": 1.5
-    },
-    {
-      "id": "REQ-GEO-POINTING",
-      "title": "Précision de pointage antenne plateforme",
-      "description": "La précision de pointage de la plateforme doit être <= 0,05 deg pour maintenir le faisceau sol.",
+      "id": "REQ-GEO-POINT",
+      "title": "Précision de Pointage des Faisceaux Antennes",
       "req_type": "payload_perf",
       "parameter": "pointing_accuracy_deg",
       "operator": "<=",
-      "threshold": 0.05,
-      "goal": 0.02,
+      "threshold": 0.01,
+      "goal": 0.004,
       "unit": "deg",
-      "weight": 1.0
+      "description": "La précision de maintien d'attitude 3 axes doit être <= 0.01° pour stabiliser l'empreinte des faisceaux sur l'Europe."
+    },
+    {
+      "id": "REQ-GEO-CALIB",
+      "title": "Qualification RF Haute Puissance & PIM en Vide Thermique (RF-TVAC)",
+      "req_type": "payload_perf",
+      "parameter": "radiometric_accuracy_pct",
+      "operator": "<=",
+      "threshold": 2.5,
+      "goal": 2.0,
+      "unit": "%",
+      "description": "Le répéteur GEO doit être qualifié en vide thermique (RF-TVAC <= 2.2 % ou CATR-TVAC <= 2.0 %) pour vérifier l'absence d'intermodulation passive (PIM) et d'effet Multipactor."
+    },
+    {
+      "id": "REQ-GEO-LIFE",
+      "title": "Durée de Vie Opérationnelle en Orbite GEO",
+      "req_type": "lifetime",
+      "parameter": "design_lifetime_years",
+      "operator": ">=",
+      "threshold": 15.0,
+      "goal": 15.0,
+      "unit": "yr",
+      "description": "La plateforme doit être certifiée pour 15 ans de service en environnement radiatif géostationnaire."
     }
   ],
   "ground_stations": [
     {
-      "id": "sta_fucino_geo",
-      "name": "Téléport Spatial de Fucino (Italie)",
-      "latitude_deg": 41.97,
+      "id": "gs_redu_geo",
+      "name": "Téléport ESA de Redu — Centre de Contrôle & Test In-Orbit (Belgique)",
+      "latitude_deg": 50.0,
+      "longitude_deg": 5.15,
+      "altitude_m": 385.0,
+      "min_elevation_deg": 10.0,
+      "bands_supported": [
+        "S",
+        "C",
+        "Ku",
+        "Ka"
+      ],
+      "cost_per_pass_eur": 0.0
+    },
+    {
+      "id": "gs_fucino",
+      "name": "Téléport de Fucino — Passerelle Haut Débit Méditerranée (Italie)",
+      "latitude_deg": 41.98,
       "longitude_deg": 13.6,
-      "altitude_m": 650.0,
+      "altitude_m": 660.0,
       "min_elevation_deg": 10.0,
       "bands_supported": [
         "C",
         "Ku",
         "Ka"
       ],
-      "cost_per_pass_eur": 180.0,
-      "cost_per_minute_eur": 0.0
-    },
-    {
-      "id": "sta_rambouillet_geo",
-      "name": "Téléport de Rambouillet (Eutelsat)",
-      "latitude_deg": 48.64,
-      "longitude_deg": 1.83,
-      "altitude_m": 160.0,
-      "min_elevation_deg": 10.0,
-      "bands_supported": [
-        "Ku",
-        "Ka"
-      ],
-      "cost_per_pass_eur": 180.0,
-      "cost_per_minute_eur": 0.0
+      "cost_per_pass_eur": 0.0
     }
   ],
   "target_zones": [
     {
-      "id": "zone_euro_med",
-      "name": "Couverture Européenne & Bassin Méditerranéen",
+      "id": "tz_emea_footprint",
+      "name": "Empreinte Géostationnaire Europe, Méditerranée & Afrique (Position 13° Est)",
       "points_lat_lon": [
         [
-          34.0,
-          -10.0
+          48.85,
+          2.35
         ],
         [
-          60.0,
-          5.0
+          41.9,
+          12.5
         ],
         [
-          36.0,
-          35.0
+          14.7,
+          -17.45
         ]
       ],
       "priority": 1
@@ -129,24 +136,21 @@
   "geo_return_constraints": [
     {
       "country": "France",
-      "min_pct": 40.0,
+      "min_pct": 45.0,
       "max_pct": 75.0,
-      "rationale": "Souscription CNES au programme de télécommunication ESA (quote-part nationale 55 %)"
+      "rationale": "Contributeur principal au programme ARTES SmallGEO — Participation librement répartie (plateforme GEO, propulsion électrique Hall, équipements)."
     },
     {
       "country": "Suisse",
-      "min_pct": 15.0,
+      "min_pct": 20.0,
       "max_pct": 40.0,
-      "rationale": "Souscription Swiss Space Office (SSO) au programme ESA (quote-part nationale 25 %)"
+      "rationale": "Co-contributeur majeur du programme SmallGEO — Participation librement répartie (charge utile Ku, mémoire de masse, structures)."
     },
     {
       "country": "Allemagne",
       "min_pct": 3.0,
-      "max_pct": 20.0,
-      "rationale": "Souscription DLR au programme de télécommunication ESA (quote-part nationale 10 %)"
+      "max_pct": 18.0,
+      "rationale": "Partenaire industriel — Participation librement répartie (ADCS, mémoire, propulsion ou essais RF-TVAC chez IABG)."
     }
-  ],
-  "metadata": {},
-  "max_non_esa_spend_pct": 15.0,
-  "image": "mission_geo_comms.jpg"
+  ]
 }

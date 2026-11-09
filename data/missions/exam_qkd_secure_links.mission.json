@@ -1,84 +1,155 @@
 {
-  "schema_version": "1.0.0",
   "id": "EXAM-2026-QKD",
-  "title": "Mission QuantumShield — Distribution Quantique Sécurisée de Clés Cryptographiques (QKD)",
-  "context": "Concevoir un satellite de distribution quantique de clés (QKD) en orbite basse (LEO) pour alimenter les centres de calcul souverains en clés cryptographiques inviolables par faisceau laser nocturne.",
+  "title": "QuantumShield — Distribution Quantique de Clés (QKD) Souveraine",
   "mission_type": "qkd",
-  "max_budget_meur": 22.0,
-  "target_lifetime_years": 4.0,
-  "client_agency": "Agence Nationale de Sécurité des Communications Souveraines",
-  "domain_label": "Télécommunications Quantiques — Distribution spatiale de clés cryptographiques (QKD)",
-  "primary_objective": "Distribuer des clés quantiques (BB84 à états leurres à 850 nm) avec un taux d'erreur quantique QBER <= 6,0 % et un débit de clé secrète asymptotique >= 1 000 bit/s.",
+  "image": "mission_quantum_shield.jpg",
+  "domain_label": "Cryptographie Quantique Spatiale (QKD) — Sécurité des Communications Gouvernementales",
+  "client_agency": "Agence Spatiale Européenne (ESA) / Commission Européenne — Initiative EuroQCI / SAGA",
+  "context": "Dans le cadre de l'infrastructure européenne de communication quantique (EuroQCI / SAGA), l'Union Européenne et l'ESA souhaitent déployer un satellite de Distribution Quantique de Clés (QKD) en orbite basse héliosynchrone pour distribuer des clés cryptographiques inconditionnellement sûres entre les chancelleries et centres de données européens. Ce cahier des charges confronte l'étudiant aux compromis propres à l'optique quantique spatiale : choisir entre une source à états leurres BB84 (QKD-Decoy allemand à 3.60 M€ ou Albion-QKD britannique à 2.40 M€) et une source à paires de photons intriqués BBM92 (Edelweiss-QKD suisse à 4.70 M€ ou QKD-HighRate autrichien à 6.40 M€), tout en qualifiant la tenue en polarisation sous vide thermique (PAT-TVAC à l'ESTEC) sous un plafond de 14.50 M€.",
+  "primary_objective": "Déployer un satellite QKD en orbite SSO garantissant un taux de génération de clé secrète asymptotique (SKR) >= 20 000 bps (objectif >= 80 000 bps), un taux d'erreur binaire quantique (QBER) <= 2.0 % (objectif <= 1.60 %), une précision de pointage <= 0.005° (objectif <= 0.003°) et une qualification PAT-TVAC (<= 2.6 %) sous 14.50 M€.",
   "secondary_objectives": [
-    "Garantir un pointage plateforme <= 0,008°.",
-    "Assurer l'authentification et la distillation des clés via un canal radio classique."
+    "Comparer les 5 charges utiles QKD du catalogue : le terminal CubeSat compact autrichien (SKR = 5 029 bps, QBER = 2.66 %) échoue à la fois sur le débit minimal (20 kbps) et sur le QBER (<= 2.0 %) ; les terminaux BB84 Decoy allemand (25.5 kbps, QBER 1.77 %) et britannique Albion-Micro12 (22.2 kbps, QBER 1.81 %) franchissent le seuil à moindre coût ; le terminal intriqué suisse Edelweiss (85.5 kbps, QBER 1.58 %) atteint les objectifs (Goals) tout en tenant juste sous 14.50 M€ (14.19 M€) ; enfin le grand télescope autrichien 25 cm (184.7 kbps, QBER 1.54 %) dépasse le plafond budgétaire (16.14 M€ > 14.50 M€).",
+    "Analyser la dépendance critique du débit de clé secrète (SKR) à l'altitude orbitale : baisser l'altitude de 500 km à 400 km réduit les pertes géométriques du canal quantique (en 1/R²) et augmente le SKR de +45 % (ex: de 25.5 kbps à 37.2 kbps pour QKD-Decoy), mais raccourcit la durée des passages nocturnes.",
+    "Intégrer la qualification en vide thermique du banc optique et du maintien d'états de polarisation (PAT-TVAC à l'ESTEC Noordwijk, 0.52 M€) et un canal radio bande S/X authentifié pour la réconciliation de clé publique (sifting & privacy amplification)."
   ],
-  "scientific_or_operational_need": "Protéger les communications souveraines contre l'essor futur des calculateurs quantiques.",
-  "orbit_constraints_description": "Orbite basse héliosynchrone à 450–550 km d'altitude.",
-  "conops_guidance": "Émission quantique exclusivement nocturne lors des passages au-dessus des stations optiques.",
+  "scientific_or_operational_need": "Protéger les réseaux diplomatiques, bancaires et militaires européens contre la menace des futurs calculateurs quantiques grâce au protocole de masque jetable (One-Time Pad) alimenté par des clés quantiques renouvelées à chaque passage nocturne.",
+  "orbit_constraints_description": "Orbite héliosynchrone (SSO) autour de 450–550 km avec passage à minuit/midi (22h30–01h30 heure locale) pour maximiser les passages nocturnes au-dessus de l'Europe (le bruit de fond solaire diurne saturant les détecteurs de photons uniques SNSPD/SPAD au sol).",
+  "conops_guidance": "Expliquer le protocole opérationnel QKD en orbite : pointage fin sur balise laser montante de la station sol quantique (Tenerife / Graz / Matera), transmission du train d'impulsions quantiques à 810 nm ou 1550 nm dans l'obscurité, échange concomitant sur le canal radio classique (bande S/X) des bases de mesure (sifting), estimation du QBER, correction d'erreurs LDPC et amplification de confidentialité.",
   "deliverables_expected": [
-    "Analyser le compromis entre altitude et pertes du canal optique quantique.",
-    "Justifier le choix du terminal QKD et du pack ADCS."
+    "Analyse comparative des 5 terminaux QKD (CubeSat 8cm vs Albion 12cm vs Decoy 15cm vs Edelweiss Intriqué 18cm vs HighRate 25cm) sur les critères SKR, QBER, masse et budget.",
+    "Justification du choix d'altitude SSO (compromis entre pertes de canal en dB, taux de clé SKR et durée de visibilité nocturne).",
+    "Validation de la suite ADCS (<= 0.005°, objectif <= 0.003°) et de la campagne d'essais PAT-TVAC à l'ESTEC (biréfringence thermique nulle pour préserver le QBER <= 2.0 %).",
+    "En cas de sélection du terminal autrichien 25 cm (184 kbps mais hors budget à 16.14 M€) ou d'une calibration ambiante ISO 5, rédiger une Demande de Dérogation argumentée."
   ],
-  "allowed_suppliers": [],
+  "max_budget_meur": 14.5,
   "min_trl": 7,
+  "target_lifetime_years": 5.0,
   "requirements": [
     {
       "id": "REQ-QKD-QBER-01",
-      "title": "Taux d'Erreur Quantique (QBER)",
-      "description": "Quantum Bit Error Rate <= 6.0 %",
+      "title": "Taux d'Erreur Binaire Quantique (QBER)",
       "req_type": "payload_perf",
       "parameter": "quantum_bit_error_rate_pct",
       "operator": "<=",
-      "threshold": 6.0,
-      "goal": 3.0,
+      "threshold": 2.0,
+      "goal": 1.6,
       "unit": "%",
-      "weight": 1.5
+      "description": "Le QBER sur la liaison espace-sol doit être <= 2.0 % (objectif <= 1.60 %) afin de garantir la distillabilité cryptographique face aux attaques par séparation de nombres de photons."
     },
     {
       "id": "REQ-QKD-SKR-01",
-      "title": "Débit de Clé Secrète Asymptotique",
-      "description": "Secret Key Rate moyen >= 1000 bps",
+      "title": "Débit Asymptotique de Clé Secrète (SKR)",
       "req_type": "payload_perf",
       "parameter": "asymptotic_secret_key_rate_bps",
       "operator": ">=",
-      "threshold": 1000.0,
-      "goal": 5000.0,
+      "threshold": 20000.0,
+      "goal": 80000.0,
       "unit": "bps",
-      "weight": 1.0
+      "description": "Le débit de clé secrète après réconciliation et amplification de confidentialité doit être >= 20 000 bps (objectif >= 80 000 bps)."
     },
     {
       "id": "REQ-POINTING-QKD",
-      "title": "Précision de Pointage Plateforme",
-      "description": "Précision de pointage de la plateforme <= 0.008 deg",
+      "title": "Précision de Pré-Pointage Plateforme / ADCS",
       "req_type": "payload_perf",
       "parameter": "pointing_accuracy_deg",
       "operator": "<=",
-      "threshold": 0.008,
-      "goal": null,
+      "threshold": 0.005,
+      "goal": 0.003,
       "unit": "deg",
-      "weight": 1.0
+      "description": "La précision de pointage plateforme/ADCS doit être <= 0.005° (objectif <= 0.003°) pour permettre l'accrochage de la boucle fine de suivi quantique."
+    },
+    {
+      "id": "REQ-QKD-CALIB",
+      "title": "Qualification Polarisation & Pointage en Vide Thermique (PAT-TVAC)",
+      "req_type": "payload_perf",
+      "parameter": "radiometric_accuracy_pct",
+      "operator": "<=",
+      "threshold": 2.6,
+      "goal": 2.0,
+      "unit": "%",
+      "description": "Le terminal quantique doit être qualifié en cuve à vide thermique (PAT-TVAC <= 2.5 % ou TVAC optique/cryo) pour vérifier l'absence de biréfringence thermo-induite sur les états de polarisation."
     }
   ],
   "ground_stations": [
     {
-      "id": "sta_nice_ogs",
-      "name": "Observatoire de la Côte d'Azur (OGS Calern)",
-      "latitude_deg": 43.75,
-      "longitude_deg": 6.92,
-      "altitude_m": 1270.0,
+      "id": "gs_qkd_tenerife",
+      "name": "Observatoire du Teide — Station Optique Quantique ESA (Espagne)",
+      "latitude_deg": 28.3,
+      "longitude_deg": -16.51,
+      "altitude_m": 2390.0,
       "min_elevation_deg": 15.0,
       "bands_supported": [
-        "Optical",
+        "QKD_810nm_1550nm",
+        "S",
+        "X"
+      ],
+      "cost_per_pass_eur": 450.0
+    },
+    {
+      "id": "gs_qkd_graz",
+      "name": "Observatoire Lustbühel — Station Quantique de Graz (Autriche)",
+      "latitude_deg": 47.07,
+      "longitude_deg": 15.49,
+      "altitude_m": 485.0,
+      "min_elevation_deg": 15.0,
+      "bands_supported": [
+        "QKD_810nm_1550nm",
         "S"
       ],
-      "cost_per_pass_eur": 500.0,
-      "cost_per_minute_eur": 0.0
+      "cost_per_pass_eur": 380.0
+    },
+    {
+      "id": "gs_qkd_matera",
+      "name": "Station Géodésique & Quantique de Matera — MLRO (Italie)",
+      "latitude_deg": 40.65,
+      "longitude_deg": 16.7,
+      "altitude_m": 535.0,
+      "min_elevation_deg": 15.0,
+      "bands_supported": [
+        "QKD_810nm_1550nm",
+        "S",
+        "X"
+      ],
+      "cost_per_pass_eur": 400.0
     }
   ],
-  "target_zones": [],
-  "geo_return_constraints": [],
-  "metadata": {},
-  "max_non_esa_spend_pct": 15.0,
-  "image": "mission_quantum_shield.jpg"
+  "target_zones": [
+    {
+      "id": "tz_euroqci_nodes",
+      "name": "Nœuds Métropolitains EuroQCI (Bruxelles, Paris, Berlin, Vienne, Rome, Genève)",
+      "points_lat_lon": [
+        [
+          50.85,
+          4.35
+        ],
+        [
+          48.85,
+          2.35
+        ],
+        [
+          48.2,
+          16.37
+        ],
+        [
+          46.2,
+          6.14
+        ]
+      ],
+      "priority": 1
+    }
+  ],
+  "geo_return_constraints": [
+    {
+      "country": "France",
+      "min_pct": 35.0,
+      "max_pct": 70.0,
+      "rationale": "Contributeur majeur EuroQCI — Participation librement répartie (plateforme, ADCS, TT&C, propulsion ou essais)."
+    },
+    {
+      "country": "Allemagne",
+      "min_pct": 2.0,
+      "max_pct": 45.0,
+      "rationale": "Co-contributeur EuroQCI — Participation librement répartie (charge utile QKD, mémoire, ADCS ou propulsion)."
+    }
+  ]
 }

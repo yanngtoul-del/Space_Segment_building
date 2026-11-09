@@ -1246,18 +1246,51 @@ class StudentMainWindow(QMainWindow):
     def _build_tab_report_text(self) -> None:
         tab = QWidget()
         l = QVBoxLayout(tab)
+        lbl_guide = QLabel(
+            "💡 <b>Guide d'ingénierie système & Demandes de Dérogation (Waivers) :</b> "
+            "Les cahiers des charges comportent des compromis physiques, industriels (retour géographique ESA / plafond hors-ESA 15%) "
+            "et budgétaires parfois antagonistes entre les <b>Seuils (Thresholds)</b> et les <b>Objectifs (Goals)</b>. "
+            "Si certaines exigences ou objectifs ne peuvent pas être simultanément satisfaits, vous devez documenter et "
+            "justifier rigoureusement vos arbitrages et vos <b>Demandes de Dérogation (Requests for Deviation / Waivers)</b> ci-dessous."
+        )
+        lbl_guide.setWordWrap(True)
+        lbl_guide.setStyleSheet(
+            "background-color: #1E293B; color: #F8FAFC; border-left: 4px solid #F59E0B; "
+            "padding: 8px 12px; border-radius: 4px; font-size: 10pt;"
+        )
+        l.addWidget(lbl_guide)
+
         l.addWidget(QLabel("<b>1. Description du CONOPS (Modes, acquisition, gestion mémoire/liaison, éclipses, survie) :</b>"))
         self.txt_conops = QTextEdit()
+        self.txt_conops.setPlaceholderText(
+            "Décrivez le profil opérationnel sur une orbite type : facteur de marche charge utile, "
+            "gestion du stockage bord (SSR) et vidage station sol, traversée d'éclipse, pointage ADCS et mode survie..."
+        )
         l.addWidget(self.txt_conops)
-        lbl_q2 = QLabel("<b>2. Justification des choix d'architecture & arbitrages (plateforme, options, charge utile, lanceur) :</b>")
+        lbl_q2 = QLabel(
+            "<b>2. Justification des choix d'architecture & arbitrages "
+            "(orbite, plateforme, sous-systèmes, couplage optique/fente/spectro, étalonnage TVAC, lanceur, Géo-Retour) :</b>"
+        )
         lbl_q2.setWordWrap(True)
         l.addWidget(lbl_q2)
         self.txt_justif = QTextEdit()
+        self.txt_justif.setPlaceholderText(
+            "Justifiez vos choix parmi les architectures disponibles (compromis altitude GSD vs fauchée/bilan de liaison, "
+            "choix du télescope/fente/spectromètre ou charge utile secondaire, campagne de calibration au sol/TVAC, "
+            "lanceur dédié vs rideshare, et optimisation du retour géographique ESA)..."
+        )
         l.addWidget(self.txt_justif)
-        lbl_q3 = QLabel("<b>3. Analyse des risques, limitations et marges système :</b>")
+        lbl_q3 = QLabel(
+            "<b>3. Justification des Non-Conformités (Demandes de Dérogation / Waivers), Risques et Marges système :</b>"
+        )
         lbl_q3.setWordWrap(True)
         l.addWidget(lbl_q3)
         self.txt_risks = QTextEdit()
+        self.txt_risks.setPlaceholderText(
+            "Identifiez explicitement toute exigence en avertissement (WARNING) ou non-conformité (FAIL) ainsi que les "
+            "Objectifs (Goals) sacrifiés au profit du Seuil ou du plafond budgétaire. Formulez vos Demandes de Dérogation "
+            "(Waivers) en chiffrant l'écart physique/budgétaire et les mesures d'atténuation des risques..."
+        )
         l.addWidget(self.txt_risks)
         self.tabs.addTab(tab, "9. Rédaction Rapport")
 

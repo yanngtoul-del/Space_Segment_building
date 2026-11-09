@@ -126,7 +126,7 @@ class ReportGenerator:
 
         p_bud = doc.add_paragraph()
         p_bud.add_run(
-            f"Budget total plafond alloué : {m.max_budget_meur:.2f} M€ TTC (plateforme + options + charge utile + lancement) "
+            f"Budget total plafond alloué : {m.max_budget_meur:.2f} M€ TTC (plateforme + options + charge utile + essais sol + lancement) "
             f"| Durée de vie cible : {m.target_lifetime_years} ans | TRL minimal : {m.min_trl}"
         ).bold = True
         doc.add_paragraph(f"Contexte opérationnel : {m.context}")
@@ -202,7 +202,7 @@ class ReportGenerator:
         r_pow[3].text = f"{budgets.power.power_margin_pct:+.1f} %"
 
         r_cost = t_bud.add_row().cells
-        r_cost[0].text = "Coût Total Estimé (avec 15% réserve)"
+        r_cost[0].text = "Coût Total Consolidé (Sat + Essais Sol + Lanceur)"
         r_cost[1].text = f"{budgets.cost.space_segment_total_meur:.2f} M€"
         r_cost[2].text = f"{budgets.cost.mission_budget_limit_meur:.2f} M€"
         r_cost[3].text = f"{budgets.cost.cost_margin_meur:+.2f} M€"
@@ -212,7 +212,7 @@ class ReportGenerator:
         p_geo = doc.add_paragraph()
         p_geo.add_run(
             "Dans le cadre des règles d'approvisionnement inspirées des programmes ESA, les achats industriels "
-            "(plateforme, options, charges utiles, lanceur) sont ventilés selon le pays d'origine du fournisseur. "
+            "(plateforme, options, charges utiles, campagnes d'essais/calibration sol) sont ventilés selon le pays d'origine du fournisseur. "
             "Les achats hors Europe (COTS mondiaux) sont plafonnés à 15 % du total.\n"
         )
         t_geo = doc.add_table(rows=1, cols=3)
@@ -260,35 +260,34 @@ class ReportGenerator:
                 row[3].paragraphs[0].runs[0].font.color.rgb = RGBColor(241, 196, 15)
 
         # 7. Cadres Rédactionnels Étudiants
-        doc.add_heading("6. Justifications Techniques & Arbitrages Étudiant", level=1)
+        doc.add_heading("6. Justifications Techniques, Arbitrages & Demandes de Dérogation (Waivers)", level=1)
 
-        doc.add_heading("6.1. Justification du choix de la plateforme et des marges de masse/puissance", level=2)
-        p_ed1 = doc.add_paragraph(
-            "[CADRE ÉTUDIANT - DÉTAILLEZ ICI L'ARBITRAGE DE LA PLATEFORME RETENUE, LA GESTION DES MODES ÉCLIPSE/JOUR ET LES MARGES SYSTÈME]\n"
+        doc.add_heading("6.1. Concept d'Opérations (CONOPS) et Segment Sol", level=2)
+        conops_val = project.conops_text.strip() if project.conops_text else (
+            "[CADRE ÉTUDIANT - DÉCRIVEZ LES MODES OPÉRATIONNELS (LEOP, COMMISSIONING, NOMINAL, VISIBILITÉ STATIONS, GESTION DES ÉCLIPSES)]"
         )
-        p_ed1.runs[0].font.italic = True
-        p_ed1.runs[0].font.color.rgb = RGBColor(127, 140, 141)
+        p_ed1 = doc.add_paragraph(conops_val)
+        if not project.conops_text.strip():
+            p_ed1.runs[0].font.italic = True
+            p_ed1.runs[0].font.color.rgb = RGBColor(127, 140, 141)
 
-        doc.add_heading("6.2. Analyse des performances charge utile et compromis d'altitude", level=2)
-        p_ed2 = doc.add_paragraph(
-            "[CADRE ÉTUDIANT - EXPLIQUEZ LE COMPROMIS ENTRE L'ALTITUDE, LA RÉSOLUTION/DÉBIT, LA FAUCHÉE ET LE TAUX DE REVISITE]\n"
+        doc.add_heading("6.2. Justification des choix d'architecture, arbitrages d'altitude et retour géographique ESA", level=2)
+        justif_val = project.justification_text.strip() if project.justification_text else (
+            "[CADRE ÉTUDIANT - EXPLIQUEZ LES COMPROMIS ENTRE L'ALTITUDE, LA CHARGE UTILE, LA PLATEFORME, LA CALIBRATION TVAC ET LE RETOUR GÉOGRAPHIQUE ESA]"
         )
-        p_ed2.runs[0].font.italic = True
-        p_ed2.runs[0].font.color.rgb = RGBColor(127, 140, 141)
+        p_ed2 = doc.add_paragraph(justif_val)
+        if not project.justification_text.strip():
+            p_ed2.runs[0].font.italic = True
+            p_ed2.runs[0].font.color.rgb = RGBColor(127, 140, 141)
 
-        doc.add_heading("6.3. Justification du retour géographique et de l'enveloppe non-ESA", level=2)
-        p_ed3 = doc.add_paragraph(
-            "[CADRE ÉTUDIANT - JUSTIFIEZ LA RÉPARTITION INDUSTRIELLE PAR PAYS, L'ÉVENTUEL RECOURS AUX COMPOSANTS HORS EUROPE (< 15%) ET LA COMPATIBILITÉ AVEC LES RÈGLES ESA]\n"
+        doc.add_heading("6.3. Justification des Non-Conformités (Demandes de Dérogation / Waivers), Risques et Marges", level=2)
+        risks_val = project.risk_analysis_text.strip() if project.risk_analysis_text else (
+            "[CADRE ÉTUDIANT - JUSTIFIEZ ICI TOUTE NON-CONFORMITÉ ASSUMÉE (EXIGENCE PHYSIQUEMENT OU BUDGÉTAIREMENT ANTAGONISTE, DEMANDE DE DÉROGATION / WAIVER) AINSI QUE L'ANALYSE DES RISQUES ET MARGES SYSTÈME]"
         )
-        p_ed3.runs[0].font.italic = True
-        p_ed3.runs[0].font.color.rgb = RGBColor(127, 140, 141)
-
-        doc.add_heading("6.4. Concepts d'Opérations (CONOPS) et Segment Sol", level=2)
-        p_ed4 = doc.add_paragraph(
-            "[CADRE ÉTUDIANT - DÉCRIVEZ LES MODES OPÉRATIONNELS (LEOP, COMMISSIONING, NOMINAL, VISIBILITÉ STATIONS, GESTION DES ANOMALIES)]\n"
-        )
-        p_ed4.runs[0].font.italic = True
-        p_ed4.runs[0].font.color.rgb = RGBColor(127, 140, 141)
+        p_ed3 = doc.add_paragraph(risks_val)
+        if not project.risk_analysis_text.strip():
+            p_ed3.runs[0].font.italic = True
+            p_ed3.runs[0].font.color.rgb = RGBColor(127, 140, 141)
 
         doc.save(resolved_path)
         return resolved_path

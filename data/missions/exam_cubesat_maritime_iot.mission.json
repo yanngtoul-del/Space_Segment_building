@@ -1,71 +1,134 @@
 {
-  "schema_version": "1.0.0",
   "id": "EXAM-2026-CUBESAT-RF",
-  "title": "Mission SeaTrack-IoT — Nanosatellite Maritime AIS & Télémétrie RF",
-  "context": "Un consortium universitaire et maritime dispose d'un budget strictement plafonné à 1,60 M€ pour déployer un nanosatellite CubeSat dédié à la collecte de données maritimes AIS et de télémétrie balises mobiles.",
+  "title": "SeaTrack-IoT — Nanosatellite de Collecte Maritime AIS/ADS-B & IoT",
   "mission_type": "telecom_radio",
-  "max_budget_meur": 1.6,
-  "target_lifetime_years": 2.5,
-  "client_agency": "Pôle Universitaire & Maritime NewSpace",
-  "domain_label": "Nanosatellite Bas-Coût — Collecte Maritime AIS & Télémétrie RF",
-  "primary_objective": "Établir une liaison descendante RF d'au moins 15 Mbit/s avec une marge >= 3,0 dB sous 1,60 M€.",
+  "image": "mission_cubesat_rf.jpg",
+  "domain_label": "Télécommunications & Collecte RF — Surveillance Maritime AIS & IoT par Nanosatellite",
+  "client_agency": " Consortium NewSpace Européen / Surveillance Maritime & Logistique Arctique",
+  "context": "Un opérateur européen de services maritimes souhaite lancer un démonstrateur nanosatellite (CubeSat 6U ou 12U) en orbite basse héliosynchrone pour collecter les balises AIS des navires, les messages ADS-B aéronautiques et les capteurs IoT déportés en haute mer. Le défi d'ingénierie réside dans l'extrême sévérité de l'enveloppe SWaP-C (Size, Weight, Power and Cost) : sous un plafond strict de 1.95 M€ lancement et essais sol compris, l'architecte doit arbitrer entre un récepteur AIS/ADS-B italien (Meridian 15 Mbps, 3.2 kg), un récepteur SDR suédois ultra-compact (Nordic 20 Mbps, 1.8 kg) permettant d'embarquer en prime une caméra optique 6 cm de vérification visuelle, ou un récepteur IoT large bande 35 Mbps qui impose de passer sur une plateforme 12U hors budget (2.59 M€).",
+  "primary_objective": "Concevoir un nanosatellite de collecte RF en orbite SSO capable d'assurer un débit descendant >= 15.0 Mbps (objectif >= 35.0 Mbps) avec une marge de liaison >= 10.0 dB, une précision de pointage <= 0.10° et une qualification RF en vide thermique (TVAC <= 2.5 %) pour un coût total <= 1.95 M€.",
   "secondary_objectives": [
-    "Contenir la masse dans un déployeur CubeSat <= 32 kg."
+    "Explorer l'architecture bi-charge utile sur CubeSat 6U : en choisissant le récepteur suédois Nordic AIS SDR (1.8 kg, 10 W, 0.38 M€, 20 Mbps) au lieu du Meridian AIS/ADS-B (3.2 kg, 14 W, 0.55 M€, 15 Mbps), l'architecte libère assez de masse (3.3 kg / 4.0 kg max) pour co-embarquer la caméra optique CubeEye-6cm (1.5 kg, GSD = 6.1 m) afin de confirmer visuellement les navires « sombres » (dark ships) tout en restant à 1.90 M€ (< 1.95 M€) !",
+    "Analyser la limite de marge électrique sur bus 6U : l'ajout de la caméra optique secondaire porte la marge de puissance moyenne à +8.3 % (avertissement < 15 % recommandés), illustrant le compromis entre capacité bi-mission et marge énergétique.",
+    "Démontrer pourquoi l'objectif de débit >= 35.0 Mbps (récepteur IoT UHF/S-Band 7.5 kg ou Helvetia Argos 6.2 kg) dépasse la capacité d'emport du bus 6U (max 4.0 kg) et nécessite un bus 12U qui franchit le plafond de 1.95 M€."
   ],
-  "scientific_or_operational_need": "Ingénierie spatiale sous forte contrainte de coût.",
-  "orbit_constraints_description": "Orbite héliosynchrone standard 500–550 km en covoiturage.",
-  "conops_guidance": "Collecte permanente et vidage lors des passages station.",
+  "scientific_or_operational_need": "Assurer le suivi quasi-temps réel des flottes marchandes et des bouées océanographiques dans les zones blanches océaniques et polaires, avec levée de doute optique optionnelle sur les anomalies de transpondeur AIS.",
+  "orbit_constraints_description": "Orbite héliosynchrone (SSO) autour de 500–550 km par lancement partagé en déployeur CubeSat P-POD / QuadPack (capacité max 32 kg, coût très réduit ~0.35 M€).",
+  "conops_guidance": "Préciser la gestion de l'énergie à bord du CubeSat : écoute AIS/IoT continue à faible consommation, déclenchement ponctuel de la caméra optique 6 cm uniquement sur alerte de navire suspect au jour, stockage sur mémoire flash 64 Go et vidage rapide en bande S sur les stations de Kiruna et Redu.",
   "deliverables_expected": [
-    "Démontrer le respect du plafond de 1,60 M€."
+    "Comparaison détaillée des 3 options d'architecture : (A) CubeSat 6U mono-charge utile Meridian AIS/ADS-B (15 Mbps, marge puissance confortable 16.7 %, coût 1.75 M€), (B) CubeSat 6U bi-charge utile Nordic AIS SDR 20 Mbps + Caméra CubeEye-6cm (synergie RF+Optique, coût 1.90 M€, marge puissance tendue 8.3 %), et (C) CubeSat 12U avec charge utile IoT 35 Mbps (conforme au Goal 35 Mbps mais hors budget à 2.59 M€).",
+    "Justification de la campagne de qualification RF en vide thermique (TVAC Transpondeur RF & Antennes chez IABG Ottobrunn, 0.38 M€) pour éviter les dérives d'accord d'antenne UHF/S en orbite.",
+    "Analyse du bilan de liaison RF descendant et de la gestion du devoir de réserve énergétique en éclipse."
   ],
-  "allowed_suppliers": [],
+  "max_budget_meur": 1.95,
   "min_trl": 8,
+  "target_lifetime_years": 2.5,
   "requirements": [
     {
-      "id": "REQ-RF-RATE-01",
-      "title": "Débit de données RF descendant",
-      "description": "Le débit maximal RF doit être >= 15,0 Mbit/s.",
+      "id": "REQ-CUBE-RATE",
+      "title": "Débit Descendant de Collecte RF",
       "req_type": "payload_perf",
       "parameter": "max_data_rate_mbps",
       "operator": ">=",
       "threshold": 15.0,
       "goal": 35.0,
       "unit": "Mbps",
-      "weight": 1.5
+      "description": "Le débit descendant de la charge utile RF doit être >= 15.0 Mbps (objectif >= 35.0 Mbps). Note : atteindre 35 Mbps impose une charge utile > 6 kg nécessitant un bus 12U hors budget."
     },
     {
-      "id": "REQ-RF-MARGIN-01",
-      "title": "Marge du bilan de liaison RF",
-      "description": "La marge Eb/N0 doit être >= 3,0 dB.",
+      "id": "REQ-CUBE-MARGIN",
+      "title": "Marge du Bilan de Liaison RF",
       "req_type": "payload_perf",
       "parameter": "link_margin_db",
       "operator": ">=",
-      "threshold": 3.0,
-      "goal": 6.0,
+      "threshold": 10.0,
+      "goal": 14.0,
       "unit": "dB",
-      "weight": 1.0
+      "description": "La marge de liaison descendante (à 10° d'élévation) doit être >= 10.0 dB."
+    },
+    {
+      "id": "REQ-CUBE-POINT",
+      "title": "Précision de Pointage CubeSat",
+      "req_type": "payload_perf",
+      "parameter": "pointing_accuracy_deg",
+      "operator": "<=",
+      "threshold": 0.1,
+      "goal": 0.05,
+      "unit": "deg",
+      "description": "La précision de pointage (suite ADCS CubeSat) doit être <= 0.10° pour orienter les antennes directives et permettre une éventuelle prise de vue secondaire."
+    },
+    {
+      "id": "REQ-CUBE-CALIB",
+      "title": "Qualification RF & Antennes sous Vide Thermique (RF-TVAC)",
+      "req_type": "payload_perf",
+      "parameter": "radiometric_accuracy_pct",
+      "operator": "<=",
+      "threshold": 2.5,
+      "goal": 2.2,
+      "unit": "%",
+      "description": "La charge utile RF doit subir une qualification en vide thermique (calib_rf_transponder_tvac <= 2.2 % ou équivalent) pour certifier la stabilité de fréquence et de gain."
+    },
+    {
+      "id": "REQ-CUBE-LIFE",
+      "title": "Durée de Vie Nominale Nanosatellite",
+      "req_type": "lifetime",
+      "parameter": "design_lifetime_years",
+      "operator": ">=",
+      "threshold": 2.5,
+      "goal": 3.0,
+      "unit": "yr",
+      "description": "La plateforme CubeSat doit garantir une durée de vie >= 2.5 ans."
     }
   ],
   "ground_stations": [
     {
-      "id": "sta_brest",
-      "name": "Station Universitaire de Brest",
-      "latitude_deg": 48.39,
-      "longitude_deg": -4.49,
-      "altitude_m": 50.0,
+      "id": "gs_redu",
+      "name": "Redu (Belgique — Station ESA Estrack / Galiléo)",
+      "latitude_deg": 50.0,
+      "longitude_deg": 5.15,
+      "altitude_m": 385.0,
       "min_elevation_deg": 10.0,
       "bands_supported": [
         "UHF",
         "S",
         "X"
       ],
-      "cost_per_pass_eur": 40.0,
-      "cost_per_minute_eur": 0.0
+      "cost_per_pass_eur": 180.0
+    },
+    {
+      "id": "gs_kiruna_cube",
+      "name": "Kiruna (Suède — Station Polaire)",
+      "latitude_deg": 67.85,
+      "longitude_deg": 20.96,
+      "altitude_m": 400.0,
+      "min_elevation_deg": 5.0,
+      "bands_supported": [
+        "UHF",
+        "S",
+        "X"
+      ],
+      "cost_per_pass_eur": 220.0
     }
   ],
-  "target_zones": [],
-  "geo_return_constraints": [],
-  "metadata": {},
-  "max_non_esa_spend_pct": 15.0,
-  "image": "mission_cubesat_rf.jpg"
+  "target_zones": [
+    {
+      "id": "tz_north_sea_arctic",
+      "name": "Mer du Nord, Manche & Corridor Arctique",
+      "points_lat_lon": [
+        [
+          56.0,
+          3.0
+        ],
+        [
+          50.5,
+          0.0
+        ],
+        [
+          70.0,
+          20.0
+        ]
+      ],
+      "priority": 1
+    }
+  ]
 }

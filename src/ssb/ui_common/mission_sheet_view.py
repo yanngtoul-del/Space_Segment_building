@@ -114,6 +114,19 @@ class MissionSheetView(QScrollArea):
         lbl_req.setStyleSheet("font-weight: bold; font-size: 13px; color: #0f2744;")
         self._layout.addWidget(lbl_req)
 
+        self.lbl_tradeoff_hint = QLabel(
+            "⚖️ <b>Arbitrages d'Architecture & Gestion des Non-Conformités (Demandes de Dérogation / Waivers) :</b> "
+            "Les cahiers des charges spatiaux comportent des antagonismes physiques et budgétaires délibérés entre les <b>Seuils obligatoires</b>, "
+            "les <b>Objectifs étendus (Goals)</b>, la qualification <b>TVAC au sol</b>, le <b>plafond financier</b> et le <b>retour géographique ESA</b>. "
+            "Il appartient à l'architecte système de choisir le meilleur compromis global et, si certaines exigences ou objectifs s'avèrent mutuellement "
+            "incompatibles, d'argumenter rigoureusement ses <b>Demandes de Dérogation (Requests for Deviation / Waiver)</b> à l'Onglet 9."
+        )
+        self.lbl_tradeoff_hint.setStyleSheet(
+            "background-color: #fffbeb; color: #78350f; border-left: 4px solid #f59e0b; padding: 6px 10px; border-radius: 4px; font-size: 11px;"
+        )
+        self.lbl_tradeoff_hint.setWordWrap(True)
+        self._layout.addWidget(self.lbl_tradeoff_hint)
+
         tbl_style = """
             QTableWidget {
                 background-color: #ffffff;
@@ -158,7 +171,7 @@ class MissionSheetView(QScrollArea):
 
         self.lbl_geo_hint = QLabel(
             "ℹ️ <b>Règle du retour géographique ESA :</b> Les souscriptions nationales fixent les quotes-parts budgétaires par État membre "
-            "sans imposer de type d'équipement particulier (choix libre plateforme / charges utiles / équipements). "
+            "sans imposer de type d'équipement particulier (choix libre plateforme / charges utiles / équipements / centre d'essais TVAC). "
             "Une enveloppe jusqu'à <b>15 %</b> est autorisée pour des composants hors Europe (COTS mondiaux : USA, Canada, Japon...)."
         )
         self.lbl_geo_hint.setStyleSheet(
@@ -274,7 +287,7 @@ class MissionSheetView(QScrollArea):
             "total_cost_meur",
             f"<= {m.max_budget_meur:.2f} M€",
             f"<= {m.max_budget_meur * 0.90:.2f} M€",
-            "Le coût consolidé (plateforme, options, charges utiles, lancement) ne doit pas dépasser le plafond.",
+            "Le coût consolidé (plateforme, options, charges utiles, calibration sol, lancement) ne doit pas dépasser le plafond.",
         ]
         for col_idx, val in enumerate(budget_cells):
             item = QTableWidgetItem(val)
@@ -306,7 +319,7 @@ class MissionSheetView(QScrollArea):
             pct_str = f"[{geo.min_pct:.1f} %  –  {geo.max_pct:.1f} %]"
             meur_str = f"[{min_meur:.2f} M€  –  {max_meur:.2f} M€]"
             country_label = f"🇪🇺 {geo.country}" if geo.country in [
-                "France", "Allemagne", "Italie", "Espagne", "Royaume-Uni", "Belgique", "Suisse", "Pays-Bas", "Suède"
+                "France", "Allemagne", "Italie", "Espagne", "Royaume-Uni", "Belgique", "Suisse", "Pays-Bas", "Suède", "Autriche", "Finlande", "Norvège"
             ] else geo.country
 
             c_item = QTableWidgetItem(country_label)

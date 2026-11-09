@@ -67,17 +67,17 @@ def test_mission_specification_sheets_and_solutions():
         assert len(ms.context) >= 50
         assert len(ms.primary_objective) >= 80
         assert len(ms.domain_label) >= 10
-        assert len(ms.requirements) >= 2
+        assert len(ms.requirements) >= 4
         assert ms.image, f"Mission {ms.id} has no image defined"
         img_file = images_dir() / ms.image
         assert img_file.exists(), f"Mission image {ms.image} not found on disk for {ms.id}"
         missions[ms.id] = ms
 
-    # Reference valid student solutions across multiple competing suppliers,
-    # strictly satisfying technical requirements and ESA Member State geographic return quotas:
+    # Reference valid student baseline solutions across all 10 missions,
+    # satisfying mandatory thresholds, ground TVAC calibration, and ESA geographic return quotas:
     solutions = [
-        # 1. Optical EO (budget 18 M€, GSD <= 1.0 m, swath >= 10 km, SNR >= 55)
-        # Geo-return: France [35-55%], Italie [25-45%], Allemagne [8-25%]
+        # 1. Optical EO (budget 15.20 M€, GSD <= 0.88 m [Goal 0.70 m], swath >= 17 km, SNR >= 58, TVAC <= 2.0%)
+        # Geo-return: France [35-60%], Italie [25-45%], Allemagne [8-25%]
         (
             "EXAM-2026-EO-OPT",
             SystemConfiguration(
@@ -90,10 +90,11 @@ def test_mission_specification_sheets_and_solutions():
                     SelectedOption(slot_function="adcs", equipment_id="adcs_sodern_auriga_fr"),
                 ],
                 selected_payload_ids=["pl_opt_stellara_35cm"],
+                selected_calibration_ids=["calib_optical_tvac"],
                 launcher_id="ln_rideshare_sso",
             ),
         ),
-        # 2. SAR surveillance — Solution with Aegis Radar institutional SAR
+        # 2. SAR surveillance — Aegis Radar institutional SAR + CATR-TVAC qualification
         # Geo-return: Allemagne [40-65%], France [30-50%], Italie [3-15%]
         (
             "EXAM-2026-SAR",
@@ -105,11 +106,11 @@ def test_mission_specification_sheets_and_solutions():
                     SelectedOption(slot_function="payload_downlink", equipment_id="downlink_xband_milan_it"),
                 ],
                 selected_payload_ids=["pl_sar_aegis_x_tactical"],
+                selected_calibration_ids=["calib_sar_catr_tvac"],
                 launcher_id="ln_rideshare_sso",
             ),
         ),
-        # 3. Atmosphere GHG — AtmoSonde Scientific Instruments (SWIR 1720 nm)
-        # Coupled architecture: Telescope [WideView-18] -> Slit [SpectraSpace] -> Spectrometer [TropoSonde-CH4]
+        # 3. Atmosphere GHG — Coupled chain: Telescope [WideView-18] -> Slit [Athermal GHG] -> Spectrometer [TropoSonde-CH4] + Cryo-TVAC
         # Geo-return: France [30-60%], Allemagne [10-35%], Espagne [5-20%]
         (
             "EXAM-2026-ATMO-GHG",
@@ -124,11 +125,12 @@ def test_mission_specification_sheets_and_solutions():
                     SelectedOption(slot_function="adcs", equipment_id="adcs_high_accuracy_pack"),
                 ],
                 selected_payload_ids=["pl_opt_wide_swath_18cm", "pl_spec_atmo_tropo_ghg"],
+                selected_calibration_ids=["calib_cryo_spectral_tvac"],
                 launcher_id="ln_rideshare_sso",
             ),
         ),
-        # 4. Cosmology deep field (budget 32 M€, aperture >= 0.60 m, diffraction <= 0.72 m, pointing <= 0.004 deg)
-        # Geo-return: Italie [40-65%], France [25-50%], Allemagne [4-18%]
+        # 4a. Cosmology deep field — Single primary telescope STELLA-60 + Cryo-TVAC
+        # Geo-return: Italie [40-65%], France [25-50%], Allemagne [4-20%]
         (
             "EXAM-2026-COSMO",
             SystemConfiguration(
@@ -142,10 +144,30 @@ def test_mission_specification_sheets_and_solutions():
                     SelectedOption(slot_function="adcs", equipment_id="adcs_agile_wheels_medium"),
                 ],
                 selected_payload_ids=["pl_opt_stellara_60cm"],
+                selected_calibration_ids=["calib_cryo_spectral_tvac"],
                 launcher_id="ln_espa_heavy_rideshare",
             ),
         ),
-        # 5. High throughput laser datalink — TeraLink Photonics (25 Gbps)
+        # 4b. Cosmology deep field — Dual payload coupled architecture (STELLA-60 + Slit + Lumina VNIR/SWIR spectrometer) + Cryo-TVAC
+        (
+            "EXAM-2026-COSMO",
+            SystemConfiguration(
+                orbit=OrbitDefinition(altitude_km=500.0, inclination_deg=97.4),
+                platform_id="plat_astra_flex300",
+                selected_options=[
+                    SelectedOption(slot_function="optical_interface", equipment_id="opt_slit_wide_mapper"),
+                    SelectedOption(slot_function="propulsion", equipment_id="prop_electric_hemp_de"),
+                    SelectedOption(slot_function="ttc", equipment_id="ttc_sband_dual_redundant"),
+                    SelectedOption(slot_function="payload_downlink", equipment_id="downlink_xband_tx"),
+                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_1tb_de"),
+                    SelectedOption(slot_function="adcs", equipment_id="adcs_agile_wheels_medium"),
+                ],
+                selected_payload_ids=["pl_opt_stellara_60cm", "pl_spec_lumina_vnir_swir"],
+                selected_calibration_ids=["calib_cryo_spectral_tvac"],
+                launcher_id="ln_espa_heavy_rideshare",
+            ),
+        ),
+        # 5. High throughput laser datalink — TeraLink Photonics (25 Gbps) + PAT-TVAC ESTEC
         # Geo-return: France [35-60%], Allemagne [30-55%], Suisse [2-12%]
         (
             "EXAM-2026-DATARATE",
@@ -158,10 +180,11 @@ def test_mission_specification_sheets_and_solutions():
                     SelectedOption(slot_function="adcs", equipment_id="adcs_sodern_auriga_fr"),
                 ],
                 selected_payload_ids=["pl_opt_comm_isl_25g"],
+                selected_calibration_ids=["calib_laser_pat_tvac"],
                 launcher_id="ln_rideshare_sso",
             ),
         ),
-        # 6a. Low-cost CubeSat RF/IoT — Meridian RF Payloads
+        # 6a. Low-cost CubeSat RF/IoT — Meridian RF Payloads + RF-TVAC
         (
             "EXAM-2026-CUBESAT-RF",
             SystemConfiguration(
@@ -173,10 +196,11 @@ def test_mission_specification_sheets_and_solutions():
                     SelectedOption(slot_function="adcs", equipment_id="adcs_cubesat_precision"),
                 ],
                 selected_payload_ids=["pl_rf_ais_adsb"],
+                selected_calibration_ids=["calib_rf_transponder_tvac"],
                 launcher_id="ln_cubesat_deployer",
             ),
         ),
-        # 6b. Low-cost CubeSat RF/IoT — Nordic NanoComm Systems (plus léger, permet d'ajouter une caméra 6cm !)
+        # 6b. Low-cost CubeSat RF/IoT — Nordic NanoComm Systems (20 Mbps + Secondary Optical 6cm camera !) + RF-TVAC
         (
             "EXAM-2026-CUBESAT-RF",
             SystemConfiguration(
@@ -188,10 +212,11 @@ def test_mission_specification_sheets_and_solutions():
                     SelectedOption(slot_function="adcs", equipment_id="adcs_cubesat_precision"),
                 ],
                 selected_payload_ids=["pl_rf_nordic_ais_sdr", "pl_opt_cubesat_6cm"],
+                selected_calibration_ids=["calib_rf_transponder_tvac"],
                 launcher_id="ln_cubesat_deployer",
             ),
         ),
-        # 7. Light low-cost optical EO (budget 2.80 M€, GSD <= 3.5 m, swath >= 12 km, SNR >= 50)
+        # 7. Light low-cost optical EO (budget 2.35 M€, GSD <= 2.80 m, swath >= 18 km, SNR >= 80, lifetime >= 3.0 yr)
         (
             "EXAM-2026-EO-LIGHT",
             SystemConfiguration(
@@ -203,10 +228,11 @@ def test_mission_specification_sheets_and_solutions():
                     SelectedOption(slot_function="adcs", equipment_id="adcs_cubesat_precision"),
                 ],
                 selected_payload_ids=["pl_opt_pan_compact"],
+                selected_calibration_ids=["calib_optical_tvac"],
                 launcher_id="ln_cubesat_deployer",
             ),
         ),
-        # 8. High-performance sub-metric optical EO (budget 35 M€, GSD <= 0.40 m, aperture >= 0.70 m, pointing <= 0.004 deg, lifetime >= 7 yr)
+        # 8. High-performance sub-metric optical EO (budget 33.5 M€, GSD <= 0.40 m, aperture >= 0.70 m, swath >= 13.8 km, TVAC <= 2.0%)
         (
             "EXAM-2026-EO-HIGHPERF",
             SystemConfiguration(
@@ -220,11 +246,11 @@ def test_mission_specification_sheets_and_solutions():
                     SelectedOption(slot_function="adcs", equipment_id="adcs_agile_wheels_medium"),
                 ],
                 selected_payload_ids=["pl_opt_helios_70cm"],
+                selected_calibration_ids=["calib_optical_tvac"],
                 launcher_id="ln_espa_heavy_rideshare",
             ),
         ),
-        # 9. Classical GEO telecommunications (budget 55 M€, GEO 35,786 km, rate >= 600 Mbps, margin >= 3.5 dB, lifetime >= 12 yr)
-        # Geo-return: France [45-75%], Suisse [20-40%], Allemagne [3-15%]
+        # 9. Classical GEO telecommunications (budget 46.0 M€, GEO 35,786 km, rate >= 700 Mbps, margin >= 8.0 dB, lifetime >= 15 yr, RF-TVAC)
         (
             "EXAM-2026-GEO-COMMS",
             SystemConfiguration(
@@ -237,7 +263,24 @@ def test_mission_specification_sheets_and_solutions():
                     SelectedOption(slot_function="adcs", equipment_id="adcs_agile_wheels_medium"),
                 ],
                 selected_payload_ids=["pl_rf_smallgeo_ku_relay"],
+                selected_calibration_ids=["calib_rf_transponder_tvac"],
                 launcher_id="ln_gto_rideshare",
+            ),
+        ),
+        # 10. Quantum Key Distribution QKD (budget 14.5 M€, SKR >= 20 kbps, QBER <= 2.0%, PAT-TVAC)
+        (
+            "EXAM-2026-QKD",
+            SystemConfiguration(
+                orbit=OrbitDefinition(altitude_km=500.0, inclination_deg=97.4),
+                platform_id="plat_astra_flex150",
+                selected_options=[
+                    SelectedOption(slot_function="ttc", equipment_id="ttc_sband_gallia_fr"),
+                    SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_1tb_de"),
+                    SelectedOption(slot_function="adcs", equipment_id="adcs_sodern_auriga_fr"),
+                ],
+                selected_payload_ids=["pl_qkd_edelweiss_entangled"],
+                selected_calibration_ids=["calib_laser_pat_tvac"],
+                launcher_id="ln_rideshare_sso",
             ),
         ),
     ]
@@ -252,6 +295,83 @@ def test_mission_specification_sheets_and_solutions():
             # N member state checks + 1 non-ESA ceiling check (RULE_GEORETURN_NON_ESA_CAP)
             assert len(geo_checks) == len(ms.geo_return_constraints) + 1
             assert all(c.status == CheckStatus.PASS for c in geo_checks)
+
+
+def test_mission_architectural_dilemmas_and_non_conformities():
+    """Verify that missions embed deliberate engineering dilemmas where attempting to satisfy
+    aggressive Goals or alternative trade-offs triggers specific non-conformities (requiring student waivers)."""
+    db = CatalogDatabase()
+    db.load_from_directory(catalogs_dir())
+    evaluator = SystemEvaluator(db)
+
+    # Dilemma 1 (EXAM-2026-EO-OPT): Lowering altitude to 410 km with STELLA-35 achieves Goal GSD <= 0.70 m (0.70 m),
+    # but violates REQ-OPT-SWATH (14.1 km < 17.0 km). Conversely, using EagleEye-45 at 500 km violates Budget & Geo-return.
+    ms_eo = MissionSpecification.model_validate_json(
+        (missions_dir() / "exam_optical_earth_observation.mission.json").read_text(encoding="utf-8")
+    )
+    cfg_eo_low_alt = SystemConfiguration(
+        orbit=OrbitDefinition(altitude_km=405.0, inclination_deg=97.0),
+        platform_id="plat_astra_flex150",
+        selected_options=[
+            SelectedOption(slot_function="propulsion", equipment_id="prop_electric_hemp_de"),
+            SelectedOption(slot_function="ttc", equipment_id="ttc_sband_gallia_fr"),
+            SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_1tb_de"),
+            SelectedOption(slot_function="adcs", equipment_id="adcs_sodern_auriga_fr"),
+        ],
+        selected_payload_ids=["pl_opt_stellara_35cm"],
+        selected_calibration_ids=["calib_optical_tvac"],
+        launcher_id="ln_rideshare_sso",
+    )
+    b_eo_low = evaluator.evaluate(cfg_eo_low_alt, ms_eo)
+    eo_checks = {c.rule_id: c for c in b_eo_low.compliance_checks}
+    assert eo_checks["REQ-OPT-GSD"].current_value <= 0.70  # Reaches the 0.70 m Goal!
+    assert eo_checks["REQ-OPT-SWATH"].status == CheckStatus.FAIL  # Fails Swath >= 17 km (Waiver required)
+
+    # Dilemma 2 (EXAM-2026-ATMO-GHG): Coupling STELLA-20 (f=1.80 m) instead of WideView-18 (f=0.90 m)
+    # reaches the spatial resolution Goal <= 3.50 m (GSD = 3.33 m), but fails Swath >= 9.5 km (5.0 km) and SNR >= 70 (25.5).
+    ms_ghg = MissionSpecification.model_validate_json(
+        (missions_dir() / "exam_atmosphere_greenhouse_gas.mission.json").read_text(encoding="utf-8")
+    )
+    cfg_ghg_high_gsd = SystemConfiguration(
+        orbit=OrbitDefinition(altitude_km=500.0, inclination_deg=97.4),
+        platform_id="plat_sstl_mini150",
+        selected_options=[
+            SelectedOption(slot_function="optical_interface", equipment_id="opt_slit_athermal_ghg"),
+            SelectedOption(slot_function="propulsion", equipment_id="prop_electric_hemp_de"),
+            SelectedOption(slot_function="ttc", equipment_id="ttc_xband_tmtc"),
+            SelectedOption(slot_function="mass_memory", equipment_id="mass_mem_1tb"),
+            SelectedOption(slot_function="adcs", equipment_id="adcs_high_accuracy_pack"),
+        ],
+        selected_payload_ids=["pl_opt_stellara_20cm", "pl_spec_atmo_tropo_ghg"],
+        selected_calibration_ids=["calib_cryo_spectral_tvac"],
+        launcher_id="ln_rideshare_sso",
+    )
+    b_ghg_hi = evaluator.evaluate(cfg_ghg_high_gsd, ms_ghg)
+    ghg_checks = {c.rule_id: c for c in b_ghg_hi.compliance_checks}
+    assert ghg_checks["REQ-ATMO-GSD"].current_value <= 3.50  # Reaches the 3.50 m Goal!
+    assert ghg_checks["REQ-ATMO-SWATH"].status == CheckStatus.FAIL  # Fails Swath >= 9.5 km
+    assert ghg_checks["REQ-ATMO-SNR"].status == CheckStatus.FAIL  # Fails SNR >= 70
+
+    # Dilemma 3 (EXAM-2026-SAR): Choosing CompactSAR-X achieves the Stripmap Azimuth Goal <= 1.30 m (1.25 m),
+    # but fails NESZ <= -21.0 dB (-2.1 dB).
+    ms_sar = MissionSpecification.model_validate_json(
+        (missions_dir() / "exam_sar_surveillance.mission.json").read_text(encoding="utf-8")
+    )
+    cfg_sar_compact = SystemConfiguration(
+        orbit=OrbitDefinition(altitude_km=500.0, inclination_deg=97.4),
+        platform_id="plat_astra_flex300",
+        selected_options=[
+            SelectedOption(slot_function="ttc", equipment_id="ttc_sband_aurora_it"),
+            SelectedOption(slot_function="payload_downlink", equipment_id="downlink_xband_milan_it"),
+        ],
+        selected_payload_ids=["pl_sar_xband_compact"],
+        selected_calibration_ids=["calib_sar_catr_tvac"],
+        launcher_id="ln_rideshare_sso",
+    )
+    b_sar_comp = evaluator.evaluate(cfg_sar_compact, ms_sar)
+    sar_checks = {c.rule_id: c for c in b_sar_comp.compliance_checks}
+    assert sar_checks["REQ-SAR-AZ-01"].current_value <= 1.30  # Reaches Azimuth Goal <= 1.30 m!
+    assert sar_checks["REQ-SAR-NESZ-01"].status == CheckStatus.FAIL  # Fails NESZ <= -21 dB
 
 
 def test_student_and_teacher_gui_offscreen():

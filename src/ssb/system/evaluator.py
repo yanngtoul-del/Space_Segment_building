@@ -577,6 +577,12 @@ class SystemEvaluator:
                 if adcs_acc is not None and adcs_acc < effective_pointing_accuracy_deg:
                     effective_pointing_accuracy_deg = adcs_acc
 
+        effective_radiometric_acc_pct = (
+            min(c.radiometric_accuracy_pct for c in calib_items)
+            if calib_items
+            else 10.0
+        )
+
         for req in mission.requirements:
             if req.parameter == "pointing_accuracy_deg":
                 thresh = float(req.threshold)
@@ -612,6 +618,29 @@ class SystemEvaluator:
                         current_value=plat_base.design_lifetime_years,
                         target_value=thresh,
                         unit="yr",
+                    )
+                )
+            elif req.parameter == "radiometric_accuracy_pct":
+                thresh = float(req.threshold)
+                pass_rad = (
+                    effective_radiometric_acc_pct <= thresh
+                    if req.operator == RequirementOperator.LE
+                    else effective_radiometric_acc_pct >= thresh
+                )
+                cal_desc = (
+                    f"{effective_radiometric_acc_pct:.1f}% ({', '.join(c.name for c in calib_items)})"
+                    if calib_items
+                    else "10.0% (non étalonné au sol)"
+                )
+                compliance_checks.append(
+                    RuleCheckResult(
+                        rule_id=req.id,
+                        category="Mission Requirement",
+                        status=CheckStatus.PASS if pass_rad else CheckStatus.FAIL,
+                        message=f"{req.title}: ground calibration accuracy = {cal_desc} (threshold: <= {thresh:.1f}%)",
+                        current_value=effective_radiometric_acc_pct,
+                        target_value=thresh,
+                        unit="%",
                     )
                 )
 
