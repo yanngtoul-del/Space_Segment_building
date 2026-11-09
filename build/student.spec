@@ -19,6 +19,7 @@ a = Analysis(
     hiddenimports=[
         'ssb.catalog.database',
         'ssb.catalog.datasheet',
+        'ssb.core.calibration',
         'ssb.core.catalog_meta',
         'ssb.core.paths',
         'ssb.core.constants',
@@ -42,6 +43,7 @@ a = Analysis(
         'ssb.report.generator',
         'ssb.ui_common.schematic',
         'ssb.ui_common.catalog_browser',
+        'ssb.ui_common.global_architecture_view',
         'ssb.ui_common.platform_slots_widget',
         'ssb.ui_common.mission_sheet_view',
         'scipy.integrate',
