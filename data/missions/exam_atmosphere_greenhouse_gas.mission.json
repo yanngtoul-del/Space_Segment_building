@@ -6,7 +6,7 @@
   "domain_label": "Connaissance de l'Atmosphère — Spectrométrie Infrarouge à Ondes Courtes (SWIR)",
   "client_agency": "Agence Spatiale Européenne (ESA) / Programme Copernicus — Surveillance Atmosphérique (CAMS)",
   "context": "La détection des panaches ponctuels de méthane (CH₄ vers 1650 nm) et de dioxyde de carbone (CO₂ vers 1600–2050 nm) issus des sites industriels, pipelines et bassins miniers exige une chaîne instrumentale dispersive complète couplant : (1) un télescope collecteur avant (charge utile optique), (2) une fente spectrométrique d'interface au plan focal (sous-système « Interface Optique ») et (3) un banc spectromètre SWIR refroidi. Ce cahier des charges confronte l'architecte à un trilemme optique sévère entre résolution spatiale (objectif <= 3.5 m, seuil <= 6.8 m), largeur de fauchée spectrométrique (>= 9.5 km), résolution spectrale fine (<= 0.50 nm) et SNR (>= 70).",
-  "primary_objective": "Assembler et qualifier une chaîne spectrométrique SWIR complète (Télescope avant + Fente spectrométrique + Spectromètre SWIR >= 1650 nm) en orbite SSO permettant de résoudre les raies d'absorption fines du CH₄/CO₂ (dLambda <= 0.50 nm) avec une fauchée spectrométrique >= 9.5 km, un GSD spatial <= 6.80 m (objectif <= 3.50 m), un SNR >= 70 et un étalonnage cryo-vide (Cryo-TVAC <= 1.0 %).",
+  "primary_objective": "Assembler et qualifier une chaîne spectrométrique SWIR complète (Télescope avant + Fente spectrométrique + Spectromètre SWIR >= 1650 nm) en orbite SSO permettant de résoudre les raies d'absorption fines du CH₄/CO₂ (dLambda <= 0.50 nm) avec une fauchée spectrométrique >= 9.5 km, un GSD spatial <= 6.80 m (objectif <= 3.50 m), un SNR >= 70, une durée de vie >= 5.0 ans et un étalonnage cryo-vide (Cryo-TVAC <= 1.0 %).",
   "secondary_objectives": [
     "Maîtriser le couplage optique Télescope + Fente + Spectromètre : le spectromètre seul ne possède pas d'optique collectrice frontale ; son GSD, sa fauchée et son nombre d'ouverture F/# dépendent directement du diamètre D et de la focale f du télescope associé.",
     "Analyser le dilemme de focale du télescope avant : associer un télescope à courte focale et grande ouverture numérique comme WideView-18 (D=18 cm, f=0.90 m, F/5) offre une fauchée de 10.0 km et un SNR de 84.6 mais limite le GSD à 6.67 m ; à l'inverse, choisir STELLA-20 (f=1.80 m, F/9) ou Altair-25 (f=2.20 m) améliore le GSD à 3.33 m / 2.73 m (atteignant l'objectif <= 3.5 m) mais réduit la fauchée à 5.0 km / 4.1 km et fait chuter le SNR sous 26 (en raison de l'ouverture F/9 deux fois moins lumineuse !).",
@@ -90,6 +90,17 @@
       "goal": 0.9,
       "unit": "%",
       "description": "L'incertitude radiométrique et spectrale certifiée au sol doit être <= 1.0 %, imposant une campagne en cuve cryo-vide (Cryo-TVAC 80 K–350 K au CSL Liège, 0.9 %)."
+    },
+    {
+      "id": "REQ-ATMO-LIFE",
+      "title": "Durée de Vie Nominale Plateforme",
+      "req_type": "lifetime",
+      "parameter": "design_lifetime_years",
+      "operator": ">=",
+      "threshold": 5.0,
+      "goal": 7.0,
+      "unit": "yr",
+      "description": "La plateforme doit assurer une durée de vie nominale >= 5.0 ans pour établir des séries climatiques pluriannuelles."
     }
   ],
   "ground_stations": [

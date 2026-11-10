@@ -6,7 +6,7 @@
   "domain_label": "Cryptographie Quantique Spatiale (QKD) — Sécurité des Communications Gouvernementales",
   "client_agency": "Agence Spatiale Européenne (ESA) / Commission Européenne — Initiative EuroQCI / SAGA",
   "context": "Dans le cadre de l'infrastructure européenne de communication quantique (EuroQCI / SAGA), l'Union Européenne et l'ESA souhaitent déployer un satellite de Distribution Quantique de Clés (QKD) en orbite basse héliosynchrone pour distribuer des clés cryptographiques inconditionnellement sûres entre les chancelleries et centres de données européens. Ce cahier des charges confronte l'étudiant aux compromis propres à l'optique quantique spatiale : choisir entre une source à états leurres BB84 (QKD-Decoy allemand à 3.60 M€ ou Albion-QKD britannique à 2.40 M€) et une source à paires de photons intriqués BBM92 (Edelweiss-QKD suisse à 4.70 M€ ou QKD-HighRate autrichien à 6.40 M€), tout en qualifiant la tenue en polarisation sous vide thermique (PAT-TVAC à l'ESTEC) sous un plafond de 14.50 M€.",
-  "primary_objective": "Déployer un satellite QKD en orbite SSO garantissant un taux de génération de clé secrète asymptotique (SKR) >= 20 000 bps (objectif >= 80 000 bps), un taux d'erreur binaire quantique (QBER) <= 2.0 % (objectif <= 1.60 %), une précision de pointage <= 0.005° (objectif <= 0.003°) et une qualification PAT-TVAC (<= 2.6 %) sous 14.50 M€.",
+  "primary_objective": "Déployer un satellite QKD en orbite SSO garantissant un taux de génération de clé secrète asymptotique (SKR) >= 20 000 bps (objectif >= 80 000 bps), un taux d'erreur binaire quantique (QBER) <= 2.0 % (objectif <= 1.60 %), une précision de pointage <= 0.005° (objectif <= 0.003°), une durée de vie >= 5.0 ans et une qualification PAT-TVAC (<= 2.6 %) sous 14.50 M€.",
   "secondary_objectives": [
     "Comparer les 5 charges utiles QKD du catalogue : le terminal CubeSat compact autrichien (SKR = 5 029 bps, QBER = 2.66 %) échoue à la fois sur le débit minimal (20 kbps) et sur le QBER (<= 2.0 %) ; les terminaux BB84 Decoy allemand (25.5 kbps, QBER 1.77 %) et britannique Albion-Micro12 (22.2 kbps, QBER 1.81 %) franchissent le seuil à moindre coût ; le terminal intriqué suisse Edelweiss (85.5 kbps, QBER 1.58 %) atteint les objectifs (Goals) tout en tenant juste sous 14.50 M€ (14.19 M€) ; enfin le grand télescope autrichien 25 cm (184.7 kbps, QBER 1.54 %) dépasse le plafond budgétaire (16.14 M€ > 14.50 M€).",
     "Analyser la dépendance critique du débit de clé secrète (SKR) à l'altitude orbitale : baisser l'altitude de 500 km à 400 km réduit les pertes géométriques du canal quantique (en 1/R²) et augmente le SKR de +45 % (ex: de 25.5 kbps à 37.2 kbps pour QKD-Decoy), mais raccourcit la durée des passages nocturnes.",
@@ -68,6 +68,17 @@
       "goal": 2.0,
       "unit": "%",
       "description": "Le terminal quantique doit être qualifié en cuve à vide thermique (PAT-TVAC <= 2.5 % ou TVAC optique/cryo) pour vérifier l'absence de biréfringence thermo-induite sur les états de polarisation."
+    },
+    {
+      "id": "REQ-QKD-LIFE",
+      "title": "Durée de Vie Opérationnelle Plateforme",
+      "req_type": "lifetime",
+      "parameter": "design_lifetime_years",
+      "operator": ">=",
+      "threshold": 5.0,
+      "goal": 7.0,
+      "unit": "yr",
+      "description": "La plateforme doit assurer une durée de vie nominale >= 5.0 ans pour le service gouvernemental EuroQCI."
     }
   ],
   "ground_stations": [

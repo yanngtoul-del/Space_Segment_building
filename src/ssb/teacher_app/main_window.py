@@ -39,6 +39,8 @@ from ssb.core.mission import (
     RequirementType,
     RequirementOperator,
     GroundStationTarget,
+    TargetZone,
+    GeoReturnConstraint,
 )
 from ssb.core.project import StudentProject
 from ssb.system.evaluator import SystemEvaluator, CheckStatus
@@ -136,7 +138,7 @@ class TeacherMainWindow(QMainWindow):
             for mf in sorted(mdir.glob("*.mission.json")):
                 try:
                     ms = MissionSpecification.model_validate_json(mf.read_text(encoding="utf-8"))
-                    self.cmb_existing_missions.addItem(f"[{ms.id}] {ms.title} ({ms.max_budget_meur:.1f} M€)", str(mf))
+                    self.cmb_existing_missions.addItem(f"[{ms.id}] {ms.title} ({ms.max_budget_meur:.2f} M€)", str(mf))
                 except Exception:
                     pass
         self.cmb_existing_missions.currentIndexChanged.connect(self._on_load_existing_mission)
@@ -162,6 +164,7 @@ class TeacherMainWindow(QMainWindow):
 
         self.spin_m_budget = QDoubleSpinBox()
         self.spin_m_budget.setRange(0.5, 500.0)
+        self.spin_m_budget.setDecimals(2)
         self.spin_m_budget.setValue(20.0)
         self.spin_m_budget.setSuffix(" M€")
 
@@ -190,6 +193,34 @@ class TeacherMainWindow(QMainWindow):
         self.edit_m_conops = QLineEdit(
             "Acquisition sur zones côtières éclairées, stockage mémoire de masse et vidage sur station sol."
         )
+
+        self._loaded_image: str = ""
+        self._loaded_reqs: list[MissionRequirement] = [
+            MissionRequirement(
+                id="REQ-GSD-01",
+                title="GSD au nadir",
+                description="GSD <= 1.0 m",
+                req_type=RequirementType.PAYLOAD_PERF,
+                parameter="gsd_nadir_m",
+                operator=RequirementOperator.LE,
+                threshold=1.0,
+                unit="m",
+            )
+        ]
+        self._loaded_stations: list[GroundStationTarget] = [
+            GroundStationTarget(
+                id="sta_toulouse",
+                name="Toulouse Ground Station",
+                latitude_deg=43.60,
+                longitude_deg=1.44,
+                min_elevation_deg=5.0,
+            )
+        ]
+        self._loaded_target_zones: list[TargetZone] = []
+        self._loaded_geo_return: list[GeoReturnConstraint] = []
+        self._loaded_max_non_esa_pct: float = 15.0
+        self._loaded_secondary: list[str] = []
+        self._loaded_deliverables: list[str] = []
 
         for w in (
             self.edit_m_id,
@@ -228,39 +259,24 @@ class TeacherMainWindow(QMainWindow):
         split_m.setStretchFactor(1, 3)
         l_cr_outer.addWidget(split_m, stretch=1)
 
-        self._loaded_reqs: list[MissionRequirement] = [
-            MissionRequirement(
-                id="REQ-GSD-01",
-                title="GSD au nadir",
-                description="GSD <= 1.0 m",
-                req_type=RequirementType.PAYLOAD_PERF,
-                parameter="gsd_nadir_m",
-                operator=RequirementOperator.LE,
-                threshold=1.0,
-                unit="m",
-            )
-        ]
-        self._loaded_stations: list[GroundStationTarget] = [
-            GroundStationTarget(
-                id="sta_toulouse",
-                name="Toulouse Ground Station",
-                latitude_deg=43.60,
-                longitude_deg=1.44,
-                min_elevation_deg=5.0,
-            )
-        ]
-        self._loaded_secondary: list[str] = []
-        self._loaded_deliverables: list[str] = []
         self._update_mission_preview()
 
         self.tabs.addTab(tab_create, "2. Fiches de Spécification Mission")
 
         # ---- Tab 3: Complete Reference Catalog Browser
+        calib_type_opts = [
+            ("optical_thermal_vacuum", "Vide Thermique Optique (TVAC SIMLES)"),
+            ("cryogenic_vacuum", "Cryo-Vide Spatial & Spectrométrie (CSL FOCAL)"),
+            ("rf_catr_vacuum", "Base CATR & Vide Thermique Multipactor (IABG)"),
+            ("laser_optical_bench", "Banc Laser PAT & Simulation Solaire LSS (ESTEC)"),
+            ("cleanroom_ambient", "Contrôle Radiométrique Ambiant ISO 5"),
+        ]
         cat_tabs = QTabWidget()
         for cat, title, opts in [
             ("payload", f"Charges utiles ({len(self.catalog.payloads)})", list(PAYLOAD_TYPE_LABELS_FR.items())),
             ("platform", f"Plateformes ({len(self.catalog.platforms)})", None),
             ("equipment", f"Équipements ({len(self.catalog.equipments)})", list(FUNCTION_LABELS_FR.items())),
+            ("calibration", f"Calibration & Essais TVAC ({len(self.catalog.calibrations)})", calib_type_opts),
             ("launcher", f"Lanceurs ({len(self.catalog.launchers)})", None),
         ]:
             br = CatalogBrowser(self.catalog, cat, type_filter_options=opts)
@@ -272,6 +288,7 @@ class TeacherMainWindow(QMainWindow):
         return MissionSpecification(
             id=self.edit_m_id.text().strip() or "EXAM-CUSTOM",
             title=self.edit_m_title.text().strip() or "Mission",
+            image=self._loaded_image,
             client_agency=self.edit_m_agency.text().strip(),
             domain_label=self.edit_m_domain.text().strip(),
             context=self.edit_m_context.text().strip(),
@@ -287,6 +304,9 @@ class TeacherMainWindow(QMainWindow):
             min_trl=self.spin_m_trl.value(),
             requirements=self._loaded_reqs,
             ground_stations=self._loaded_stations,
+            target_zones=self._loaded_target_zones,
+            geo_return_constraints=self._loaded_geo_return,
+            max_non_esa_spend_pct=self._loaded_max_non_esa_pct,
         )
 
     def _update_mission_preview(self) -> None:
@@ -297,6 +317,15 @@ class TeacherMainWindow(QMainWindow):
         if not fp:
             return
         ms = MissionSpecification.model_validate_json(Path(fp).read_text(encoding="utf-8"))
+        self._loaded_image = ms.image
+        self._loaded_reqs = list(ms.requirements)
+        self._loaded_stations = list(ms.ground_stations)
+        self._loaded_target_zones = list(ms.target_zones)
+        self._loaded_geo_return = list(ms.geo_return_constraints)
+        self._loaded_max_non_esa_pct = ms.max_non_esa_spend_pct
+        self._loaded_secondary = list(ms.secondary_objectives)
+        self._loaded_deliverables = list(ms.deliverables_expected)
+
         self.edit_m_id.setText(ms.id)
         self.edit_m_title.setText(ms.title)
         self.edit_m_agency.setText(ms.client_agency)
@@ -312,10 +341,6 @@ class TeacherMainWindow(QMainWindow):
         self.txt_m_need.setPlainText(ms.scientific_or_operational_need)
         self.edit_m_orbit_desc.setText(ms.orbit_constraints_description)
         self.edit_m_conops.setText(ms.conops_guidance)
-        self._loaded_reqs = list(ms.requirements)
-        self._loaded_stations = list(ms.ground_stations)
-        self._loaded_secondary = list(ms.secondary_objectives)
-        self._loaded_deliverables = list(ms.deliverables_expected)
         self._update_mission_preview()
 
     def load_student_project(self) -> None:

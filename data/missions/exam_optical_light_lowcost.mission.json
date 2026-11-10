@@ -6,20 +6,20 @@
   "domain_label": "Observation de la Terre — Imagerie Multispectrale Légère & Agriculture de Précision",
   "client_agency": "Start-up Européenne d'AgriTech / Appel à Projets NewSpace Rapide",
   "context": "Une jeune pousse européenne d'agriculture de précision souhaite déployer le premier satellite tête de série d'une future constellation de suivi hydrique et parcellaire. Le budget d'investissement (CAPEX) est strictement plafonné à 2.35 M€ tout compris (satellite, options, étalonnage sol et lancement). Ce cahier des charges place l'ingénieur face aux compromis classiques du NewSpace : choisir entre un CubeSat 12U/16U (durée de vie 3.0 ans, capacité charge utile 8–10 kg) et un micro-satellite ESPA-60 (durée de vie 4.0 ans, mais hors budget à > 3.6 M€), et arbitrer entre l'étalonnage TVAC optique complet (+0.48 M€, incertitude 1.8 %) et l'étalonnage standard en salle blanche ISO 5 (+0.12 M€, incertitude 5.5 %).",
-  "primary_objective": "Concevoir un nanosatellite d'observation optique multispectrale en orbite SSO délivrant un GSD <= 2.80 m (objectif <= 1.60 m), une fauchée >= 18.0 km (objectif >= 45.0 km), un SNR >= 80 et une durée de vie >= 3.0 ans (objectif >= 4.0 ans) sous une enveloppe globale <= 2.35 M€.",
+  "primary_objective": "Concevoir un nanosatellite d'observation optique multispectrale en orbite SSO délivrant un GSD <= 2.80 m (objectif <= 1.60 m), une fauchée >= 18.0 km (objectif >= 45.0 km), un SNR >= 80, un étalonnage radiométrique <= 2.0 % (TVAC) et une durée de vie >= 3.0 ans (objectif >= 4.0 ans) sous une enveloppe globale <= 2.35 M€.",
   "secondary_objectives": [
-    "Analyser l'incompatibilité entre le plafond budgétaire de 2.35 M€ et les objectifs étendus (Goals) : viser GSD <= 1.60 m (STELLA-20, 11 kg) ou Fauchée >= 45 km (WideView-18, 9.5 kg) ou une durée de vie de 4.0 ans impose de quitter la plateforme CubeSat 12U (max 8 kg, 3.0 ans) pour une plateforme MicroBus-16U ou ESPA-60 qui dépasse le budget ou dégrade le GSD.",
-    "Arbitrer la stratégie AIT / Calibration au sol : démontrer que sur un budget de 2.35 M€, la campagne TVAC Optique complète chez Intespace (0.48 M€) passe tout juste sur MicroBus-12U + CompactPan-12 (coût total ~2.22 M€ avec TVAC ou ~1.86 M€ en salle blanche ambiante ISO 5), mais laisse une marge de puissance électrique très serrée sur le bus 12U si on utilise l'émetteur bande S standard (4.5 %) contre 40.9 % en UHF.",
+    "Analyser l'incompatibilité entre le plafond budgétaire de 2.35 M€ et les objectifs étendus (Goals) : viser GSD <= 1.60 m (STELLA-20, 11 kg) ou Fauchée >= 45 km (WideView-18, 9.5 kg) ou une durée de vie de 4.0 ans impose de quitter la plateforme CubeSat 12U (max 8 kg, 3.0 ans) pour une plateforme MicroBus-16U (3.32 M€) ou ESPA-60 (> 3.6 M€) qui dépasse le budget ou dégrade le GSD.",
+    "Arbitrer la stratégie AIT / Calibration au sol : démontrer que sur un budget de 2.35 M€, la campagne TVAC Optique complète chez Intespace (0.48 M€, incertitude 1.8 %) passe tout juste sur MicroBus-12U + CompactPan-12 (coût total 2.30 M€ avec TVAC contre 1.94 M€ en salle blanche ambiante ISO 5 à 5.5 %), et analyser l'impact du choix TT&C sur la marge de puissance électrique du bus 12U (marge serrée de 4.5 % avec l'émetteur bande S standard contre 50.0 % en UHF).",
     "Optimiser le choix du service de lancement (Déployeur CubeSat P-POD/QuadPack vs Rideshare SSO)."
   ],
   "scientific_or_operational_need": "Fournir des cartes hebdomadaires d'indice de végétation (NDVI) à l'échelle intra-parcellaire (< 3 m) sur les grandes plaines céréalières européennes à un coût par satellite compatible d'une constellation de 12 unités.",
-  "orbit_constraints_description": "Orbite héliosynchrone (SSO) entre 450 km et 550 km d'altitude. À 500 km, l'imageur CompactPan-12 (D=12 cm, f=1.05 m, 4.5 kg) fournit un GSD de 2.62 m et une fauchée de 20.9 km. Baisser l'altitude à 420 km améliore le GSD à 2.20 m mais réduit la fauchée à 17.6 km (< 18 km requis !).",
+  "orbit_constraints_description": "Orbite héliosynchrone (SSO) entre 450 km et 550 km d'altitude. À 500 km, l'imageur CompactPan-12 (D=12 cm, f=1.05 m, 4.5 kg) fournit un GSD de 2.62 m et une fauchée de 20.95 km. Baisser l'altitude à 420 km améliore le GSD à 2.20 m mais réduit la fauchée à 17.6 km (< 18 km requis !).",
   "conops_guidance": "Détailler le profil opérationnel d'un CubeSat 12U : acquisitions diurnes programmées sur les zones agricoles, gestion stricte du bilan énergétique en éclipse (capacité batterie réduite sur 12U), stockage sur mémoire flash 64 Go ou 512 Go, et téléchargement des vignettes compressées.",
   "deliverables_expected": [
-    "Justification du dimensionnement CubeSat 12U + CompactPan-12 face aux alternatives MicroBus-16U + WideView-18 (GSD 3.61 m > 2.80 m) et MicroBus-ESPA60 + STELLA-20 (hors budget > 3.6 M€).",
-    "Arbitrage technico-économique entre la calibration TVAC Optique (0.48 M€, qualifiant l'athermalisation sous vide) et la calibration Salle Blanche ISO 5 (0.12 M€, générant un avertissement TVAC mais économisant 0.36 M€).",
-    "Analyse du compromis sur le sous-système TT&C / liaison descendante vis-à-vis de la marge de puissance électrique du bus 12U (22 W disponibles).",
-    "En cas de choix privilégiant la durée de vie de 4 ans (ESPA-60) ou la fauchée de 58 km (WideView-18), rédiger une Demande de Dérogation (Waiver) justifiée."
+    "Justification du dimensionnement CubeSat 12U + CompactPan-12 face aux alternatives MicroBus-16U + WideView-18 (GSD 3.61 m > 2.80 m et coût 3.32 M€) et MicroBus-ESPA60 + STELLA-20 (hors budget > 3.6 M€).",
+    "Arbitrage technico-économique entre la calibration TVAC Optique (0.48 M€, 1.8 % conforme à REQ-LIGHT-CALIB) et la calibration Salle Blanche ISO 5 (0.12 M€, 5.5 % nécessitant une Demande de Dérogation mais économisant 0.36 M€).",
+    "Analyse du compromis sur le sous-système TT&C / liaison descendante vis-à-vis de la marge de puissance électrique du bus 12U (22 W disponibles : 50.0 % de marge en UHF contre 4.5 % en bande S).",
+    "En cas de choix privilégiant la durée de vie de 4 ans (ESPA-60), la fauchée de 57.8 km (WideView-18) ou la calibration ISO 5 à bas coût, rédiger une Demande de Dérogation (Waiver) justifiée."
   ],
   "max_budget_meur": 2.35,
   "min_trl": 8,
@@ -68,6 +68,17 @@
       "goal": 0.03,
       "unit": "deg",
       "description": "La précision de pointage doit être <= 0.06° (requiert au minimum le pack ADCS CubeSat Précision ±0.05°)."
+    },
+    {
+      "id": "REQ-LIGHT-CALIB",
+      "title": "Étalonnage Radiométrique & Optique sous Vide Thermique (TVAC)",
+      "req_type": "payload_perf",
+      "parameter": "radiometric_accuracy_pct",
+      "operator": "<=",
+      "threshold": 2.0,
+      "goal": 1.8,
+      "unit": "%",
+      "description": "L'incertitude radiométrique doit être <= 2.0 % pour fiabiliser les séries NDVI (impose la campagne TVAC Optique à 0.48 M€, 1.8 % ; choisir la salle blanche ISO 5 à 0.12 M€, 5.5 %, exige une Demande de Dérogation)."
     },
     {
       "id": "REQ-LIGHT-LIFE",

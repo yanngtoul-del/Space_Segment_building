@@ -71,6 +71,13 @@ def test_mission_specification_sheets_and_solutions():
         assert ms.image, f"Mission {ms.id} has no image defined"
         img_file = images_dir() / ms.image
         assert img_file.exists(), f"Mission image {ms.image} not found on disk for {ms.id}"
+        # Verify every mission has explicit calibration and lifetime requirements matching header
+        req_params = {r.parameter: r for r in ms.requirements}
+        assert "radiometric_accuracy_pct" in req_params, f"Mission {ms.id} missing radiometric_accuracy_pct requirement"
+        assert "design_lifetime_years" in req_params, f"Mission {ms.id} missing design_lifetime_years requirement"
+        assert float(req_params["design_lifetime_years"].threshold) == ms.target_lifetime_years, (
+            f"Mission {ms.id} lifetime mismatch: header {ms.target_lifetime_years} vs req {req_params['design_lifetime_years'].threshold}"
+        )
         missions[ms.id] = ms
 
     # Reference valid student baseline solutions across all 10 missions,
@@ -440,9 +447,12 @@ def test_student_and_teacher_gui_offscreen():
 
     twin = TeacherMainWindow()
     assert twin.tabs.count() == 3
-    assert twin.cmb_existing_missions.count() >= 7
+    assert twin.cmb_existing_missions.count() >= 11
     assert twin.global_arch_widget is not None
     twin.cmb_existing_missions.setCurrentIndex(1)
+    rebuilt_ms = twin._build_current_mission_spec()
+    assert rebuilt_ms.image != ""
+    assert len(rebuilt_ms.geo_return_constraints) >= 2
     win.close()
     twin.close()
     assert app is not None
