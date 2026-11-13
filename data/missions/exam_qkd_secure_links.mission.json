@@ -5,21 +5,22 @@
   "image": "mission_quantum_shield.jpg",
   "domain_label": "Cryptographie Quantique Spatiale (QKD) — Sécurité des Communications Gouvernementales",
   "client_agency": "Agence Spatiale Européenne (ESA) / Commission Européenne — Initiative EuroQCI / SAGA",
-  "context": "Dans le cadre de l'infrastructure européenne de communication quantique (EuroQCI / SAGA), l'Union Européenne et l'ESA souhaitent déployer un satellite de Distribution Quantique de Clés (QKD) en orbite basse héliosynchrone pour distribuer des clés cryptographiques inconditionnellement sûres entre les chancelleries et centres de données européens. Ce cahier des charges confronte l'étudiant aux compromis propres à l'optique quantique spatiale : choisir entre une source à états leurres BB84 (QKD-Decoy allemand à 3.60 M€ ou Albion-QKD britannique à 2.40 M€) et une source à paires de photons intriqués BBM92 (Edelweiss-QKD suisse à 4.70 M€ ou QKD-HighRate autrichien à 6.40 M€), tout en qualifiant la tenue en polarisation sous vide thermique (PAT-TVAC à l'ESTEC) sous un plafond de 14.50 M€.",
-  "primary_objective": "Déployer un satellite QKD en orbite SSO garantissant un taux de génération de clé secrète asymptotique (SKR) >= 20 000 bps (objectif >= 80 000 bps), un taux d'erreur binaire quantique (QBER) <= 2.0 % (objectif <= 1.60 %), une précision de pointage <= 0.005° (objectif <= 0.003°), une durée de vie >= 5.0 ans et une qualification PAT-TVAC (<= 2.6 %) sous 14.50 M€.",
+  "context": "Dans le cadre de l'infrastructure européenne de communication quantique (EuroQCI / SAGA), l'Union Européenne et l'ESA souhaitent déployer un satellite de Distribution Quantique de Clés (QKD) en orbite basse héliosynchrone afin d'établir des clés cryptographiques inconditionnellement sûres entre les chancelleries et centres de données européens. Ce cahier des charges confronte l'architecte aux exigences physiques de la photonique quantique spatiale : garantir un taux d'erreur binaire quantique QBER ≤ 2.0 % (objectif ≤ 1.60 %) et un débit asymptotique de clé secrète SKR ≥ 20 000 bps (objectif ≥ 80 000 bps), tout en maîtrisant le pointage plateforme (≤ 0.005°), la tenue en polarisation sous vide thermique (≤ 2.6 %) et le retour géographique franco-allemand sous un plafond de 14.50 M€.",
+  "primary_objective": "Déployer un satellite QKD en orbite SSO garantissant un taux d'erreur binaire quantique QBER ≤ 2.0 % (objectif ≤ 1.60 %), un débit asymptotique de clé secrète SKR ≥ 20 000 bps (objectif ≥ 80 000 bps), une précision de pré-pointage plateforme/ADCS ≤ 0.005° (objectif ≤ 0.003°), une qualification PAT-TVAC ≤ 2.6 % (objectif ≤ 2.0 %) et une durée de vie opérationnelle ≥ 5.0 ans (objectif ≥ 7.0 ans) sous un plafond global de 14.50 M€ TTC.",
   "secondary_objectives": [
-    "Comparer les 5 charges utiles QKD du catalogue : le terminal CubeSat compact autrichien (SKR = 5 029 bps, QBER = 2.66 %) échoue à la fois sur le débit minimal (20 kbps) et sur le QBER (<= 2.0 %) ; les terminaux BB84 Decoy allemand (25.5 kbps, QBER 1.77 %) et britannique Albion-Micro12 (22.2 kbps, QBER 1.81 %) franchissent le seuil à moindre coût ; le terminal intriqué suisse Edelweiss (85.5 kbps, QBER 1.58 %) atteint les objectifs (Goals) tout en tenant juste sous 14.50 M€ (14.19 M€) ; enfin le grand télescope autrichien 25 cm (184.7 kbps, QBER 1.54 %) dépasse le plafond budgétaire (16.14 M€ > 14.50 M€).",
-    "Analyser la dépendance critique du débit de clé secrète (SKR) à l'altitude orbitale : baisser l'altitude de 500 km à 400 km réduit les pertes géométriques du canal quantique (en 1/R²) et augmente le SKR de +45 % (ex: de 25.5 kbps à 37.2 kbps pour QKD-Decoy), mais raccourcit la durée des passages nocturnes.",
-    "Intégrer la qualification en vide thermique du banc optique et du maintien d'états de polarisation (PAT-TVAC à l'ESTEC Noordwijk, 0.52 M€) et un canal radio bande S/X authentifié pour la réconciliation de clé publique (sifting & privacy amplification)."
+    "Comparer les protocoles et architectures de sources quantiques (BB84 à états leurres vs BBM92 à paires de photons intriqués, diamètre du télescope d'émission et cadence de source) vis-à-vis du compromis entre débit de clé secrète (SKR) et taux d'erreur (QBER).",
+    "Étudier l'influence de l'altitude orbitale sur l'atténuation géométrique du canal quantique (en dB), sur le taux de comptage des détecteurs à photons uniques au sol et sur le QBER résultant.",
+    "Dimensionner la chaîne de pointage et qualifier l'absence de biréfringence thermo-élastique en vide thermique afin de préserver la fidélité des états de polarisation.",
+    "Respecter le plafond budgétaire de 14.50 M€ et les contraintes de retour géographique ESA (France 35–70 %, Allemagne 2–45 %)."
   ],
-  "scientific_or_operational_need": "Protéger les réseaux diplomatiques, bancaires et militaires européens contre la menace des futurs calculateurs quantiques grâce au protocole de masque jetable (One-Time Pad) alimenté par des clés quantiques renouvelées à chaque passage nocturne.",
-  "orbit_constraints_description": "Orbite héliosynchrone (SSO) autour de 450–550 km avec passage à minuit/midi (22h30–01h30 heure locale) pour maximiser les passages nocturnes au-dessus de l'Europe (le bruit de fond solaire diurne saturant les détecteurs de photons uniques SNSPD/SPAD au sol).",
-  "conops_guidance": "Expliquer le protocole opérationnel QKD en orbite : pointage fin sur balise laser montante de la station sol quantique (Tenerife / Graz / Matera), transmission du train d'impulsions quantiques à 810 nm ou 1550 nm dans l'obscurité, échange concomitant sur le canal radio classique (bande S/X) des bases de mesure (sifting), estimation du QBER, correction d'erreurs LDPC et amplification de confidentialité.",
+  "scientific_or_operational_need": "Protéger les réseaux diplomatiques et gouvernementaux européens contre la menace des futurs calculateurs quantiques grâce à la distribution spatiale de clés cryptographiques renouvelées à chaque passage nocturne (SKR ≥ 20 kbps, QBER ≤ 2.0 %).",
+  "orbit_constraints_description": "Orbite héliosynchrone (SSO) autour de 400–550 km avec passage à minuit/midi (22h30–01h30 heure solaire locale) pour maximiser les passages nocturnes au-dessus de l'Europe (le rayonnement solaire diffusé de jour augmentant le bruit de fond des détecteurs de photons uniques au sol et dégradant le QBER).",
+  "conops_guidance": "Expliquer le protocole opérationnel QKD en orbite : pré-pointage ADCS puis accrochage fin sur la balise laser de la station sol quantique (Tenerife, Graz ou Matera), transmission du flux d'impulsions quantiques de nuit, échange concomitant sur le canal radio classique authentifié (bande S/X) pour la réconciliation des bases (sifting), la correction d'erreurs et l'amplification de confidentialité.",
   "deliverables_expected": [
-    "Analyse comparative des 5 terminaux QKD (CubeSat 8cm vs Albion 12cm vs Decoy 15cm vs Edelweiss Intriqué 18cm vs HighRate 25cm) sur les critères SKR, QBER, masse et budget.",
-    "Justification du choix d'altitude SSO (compromis entre pertes de canal en dB, taux de clé SKR et durée de visibilité nocturne).",
-    "Validation de la suite ADCS (<= 0.005°, objectif <= 0.003°) et de la campagne d'essais PAT-TVAC à l'ESTEC (biréfringence thermique nulle pour préserver le QBER <= 2.0 %).",
-    "En cas de sélection du terminal autrichien 25 cm (184 kbps mais hors budget à 16.14 M€) ou d'une calibration ambiante ISO 5, rédiger une Demande de Dérogation argumentée."
+    "Analyse comparative des terminaux QKD disponibles (protocole, diamètre optique, SKR, QBER, masse et coût) et justification de l'altitude SSO retenue.",
+    "Justification de la plateforme, de la suite ADCS et de la chaîne radiofréquence classique associée pour le post-traitement cryptographique.",
+    "Validation de la qualification thermique sous vide (stabilité de polarisation et d'alignement PAT) et du retour géographique franco-allemand.",
+    "En cas de dépassement budgétaire ou de dérogation sur une exigence pour maximiser le débit de clé secrète, rédaction d'une Demande de Dérogation argumentée à l'Onglet 9."
   ],
   "max_budget_meur": 14.5,
   "min_trl": 7,
@@ -34,7 +35,7 @@
       "threshold": 2.0,
       "goal": 1.6,
       "unit": "%",
-      "description": "Le QBER sur la liaison espace-sol doit être <= 2.0 % (objectif <= 1.60 %) afin de garantir la distillabilité cryptographique face aux attaques par séparation de nombres de photons."
+      "description": "Le taux d'erreur binaire quantique (QBER) sur la liaison espace-sol doit être ≤ 2.0 % (objectif ≤ 1.60 %) afin de garantir la sécurité inconditionnelle de la distillation de clé."
     },
     {
       "id": "REQ-QKD-SKR-01",
@@ -45,7 +46,7 @@
       "threshold": 20000.0,
       "goal": 80000.0,
       "unit": "bps",
-      "description": "Le débit de clé secrète après réconciliation et amplification de confidentialité doit être >= 20 000 bps (objectif >= 80 000 bps)."
+      "description": "Le débit asymptotique de clé secrète (SKR) après réconciliation et amplification de confidentialité doit être ≥ 20 000 bps (objectif ≥ 80 000 bps)."
     },
     {
       "id": "REQ-POINTING-QKD",
@@ -56,7 +57,7 @@
       "threshold": 0.005,
       "goal": 0.003,
       "unit": "deg",
-      "description": "La précision de pointage plateforme/ADCS doit être <= 0.005° (objectif <= 0.003°) pour permettre l'accrochage de la boucle fine de suivi quantique."
+      "description": "La précision de pré-pointage plateforme/ADCS doit être ≤ 0.005° (objectif ≤ 0.003°) pour permettre l'acquisition rapide de la balise sol par le suivi fin."
     },
     {
       "id": "REQ-QKD-CALIB",
@@ -67,7 +68,7 @@
       "threshold": 2.6,
       "goal": 2.0,
       "unit": "%",
-      "description": "Le terminal quantique doit être qualifié en cuve à vide thermique (PAT-TVAC <= 2.5 % ou TVAC optique/cryo) pour vérifier l'absence de biréfringence thermo-induite sur les états de polarisation."
+      "description": "Le terminal quantique doit être qualifié en vide thermique avec une incertitude ≤ 2.6 % (objectif ≤ 2.0 %) afin de vérifier la stabilité des états de polarisation face aux gradients thermiques."
     },
     {
       "id": "REQ-QKD-LIFE",
@@ -78,7 +79,7 @@
       "threshold": 5.0,
       "goal": 7.0,
       "unit": "yr",
-      "description": "La plateforme doit assurer une durée de vie nominale >= 5.0 ans pour le service gouvernemental EuroQCI."
+      "description": "La plateforme doit assurer une durée de vie nominale ≥ 5.0 ans (objectif ≥ 7.0 ans)."
     }
   ],
   "ground_stations": [

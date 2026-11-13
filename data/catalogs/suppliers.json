@@ -91,6 +91,7 @@
     "country": "Espagne",
     "kind": "historique",
     "categories": [
+      "platform",
       "equipment"
     ],
     "founded": 1998,
@@ -139,6 +140,7 @@
     "country": "Italie",
     "kind": "historique",
     "categories": [
+      "platform",
       "payload"
     ],
     "founded": 1989,
@@ -283,6 +285,7 @@
     "country": "Allemagne",
     "kind": "historique",
     "categories": [
+      "platform",
       "payload"
     ],
     "founded": 1979,
@@ -307,6 +310,7 @@
     "country": "Italie",
     "kind": "historique",
     "categories": [
+      "platform",
       "payload"
     ],
     "founded": 1984,
@@ -319,6 +323,7 @@
     "country": "Suède",
     "kind": "newspace",
     "categories": [
+      "platform",
       "payload"
     ],
     "founded": 2013,

@@ -1,0 +1,4170 @@
+{
+  "metadata": {
+    "title": "Space Segment Building - Optical Systems Reference Registry (Fichier de Liaison)",
+    "version": "1.0.0",
+    "source_repository": "Space_Segment_building",
+    "target_software": "Conception_optique (PyOptic)",
+    "author": "Antigravity Assistant for Space Segment Building & PyOptic Education",
+    "date": "2026-11-11",
+    "description": "Fichier de liaison exhaustif isolant tous les systemes optiques spatiaux (imageurs pan/multi/hyperspectraux, spectrometres imageurs et atmospheriques, terminaux de telecommunications optiques laser et terminaux quantiques QKD) avec leurs specifications physiques, architectures optiques, prescriptions geometriques et bancs d'essais pedagogiques pour PyOptic.",
+    "total_systems": 30,
+    "categories_breakdown": {
+      "optical_imager": 11,
+      "spectrometer": 7,
+      "optical_comm": 7,
+      "qkd": 5
+    }
+  },
+  "systems": [
+    {
+      "id": "pl_opt_pan_compact",
+      "name": "OptiCam-12 Compact Imager",
+      "payload_type": "optical_imager",
+      "supplier_name": "AeroOptics Instruments",
+      "flight_heritage": ">15 CubeSats en vol",
+      "trl": 9,
+      "dimensions_mm": [
+        220,
+        150,
+        120
+      ],
+      "mass_kg": 4.5,
+      "power_w": 18.0,
+      "cost_meur": 0.85,
+      "description": "Télescope compact 12 cm à balayage Push-Broom linéaire mono-ligne (sans TDI) pour CubeSats 12U–16U et MicroSats",
+      "long_description": "Télescope Ritchey-Chrétien compact de 12 cm d'ouverture conçu pour les CubeSats 12U–16U et les petits microsatellites. Son plan focal utilise une barrette linéaire CMOS Push-Broom mono-ligne de 8 000 pixels par bande (PAN + 4 bandes VNIR) fonctionnant sans intégration TDI (1 seule ligne par canal spectral). Cette architecture Push-Broom simple évite la complexité d'horloge de synchronisation TDI et tolère une stabilité de pointage modérée (8 arcsec/s), tout en offrant un GSD d'environ 2,6 m à 500 km.",
+      "key_features": [
+        "Ouverture Ø 12 cm, focale 1,05 m",
+        "PAN + 4 bandes VNIR",
+        "Masse 4,5 kg, 18 W",
+        "GSD ~ 2,6 m à 500 km",
+        "Push-Broom linéaire 8 000 px (sans TDI)"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.12,
+        "aperture_diameter_mm": 120.0,
+        "focal_length_m": 1.05,
+        "focal_length_mm": 1050.0,
+        "f_number": 8.75,
+        "pixel_pitch_um": 5.5,
+        "detector_pixels_cross_track": 8000,
+        "sensor_width_mm": 44.0,
+        "fov_full_deg": 2.401,
+        "field_angles_deg": [
+          0.0,
+          0.6,
+          1.2
+        ],
+        "primary_wavelength_um": 0.675,
+        "min_wavelength_um": 0.45,
+        "max_wavelength_um": 0.9,
+        "wavelengths_library": [
+          {
+            "value_um": 0.45,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 0.675,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 0.9,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.82,
+        "optics_mtf_at_nyquist": 0.22,
+        "quantum_efficiency_avg": 0.65,
+        "sensor_architecture": "pushbroom_linear",
+        "tdi_stages": 1,
+        "detector_format_label": "Barrette linéaire CMOS 8 000 px × 5 bandes (Push-Broom mono-ligne sans TDI)"
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 2.619,
+        "swath_at_500km_km": 20.95,
+        "diffraction_spot_ground_500km_m": 3.431,
+        "pointing_accuracy_deg": 0.05,
+        "pointing_stability_arcsec_s": 8.0,
+        "max_jitter_arcsec": 3.0
+      },
+      "optical_architecture": {
+        "family": "Ritchey_Chretien_Cassegrain",
+        "pyoptic_preset_call": "ritchey_chretien_telescope(focal_length_mm=1050.0, epd_mm=120.0, back_focus_mm=180.0)",
+        "prescription_surfaces": [
+          {
+            "label": "M1_Primary_Hyperbola",
+            "type": "Conic",
+            "radius": -907.407,
+            "conic": -1.271996,
+            "thickness": -262.5,
+            "material": "AIR",
+            "is_mirror": true,
+            "is_stop": true,
+            "semi_diameter": 62.400000000000006
+          },
+          {
+            "label": "M2_Secondary_Hyperbola",
+            "type": "Conic",
+            "radius": -673.37,
+            "conic": -9.883044,
+            "thickness": 442.5,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 28.799999999999997
+          },
+          {
+            "label": "Focal_Plane",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 22.0
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 7.206,
+        "nyquist_frequency_lp_mm": 90.91,
+        "diffraction_limit_rad": 6.86e-06,
+        "diffraction_limit_arcsec": 1.42,
+        "sampling_ratio_Q": 1.074,
+        "regime": "Well-Matched (Nyquist Balanced, 0.9 <= Q <= 1.5)",
+        "beam_divergence_urad": null
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Telescope Ritchey-Chretien a deux miroirs hyperboliques (k1 < -1, k2 < -1) : correction simultanee de l'aberration spherique et de la coma (systeme aplanetique). Les etudiants observent l'astigmatisme residuel et la courbure de champ en bord de capteur, expliquant pourquoi les grands telescopes RC ajoutent souvent un groupe correcteur a deux lentilles.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 2.619 m vs Fauchee = 20.95 km a 500 km.",
+          "Regime optique Q = 1.07 (Pixel plus grand que la tache de diffraction).",
+          "Sensibilite au pointage : stabilite requise 8.0 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_opt_medium_25cm",
+      "name": "OptiCam-25 Tactical Imager",
+      "payload_type": "optical_imager",
+      "supplier_name": "AeroOptics Instruments",
+      "flight_heritage": "8 satellites en orbite",
+      "trl": 9,
+      "dimensions_mm": [
+        380,
+        260,
+        260
+      ],
+      "mass_kg": 16.0,
+      "power_w": 38.0,
+      "cost_meur": 2.3,
+      "description": "Télescope Cassegrain 25 cm à balayage Push-Broom et intégration TDI (8 étages) pour microsatellites",
+      "long_description": "Télescope Cassegrain de 25 cm d'ouverture offrant une résolution métrique (~1,25 m à 500 km) et six bandes spectrales incluant le Red-Edge. Son plan focal Push-Broom de 14 000 pixels intègre un dispositif TDI (Time Delay Integration) numérique à 8 étages pour compenser le court temps d'intégration ligne (~0,16 ms) et maintenir un SNR élevé à f/8,8. L'usage du TDI impose une stabilité d'attitude ≤ 2,5 arcsec/s.",
+      "key_features": [
+        "Ouverture Ø 25 cm, focale 2,2 m",
+        "PAN + 5 bandes (dont Red-Edge)",
+        "GSD ~ 1,25 m à 500 km",
+        "Masse 16 kg",
+        "Push-Broom 14 000 px avec TDI 8 étages"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.25,
+        "aperture_diameter_mm": 250.0,
+        "focal_length_m": 2.2,
+        "focal_length_mm": 2200.0,
+        "f_number": 8.8,
+        "pixel_pitch_um": 5.5,
+        "detector_pixels_cross_track": 14000,
+        "sensor_width_mm": 77.0,
+        "fov_full_deg": 2.005,
+        "field_angles_deg": [
+          0.0,
+          0.501,
+          1.002
+        ],
+        "primary_wavelength_um": 0.675,
+        "min_wavelength_um": 0.45,
+        "max_wavelength_um": 0.9,
+        "wavelengths_library": [
+          {
+            "value_um": 0.45,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 0.675,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 0.9,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.84,
+        "optics_mtf_at_nyquist": 0.24,
+        "quantum_efficiency_avg": 0.7,
+        "sensor_architecture": "pushbroom_tdi",
+        "tdi_stages": 8,
+        "detector_format_label": "Barrette Push-Broom CMOS avec TDI numérique (14 000 px, 8 étages TDI en PAN / 4 étages en MS)"
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 1.25,
+        "swath_at_500km_km": 17.5,
+        "diffraction_spot_ground_500km_m": 1.647,
+        "pointing_accuracy_deg": 0.02,
+        "pointing_stability_arcsec_s": 2.5,
+        "max_jitter_arcsec": 1.2
+      },
+      "optical_architecture": {
+        "family": "Classical_Cassegrain",
+        "pyoptic_preset_call": "cassegrain_telescope(focal_length_mm=2200.0, epd_mm=250.0, back_focus_mm=200.0)",
+        "prescription_surfaces": [
+          {
+            "label": "M1_Primary_Parabola",
+            "type": "Conic",
+            "radius": -1668.966,
+            "conic": -1.0,
+            "thickness": -550.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "is_stop": true,
+            "semi_diameter": 130.0
+          },
+          {
+            "label": "M2_Secondary_Hyperbola",
+            "type": "Conic",
+            "radius": -916.667,
+            "conic": -4.938272,
+            "thickness": 750.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 62.5
+          },
+          {
+            "label": "Focal_Plane",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 38.5
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 7.247,
+        "nyquist_frequency_lp_mm": 90.91,
+        "diffraction_limit_rad": 3.29e-06,
+        "diffraction_limit_arcsec": 0.68,
+        "sampling_ratio_Q": 1.08,
+        "regime": "Well-Matched (Nyquist Balanced, 0.9 <= Q <= 1.5)",
+        "beam_divergence_urad": null
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Cassegrain classique (primaire parabolique k1=-1, secondaire hyperbolique k2 < -1) : aberration spherique nulle sur l'axe, mais coma hors axe lineaire avec l'angle de champ. Les etudiants comparent son diagramme de spot hors-axe avec le Ritchey-Chretien pour visualiser la celebre tache de coma triangulaire.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 1.25 m vs Fauchee = 17.5 km a 500 km.",
+          "Regime optique Q = 1.08 (Pixel plus grand que la tache de diffraction).",
+          "Sensibilite au pointage : stabilite requise 2.5 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_opt_submeter_highres",
+      "name": "EagleEye-45 High-Resolution Telescope",
+      "payload_type": "optical_imager",
+      "supplier_name": "Helios Space Instruments",
+      "flight_heritage": "Héritage Korsch, 6 vols",
+      "trl": 9,
+      "dimensions_mm": [
+        720,
+        520,
+        520
+      ],
+      "mass_kg": 48.0,
+      "power_w": 85.0,
+      "cost_meur": 6.2,
+      "description": "Télescope Korsch 45 cm sub-métrique à balayage Push-Broom avec TDI (32 étages programmables)",
+      "long_description": "Télescope Korsch à trois miroirs de 45 cm d'ouverture en carbure de silicium, destiné à l'observation tactique sub-métrique (~0,77 m à 500 km). Son plan focal Push-Broom de 24 000 pixels dispose de 32 étages TDI programmables (8/16/24/32 lignes) synchronisés à la vitesse de défilement au sol, ce qui exige un pointage meilleur que 0,008° et une dérive gyroscopique inférieure à 0,8 arcsec/s.",
+      "key_features": [
+        "Ouverture Ø 45 cm, focale 4,2 m",
+        "GSD ~ 0,77 m à 500 km",
+        "Optique SiC athermique",
+        "6 bandes VNIR, fauchée 18 km",
+        "Push-Broom 24 000 px avec TDI 32 étages"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.45,
+        "aperture_diameter_mm": 450.0,
+        "focal_length_m": 4.2,
+        "focal_length_mm": 4200.0,
+        "f_number": 9.33,
+        "pixel_pitch_um": 6.5,
+        "detector_pixels_cross_track": 24000,
+        "sensor_width_mm": 156.0,
+        "fov_full_deg": 2.128,
+        "field_angles_deg": [
+          0.0,
+          0.532,
+          1.064
+        ],
+        "primary_wavelength_um": 0.675,
+        "min_wavelength_um": 0.45,
+        "max_wavelength_um": 0.9,
+        "wavelengths_library": [
+          {
+            "value_um": 0.45,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 0.675,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 0.9,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.85,
+        "optics_mtf_at_nyquist": 0.25,
+        "quantum_efficiency_avg": 0.72,
+        "sensor_architecture": "pushbroom_tdi",
+        "tdi_stages": 32,
+        "detector_format_label": "Barrette Push-Broom TDI haute cadence (24 000 px, 32 étages TDI programmables)"
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 0.774,
+        "swath_at_500km_km": 18.58,
+        "diffraction_spot_ground_500km_m": 0.915,
+        "pointing_accuracy_deg": 0.008,
+        "pointing_stability_arcsec_s": 0.8,
+        "max_jitter_arcsec": 0.5
+      },
+      "optical_architecture": {
+        "family": "Korsch_TMA_Three_Mirror",
+        "pyoptic_preset_call": "korsch_tma_telescope(focal_length_mm=4200.0, epd_mm=450.0)",
+        "prescription_surfaces": [
+          {
+            "label": "M1_Primary_Ellipsoid",
+            "type": "Conic",
+            "radius": -2205.0,
+            "conic": -0.8851,
+            "thickness": -826.875,
+            "material": "AIR",
+            "is_mirror": true,
+            "is_stop": true,
+            "semi_diameter": 234.0
+          },
+          {
+            "label": "M2_Secondary_Hyperboloid",
+            "type": "Conic",
+            "radius": -882.0,
+            "conic": -3.4242,
+            "thickness": 1984.5,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 99.0
+          },
+          {
+            "label": "M3_Tertiary_Relay",
+            "type": "Conic",
+            "radius": -1470.0,
+            "conic": -0.2898,
+            "thickness": -1785.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 189.0
+          },
+          {
+            "label": "Focal_Plane",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 78.0
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 7.683,
+        "nyquist_frequency_lp_mm": 76.92,
+        "diffraction_limit_rad": 1.83e-06,
+        "diffraction_limit_arcsec": 0.38,
+        "sampling_ratio_Q": 0.969,
+        "regime": "Well-Matched (Nyquist Balanced, 0.9 <= Q <= 1.5)",
+        "beam_divergence_urad": null
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Telescope de Korsch a trois miroirs avec foyer intermediaire et diaphragme de Lyot : elimination totale des 4 aberrations de Seidel (S_I=0, S_II=0, S_III=0, champ de Petzval plat S_IV=0). Permet d'atteindre des resolutions sub-metriques extremes (0,29 m a 0,77 m) avec un miroir en SiC athermique. Les etudiants peuvent verifier l'absence d'astigmatisme hors-axe et la rejection de lumiere parasite au foyer intermediaire.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 0.774 m vs Fauchee = 18.58 km a 500 km.",
+          "Regime optique Q = 0.97 (Pixel plus grand que la tache de diffraction).",
+          "Sensibilite au pointage : stabilite requise 0.8 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_opt_veryhighres_1m",
+      "name": "ApexEye-100 Very-High-Resolution Instrument",
+      "payload_type": "optical_imager",
+      "supplier_name": "Helios Space Instruments",
+      "flight_heritage": "Héritage Pléiades / WorldView",
+      "trl": 9,
+      "dimensions_mm": [
+        1600,
+        1100,
+        1100
+      ],
+      "mass_kg": 280.0,
+      "power_w": 380.0,
+      "cost_meur": 24.5,
+      "description": "Télescope Korsch 1,0 m très haute résolution (~0,29 m GSD) à balayage Push-Broom avec TDI (128 étages)",
+      "long_description": "Grand instrument optique de 1 m de diamètre primaire pour les missions souveraines de très haute résolution (~0,29 m à 500 km, f/12). Son plan focal Push-Broom de 48 000 pixels met en œuvre 128 étages TDI bidirectionnels pour compenser la cadence ligne de 24 kHz et permettre des prises de vue sous faible éclairement solaire. Il produit un débit brut de 6,5 Gbit/s et exige une stabilité extrême (0,15 arcsec/s).",
+      "key_features": [
+        "Miroir primaire Ø 1,0 m, focale 12 m",
+        "GSD ~ 0,29 m à 500 km",
+        "9 bandes spectrales, 14 bits",
+        "Push-Broom 48 000 px avec TDI 128 étages"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 1.0,
+        "aperture_diameter_mm": 1000.0,
+        "focal_length_m": 12.0,
+        "focal_length_mm": 12000.0,
+        "f_number": 12.0,
+        "pixel_pitch_um": 7.0,
+        "detector_pixels_cross_track": 48000,
+        "sensor_width_mm": 336.0,
+        "fov_full_deg": 1.604,
+        "field_angles_deg": [
+          0.0,
+          0.401,
+          0.802
+        ],
+        "primary_wavelength_um": 0.675,
+        "min_wavelength_um": 0.4,
+        "max_wavelength_um": 0.95,
+        "wavelengths_library": [
+          {
+            "value_um": 0.4,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 0.675,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 0.95,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.88,
+        "optics_mtf_at_nyquist": 0.28,
+        "quantum_efficiency_avg": 0.78,
+        "sensor_architecture": "pushbroom_tdi",
+        "tdi_stages": 128,
+        "detector_format_label": "Plan focal Push-Broom TDI très haute sensibilité (48 000 px, 128 étages TDI bidirectionnels)"
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 0.292,
+        "swath_at_500km_km": 14.02,
+        "diffraction_spot_ground_500km_m": 0.412,
+        "pointing_accuracy_deg": 0.002,
+        "pointing_stability_arcsec_s": 0.15,
+        "max_jitter_arcsec": 0.15
+      },
+      "optical_architecture": {
+        "family": "Korsch_TMA_Three_Mirror",
+        "pyoptic_preset_call": "korsch_tma_telescope(focal_length_mm=12000.0, epd_mm=1000.0)",
+        "prescription_surfaces": [
+          {
+            "label": "M1_Primary_Ellipsoid",
+            "type": "Conic",
+            "radius": -6300.0,
+            "conic": -0.8851,
+            "thickness": -2362.5,
+            "material": "AIR",
+            "is_mirror": true,
+            "is_stop": true,
+            "semi_diameter": 520.0
+          },
+          {
+            "label": "M2_Secondary_Hyperboloid",
+            "type": "Conic",
+            "radius": -2520.0,
+            "conic": -3.4242,
+            "thickness": 5670.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 220.0
+          },
+          {
+            "label": "M3_Tertiary_Relay",
+            "type": "Conic",
+            "radius": -4200.0,
+            "conic": -0.2898,
+            "thickness": -5100.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 420.0
+          },
+          {
+            "label": "Focal_Plane",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 168.0
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 9.882,
+        "nyquist_frequency_lp_mm": 71.43,
+        "diffraction_limit_rad": 8.2e-07,
+        "diffraction_limit_arcsec": 0.17,
+        "sampling_ratio_Q": 1.157,
+        "regime": "Well-Matched (Nyquist Balanced, 0.9 <= Q <= 1.5)",
+        "beam_divergence_urad": null
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Telescope de Korsch a trois miroirs avec foyer intermediaire et diaphragme de Lyot : elimination totale des 4 aberrations de Seidel (S_I=0, S_II=0, S_III=0, champ de Petzval plat S_IV=0). Permet d'atteindre des resolutions sub-metriques extremes (0,29 m a 0,77 m) avec un miroir en SiC athermique. Les etudiants peuvent verifier l'absence d'astigmatisme hors-axe et la rejection de lumiere parasite au foyer intermediaire.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 0.292 m vs Fauchee = 14.02 km a 500 km.",
+          "Regime optique Q = 1.16 (Pixel plus grand que la tache de diffraction).",
+          "Sensibilite au pointage : stabilite requise 0.15 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_spec_hyperspectral_vnir",
+      "name": "HyperEye-VNIR Hyperspectral Camera",
+      "payload_type": "spectrometer",
+      "supplier_name": "SpectraSpace Instruments",
+      "flight_heritage": "Héritage EnMAP / PRISMA",
+      "trl": 9,
+      "dimensions_mm": [
+        420,
+        280,
+        240
+      ],
+      "mass_kg": 22.0,
+      "power_w": 48.0,
+      "cost_meur": 3.8,
+      "description": "120 bands VNIR imaging spectrometer for mineralogy and environmental monitoring (inspired by PRISMA / EnMAP)",
+      "long_description": "Spectromètre imageur hyperspectral couvrant le domaine visible et proche infrarouge (400–1000 nm) en 120 bandes continues de 5 nm. Il permet l'identification minéralogique, le suivi de la qualité de l'eau et du stress végétal avec un GSD d'environ 3,4 m à 500 km.",
+      "key_features": [
+        "120 bandes de 400 à 1000 nm",
+        "Résolution spectrale 5 nm",
+        "Ouverture 18 cm, TDI 12 étages",
+        "Calibration embarquée"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.1,
+        "aperture_diameter_mm": 100.0,
+        "focal_length_m": 0.6000000000000001,
+        "focal_length_mm": 600.0000000000001,
+        "f_number": 6.0,
+        "pixel_pitch_um": 7.5,
+        "detector_pixels_cross_track": 2048,
+        "sensor_width_mm": 15.36,
+        "fov_full_deg": 1.467,
+        "field_angles_deg": [
+          0.0,
+          0.367,
+          0.734
+        ],
+        "primary_wavelength_um": 0.7,
+        "min_wavelength_um": 0.4,
+        "max_wavelength_um": 1.0,
+        "wavelengths_library": [
+          {
+            "value_um": 0.4,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 0.7,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 1.0,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.85,
+        "optics_mtf_at_nyquist": 0.25,
+        "quantum_efficiency_avg": 0.7
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 6.25,
+        "swath_at_500km_km": 12.8,
+        "diffraction_spot_ground_500km_m": 4.27,
+        "pointing_accuracy_deg": 0.015,
+        "pointing_stability_arcsec_s": 1.5,
+        "max_jitter_arcsec": 0.8
+      },
+      "optical_architecture": {
+        "family": "Offner_Czerny_Turner_Spectrometer",
+        "pyoptic_preset_call": "offner_convex_grating_spectrometer(aperture_mm=100.0, bands=120)",
+        "prescription_surfaces": [
+          {
+            "label": "Fore_Telescope_Pupil",
+            "type": "Plane",
+            "thickness": 120.0,
+            "material": "AIR",
+            "is_stop": true,
+            "semi_diameter": 50.0
+          },
+          {
+            "label": "Slit_Plane",
+            "type": "Plane",
+            "thickness": 150.0,
+            "material": "AIR",
+            "semi_diameter": 12.0
+          },
+          {
+            "label": "Collimator_Mirror",
+            "type": "Spherical",
+            "radius": -300.0,
+            "thickness": -150.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 35.0
+          },
+          {
+            "label": "Diffraction_Grating",
+            "type": "Plane",
+            "thickness": 150.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 30.0,
+            "grating_lines_per_mm": 600.0
+          },
+          {
+            "label": "Camera_Mirror",
+            "type": "Spherical",
+            "radius": -300.0,
+            "thickness": -150.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 40.0
+          },
+          {
+            "label": "Spectrometer_Detector",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 7.68
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 5.124,
+        "nyquist_frequency_lp_mm": 66.67,
+        "diffraction_limit_rad": 8.54e-06,
+        "diffraction_limit_arcsec": 1.76,
+        "sampling_ratio_Q": 0.56,
+        "regime": "Detector-Limited (Undersampled, Q < 0.9)",
+        "beam_divergence_urad": null
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Spectrometre imageur Offner a reseau convexe ou Czerny-Turner : l'architecture Offner annule l'astigmatisme et la coma de Seidel tout en conservant une distorsion spectrale (smile) et spatiale (keystone) inferieure a 1% d'un pixel. Crucial pour l'inversion geophysique et mineralogique hyperspectrale.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 6.25 m vs Fauchee = 12.8 km a 500 km.",
+          "Regime optique Q = 0.56 (Pixel plus grand que la tache de diffraction).",
+          "Sensibilite au pointage : stabilite requise 1.5 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_opt_comm_terminal_10g",
+      "name": "LCT-10G Laser Communication Terminal",
+      "payload_type": "optical_comm",
+      "supplier_name": "PhotonCom Optics",
+      "flight_heritage": "Constellations LEO & SDA",
+      "trl": 9,
+      "dimensions_mm": [
+        320,
+        240,
+        220
+      ],
+      "mass_kg": 14.5,
+      "power_w": 65.0,
+      "cost_meur": 2.9,
+      "description": "Direct-to-Earth and Inter-Satellite Optical Link Terminal delivering 10 Gbps (inspired by Mynaric CONDOR / TESAT)",
+      "long_description": "Terminal de communication optique laser à 1550 nm assurant des liaisons directes vers le sol ou inter-satellites jusqu'à 10 Gbit/s. Sa tête optique de 10 cm intègre un miroir de pointage fin qui compense les vibrations de la plateforme jusqu'à 2 µrad. Sensible à la couverture nuageuse pour les liaisons vers le sol.",
+      "key_features": [
+        "Débit 10 Gbit/s à 1550 nm",
+        "Télescope Ø 10 cm, laser 1,5 W",
+        "Compatible SDA Tranche 1 & CCSDS",
+        "Miroir de pointage fin intégré"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.1,
+        "aperture_diameter_mm": 100.0,
+        "focal_length_m": 1.0,
+        "focal_length_mm": 1000.0,
+        "f_number": 10.0,
+        "pixel_pitch_um": 5.5,
+        "detector_pixels_cross_track": 8000,
+        "sensor_width_mm": 44.0,
+        "fov_full_deg": 2.521,
+        "field_angles_deg": [
+          0.0,
+          0.63,
+          1.26
+        ],
+        "primary_wavelength_um": 1.55,
+        "min_wavelength_um": 1.53,
+        "max_wavelength_um": 1.565,
+        "wavelengths_library": [
+          {
+            "value_um": 1.53,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 1.55,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 1.565,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.85,
+        "optics_mtf_at_nyquist": 0.25,
+        "quantum_efficiency_avg": 0.7
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 2.75,
+        "swath_at_500km_km": 22.0,
+        "diffraction_spot_ground_500km_m": 9.455,
+        "pointing_accuracy_deg": 0.01,
+        "pointing_stability_arcsec_s": 0.5,
+        "max_jitter_arcsec": 0.5
+      },
+      "optical_architecture": {
+        "family": "Afocal_Beam_Expander_Cassegrain",
+        "pyoptic_preset_call": "afocal_beam_expander(epd_in_mm=5.0, epd_out_mm=100.0, mag=20.0)",
+        "prescription_surfaces": [
+          {
+            "label": "Laser_Fiber_Waist",
+            "type": "Plane",
+            "thickness": 30.0,
+            "material": "AIR",
+            "semi_diameter": 2.5
+          },
+          {
+            "label": "Collimator_Lens",
+            "type": "EvenAsphere",
+            "radius": 15.0,
+            "conic": -0.5,
+            "thickness": 80.0,
+            "material": "N-SF11",
+            "semi_diameter": 6.0
+          },
+          {
+            "label": "M2_Secondary_Beam_Expander",
+            "type": "Conic",
+            "radius": -40.0,
+            "conic": -2.5,
+            "thickness": -60.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 18.0
+          },
+          {
+            "label": "M1_Primary_Collimator",
+            "type": "Conic",
+            "radius": -150.0,
+            "conic": -1.0,
+            "thickness": 100.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 52.0
+          },
+          {
+            "label": "Far_Field_Aperture",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 55.00000000000001
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 18.91,
+        "nyquist_frequency_lp_mm": 90.91,
+        "diffraction_limit_rad": 1.891e-05,
+        "diffraction_limit_arcsec": 3.9,
+        "sampling_ratio_Q": 2.818,
+        "regime": "Diffraction-Limited (Oversampled, Q > 1.5)",
+        "beam_divergence_urad": 18.91
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Terminal laser optique telecom a 1550 nm : telescope d'emission afocal elargisseur de faisceau (Beam Expander) diffraction-limited. L'angle de divergence du faisceau emis theta ~ 1.22 * lambda / D est inversement proportionnel a l'ouverture. Les etudiants simulent l'impact des aberrations du front d'onde (WFE RMS < lambda/14) sur la baisse de gain d'antenne (critere de Marechal / formule de Ruze) et l'exigence de stabilite ADCS/FSM.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 2.75 m vs Fauchee = 22.0 km a 500 km.",
+          "Regime optique Q = 2.82 (Tache d'Airy etalee sur plusieurs pixels).",
+          "Sensibilite au pointage : stabilite requise 0.5 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_qkd_terminal_decoy",
+      "name": "QuantumKey-850 Space QKD Terminal",
+      "payload_type": "qkd",
+      "supplier_name": "PhotonCom Optics",
+      "flight_heritage": "Démonstrateurs QKD LEO",
+      "trl": 8,
+      "dimensions_mm": [
+        360,
+        260,
+        240
+      ],
+      "mass_kg": 18.0,
+      "power_w": 50.0,
+      "cost_meur": 3.6,
+      "description": "Space-to-ground polarization-encoded BB84 decoy-state quantum key generator (inspired by SpeQtral / Micius)",
+      "long_description": "Terminal spatial de distribution quantique de clés (QKD) mettant en œuvre le protocole BB84 à états leurres à 850 nm. Il émet des impulsions à 100 MHz à travers un télescope de 15 cm vers une station sol optique de 1 m, générant une clé secrète prouvée inviolable. Fonctionne de nuit pour limiter le bruit de fond solaire.",
+      "key_features": [
+        "Protocole BB84 decoy-state à 850 nm",
+        "Source 100 MHz, télescope Ø 15 cm",
+        "Pointage fin 1,5 µrad",
+        "Canal classique de synchronisation inclus"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.15,
+        "aperture_diameter_mm": 150.0,
+        "focal_length_m": 1.5,
+        "focal_length_mm": 1500.0,
+        "f_number": 10.0,
+        "pixel_pitch_um": 5.5,
+        "detector_pixels_cross_track": 8000,
+        "sensor_width_mm": 44.0,
+        "fov_full_deg": 1.681,
+        "field_angles_deg": [
+          0.0,
+          0.42,
+          0.841
+        ],
+        "primary_wavelength_um": 0.85,
+        "min_wavelength_um": 0.84,
+        "max_wavelength_um": 0.86,
+        "wavelengths_library": [
+          {
+            "value_um": 0.84,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 0.85,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 0.86,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.85,
+        "optics_mtf_at_nyquist": 0.25,
+        "quantum_efficiency_avg": 0.7
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 1.833,
+        "swath_at_500km_km": 14.66,
+        "diffraction_spot_ground_500km_m": 3.457,
+        "pointing_accuracy_deg": 0.005,
+        "pointing_stability_arcsec_s": 0.3,
+        "max_jitter_arcsec": 0.3
+      },
+      "optical_architecture": {
+        "family": "Afocal_QKD_Transceiver",
+        "pyoptic_preset_call": "afocal_beam_expander(epd_in_mm=5.0, epd_out_mm=150.0, mag=30.0)",
+        "prescription_surfaces": [
+          {
+            "label": "Laser_Fiber_Waist",
+            "type": "Plane",
+            "thickness": 30.0,
+            "material": "AIR",
+            "semi_diameter": 2.5
+          },
+          {
+            "label": "Collimator_Lens",
+            "type": "EvenAsphere",
+            "radius": 15.0,
+            "conic": -0.5,
+            "thickness": 80.0,
+            "material": "N-SF11",
+            "semi_diameter": 6.0
+          },
+          {
+            "label": "M2_Secondary_Beam_Expander",
+            "type": "Conic",
+            "radius": -60.0,
+            "conic": -2.5,
+            "thickness": -90.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 27.0
+          },
+          {
+            "label": "M1_Primary_Collimator",
+            "type": "Conic",
+            "radius": -225.0,
+            "conic": -1.0,
+            "thickness": 150.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 78.0
+          },
+          {
+            "label": "Far_Field_Aperture",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 82.5
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 10.37,
+        "nyquist_frequency_lp_mm": 90.91,
+        "diffraction_limit_rad": 6.91e-06,
+        "diffraction_limit_arcsec": 1.43,
+        "sampling_ratio_Q": 1.545,
+        "regime": "Diffraction-Limited (Oversampled, Q > 1.5)",
+        "beam_divergence_urad": 6.91
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Terminal quantique QKD a 850 nm : telescope d'emission afocal elargisseur de faisceau (Beam Expander) diffraction-limited. L'angle de divergence du faisceau emis theta ~ 1.22 * lambda / D est inversement proportionnel a l'ouverture. Les etudiants simulent l'impact des aberrations du front d'onde (WFE RMS < lambda/14) sur la baisse de gain d'antenne (critere de Marechal / formule de Ruze) et l'exigence de stabilite ADCS/FSM.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 1.833 m vs Fauchee = 14.66 km a 500 km.",
+          "Regime optique Q = 1.54 (Tache d'Airy etalee sur plusieurs pixels).",
+          "Sensibilite au pointage : stabilite requise 0.3 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_opt_cubesat_6cm",
+      "name": "OptiCam-6 Nano Imager",
+      "payload_type": "optical_imager",
+      "supplier_name": "AeroOptics Instruments",
+      "flight_heritage": ">30 CubeSats",
+      "trl": 9,
+      "dimensions_mm": [
+        110,
+        95,
+        95
+      ],
+      "mass_kg": 1.5,
+      "power_w": 8.0,
+      "cost_meur": 0.32,
+      "description": "Caméra 1,2U de 6 cm d'ouverture à capteur matriciel CMOS 2D Global Shutter (sans TDI) pour CubeSats 6U et 12U",
+      "long_description": "La plus petite caméra d'observation du catalogue : un objectif réfractif athermique de 6 cm tenant dans un peu plus de 1U, couplé à un capteur matriciel CMOS 2D à obturation globale (Global Shutter, 4 096 × 3 072 pixels, sans TDI). L'acquisition par clichés matriciels instantanés (« Frame / Snapshot ») tolère les dérives d'attitude des petits CubeSats (jusqu'à 20 arcsec/s) sans distorsion géométrique inter-lignes. Elle fournit un GSD d'environ 6,1 m à 500 km sur une fauchée de 25 km.",
+      "key_features": [
+        "Format 1,2U, masse 1,5 kg",
+        "GSD ~ 6,1 m à 500 km, fauchée 25 km",
+        "4 bandes RGB+NIR",
+        "Prix 0,32 M€",
+        "Capteur matriciel 2D Global Shutter (sans TDI)"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.06,
+        "aperture_diameter_mm": 60.0,
+        "focal_length_m": 0.45,
+        "focal_length_mm": 450.0,
+        "f_number": 7.5,
+        "pixel_pitch_um": 5.5,
+        "detector_pixels_cross_track": 4096,
+        "sensor_width_mm": 22.53,
+        "fov_full_deg": 2.868,
+        "field_angles_deg": [
+          0.0,
+          0.717,
+          1.434
+        ],
+        "primary_wavelength_um": 0.665,
+        "min_wavelength_um": 0.45,
+        "max_wavelength_um": 0.88,
+        "wavelengths_library": [
+          {
+            "value_um": 0.45,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 0.665,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 0.88,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.8,
+        "optics_mtf_at_nyquist": 0.2,
+        "quantum_efficiency_avg": 0.62,
+        "sensor_architecture": "frame_matrix",
+        "tdi_stages": 1,
+        "detector_format_label": "Matrice CMOS 2D Global Shutter 4 096 × 3 072 px (acquisition Frame par clichés, sans TDI)"
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 6.111,
+        "swath_at_500km_km": 25.03,
+        "diffraction_spot_ground_500km_m": 6.761,
+        "pointing_accuracy_deg": 0.12,
+        "pointing_stability_arcsec_s": 20.0,
+        "max_jitter_arcsec": 6.0
+      },
+      "optical_architecture": {
+        "family": "Refractive_Petzval_Achromat",
+        "pyoptic_preset_call": "cooke_triplet_or_petzval_scaled(efl_mm=450, epd_mm=60)",
+        "prescription_surfaces": [
+          {
+            "label": "STOP_Aperture",
+            "type": "Plane",
+            "thickness": 10.0,
+            "material": "AIR",
+            "is_stop": true,
+            "semi_diameter": 30.0
+          },
+          {
+            "label": "L1_Front",
+            "type": "Spherical",
+            "radius": 140.0,
+            "thickness": 12.0,
+            "material": "N-LAK9",
+            "semi_diameter": 32.0
+          },
+          {
+            "label": "L1_Rear",
+            "type": "Spherical",
+            "radius": -280.0,
+            "thickness": 25.0,
+            "material": "AIR",
+            "semi_diameter": 32.0
+          },
+          {
+            "label": "L2_Flint_Front",
+            "type": "Spherical",
+            "radius": -110.0,
+            "thickness": 6.0,
+            "material": "F2",
+            "semi_diameter": 28.0
+          },
+          {
+            "label": "L2_Flint_Rear",
+            "type": "Spherical",
+            "radius": 160.0,
+            "thickness": 45.0,
+            "material": "AIR",
+            "semi_diameter": 28.0
+          },
+          {
+            "label": "L3_Rear_Crown",
+            "type": "Spherical",
+            "radius": 180.0,
+            "thickness": 10.0,
+            "material": "N-LAK9",
+            "semi_diameter": 25.0
+          },
+          {
+            "label": "L3_Rear_Flat",
+            "type": "Plane",
+            "thickness": 340.0,
+            "material": "AIR",
+            "semi_diameter": 25.0
+          },
+          {
+            "label": "Focal_Plane",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 15.0
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 6.085,
+        "nyquist_frequency_lp_mm": 90.91,
+        "diffraction_limit_rad": 1.352e-05,
+        "diffraction_limit_arcsec": 2.79,
+        "sampling_ratio_Q": 0.907,
+        "regime": "Well-Matched (Nyquist Balanced, 0.9 <= Q <= 1.5)",
+        "beam_divergence_urad": null
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Comportement d'un objectif refractif compact pour CubeSat : aberration chromatique axiale et laterale (verres Crown/Flint), vignettage en bord de champ (loi en cos^4), courbure de champ de Petzval et sensibilite au cyclage thermique (defocalisation thermique df/dT).",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 6.111 m vs Fauchee = 25.03 km a 500 km.",
+          "Regime optique Q = 0.91 (Pixel plus grand que la tache de diffraction).",
+          "Sensibilite au pointage : stabilite requise 20.0 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_opt_wide_swath_18cm",
+      "name": "WideView-18 Multispectral Mapper",
+      "payload_type": "optical_imager",
+      "supplier_name": "AeroOptics Instruments",
+      "flight_heritage": "12 satellites",
+      "trl": 9,
+      "dimensions_mm": [
+        280,
+        220,
+        200
+      ],
+      "mass_kg": 9.5,
+      "power_w": 26.0,
+      "cost_meur": 1.45,
+      "description": "Imageur Push-Broom linéaire 18 cm grand champ (>55 km de fauchée, f/5, sans TDI) pour revisite fréquente",
+      "long_description": "Instrument multispectral à focale courte (f = 0,90 m) et grande ouverture numérique (f/5) privilégiant la largeur de fauchée (~58 km à 500 km) plutôt que la résolution pure (~3,6 m). Grâce à son optique très lumineuse ouverte à f/5 et à son grand pas de pixel (6,5 µm), sa barrette Push-Broom linéaire de 16 000 pixels collecte suffisamment de photons en une seule ligne d'intégration sans nécessiter d'étages TDI.",
+      "key_features": [
+        "Fauchée ~58 km à 500 km",
+        "GSD ~ 3,6 m, 5 bandes VNIR",
+        "Ouverture Ø 18 cm, f/5",
+        "Compatible plateformes 16U et 50 kg",
+        "Push-Broom linéaire 16 000 px f/5 (sans TDI)"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.18,
+        "aperture_diameter_mm": 180.0,
+        "focal_length_m": 0.9,
+        "focal_length_mm": 900.0,
+        "f_number": 5.0,
+        "pixel_pitch_um": 6.5,
+        "detector_pixels_cross_track": 16000,
+        "sensor_width_mm": 104.0,
+        "fov_full_deg": 6.613,
+        "field_angles_deg": [
+          0.0,
+          1.653,
+          3.307
+        ],
+        "primary_wavelength_um": 0.67,
+        "min_wavelength_um": 0.44,
+        "max_wavelength_um": 0.9,
+        "wavelengths_library": [
+          {
+            "value_um": 0.44,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 0.67,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 0.9,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.83,
+        "optics_mtf_at_nyquist": 0.22,
+        "quantum_efficiency_avg": 0.68,
+        "sensor_architecture": "pushbroom_linear",
+        "tdi_stages": 1,
+        "detector_format_label": "Barrette linéaire CMOS 16 000 px × 5 bandes (Push-Broom grand champ f/5 sans TDI)"
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 3.611,
+        "swath_at_500km_km": 57.78,
+        "diffraction_spot_ground_500km_m": 2.271,
+        "pointing_accuracy_deg": 0.04,
+        "pointing_stability_arcsec_s": 5.0,
+        "max_jitter_arcsec": 2.0
+      },
+      "optical_architecture": {
+        "family": "Compact_TMA_Cook",
+        "pyoptic_preset_call": "three_mirror_anastigmat_tma(focal_length_mm=900, epd_mm=180)",
+        "prescription_surfaces": [
+          {
+            "label": "M1_Primary_TMA",
+            "type": "Conic",
+            "radius": -472.5,
+            "conic": -0.8851,
+            "thickness": -177.188,
+            "material": "AIR",
+            "is_mirror": true,
+            "is_stop": true,
+            "semi_diameter": 93.60000000000001
+          },
+          {
+            "label": "M2_Secondary_TMA",
+            "type": "Conic",
+            "radius": -189.0,
+            "conic": -3.4242,
+            "thickness": 425.25,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 39.6
+          },
+          {
+            "label": "M3_Tertiary_TMA",
+            "type": "Conic",
+            "radius": -315.0,
+            "conic": -0.2898,
+            "thickness": -382.5,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 72.0
+          },
+          {
+            "label": "Focal_Plane",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 52.0
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 4.087,
+        "nyquist_frequency_lp_mm": 76.92,
+        "diffraction_limit_rad": 4.54e-06,
+        "diffraction_limit_arcsec": 0.94,
+        "sampling_ratio_Q": 0.515,
+        "regime": "Detector-Limited (Undersampled, Q < 0.9)",
+        "beam_divergence_urad": null
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Anastigmat compact grand champ sans foyer intermediaire : correction simultanee de l'aberration spherique, coma et astigmatisme sur une fauchee geante (>55 km a 500 km). Obscuration centrale nulle en configuration desaxee (off-axis), preservant la fonction de transfert de modulation (MTF) aux moyennes frequences.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 3.611 m vs Fauchee = 57.78 km a 500 km.",
+          "Regime optique Q = 0.52 (Pixel plus grand que la tache de diffraction).",
+          "Sensibilite au pointage : stabilite requise 5.0 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_opt_stellara_20cm",
+      "name": "STELLA-20 Ritchey-Chrétien Telescope",
+      "payload_type": "optical_imager",
+      "supplier_name": "Stellara Ottica",
+      "flight_heritage": "14 vols",
+      "trl": 9,
+      "dimensions_mm": [
+        320,
+        230,
+        230
+      ],
+      "mass_kg": 11.0,
+      "power_w": 28.0,
+      "cost_meur": 1.75,
+      "description": "Télescope Ritchey-Chrétien 20 cm à capteur matriciel CMOS 2D (Frame / Step-and-Stare, sans TDI) pour microsatellites",
+      "long_description": "Télescope italien de 20 cm d'ouverture à miroirs en Zerodur et structure carbone, délivrant environ 1,5 m de GSD à 500 km. Il se distingue par son plan focal matriciel CMOS 2D grand format (12 000 × 4 096 pixels à filtres en bandes « Butcher-block ») opérant par clichés successifs (mode Frame / Step-and-Stare sans TDI), ce qui permet aussi bien la couverture continue par recouvrement que l'acquisition vidéo haute cadence ou multi-angles d'une cible fixe.",
+      "key_features": [
+        "Ouverture Ø 20 cm, focale 1,8 m",
+        "GSD ~ 1,53 m à 500 km",
+        "Miroirs Zerodur, tube CFRP",
+        "Masse 11 kg",
+        "Capteur matriciel 2D 12 000 × 4 096 px (sans TDI)"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.2,
+        "aperture_diameter_mm": 200.0,
+        "focal_length_m": 1.8,
+        "focal_length_mm": 1800.0,
+        "f_number": 9.0,
+        "pixel_pitch_um": 5.5,
+        "detector_pixels_cross_track": 12000,
+        "sensor_width_mm": 66.0,
+        "fov_full_deg": 2.101,
+        "field_angles_deg": [
+          0.0,
+          0.525,
+          1.05
+        ],
+        "primary_wavelength_um": 0.675,
+        "min_wavelength_um": 0.45,
+        "max_wavelength_um": 0.9,
+        "wavelengths_library": [
+          {
+            "value_um": 0.45,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 0.675,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 0.9,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.85,
+        "optics_mtf_at_nyquist": 0.24,
+        "quantum_efficiency_avg": 0.68,
+        "sensor_architecture": "frame_matrix",
+        "tdi_stages": 1,
+        "detector_format_label": "Matrice CMOS 2D plein format 12 000 × 4 096 px (mode Frame / Step-and-Stare à bandes filtrées, sans TDI)"
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 1.528,
+        "swath_at_500km_km": 18.34,
+        "diffraction_spot_ground_500km_m": 2.059,
+        "pointing_accuracy_deg": 0.025,
+        "pointing_stability_arcsec_s": 3.0,
+        "max_jitter_arcsec": 1.5
+      },
+      "optical_architecture": {
+        "family": "Ritchey_Chretien_Cassegrain",
+        "pyoptic_preset_call": "ritchey_chretien_telescope(focal_length_mm=1800.0, epd_mm=200.0, back_focus_mm=180.0)",
+        "prescription_surfaces": [
+          {
+            "label": "M1_Primary_Hyperbola",
+            "type": "Conic",
+            "radius": -1384.615,
+            "conic": -1.159308,
+            "thickness": -450.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "is_stop": true,
+            "semi_diameter": 104.0
+          },
+          {
+            "label": "M2_Secondary_Hyperbola",
+            "type": "Conic",
+            "radius": -787.5,
+            "conic": -7.015625,
+            "thickness": 630.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 48.0
+          },
+          {
+            "label": "Focal_Plane",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 33.0
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 7.412,
+        "nyquist_frequency_lp_mm": 90.91,
+        "diffraction_limit_rad": 4.12e-06,
+        "diffraction_limit_arcsec": 0.85,
+        "sampling_ratio_Q": 1.105,
+        "regime": "Well-Matched (Nyquist Balanced, 0.9 <= Q <= 1.5)",
+        "beam_divergence_urad": null
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Telescope Ritchey-Chretien a deux miroirs hyperboliques (k1 < -1, k2 < -1) : correction simultanee de l'aberration spherique et de la coma (systeme aplanetique). Les etudiants observent l'astigmatisme residuel et la courbure de champ en bord de capteur, expliquant pourquoi les grands telescopes RC ajoutent souvent un groupe correcteur a deux lentilles.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 1.528 m vs Fauchee = 18.34 km a 500 km.",
+          "Regime optique Q = 1.10 (Pixel plus grand que la tache de diffraction).",
+          "Sensibilite au pointage : stabilite requise 3.0 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_opt_stellara_35cm",
+      "name": "STELLA-35 Sub-Meter Telescope",
+      "payload_type": "optical_imager",
+      "supplier_name": "Stellara Ottica",
+      "flight_heritage": "7 vols",
+      "trl": 9,
+      "dimensions_mm": [
+        540,
+        400,
+        400
+      ],
+      "mass_kg": 30.0,
+      "power_w": 60.0,
+      "cost_meur": 4.1,
+      "description": "Télescope 35 cm sub-métrique (~0,86 m GSD) à balayage Push-Broom avec TDI (16 étages)",
+      "long_description": "Télescope sub-métrique compact de 35 cm (f/10) pesant seulement 30 kg. Pour atteindre un rapport signal-sur-bruit supérieur à 60 malgré un GSD sub-métrique (~0,86 m à 500 km, fréquence ligne ~8,2 kHz), son détecteur Push-Broom de 20 000 pixels met en œuvre une intégration à décalage temporel (TDI) sur 16 étages, requérant une stabilité de pointage plateforme ≤ 1,2 arcsec/s.",
+      "key_features": [
+        "Ouverture Ø 35 cm, focale 3,5 m",
+        "GSD ~ 0,86 m à 500 km",
+        "Masse contenue 30 kg",
+        "6 bandes spectrales",
+        "Push-Broom 20 000 px avec TDI 16 étages"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.35,
+        "aperture_diameter_mm": 350.0,
+        "focal_length_m": 3.5,
+        "focal_length_mm": 3500.0,
+        "f_number": 10.0,
+        "pixel_pitch_um": 6.0,
+        "detector_pixels_cross_track": 20000,
+        "sensor_width_mm": 120.0,
+        "fov_full_deg": 1.964,
+        "field_angles_deg": [
+          0.0,
+          0.491,
+          0.982
+        ],
+        "primary_wavelength_um": 0.675,
+        "min_wavelength_um": 0.45,
+        "max_wavelength_um": 0.9,
+        "wavelengths_library": [
+          {
+            "value_um": 0.45,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 0.675,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 0.9,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.85,
+        "optics_mtf_at_nyquist": 0.25,
+        "quantum_efficiency_avg": 0.72,
+        "sensor_architecture": "pushbroom_tdi",
+        "tdi_stages": 16,
+        "detector_format_label": "Barrette Push-Broom CCD/CMOS avec TDI (20 000 px, 16 étages TDI en PAN / 8 étages en MS)"
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 0.857,
+        "swath_at_500km_km": 17.14,
+        "diffraction_spot_ground_500km_m": 1.176,
+        "pointing_accuracy_deg": 0.012,
+        "pointing_stability_arcsec_s": 1.2,
+        "max_jitter_arcsec": 0.7
+      },
+      "optical_architecture": {
+        "family": "Ritchey_Chretien_Cassegrain",
+        "pyoptic_preset_call": "ritchey_chretien_telescope(focal_length_mm=3500.0, epd_mm=350.0, back_focus_mm=180.0)",
+        "prescription_surfaces": [
+          {
+            "label": "M1_Primary_Hyperbola",
+            "type": "Conic",
+            "radius": -2505.112,
+            "conic": -1.110525,
+            "thickness": -875.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "is_stop": true,
+            "semi_diameter": 182.0
+          },
+          {
+            "label": "M2_Secondary_Hyperbola",
+            "type": "Conic",
+            "radius": -1175.955,
+            "conic": -5.856633,
+            "thickness": 1055.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 84.0
+          },
+          {
+            "label": "Focal_Plane",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 60.0
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 8.235,
+        "nyquist_frequency_lp_mm": 83.33,
+        "diffraction_limit_rad": 2.35e-06,
+        "diffraction_limit_arcsec": 0.49,
+        "sampling_ratio_Q": 1.125,
+        "regime": "Well-Matched (Nyquist Balanced, 0.9 <= Q <= 1.5)",
+        "beam_divergence_urad": null
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Telescope Ritchey-Chretien a deux miroirs hyperboliques (k1 < -1, k2 < -1) : correction simultanee de l'aberration spherique et de la coma (systeme aplanetique). Les etudiants observent l'astigmatisme residuel et la courbure de champ en bord de capteur, expliquant pourquoi les grands telescopes RC ajoutent souvent un groupe correcteur a deux lentilles.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 0.857 m vs Fauchee = 17.14 km a 500 km.",
+          "Regime optique Q = 1.12 (Pixel plus grand que la tache de diffraction).",
+          "Sensibilite au pointage : stabilite requise 1.2 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_opt_stellara_60cm",
+      "name": "STELLA-60 High-Resolution Korsch",
+      "payload_type": "optical_imager",
+      "supplier_name": "Stellara Ottica",
+      "flight_heritage": "4 vols",
+      "trl": 9,
+      "dimensions_mm": [
+        950,
+        680,
+        680
+      ],
+      "mass_kg": 92.0,
+      "power_w": 140.0,
+      "cost_meur": 10.5,
+      "description": "Télescope Korsch 60 cm (GSD ~0,5 m) à plan focal hybride Push-Broom TDI (32 étages) & Matriciel 2D Step-and-Stare",
+      "long_description": "Télescope Korsch de 60 cm atteignant 0,50 m de résolution au nadir à 500 km. Son plan focal hybride combine une barrette Push-Broom de 32 000 pixels à 32 étages TDI (pour le balayage continu d'observation de la Terre) et une mosaïque matricielle 2D dédiée aux poses longues stabilisées (« Step-and-Stare ») pour l'astrométrie et l'imagerie de champ profond.",
+      "key_features": [
+        "Ouverture Ø 60 cm, focale 6,5 m",
+        "GSD ~ 0,50 m à 500 km",
+        "Fauchée 16 km, 14 bits",
+        "Masse 92 kg",
+        "Plan focal hybride Push-Broom TDI 32 étages + Matrice 2D"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.6,
+        "aperture_diameter_mm": 600.0,
+        "focal_length_m": 6.5,
+        "focal_length_mm": 6500.0,
+        "f_number": 10.83,
+        "pixel_pitch_um": 6.5,
+        "detector_pixels_cross_track": 32000,
+        "sensor_width_mm": 208.0,
+        "fov_full_deg": 1.833,
+        "field_angles_deg": [
+          0.0,
+          0.458,
+          0.916
+        ],
+        "primary_wavelength_um": 0.675,
+        "min_wavelength_um": 0.45,
+        "max_wavelength_um": 0.9,
+        "wavelengths_library": [
+          {
+            "value_um": 0.45,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 0.675,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 0.9,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.86,
+        "optics_mtf_at_nyquist": 0.26,
+        "quantum_efficiency_avg": 0.75,
+        "sensor_architecture": "pushbroom_tdi",
+        "tdi_stages": 32,
+        "detector_format_label": "Plan focal hybride : Barrette Push-Broom 32 000 px (32 étages TDI) + mosaïque matricielle 2D pour poses longues Step-and-Stare"
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 0.5,
+        "swath_at_500km_km": 16.0,
+        "diffraction_spot_ground_500km_m": 0.686,
+        "pointing_accuracy_deg": 0.005,
+        "pointing_stability_arcsec_s": 0.45,
+        "max_jitter_arcsec": 0.35
+      },
+      "optical_architecture": {
+        "family": "",
+        "pyoptic_preset_call": "",
+        "prescription_surfaces": []
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 8.919,
+        "nyquist_frequency_lp_mm": 76.92,
+        "diffraction_limit_rad": 1.37e-06,
+        "diffraction_limit_arcsec": 0.28,
+        "sampling_ratio_Q": 1.125,
+        "regime": "Well-Matched (Nyquist Balanced, 0.9 <= Q <= 1.5)",
+        "beam_divergence_urad": null
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 0.5 m vs Fauchee = 16.0 km a 500 km.",
+          "Regime optique Q = 1.12 (Pixel plus grand que la tache de diffraction).",
+          "Sensibilite au pointage : stabilite requise 0.45 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_opt_helios_70cm",
+      "name": "EagleEye-70 Sub-50cm Imager",
+      "payload_type": "optical_imager",
+      "supplier_name": "Helios Space Instruments",
+      "flight_heritage": "Héritage CSO / Pléiades",
+      "trl": 9,
+      "dimensions_mm": [
+        1150,
+        820,
+        820
+      ],
+      "mass_kg": 145.0,
+      "power_w": 210.0,
+      "cost_meur": 15.2,
+      "description": "Télescope 70 cm très haute résolution (~0,39 m GSD) à balayage Push-Broom avec TDI (64 étages)",
+      "long_description": "Instrument de 70 cm d'Helios Space Instruments offrant une résolution de ~39 cm à 500 km (f/12). À cette résolution, le temps de passage d'une ligne au sol n'est que de 55 µs (~18 kHz) : le plan focal Push-Broom de 36 000 pixels intègre donc 64 étages TDI asservis en temps réel aux gyrolasers du banc optique, exigeant une stabilité d'attitude ≤ 0,30 arcsec/s et un jitter ≤ 0,25 arcsec.",
+      "key_features": [
+        "Ouverture Ø 70 cm, focale 8,4 m",
+        "GSD ~ 0,39 m à 500 km",
+        "7 bandes spectrales",
+        "Banc SiC monobloc",
+        "Push-Broom 36 000 px avec TDI 64 étages"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.7,
+        "aperture_diameter_mm": 700.0,
+        "focal_length_m": 8.4,
+        "focal_length_mm": 8400.0,
+        "f_number": 12.0,
+        "pixel_pitch_um": 6.5,
+        "detector_pixels_cross_track": 36000,
+        "sensor_width_mm": 234.0,
+        "fov_full_deg": 1.596,
+        "field_angles_deg": [
+          0.0,
+          0.399,
+          0.798
+        ],
+        "primary_wavelength_um": 0.67,
+        "min_wavelength_um": 0.42,
+        "max_wavelength_um": 0.92,
+        "wavelengths_library": [
+          {
+            "value_um": 0.42,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 0.67,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 0.92,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.87,
+        "optics_mtf_at_nyquist": 0.27,
+        "quantum_efficiency_avg": 0.76,
+        "sensor_architecture": "pushbroom_tdi",
+        "tdi_stages": 64,
+        "detector_format_label": "Barrette Push-Broom TDI multi-étages (36 000 px, 64 étages TDI asservis au gyrolaser)"
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 0.387,
+        "swath_at_500km_km": 13.93,
+        "diffraction_spot_ground_500km_m": 0.584,
+        "pointing_accuracy_deg": 0.004,
+        "pointing_stability_arcsec_s": 0.3,
+        "max_jitter_arcsec": 0.25
+      },
+      "optical_architecture": {
+        "family": "Korsch_TMA_Three_Mirror",
+        "pyoptic_preset_call": "korsch_tma_telescope(focal_length_mm=8400.0, epd_mm=700.0)",
+        "prescription_surfaces": [
+          {
+            "label": "M1_Primary_Ellipsoid",
+            "type": "Conic",
+            "radius": -4410.0,
+            "conic": -0.8851,
+            "thickness": -1653.75,
+            "material": "AIR",
+            "is_mirror": true,
+            "is_stop": true,
+            "semi_diameter": 364.0
+          },
+          {
+            "label": "M2_Secondary_Hyperboloid",
+            "type": "Conic",
+            "radius": -1764.0,
+            "conic": -3.4242,
+            "thickness": 3969.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 154.0
+          },
+          {
+            "label": "M3_Tertiary_Relay",
+            "type": "Conic",
+            "radius": -2940.0,
+            "conic": -0.2898,
+            "thickness": -3570.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 294.0
+          },
+          {
+            "label": "Focal_Plane",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 117.0
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 9.809,
+        "nyquist_frequency_lp_mm": 76.92,
+        "diffraction_limit_rad": 1.17e-06,
+        "diffraction_limit_arcsec": 0.24,
+        "sampling_ratio_Q": 1.237,
+        "regime": "Well-Matched (Nyquist Balanced, 0.9 <= Q <= 1.5)",
+        "beam_divergence_urad": null
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Telescope de Korsch a trois miroirs avec foyer intermediaire et diaphragme de Lyot : elimination totale des 4 aberrations de Seidel (S_I=0, S_II=0, S_III=0, champ de Petzval plat S_IV=0). Permet d'atteindre des resolutions sub-metriques extremes (0,29 m a 0,77 m) avec un miroir en SiC athermique. Les etudiants peuvent verifier l'absence d'astigmatisme hors-axe et la rejection de lumiere parasite au foyer intermediaire.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 0.387 m vs Fauchee = 13.93 km a 500 km.",
+          "Regime optique Q = 1.24 (Pixel plus grand que la tache de diffraction).",
+          "Sensibilite au pointage : stabilite requise 0.3 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_opt_swir_20cm",
+      "name": "CirrusSWIR-20 Short-Wave IR Imager",
+      "payload_type": "optical_imager",
+      "supplier_name": "Cirrus Infrared Systems",
+      "flight_heritage": "3 vols",
+      "trl": 8,
+      "dimensions_mm": [
+        340,
+        240,
+        240
+      ],
+      "mass_kg": 14.0,
+      "power_w": 45.0,
+      "cost_meur": 2.8,
+      "description": "Imageur infrarouge SWIR (1,0–2,4 µm) à capteur matriciel 2D InGaAs refroidi (acquisition Frame, sans TDI)",
+      "long_description": "Caméra infrarouge SWIR équipée d'une matrice focale 2D InGaAs refroidie par machine Stirling miniature (4 096 × 2 048 pixels au pas de 10 µm, mode Frame par clichés instantanés sans TDI). Elle observe à travers la fumée, détecte les départs de feux, les fuites industrielles et le stress hydrique des sols avec un GSD de 4,0 m à 500 km.",
+      "key_features": [
+        "Domaine SWIR 1000–2400 nm (3 bandes)",
+        "Détecteur InGaAs refroidi",
+        "GSD ~ 4,0 m à 500 km",
+        "Vision à travers la fumée",
+        "Matrice 2D InGaAs refroidie (Frame, sans TDI)"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.2,
+        "aperture_diameter_mm": 200.0,
+        "focal_length_m": 1.25,
+        "focal_length_mm": 1250.0,
+        "f_number": 6.25,
+        "pixel_pitch_um": 10.0,
+        "detector_pixels_cross_track": 4096,
+        "sensor_width_mm": 40.96,
+        "fov_full_deg": 1.877,
+        "field_angles_deg": [
+          0.0,
+          0.469,
+          0.939
+        ],
+        "primary_wavelength_um": 1.6,
+        "min_wavelength_um": 1.0,
+        "max_wavelength_um": 2.4,
+        "wavelengths_library": [
+          {
+            "value_um": 1.0,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 1.6,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 2.4,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.8,
+        "optics_mtf_at_nyquist": 0.22,
+        "quantum_efficiency_avg": 0.7,
+        "sensor_architecture": "frame_matrix",
+        "tdi_stages": 1,
+        "detector_format_label": "Matrice focale 2D InGaAs refroidie 4 096 × 2 048 px (imagerie Frame SWIR tri-bande, sans TDI)"
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 4.0,
+        "swath_at_500km_km": 16.38,
+        "diffraction_spot_ground_500km_m": 4.88,
+        "pointing_accuracy_deg": 0.03,
+        "pointing_stability_arcsec_s": 4.0,
+        "max_jitter_arcsec": 1.8
+      },
+      "optical_architecture": {
+        "family": "Catadioptric_SWIR",
+        "pyoptic_preset_call": "catadioptric_swir_telescope(focal_length_mm=1250.0, epd_mm=200.0)",
+        "prescription_surfaces": [
+          {
+            "label": "M1_Primary",
+            "type": "Conic",
+            "radius": -992.063,
+            "conic": -1.184965,
+            "thickness": -312.5,
+            "material": "AIR",
+            "is_mirror": true,
+            "is_stop": true,
+            "semi_diameter": 104.0
+          },
+          {
+            "label": "M2_Secondary",
+            "type": "Conic",
+            "radius": -608.553,
+            "conic": -7.64091,
+            "thickness": 422.5,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 50.0
+          },
+          {
+            "label": "SWIR_Corrector_Si",
+            "type": "Spherical",
+            "radius": -120.0,
+            "thickness": 6.0,
+            "material": "SILICON",
+            "semi_diameter": 25.0
+          },
+          {
+            "label": "SWIR_Corrector_Rear",
+            "type": "Plane",
+            "thickness": 34.0,
+            "material": "AIR",
+            "semi_diameter": 25.0
+          },
+          {
+            "label": "Cold_Shield_Detector",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 15.0
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 12.2,
+        "nyquist_frequency_lp_mm": 50.0,
+        "diffraction_limit_rad": 9.76e-06,
+        "diffraction_limit_arcsec": 2.01,
+        "sampling_ratio_Q": 1.0,
+        "regime": "Well-Matched (Nyquist Balanced, 0.9 <= Q <= 1.5)",
+        "beam_divergence_urad": null
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Optique infrarouge SWIR (1,0 a 2,4 um) combinant miroirs et lentilles en Silicium/Germanium : gestion de l'indice de refraction eleve du Silicium (n ~ 3,48) et du Germanium (n ~ 4,0), minimisation des reflexions de Fresnel par traitement multicouche dielectrique, et ecran froid de Lyot integre pour limiter le fond thermique parasite.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 4.0 m vs Fauchee = 16.38 km a 500 km.",
+          "Regime optique Q = 1.00 (Pixel plus grand que la tache de diffraction).",
+          "Sensibilite au pointage : stabilite requise 4.0 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_spec_vnir_compact",
+      "name": "MiniSpec-VNIR CubeSat Spectrometer",
+      "payload_type": "spectrometer",
+      "supplier_name": "SpectraSpace Instruments",
+      "flight_heritage": "5 CubeSats",
+      "trl": 8,
+      "dimensions_mm": [
+        240,
+        180,
+        150
+      ],
+      "mass_kg": 6.8,
+      "power_w": 22.0,
+      "cost_meur": 1.45,
+      "description": "Spectromètre hyperspectral compact 60 bandes pour CubeSat 16U et SmallSat 50 kg",
+      "long_description": "Version miniaturisée de la gamme SpectraSpace permettant de faire de l'imagerie hyperspectrale sur un budget de microsatellite ou de 16U. 60 bandes VNIR de ~9,5 nm et GSD d'environ 7,3 m à 500 km.",
+      "key_features": [
+        "60 bandes VNIR (420–980 nm)",
+        "Masse 6,8 kg, 22 W",
+        "Résolution spectrale 9,5 nm",
+        "GSD ~ 7,3 m à 500 km"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.1,
+        "aperture_diameter_mm": 100.0,
+        "focal_length_m": 0.6000000000000001,
+        "focal_length_mm": 600.0000000000001,
+        "f_number": 6.0,
+        "pixel_pitch_um": 8.0,
+        "detector_pixels_cross_track": 1024,
+        "sensor_width_mm": 8.19,
+        "fov_full_deg": 0.782,
+        "field_angles_deg": [
+          0.0,
+          0.196,
+          0.391
+        ],
+        "primary_wavelength_um": 0.7,
+        "min_wavelength_um": 0.42,
+        "max_wavelength_um": 0.98,
+        "wavelengths_library": [
+          {
+            "value_um": 0.42,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 0.7,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 0.98,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.85,
+        "optics_mtf_at_nyquist": 0.25,
+        "quantum_efficiency_avg": 0.7
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 6.667,
+        "swath_at_500km_km": 6.83,
+        "diffraction_spot_ground_500km_m": 4.27,
+        "pointing_accuracy_deg": 0.04,
+        "pointing_stability_arcsec_s": 4.0,
+        "max_jitter_arcsec": 2.0
+      },
+      "optical_architecture": {
+        "family": "Offner_Czerny_Turner_Spectrometer",
+        "pyoptic_preset_call": "offner_convex_grating_spectrometer(aperture_mm=100.0, bands=60)",
+        "prescription_surfaces": [
+          {
+            "label": "Fore_Telescope_Pupil",
+            "type": "Plane",
+            "thickness": 120.0,
+            "material": "AIR",
+            "is_stop": true,
+            "semi_diameter": 50.0
+          },
+          {
+            "label": "Slit_Plane",
+            "type": "Plane",
+            "thickness": 150.0,
+            "material": "AIR",
+            "semi_diameter": 12.0
+          },
+          {
+            "label": "Collimator_Mirror",
+            "type": "Spherical",
+            "radius": -300.0,
+            "thickness": -150.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 35.0
+          },
+          {
+            "label": "Diffraction_Grating",
+            "type": "Plane",
+            "thickness": 150.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 30.0,
+            "grating_lines_per_mm": 600.0
+          },
+          {
+            "label": "Camera_Mirror",
+            "type": "Spherical",
+            "radius": -300.0,
+            "thickness": -150.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 40.0
+          },
+          {
+            "label": "Spectrometer_Detector",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 4.096
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 5.124,
+        "nyquist_frequency_lp_mm": 62.5,
+        "diffraction_limit_rad": 8.54e-06,
+        "diffraction_limit_arcsec": 1.76,
+        "sampling_ratio_Q": 0.525,
+        "regime": "Detector-Limited (Undersampled, Q < 0.9)",
+        "beam_divergence_urad": null
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Spectrometre imageur Offner a reseau convexe ou Czerny-Turner : l'architecture Offner annule l'astigmatisme et la coma de Seidel tout en conservant une distorsion spectrale (smile) et spatiale (keystone) inferieure a 1% d'un pixel. Crucial pour l'inversion geophysique et mineralogique hyperspectrale.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 6.667 m vs Fauchee = 6.83 km a 500 km.",
+          "Regime optique Q = 0.53 (Pixel plus grand que la tache de diffraction).",
+          "Sensibilite au pointage : stabilite requise 4.0 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_spec_swir_180",
+      "name": "HyperEye-SWIR Mineral & Methane Mapper",
+      "payload_type": "spectrometer",
+      "supplier_name": "SpectraSpace Instruments",
+      "flight_heritage": "Héritage PRISMA",
+      "trl": 8,
+      "dimensions_mm": [
+        520,
+        360,
+        320
+      ],
+      "mass_kg": 36.0,
+      "power_w": 82.0,
+      "cost_meur": 5.9,
+      "description": "Spectromètre imageur SWIR 900–2500 nm (180 bandes) à détecteur MCT refroidi",
+      "long_description": "Spectromètre SWIR refroidi couvrant 900 à 2500 nm en 180 bandes continues. Indispensable pour l'identification fine des minéraux (argiles, carbonates), des hydrocarbures et des panaches de méthane.",
+      "key_features": [
+        "180 bandes de 900 à 2500 nm",
+        "Détecteur HgCdTe refroidi",
+        "GSD ~ 5,0 m à 500 km",
+        "Résolution spectrale 9 nm"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.1,
+        "aperture_diameter_mm": 100.0,
+        "focal_length_m": 0.6000000000000001,
+        "focal_length_mm": 600.0000000000001,
+        "f_number": 6.0,
+        "pixel_pitch_um": 12.0,
+        "detector_pixels_cross_track": 1500,
+        "sensor_width_mm": 18.0,
+        "fov_full_deg": 1.719,
+        "field_angles_deg": [
+          0.0,
+          0.43,
+          0.86
+        ],
+        "primary_wavelength_um": 1.6,
+        "min_wavelength_um": 1.0,
+        "max_wavelength_um": 2.4,
+        "wavelengths_library": [
+          {
+            "value_um": 1.0,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 1.6,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 2.4,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.85,
+        "optics_mtf_at_nyquist": 0.25,
+        "quantum_efficiency_avg": 0.7
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 10.0,
+        "swath_at_500km_km": 15.0,
+        "diffraction_spot_ground_500km_m": 9.76,
+        "pointing_accuracy_deg": 0.012,
+        "pointing_stability_arcsec_s": 1.2,
+        "max_jitter_arcsec": 0.7
+      },
+      "optical_architecture": {
+        "family": "Offner_Czerny_Turner_Spectrometer",
+        "pyoptic_preset_call": "offner_convex_grating_spectrometer(aperture_mm=100.0, bands=180)",
+        "prescription_surfaces": [
+          {
+            "label": "Fore_Telescope_Pupil",
+            "type": "Plane",
+            "thickness": 120.0,
+            "material": "AIR",
+            "is_stop": true,
+            "semi_diameter": 50.0
+          },
+          {
+            "label": "Slit_Plane",
+            "type": "Plane",
+            "thickness": 150.0,
+            "material": "AIR",
+            "semi_diameter": 12.0
+          },
+          {
+            "label": "Collimator_Mirror",
+            "type": "Spherical",
+            "radius": -300.0,
+            "thickness": -150.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 35.0
+          },
+          {
+            "label": "Diffraction_Grating",
+            "type": "Plane",
+            "thickness": 150.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 30.0,
+            "grating_lines_per_mm": 600.0
+          },
+          {
+            "label": "Camera_Mirror",
+            "type": "Spherical",
+            "radius": -300.0,
+            "thickness": -150.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 40.0
+          },
+          {
+            "label": "Spectrometer_Detector",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 9.0
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 11.712,
+        "nyquist_frequency_lp_mm": 41.67,
+        "diffraction_limit_rad": 1.952e-05,
+        "diffraction_limit_arcsec": 4.03,
+        "sampling_ratio_Q": 0.8,
+        "regime": "Detector-Limited (Undersampled, Q < 0.9)",
+        "beam_divergence_urad": null
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Spectrometre imageur Offner a reseau convexe ou Czerny-Turner : l'architecture Offner annule l'astigmatisme et la coma de Seidel tout en conservant une distorsion spectrale (smile) et spatiale (keystone) inferieure a 1% d'un pixel. Crucial pour l'inversion geophysique et mineralogique hyperspectrale.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 10.0 m vs Fauchee = 15.0 km a 500 km.",
+          "Regime optique Q = 0.80 (Pixel plus grand que la tache de diffraction).",
+          "Sensibilite au pointage : stabilite requise 1.2 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_spec_vnir_swir_full",
+      "name": "HyperEye-FullRange 400-2500nm",
+      "payload_type": "spectrometer",
+      "supplier_name": "SpectraSpace Instruments",
+      "flight_heritage": "Héritage EnMAP / CHIME",
+      "trl": 9,
+      "dimensions_mm": [
+        750,
+        500,
+        450
+      ],
+      "mass_kg": 68.0,
+      "power_w": 135.0,
+      "cost_meur": 9.8,
+      "description": "Spectromètre complet VNIR+SWIR (400–2500 nm, 240 bandes) de classe institutionnelle",
+      "long_description": "Instrument hyperspectral de référence combinant deux spectromètres (VNIR et SWIR) derrière un télescope commun de 28 cm. Il couvre tout le spectre solaire réfléchi en 240 bandes avec un GSD de 3,0 m à 500 km.",
+      "key_features": [
+        "400 à 2500 nm en 240 bandes",
+        "GSD ~ 3,0 m à 500 km",
+        "Télescope Ø 28 cm",
+        "Double plan focal VNIR + SWIR"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.1,
+        "aperture_diameter_mm": 100.0,
+        "focal_length_m": 0.6000000000000001,
+        "focal_length_mm": 600.0000000000001,
+        "f_number": 6.0,
+        "pixel_pitch_um": 9.0,
+        "detector_pixels_cross_track": 2048,
+        "sensor_width_mm": 18.43,
+        "fov_full_deg": 1.76,
+        "field_angles_deg": [
+          0.0,
+          0.44,
+          0.88
+        ],
+        "primary_wavelength_um": 1.6,
+        "min_wavelength_um": 1.0,
+        "max_wavelength_um": 2.4,
+        "wavelengths_library": [
+          {
+            "value_um": 1.0,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 1.6,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 2.4,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.85,
+        "optics_mtf_at_nyquist": 0.25,
+        "quantum_efficiency_avg": 0.7
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 7.5,
+        "swath_at_500km_km": 15.36,
+        "diffraction_spot_ground_500km_m": 9.76,
+        "pointing_accuracy_deg": 0.008,
+        "pointing_stability_arcsec_s": 0.8,
+        "max_jitter_arcsec": 0.5
+      },
+      "optical_architecture": {
+        "family": "Offner_Czerny_Turner_Spectrometer",
+        "pyoptic_preset_call": "offner_convex_grating_spectrometer(aperture_mm=100.0, bands=240)",
+        "prescription_surfaces": [
+          {
+            "label": "Fore_Telescope_Pupil",
+            "type": "Plane",
+            "thickness": 120.0,
+            "material": "AIR",
+            "is_stop": true,
+            "semi_diameter": 50.0
+          },
+          {
+            "label": "Slit_Plane",
+            "type": "Plane",
+            "thickness": 150.0,
+            "material": "AIR",
+            "semi_diameter": 12.0
+          },
+          {
+            "label": "Collimator_Mirror",
+            "type": "Spherical",
+            "radius": -300.0,
+            "thickness": -150.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 35.0
+          },
+          {
+            "label": "Diffraction_Grating",
+            "type": "Plane",
+            "thickness": 150.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 30.0,
+            "grating_lines_per_mm": 600.0
+          },
+          {
+            "label": "Camera_Mirror",
+            "type": "Spherical",
+            "radius": -300.0,
+            "thickness": -150.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 40.0
+          },
+          {
+            "label": "Spectrometer_Detector",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 9.216
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 11.712,
+        "nyquist_frequency_lp_mm": 55.56,
+        "diffraction_limit_rad": 1.952e-05,
+        "diffraction_limit_arcsec": 4.03,
+        "sampling_ratio_Q": 1.067,
+        "regime": "Well-Matched (Nyquist Balanced, 0.9 <= Q <= 1.5)",
+        "beam_divergence_urad": null
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Spectrometre imageur Offner a reseau convexe ou Czerny-Turner : l'architecture Offner annule l'astigmatisme et la coma de Seidel tout en conservant une distorsion spectrale (smile) et spatiale (keystone) inferieure a 1% d'un pixel. Crucial pour l'inversion geophysique et mineralogique hyperspectrale.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 7.5 m vs Fauchee = 15.36 km a 500 km.",
+          "Regime optique Q = 1.07 (Pixel plus grand que la tache de diffraction).",
+          "Sensibilite au pointage : stabilite requise 0.8 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_spec_ghg_sounder",
+      "name": "AtmoTrace-GHG High-Spectral-Resolution Sounder",
+      "payload_type": "spectrometer",
+      "supplier_name": "Cirrus Infrared Systems",
+      "flight_heritage": "4 vols (suivi méthane)",
+      "trl": 8,
+      "dimensions_mm": [
+        460,
+        340,
+        300
+      ],
+      "mass_kg": 29.0,
+      "power_w": 65.0,
+      "cost_meur": 5.2,
+      "description": "Spectromètre haute finesse spectrale (0,3 nm) dédié aux panaches de CH4 et CO2",
+      "long_description": "Spectromètre à réseau échelle centré sur les raies d'absorption du méthane et du CO2 autour de 1,65 µm. Sa résolution spectrale de 0,3 nm permet de quantifier les fuites ponctuelles d'installations pétrolières et gazières.",
+      "key_features": [
+        "Résolution spectrale 0,3 nm (300 canaux)",
+        "Bande CH4 / CO2 1590–1680 nm",
+        "GSD ~ 6,0 m à 500 km",
+        "Détection de panaches industriels"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.1,
+        "aperture_diameter_mm": 100.0,
+        "focal_length_m": 0.6000000000000001,
+        "focal_length_mm": 600.0000000000001,
+        "f_number": 6.0,
+        "pixel_pitch_um": 12.0,
+        "detector_pixels_cross_track": 1200,
+        "sensor_width_mm": 14.4,
+        "fov_full_deg": 1.375,
+        "field_angles_deg": [
+          0.0,
+          0.344,
+          0.688
+        ],
+        "primary_wavelength_um": 1.635,
+        "min_wavelength_um": 1.59,
+        "max_wavelength_um": 1.68,
+        "wavelengths_library": [
+          {
+            "value_um": 1.59,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 1.635,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 1.68,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.85,
+        "optics_mtf_at_nyquist": 0.25,
+        "quantum_efficiency_avg": 0.7
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 10.0,
+        "swath_at_500km_km": 12.0,
+        "diffraction_spot_ground_500km_m": 9.973,
+        "pointing_accuracy_deg": 0.015,
+        "pointing_stability_arcsec_s": 1.5,
+        "max_jitter_arcsec": 0.9
+      },
+      "optical_architecture": {
+        "family": "Echelle_Grating_Spectrometer",
+        "pyoptic_preset_call": "echelle_spectrometer(lines_mm=79, blaze_deg=63.5, order=5)",
+        "prescription_surfaces": [
+          {
+            "label": "Fore_Telescope_Pupil",
+            "type": "Plane",
+            "thickness": 120.0,
+            "material": "AIR",
+            "is_stop": true,
+            "semi_diameter": 50.0
+          },
+          {
+            "label": "Slit_Plane",
+            "type": "Plane",
+            "thickness": 150.0,
+            "material": "AIR",
+            "semi_diameter": 12.0
+          },
+          {
+            "label": "Collimator_Mirror",
+            "type": "Spherical",
+            "radius": -300.0,
+            "thickness": -150.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 35.0
+          },
+          {
+            "label": "Diffraction_Grating",
+            "type": "Plane",
+            "thickness": 150.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 30.0,
+            "grating_lines_per_mm": 600.0
+          },
+          {
+            "label": "Camera_Mirror",
+            "type": "Spherical",
+            "radius": -300.0,
+            "thickness": -150.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 40.0
+          },
+          {
+            "label": "Spectrometer_Detector",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 7.2
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 11.968,
+        "nyquist_frequency_lp_mm": 41.67,
+        "diffraction_limit_rad": 1.995e-05,
+        "diffraction_limit_arcsec": 4.11,
+        "sampling_ratio_Q": 0.818,
+        "regime": "Detector-Limited (Undersampled, Q < 0.9)",
+        "beam_divergence_urad": null
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Spectrometre echelle fonctionnant a ordre de diffraction eleve (m=5 a 10) et fort angle de blaze : dispersion tres elevee pour l'analyse isotopique des gaz a effet de serre (0,3 nm de resolution). Separation des ordres par dispersion croisee (prisme ou filtre passe-bande).",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 10.0 m vs Fauchee = 12.0 km a 500 km.",
+          "Regime optique Q = 0.82 (Pixel plus grand que la tache de diffraction).",
+          "Sensibilite au pointage : stabilite requise 1.5 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_opt_comm_cubesat_1g",
+      "name": "NanoLink-1G CubeSat Laser Terminal",
+      "payload_type": "optical_comm",
+      "supplier_name": "PhotonCom Optics",
+      "flight_heritage": ">20 CubeSats",
+      "trl": 9,
+      "dimensions_mm": [
+        150,
+        100,
+        100
+      ],
+      "mass_kg": 2.2,
+      "power_w": 18.0,
+      "cost_meur": 0.65,
+      "description": "Mini-terminal laser 1 Gbit/s (2,2 kg) pour CubeSats 12U/16U et microsatellites",
+      "long_description": "Tête optique laser miniaturisée de 5 cm d'ouverture destinée aux CubeSats et petits satellites souhaitant descendre jusqu'à 1 Gbit/s vers une station sol optique sans coordination de fréquence RF.",
+      "key_features": [
+        "1 Gbit/s à 1550 nm",
+        "Format < 2U, masse 2,2 kg",
+        "Laser 0,5 W, ouverture 5 cm",
+        "Prix 0,65 M€"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.05,
+        "aperture_diameter_mm": 50.0,
+        "focal_length_m": 0.5,
+        "focal_length_mm": 500.0,
+        "f_number": 10.0,
+        "pixel_pitch_um": 5.5,
+        "detector_pixels_cross_track": 8000,
+        "sensor_width_mm": 44.0,
+        "fov_full_deg": 5.039,
+        "field_angles_deg": [
+          0.0,
+          1.26,
+          2.519
+        ],
+        "primary_wavelength_um": 1.55,
+        "min_wavelength_um": 1.53,
+        "max_wavelength_um": 1.565,
+        "wavelengths_library": [
+          {
+            "value_um": 1.53,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 1.55,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 1.565,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.85,
+        "optics_mtf_at_nyquist": 0.25,
+        "quantum_efficiency_avg": 0.7
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 5.5,
+        "swath_at_500km_km": 44.0,
+        "diffraction_spot_ground_500km_m": 18.91,
+        "pointing_accuracy_deg": 0.05,
+        "pointing_stability_arcsec_s": 3.0,
+        "max_jitter_arcsec": 1.5
+      },
+      "optical_architecture": {
+        "family": "Afocal_Beam_Expander_Cassegrain",
+        "pyoptic_preset_call": "afocal_beam_expander(epd_in_mm=5.0, epd_out_mm=50.0, mag=10.0)",
+        "prescription_surfaces": [
+          {
+            "label": "Laser_Fiber_Waist",
+            "type": "Plane",
+            "thickness": 30.0,
+            "material": "AIR",
+            "semi_diameter": 2.5
+          },
+          {
+            "label": "Collimator_Lens",
+            "type": "EvenAsphere",
+            "radius": 15.0,
+            "conic": -0.5,
+            "thickness": 80.0,
+            "material": "N-SF11",
+            "semi_diameter": 6.0
+          },
+          {
+            "label": "M2_Secondary_Beam_Expander",
+            "type": "Conic",
+            "radius": -20.0,
+            "conic": -2.5,
+            "thickness": -30.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 9.0
+          },
+          {
+            "label": "M1_Primary_Collimator",
+            "type": "Conic",
+            "radius": -75.0,
+            "conic": -1.0,
+            "thickness": 50.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 26.0
+          },
+          {
+            "label": "Far_Field_Aperture",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 27.500000000000004
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 18.91,
+        "nyquist_frequency_lp_mm": 90.91,
+        "diffraction_limit_rad": 3.782e-05,
+        "diffraction_limit_arcsec": 7.8,
+        "sampling_ratio_Q": 2.818,
+        "regime": "Diffraction-Limited (Oversampled, Q > 1.5)",
+        "beam_divergence_urad": 37.82
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Terminal laser optique telecom a 1550 nm : telescope d'emission afocal elargisseur de faisceau (Beam Expander) diffraction-limited. L'angle de divergence du faisceau emis theta ~ 1.22 * lambda / D est inversement proportionnel a l'ouverture. Les etudiants simulent l'impact des aberrations du front d'onde (WFE RMS < lambda/14) sur la baisse de gain d'antenne (critere de Marechal / formule de Ruze) et l'exigence de stabilite ADCS/FSM.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 5.5 m vs Fauchee = 44.0 km a 500 km.",
+          "Regime optique Q = 2.82 (Tache d'Airy etalee sur plusieurs pixels).",
+          "Sensibilite au pointage : stabilite requise 3.0 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_opt_comm_isl_25g",
+      "name": "TeraLink-25G Constellation Terminal",
+      "payload_type": "optical_comm",
+      "supplier_name": "TeraLink Photonics",
+      "flight_heritage": "Héritage SDA / EDRS",
+      "trl": 9,
+      "dimensions_mm": [
+        360,
+        280,
+        260
+      ],
+      "mass_kg": 19.0,
+      "power_w": 80.0,
+      "cost_meur": 3.8,
+      "description": "Terminal laser 25 Gbit/s à détection cohérente pour liaisons inter-satellites et sol",
+      "long_description": "Terminal optique cohérent BPSK/QPSK de TeraLink Photonics, doté d'un amplificateur optique de 2,5 W et d'un télescope de 12 cm. Il assure des liaisons à 25 Gbit/s avec une marge de liaison élevée même à basse élévation.",
+      "key_features": [
+        "25 Gbit/s cohérent à 1550 nm",
+        "Puissance optique 2,5 W, Ø 12 cm",
+        "Pointage fin 1,2 µrad",
+        "Compatible SDA Tranche 1/2"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.12,
+        "aperture_diameter_mm": 120.0,
+        "focal_length_m": 1.2,
+        "focal_length_mm": 1200.0,
+        "f_number": 10.0,
+        "pixel_pitch_um": 5.5,
+        "detector_pixels_cross_track": 8000,
+        "sensor_width_mm": 44.0,
+        "fov_full_deg": 2.101,
+        "field_angles_deg": [
+          0.0,
+          0.525,
+          1.05
+        ],
+        "primary_wavelength_um": 1.55,
+        "min_wavelength_um": 1.53,
+        "max_wavelength_um": 1.565,
+        "wavelengths_library": [
+          {
+            "value_um": 1.53,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 1.55,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 1.565,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.85,
+        "optics_mtf_at_nyquist": 0.25,
+        "quantum_efficiency_avg": 0.7
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 2.292,
+        "swath_at_500km_km": 18.34,
+        "diffraction_spot_ground_500km_m": 7.879,
+        "pointing_accuracy_deg": 0.008,
+        "pointing_stability_arcsec_s": 0.4,
+        "max_jitter_arcsec": 0.4
+      },
+      "optical_architecture": {
+        "family": "Afocal_Beam_Expander_Cassegrain",
+        "pyoptic_preset_call": "afocal_beam_expander(epd_in_mm=5.0, epd_out_mm=120.0, mag=24.0)",
+        "prescription_surfaces": [
+          {
+            "label": "Laser_Fiber_Waist",
+            "type": "Plane",
+            "thickness": 30.0,
+            "material": "AIR",
+            "semi_diameter": 2.5
+          },
+          {
+            "label": "Collimator_Lens",
+            "type": "EvenAsphere",
+            "radius": 15.0,
+            "conic": -0.5,
+            "thickness": 80.0,
+            "material": "N-SF11",
+            "semi_diameter": 6.0
+          },
+          {
+            "label": "M2_Secondary_Beam_Expander",
+            "type": "Conic",
+            "radius": -48.0,
+            "conic": -2.5,
+            "thickness": -72.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 21.599999999999998
+          },
+          {
+            "label": "M1_Primary_Collimator",
+            "type": "Conic",
+            "radius": -180.0,
+            "conic": -1.0,
+            "thickness": 120.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 62.400000000000006
+          },
+          {
+            "label": "Far_Field_Aperture",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 66.0
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 18.91,
+        "nyquist_frequency_lp_mm": 90.91,
+        "diffraction_limit_rad": 1.576e-05,
+        "diffraction_limit_arcsec": 3.25,
+        "sampling_ratio_Q": 2.818,
+        "regime": "Diffraction-Limited (Oversampled, Q > 1.5)",
+        "beam_divergence_urad": 15.76
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Terminal laser optique telecom a 1550 nm : telescope d'emission afocal elargisseur de faisceau (Beam Expander) diffraction-limited. L'angle de divergence du faisceau emis theta ~ 1.22 * lambda / D est inversement proportionnel a l'ouverture. Les etudiants simulent l'impact des aberrations du front d'onde (WFE RMS < lambda/14) sur la baisse de gain d'antenne (critere de Marechal / formule de Ruze) et l'exigence de stabilite ADCS/FSM.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 2.292 m vs Fauchee = 18.34 km a 500 km.",
+          "Regime optique Q = 2.82 (Tache d'Airy etalee sur plusieurs pixels).",
+          "Sensibilite au pointage : stabilite requise 0.4 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_opt_comm_heavy_100g",
+      "name": "TeraLink-100G Trunk Optical Terminal",
+      "payload_type": "optical_comm",
+      "supplier_name": "TeraLink Photonics",
+      "flight_heritage": "Héritage relais GEO/LEO",
+      "trl": 8,
+      "dimensions_mm": [
+        480,
+        360,
+        340
+      ],
+      "mass_kg": 34.0,
+      "power_w": 125.0,
+      "cost_meur": 6.5,
+      "description": "Terminal laser très haut débit 100 Gbit/s (Ø 18 cm, 5 W) pour dorsales spatiales",
+      "long_description": "Terminal optique de grande ouverture (18 cm) et de forte puissance laser (5 W) conçu pour vider en quelques dizaines de secondes les mémoires de masse de satellites SAR ou très haute résolution.",
+      "key_features": [
+        "100 Gbit/s à 1550 nm",
+        "Télescope Ø 18 cm, laser 5 W",
+        "Suivi ultra-fin 0,8 µrad",
+        "Marge de liaison très confortable"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.18,
+        "aperture_diameter_mm": 180.0,
+        "focal_length_m": 1.7999999999999998,
+        "focal_length_mm": 1799.9999999999998,
+        "f_number": 10.0,
+        "pixel_pitch_um": 5.5,
+        "detector_pixels_cross_track": 8000,
+        "sensor_width_mm": 44.0,
+        "fov_full_deg": 1.4,
+        "field_angles_deg": [
+          0.0,
+          0.35,
+          0.7
+        ],
+        "primary_wavelength_um": 1.55,
+        "min_wavelength_um": 1.53,
+        "max_wavelength_um": 1.565,
+        "wavelengths_library": [
+          {
+            "value_um": 1.53,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 1.55,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 1.565,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.85,
+        "optics_mtf_at_nyquist": 0.25,
+        "quantum_efficiency_avg": 0.7
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 1.528,
+        "swath_at_500km_km": 12.22,
+        "diffraction_spot_ground_500km_m": 5.253,
+        "pointing_accuracy_deg": 0.005,
+        "pointing_stability_arcsec_s": 0.25,
+        "max_jitter_arcsec": 0.25
+      },
+      "optical_architecture": {
+        "family": "Afocal_Beam_Expander_Cassegrain",
+        "pyoptic_preset_call": "afocal_beam_expander(epd_in_mm=5.0, epd_out_mm=180.0, mag=36.0)",
+        "prescription_surfaces": [
+          {
+            "label": "Laser_Fiber_Waist",
+            "type": "Plane",
+            "thickness": 30.0,
+            "material": "AIR",
+            "semi_diameter": 2.5
+          },
+          {
+            "label": "Collimator_Lens",
+            "type": "EvenAsphere",
+            "radius": 15.0,
+            "conic": -0.5,
+            "thickness": 80.0,
+            "material": "N-SF11",
+            "semi_diameter": 6.0
+          },
+          {
+            "label": "M2_Secondary_Beam_Expander",
+            "type": "Conic",
+            "radius": -72.0,
+            "conic": -2.5,
+            "thickness": -108.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 32.4
+          },
+          {
+            "label": "M1_Primary_Collimator",
+            "type": "Conic",
+            "radius": -270.0,
+            "conic": -1.0,
+            "thickness": 180.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 93.60000000000001
+          },
+          {
+            "label": "Far_Field_Aperture",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 99.00000000000001
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 18.91,
+        "nyquist_frequency_lp_mm": 90.91,
+        "diffraction_limit_rad": 1.051e-05,
+        "diffraction_limit_arcsec": 2.17,
+        "sampling_ratio_Q": 2.818,
+        "regime": "Diffraction-Limited (Oversampled, Q > 1.5)",
+        "beam_divergence_urad": 10.51
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Terminal laser optique telecom a 1550 nm : telescope d'emission afocal elargisseur de faisceau (Beam Expander) diffraction-limited. L'angle de divergence du faisceau emis theta ~ 1.22 * lambda / D est inversement proportionnel a l'ouverture. Les etudiants simulent l'impact des aberrations du front d'onde (WFE RMS < lambda/14) sur la baisse de gain d'antenne (critere de Marechal / formule de Ruze) et l'exigence de stabilite ADCS/FSM.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 1.528 m vs Fauchee = 12.22 km a 500 km.",
+          "Regime optique Q = 2.82 (Tache d'Airy etalee sur plusieurs pixels).",
+          "Sensibilite au pointage : stabilite requise 0.25 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_qkd_cubesat_compact",
+      "name": "SpeQ-Cube-850 Nano QKD Payload",
+      "payload_type": "qkd",
+      "supplier_name": "QuantaSpace Technologies",
+      "flight_heritage": "2 CubeSats en vol",
+      "trl": 8,
+      "dimensions_mm": [
+        220,
+        160,
+        140
+      ],
+      "mass_kg": 5.5,
+      "power_w": 22.0,
+      "cost_meur": 1.65,
+      "description": "Charge utile QKD miniaturisée (9 cm, 60 MHz) pour CubeSat 16U ou SmallSat 50 kg",
+      "long_description": "Terminal QKD compact permettant de démontrer la distribution quantique de clés sur une petite plateforme. Son télescope de 9 cm et sa source à 60 MHz génèrent un débit de clé plus modeste que les grands terminaux, mais à moins de la moitié du prix.",
+      "key_features": [
+        "Masse 5,5 kg, volume 5 L",
+        "Télescope Ø 9 cm, source 60 MHz",
+        "BB84 decoy-state à 850 nm",
+        "Prix 1,65 M€"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.09,
+        "aperture_diameter_mm": 90.0,
+        "focal_length_m": 0.8999999999999999,
+        "focal_length_mm": 899.9999999999999,
+        "f_number": 10.0,
+        "pixel_pitch_um": 5.5,
+        "detector_pixels_cross_track": 8000,
+        "sensor_width_mm": 44.0,
+        "fov_full_deg": 2.801,
+        "field_angles_deg": [
+          0.0,
+          0.7,
+          1.401
+        ],
+        "primary_wavelength_um": 0.85,
+        "min_wavelength_um": 0.84,
+        "max_wavelength_um": 0.86,
+        "wavelengths_library": [
+          {
+            "value_um": 0.84,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 0.85,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 0.86,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.85,
+        "optics_mtf_at_nyquist": 0.25,
+        "quantum_efficiency_avg": 0.7
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 3.056,
+        "swath_at_500km_km": 24.45,
+        "diffraction_spot_ground_500km_m": 5.761,
+        "pointing_accuracy_deg": 0.015,
+        "pointing_stability_arcsec_s": 0.8,
+        "max_jitter_arcsec": 0.8
+      },
+      "optical_architecture": {
+        "family": "Afocal_QKD_Transceiver",
+        "pyoptic_preset_call": "afocal_beam_expander(epd_in_mm=5.0, epd_out_mm=90.0, mag=18.0)",
+        "prescription_surfaces": [
+          {
+            "label": "Laser_Fiber_Waist",
+            "type": "Plane",
+            "thickness": 30.0,
+            "material": "AIR",
+            "semi_diameter": 2.5
+          },
+          {
+            "label": "Collimator_Lens",
+            "type": "EvenAsphere",
+            "radius": 15.0,
+            "conic": -0.5,
+            "thickness": 80.0,
+            "material": "N-SF11",
+            "semi_diameter": 6.0
+          },
+          {
+            "label": "M2_Secondary_Beam_Expander",
+            "type": "Conic",
+            "radius": -36.0,
+            "conic": -2.5,
+            "thickness": -54.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 16.2
+          },
+          {
+            "label": "M1_Primary_Collimator",
+            "type": "Conic",
+            "radius": -135.0,
+            "conic": -1.0,
+            "thickness": 90.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 46.800000000000004
+          },
+          {
+            "label": "Far_Field_Aperture",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 49.50000000000001
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 10.37,
+        "nyquist_frequency_lp_mm": 90.91,
+        "diffraction_limit_rad": 1.152e-05,
+        "diffraction_limit_arcsec": 2.38,
+        "sampling_ratio_Q": 1.545,
+        "regime": "Diffraction-Limited (Oversampled, Q > 1.5)",
+        "beam_divergence_urad": 11.52
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Terminal quantique QKD a 850 nm : telescope d'emission afocal elargisseur de faisceau (Beam Expander) diffraction-limited. L'angle de divergence du faisceau emis theta ~ 1.22 * lambda / D est inversement proportionnel a l'ouverture. Les etudiants simulent l'impact des aberrations du front d'onde (WFE RMS < lambda/14) sur la baisse de gain d'antenne (critere de Marechal / formule de Ruze) et l'exigence de stabilite ADCS/FSM.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 3.056 m vs Fauchee = 24.45 km a 500 km.",
+          "Regime optique Q = 1.54 (Tache d'Airy etalee sur plusieurs pixels).",
+          "Sensibilite au pointage : stabilite requise 0.8 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_qkd_highrate_25cm",
+      "name": "QuantaCore-250 High-Rate QKD Terminal",
+      "payload_type": "qkd",
+      "supplier_name": "QuantaSpace Technologies",
+      "flight_heritage": "Héritage QEYSSat / Eagle-1",
+      "trl": 8,
+      "dimensions_mm": [
+        550,
+        400,
+        380
+      ],
+      "mass_kg": 38.0,
+      "power_w": 75.0,
+      "cost_meur": 6.4,
+      "description": "Terminal QKD haute performance (Ø 25 cm, source 250 MHz) pour fort débit de clés",
+      "long_description": "Terminal QKD institutionnel doté d'un télescope de 25 cm, d'une source à 250 MHz et d'un système d'acquisition et de suivi sub-microradian. Il maximise le débit de clé secrète même sur des orbites à 600–800 km.",
+      "key_features": [
+        "Télescope Ø 25 cm, source 250 MHz",
+        "Pointage fin 0,9 µrad",
+        "Fort taux de clés secrètes (sifted > 30 kbit/s)",
+        "Conçu pour réseaux gouvernementaux"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.25,
+        "aperture_diameter_mm": 250.0,
+        "focal_length_m": 2.5,
+        "focal_length_mm": 2500.0,
+        "f_number": 10.0,
+        "pixel_pitch_um": 5.5,
+        "detector_pixels_cross_track": 8000,
+        "sensor_width_mm": 44.0,
+        "fov_full_deg": 1.008,
+        "field_angles_deg": [
+          0.0,
+          0.252,
+          0.504
+        ],
+        "primary_wavelength_um": 0.85,
+        "min_wavelength_um": 0.84,
+        "max_wavelength_um": 0.86,
+        "wavelengths_library": [
+          {
+            "value_um": 0.84,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 0.85,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 0.86,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.85,
+        "optics_mtf_at_nyquist": 0.25,
+        "quantum_efficiency_avg": 0.7
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 1.1,
+        "swath_at_500km_km": 8.8,
+        "diffraction_spot_ground_500km_m": 2.074,
+        "pointing_accuracy_deg": 0.003,
+        "pointing_stability_arcsec_s": 0.2,
+        "max_jitter_arcsec": 0.2
+      },
+      "optical_architecture": {
+        "family": "Afocal_QKD_Transceiver",
+        "pyoptic_preset_call": "afocal_beam_expander(epd_in_mm=5.0, epd_out_mm=250.0, mag=50.0)",
+        "prescription_surfaces": [
+          {
+            "label": "Laser_Fiber_Waist",
+            "type": "Plane",
+            "thickness": 30.0,
+            "material": "AIR",
+            "semi_diameter": 2.5
+          },
+          {
+            "label": "Collimator_Lens",
+            "type": "EvenAsphere",
+            "radius": 15.0,
+            "conic": -0.5,
+            "thickness": 80.0,
+            "material": "N-SF11",
+            "semi_diameter": 6.0
+          },
+          {
+            "label": "M2_Secondary_Beam_Expander",
+            "type": "Conic",
+            "radius": -100.0,
+            "conic": -2.5,
+            "thickness": -150.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 45.0
+          },
+          {
+            "label": "M1_Primary_Collimator",
+            "type": "Conic",
+            "radius": -375.0,
+            "conic": -1.0,
+            "thickness": 250.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 130.0
+          },
+          {
+            "label": "Far_Field_Aperture",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 137.5
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 10.37,
+        "nyquist_frequency_lp_mm": 90.91,
+        "diffraction_limit_rad": 4.15e-06,
+        "diffraction_limit_arcsec": 0.86,
+        "sampling_ratio_Q": 1.545,
+        "regime": "Diffraction-Limited (Oversampled, Q > 1.5)",
+        "beam_divergence_urad": 4.15
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Terminal quantique QKD a 850 nm : telescope d'emission afocal elargisseur de faisceau (Beam Expander) diffraction-limited. L'angle de divergence du faisceau emis theta ~ 1.22 * lambda / D est inversement proportionnel a l'ouverture. Les etudiants simulent l'impact des aberrations du front d'onde (WFE RMS < lambda/14) sur la baisse de gain d'antenne (critere de Marechal / formule de Ruze) et l'exigence de stabilite ADCS/FSM.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 1.1 m vs Fauchee = 8.8 km a 500 km.",
+          "Regime optique Q = 1.54 (Tache d'Airy etalee sur plusieurs pixels).",
+          "Sensibilite au pointage : stabilite requise 0.2 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_opt_comm_celeste_10g",
+      "name": "AéroLaser-10G Adaptive DTE Terminal",
+      "payload_type": "optical_comm",
+      "supplier_name": "Céleste Photonique Spatiale",
+      "flight_heritage": "4 microsatellites français",
+      "trl": 8,
+      "dimensions_mm": [
+        290,
+        220,
+        200
+      ],
+      "mass_kg": 11.5,
+      "power_w": 52.0,
+      "cost_meur": 2.45,
+      "description": "Terminal laser LEO-sol 10 Gbit/s compact (11,5 kg) à mise en forme de faisceau MPLC",
+      "long_description": "Concurrent français direct du LCT-10G de PhotonCom : l'AéroLaser-10G est plus léger (11,5 kg contre 14,5 kg), moins cher (2,45 M€) et consomme 52 W grâce à son amplificateur fibré erbium-ytterbium à haut rendement.",
+      "key_features": [
+        "10 Gbit/s à 1550 nm (OOK / DPSK)",
+        "Masse 11,5 kg, consommation 52 W, prix 2,45 M€",
+        "Télescope SiC Ø 10 cm, laser 1,8 W",
+        "Pointage fin 1,6 µrad"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.1,
+        "aperture_diameter_mm": 100.0,
+        "focal_length_m": 1.0,
+        "focal_length_mm": 1000.0,
+        "f_number": 10.0,
+        "pixel_pitch_um": 5.5,
+        "detector_pixels_cross_track": 8000,
+        "sensor_width_mm": 44.0,
+        "fov_full_deg": 2.521,
+        "field_angles_deg": [
+          0.0,
+          0.63,
+          1.26
+        ],
+        "primary_wavelength_um": 1.55,
+        "min_wavelength_um": 1.53,
+        "max_wavelength_um": 1.565,
+        "wavelengths_library": [
+          {
+            "value_um": 1.53,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 1.55,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 1.565,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.85,
+        "optics_mtf_at_nyquist": 0.25,
+        "quantum_efficiency_avg": 0.7
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 2.75,
+        "swath_at_500km_km": 22.0,
+        "diffraction_spot_ground_500km_m": 9.455,
+        "pointing_accuracy_deg": 0.012,
+        "pointing_stability_arcsec_s": 0.6,
+        "max_jitter_arcsec": 0.6
+      },
+      "optical_architecture": {
+        "family": "Afocal_Beam_Expander_Cassegrain",
+        "pyoptic_preset_call": "afocal_beam_expander(epd_in_mm=5.0, epd_out_mm=100.0, mag=20.0)",
+        "prescription_surfaces": [
+          {
+            "label": "Laser_Fiber_Waist",
+            "type": "Plane",
+            "thickness": 30.0,
+            "material": "AIR",
+            "semi_diameter": 2.5
+          },
+          {
+            "label": "Collimator_Lens",
+            "type": "EvenAsphere",
+            "radius": 15.0,
+            "conic": -0.5,
+            "thickness": 80.0,
+            "material": "N-SF11",
+            "semi_diameter": 6.0
+          },
+          {
+            "label": "M2_Secondary_Beam_Expander",
+            "type": "Conic",
+            "radius": -40.0,
+            "conic": -2.5,
+            "thickness": -60.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 18.0
+          },
+          {
+            "label": "M1_Primary_Collimator",
+            "type": "Conic",
+            "radius": -150.0,
+            "conic": -1.0,
+            "thickness": 100.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 52.0
+          },
+          {
+            "label": "Far_Field_Aperture",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 55.00000000000001
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 18.91,
+        "nyquist_frequency_lp_mm": 90.91,
+        "diffraction_limit_rad": 1.891e-05,
+        "diffraction_limit_arcsec": 3.9,
+        "sampling_ratio_Q": 2.818,
+        "regime": "Diffraction-Limited (Oversampled, Q > 1.5)",
+        "beam_divergence_urad": 18.91
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Terminal laser optique telecom a 1550 nm : telescope d'emission afocal elargisseur de faisceau (Beam Expander) diffraction-limited. L'angle de divergence du faisceau emis theta ~ 1.22 * lambda / D est inversement proportionnel a l'ouverture. Les etudiants simulent l'impact des aberrations du front d'onde (WFE RMS < lambda/14) sur la baisse de gain d'antenne (critere de Marechal / formule de Ruze) et l'exigence de stabilite ADCS/FSM.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 2.75 m vs Fauchee = 22.0 km a 500 km.",
+          "Regime optique Q = 2.82 (Tache d'Airy etalee sur plusieurs pixels).",
+          "Sensibilite au pointage : stabilite requise 0.6 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_opt_comm_celeste_40g",
+      "name": "CélesteLink-40G Coherent Downlink Terminal",
+      "payload_type": "optical_comm",
+      "supplier_name": "Céleste Photonique Spatiale",
+      "flight_heritage": "2 démonstrateurs souverains en orbite",
+      "trl": 8,
+      "dimensions_mm": [
+        340,
+        260,
+        240
+      ],
+      "mass_kg": 16.0,
+      "power_w": 72.0,
+      "cost_meur": 3.45,
+      "description": "Terminal laser cohérent 40 Gbit/s (16 kg, Ø 13 cm, 3 W) idéal pour missions très haut débit",
+      "long_description": "Terminal optique cohérent DP-QPSK délivrant jusqu'à 40 Gbit/s vers les stations sol optiques européennes. Avec un télescope de 13 cm et une puissance laser de 3,0 W pour un prix de 3,45 M€, il constitue une alternative très compétitive au TeraLink-25G (TeraLink Photonics) pour la mission TeraRelay.",
+      "key_features": [
+        "40 Gbit/s cohérent à 1550 nm",
+        "Télescope Ø 13 cm, laser 3,0 W",
+        "Masse 16 kg, prix 3,45 M€",
+        "Suivi fin 1,1 µrad"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.13,
+        "aperture_diameter_mm": 130.0,
+        "focal_length_m": 1.3,
+        "focal_length_mm": 1300.0,
+        "f_number": 10.0,
+        "pixel_pitch_um": 5.5,
+        "detector_pixels_cross_track": 8000,
+        "sensor_width_mm": 44.0,
+        "fov_full_deg": 1.939,
+        "field_angles_deg": [
+          0.0,
+          0.485,
+          0.97
+        ],
+        "primary_wavelength_um": 1.55,
+        "min_wavelength_um": 1.53,
+        "max_wavelength_um": 1.565,
+        "wavelengths_library": [
+          {
+            "value_um": 1.53,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 1.55,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 1.565,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.85,
+        "optics_mtf_at_nyquist": 0.25,
+        "quantum_efficiency_avg": 0.7
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 2.115,
+        "swath_at_500km_km": 16.92,
+        "diffraction_spot_ground_500km_m": 7.273,
+        "pointing_accuracy_deg": 0.008,
+        "pointing_stability_arcsec_s": 0.4,
+        "max_jitter_arcsec": 0.4
+      },
+      "optical_architecture": {
+        "family": "Afocal_Beam_Expander_Cassegrain",
+        "pyoptic_preset_call": "afocal_beam_expander(epd_in_mm=5.0, epd_out_mm=130.0, mag=26.0)",
+        "prescription_surfaces": [
+          {
+            "label": "Laser_Fiber_Waist",
+            "type": "Plane",
+            "thickness": 30.0,
+            "material": "AIR",
+            "semi_diameter": 2.5
+          },
+          {
+            "label": "Collimator_Lens",
+            "type": "EvenAsphere",
+            "radius": 15.0,
+            "conic": -0.5,
+            "thickness": 80.0,
+            "material": "N-SF11",
+            "semi_diameter": 6.0
+          },
+          {
+            "label": "M2_Secondary_Beam_Expander",
+            "type": "Conic",
+            "radius": -52.0,
+            "conic": -2.5,
+            "thickness": -78.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 23.4
+          },
+          {
+            "label": "M1_Primary_Collimator",
+            "type": "Conic",
+            "radius": -195.0,
+            "conic": -1.0,
+            "thickness": 130.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 67.60000000000001
+          },
+          {
+            "label": "Far_Field_Aperture",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 71.5
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 18.91,
+        "nyquist_frequency_lp_mm": 90.91,
+        "diffraction_limit_rad": 1.455e-05,
+        "diffraction_limit_arcsec": 3.0,
+        "sampling_ratio_Q": 2.818,
+        "regime": "Diffraction-Limited (Oversampled, Q > 1.5)",
+        "beam_divergence_urad": 14.55
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Terminal laser optique telecom a 1550 nm : telescope d'emission afocal elargisseur de faisceau (Beam Expander) diffraction-limited. L'angle de divergence du faisceau emis theta ~ 1.22 * lambda / D est inversement proportionnel a l'ouverture. Les etudiants simulent l'impact des aberrations du front d'onde (WFE RMS < lambda/14) sur la baisse de gain d'antenne (critere de Marechal / formule de Ruze) et l'exigence de stabilite ADCS/FSM.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 2.115 m vs Fauchee = 16.92 km a 500 km.",
+          "Regime optique Q = 2.82 (Tache d'Airy etalee sur plusieurs pixels).",
+          "Sensibilite au pointage : stabilite requise 0.4 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_opt_comm_kibo_25g",
+      "name": "KiboLaser-25G Ultra-Reliable Optical Terminal",
+      "payload_type": "optical_comm",
+      "supplier_name": "Kibo Optical Communications",
+      "flight_heritage": "Héritage LUCAS / JDRS (5 vols sans défaillance)",
+      "trl": 9,
+      "dimensions_mm": [
+        370,
+        290,
+        260
+      ],
+      "mass_kg": 21.0,
+      "power_w": 76.0,
+      "cost_meur": 4.1,
+      "description": "Terminal optique japonais 25 Gbit/s (Ø 14 cm, 2,8 W, TRL 9) à haute immunité vibratoire",
+      "long_description": "Terminal laser institutionnel japonais conçu pour une disponibilité maximale sur 7 ans. Sa boucle d'asservissement optique à 5 kHz offre une précision de poursuite de 1,0 µrad, procurant plus de 9 dB de marge de liaison vers une station sol de 80 cm à 500 km.",
+      "key_features": [
+        "25 Gbit/s à 1550 nm, TRL 9",
+        "Télescope Ø 14 cm, laser 2,8 W",
+        "Poursuite ultra-stable 1,0 µrad (boucle 5 kHz)",
+        "Qualification longue durée (> 7 ans)"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.14,
+        "aperture_diameter_mm": 140.0,
+        "focal_length_m": 1.4000000000000001,
+        "focal_length_mm": 1400.0000000000002,
+        "f_number": 10.0,
+        "pixel_pitch_um": 5.5,
+        "detector_pixels_cross_track": 8000,
+        "sensor_width_mm": 44.0,
+        "fov_full_deg": 1.801,
+        "field_angles_deg": [
+          0.0,
+          0.45,
+          0.9
+        ],
+        "primary_wavelength_um": 1.55,
+        "min_wavelength_um": 1.53,
+        "max_wavelength_um": 1.565,
+        "wavelengths_library": [
+          {
+            "value_um": 1.53,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 1.55,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 1.565,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.85,
+        "optics_mtf_at_nyquist": 0.25,
+        "quantum_efficiency_avg": 0.7
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 1.964,
+        "swath_at_500km_km": 15.71,
+        "diffraction_spot_ground_500km_m": 6.754,
+        "pointing_accuracy_deg": 0.008,
+        "pointing_stability_arcsec_s": 0.45,
+        "max_jitter_arcsec": 0.45
+      },
+      "optical_architecture": {
+        "family": "Afocal_Beam_Expander_Cassegrain",
+        "pyoptic_preset_call": "afocal_beam_expander(epd_in_mm=5.0, epd_out_mm=140.0, mag=28.0)",
+        "prescription_surfaces": [
+          {
+            "label": "Laser_Fiber_Waist",
+            "type": "Plane",
+            "thickness": 30.0,
+            "material": "AIR",
+            "semi_diameter": 2.5
+          },
+          {
+            "label": "Collimator_Lens",
+            "type": "EvenAsphere",
+            "radius": 15.0,
+            "conic": -0.5,
+            "thickness": 80.0,
+            "material": "N-SF11",
+            "semi_diameter": 6.0
+          },
+          {
+            "label": "M2_Secondary_Beam_Expander",
+            "type": "Conic",
+            "radius": -56.0,
+            "conic": -2.5,
+            "thickness": -84.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 25.2
+          },
+          {
+            "label": "M1_Primary_Collimator",
+            "type": "Conic",
+            "radius": -210.0,
+            "conic": -1.0,
+            "thickness": 140.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 72.8
+          },
+          {
+            "label": "Far_Field_Aperture",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 77.0
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 18.91,
+        "nyquist_frequency_lp_mm": 90.91,
+        "diffraction_limit_rad": 1.351e-05,
+        "diffraction_limit_arcsec": 2.79,
+        "sampling_ratio_Q": 2.818,
+        "regime": "Diffraction-Limited (Oversampled, Q > 1.5)",
+        "beam_divergence_urad": 13.51
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Terminal laser optique telecom a 1550 nm : telescope d'emission afocal elargisseur de faisceau (Beam Expander) diffraction-limited. L'angle de divergence du faisceau emis theta ~ 1.22 * lambda / D est inversement proportionnel a l'ouverture. Les etudiants simulent l'impact des aberrations du front d'onde (WFE RMS < lambda/14) sur la baisse de gain d'antenne (critere de Marechal / formule de Ruze) et l'exigence de stabilite ADCS/FSM.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 1.964 m vs Fauchee = 15.71 km a 500 km.",
+          "Regime optique Q = 2.82 (Tache d'Airy etalee sur plusieurs pixels).",
+          "Sensibilite au pointage : stabilite requise 0.45 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_spec_lumina_vnir_swir",
+      "name": "HyperCube-100 Compact VNIR/SWIR Imager",
+      "payload_type": "spectrometer",
+      "supplier_name": "Lumina Hyperspectral Oy",
+      "flight_heritage": "9 satellites en orbite (constellation Hyperfield)",
+      "trl": 9,
+      "dimensions_mm": [
+        310,
+        220,
+        190
+      ],
+      "mass_kg": 12.0,
+      "power_w": 34.0,
+      "cost_meur": 2.35,
+      "description": "Spectromètre Fabry-Pérot compact (12 kg, 450–1700 nm, 100 bandes) pour microsatellites",
+      "long_description": "Spectromètre imageur finlandais couvrant simultanément le VNIR et le début du SWIR (450 à 1700 nm) en 100 bandes de 8 nm de largeur, dans une enveloppe de seulement 12 kg. Idéal pour la foresterie, l'agriculture et la qualité des eaux côtières sur petite plateforme, mais sa résolution spectrale (8 nm) ne résout pas les raies fines du CH4.",
+      "key_features": [
+        "450 à 1700 nm en 100 bandes programmables",
+        "Masse 12 kg seulement, prix 2,35 M€",
+        "GSD ~ 4,7 m à 500 km",
+        "Résolution spectrale 8,0 nm"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.1,
+        "aperture_diameter_mm": 100.0,
+        "focal_length_m": 0.6000000000000001,
+        "focal_length_mm": 600.0000000000001,
+        "f_number": 6.0,
+        "pixel_pitch_um": 9.0,
+        "detector_pixels_cross_track": 1600,
+        "sensor_width_mm": 14.4,
+        "fov_full_deg": 1.375,
+        "field_angles_deg": [
+          0.0,
+          0.344,
+          0.688
+        ],
+        "primary_wavelength_um": 1.6,
+        "min_wavelength_um": 1.0,
+        "max_wavelength_um": 2.4,
+        "wavelengths_library": [
+          {
+            "value_um": 1.0,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 1.6,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 2.4,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.85,
+        "optics_mtf_at_nyquist": 0.25,
+        "quantum_efficiency_avg": 0.7
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 7.5,
+        "swath_at_500km_km": 12.0,
+        "diffraction_spot_ground_500km_m": 9.76,
+        "pointing_accuracy_deg": 0.025,
+        "pointing_stability_arcsec_s": 2.5,
+        "max_jitter_arcsec": 1.2
+      },
+      "optical_architecture": {
+        "family": "Fabry_Perot_Interferometer",
+        "pyoptic_preset_call": "fabry_perot_tunable_filter(gap_um=15.0, finesse=35)",
+        "prescription_surfaces": [
+          {
+            "label": "Fore_Telescope_Pupil",
+            "type": "Plane",
+            "thickness": 120.0,
+            "material": "AIR",
+            "is_stop": true,
+            "semi_diameter": 50.0
+          },
+          {
+            "label": "Slit_Plane",
+            "type": "Plane",
+            "thickness": 150.0,
+            "material": "AIR",
+            "semi_diameter": 12.0
+          },
+          {
+            "label": "Collimator_Mirror",
+            "type": "Spherical",
+            "radius": -300.0,
+            "thickness": -150.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 35.0
+          },
+          {
+            "label": "Diffraction_Grating",
+            "type": "Plane",
+            "thickness": 150.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 30.0,
+            "grating_lines_per_mm": 600.0
+          },
+          {
+            "label": "Camera_Mirror",
+            "type": "Spherical",
+            "radius": -300.0,
+            "thickness": -150.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 40.0
+          },
+          {
+            "label": "Spectrometer_Detector",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 7.2
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 11.712,
+        "nyquist_frequency_lp_mm": 55.56,
+        "diffraction_limit_rad": 1.952e-05,
+        "diffraction_limit_arcsec": 4.03,
+        "sampling_ratio_Q": 1.067,
+        "regime": "Well-Matched (Nyquist Balanced, 0.9 <= Q <= 1.5)",
+        "beam_divergence_urad": null
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Spectrometre par interferometre Fabry-Perot a commande piezoelectrique : selection agile des bandes spectrales par balayage de l'epaisseur d'air inter-miroirs. Etude de l'intervalle spectral libre (FSR = lambda^2 / 2d) et de la finesse optique F.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 7.5 m vs Fauchee = 12.0 km a 500 km.",
+          "Regime optique Q = 1.07 (Pixel plus grand que la tache de diffraction).",
+          "Sensibilite au pointage : stabilite requise 2.5 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_spec_atmo_tropo_ghg",
+      "name": "TropoSonde-CH4 Ultra-Fine Atmospheric Spectrometer",
+      "payload_type": "spectrometer",
+      "supplier_name": "AtmoSonde Scientific Instruments",
+      "flight_heritage": "Héritage TROPOMI / TANGO / CO2M",
+      "trl": 9,
+      "dimensions_mm": [
+        520,
+        380,
+        330
+      ],
+      "mass_kg": 38.0,
+      "power_w": 78.0,
+      "cost_meur": 6.4,
+      "description": "Sondeur atmosphérique à réseau immergé (0,22 nm FWHM, 1550–1720 nm) pour CH4 et CO2",
+      "long_description": "Spectromètre atmosphérique européen de référence utilisant un réseau de diffraction immergé en silicium (immersed grating) qui réduit d'un facteur 3,4 le volume optique à finesse spectrale donnée. Avec une résolution spectrale de 0,22 nm sur la bande 1550–1720 nm et un GSD de 5,0 m à 500 km, il surpasse toutes les exigences de la mission AtmoWatch (EXAM-2026-ATMO-GHG).",
+      "key_features": [
+        "Finesse spectrale exceptionnelle : 0,22 nm FWHM (420 canaux)",
+        "Couverture SWIR 1550–1720 nm (raies CH4 et CO2)",
+        "GSD ~ 5,0 m à 500 km, SNR > 90",
+        "Réseau immergé silicium, TRL 9"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.1,
+        "aperture_diameter_mm": 100.0,
+        "focal_length_m": 0.6000000000000001,
+        "focal_length_mm": 600.0000000000001,
+        "f_number": 6.0,
+        "pixel_pitch_um": 12.0,
+        "detector_pixels_cross_track": 1500,
+        "sensor_width_mm": 18.0,
+        "fov_full_deg": 1.719,
+        "field_angles_deg": [
+          0.0,
+          0.43,
+          0.86
+        ],
+        "primary_wavelength_um": 1.635,
+        "min_wavelength_um": 1.55,
+        "max_wavelength_um": 1.72,
+        "wavelengths_library": [
+          {
+            "value_um": 1.55,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 1.635,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 1.72,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.85,
+        "optics_mtf_at_nyquist": 0.25,
+        "quantum_efficiency_avg": 0.7
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 10.0,
+        "swath_at_500km_km": 15.0,
+        "diffraction_spot_ground_500km_m": 9.973,
+        "pointing_accuracy_deg": 0.012,
+        "pointing_stability_arcsec_s": 1.2,
+        "max_jitter_arcsec": 0.8
+      },
+      "optical_architecture": {
+        "family": "Immersed_Silicon_Grating_Spectrometer",
+        "pyoptic_preset_call": "immersed_grating_spectrometer(lines_mm=400, order=1, index=3.48)",
+        "prescription_surfaces": [
+          {
+            "label": "Fore_Telescope_Pupil",
+            "type": "Plane",
+            "thickness": 120.0,
+            "material": "AIR",
+            "is_stop": true,
+            "semi_diameter": 50.0
+          },
+          {
+            "label": "Slit_Plane",
+            "type": "Plane",
+            "thickness": 150.0,
+            "material": "AIR",
+            "semi_diameter": 12.0
+          },
+          {
+            "label": "Collimator_Mirror",
+            "type": "Spherical",
+            "radius": -300.0,
+            "thickness": -150.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 35.0
+          },
+          {
+            "label": "Diffraction_Grating",
+            "type": "Plane",
+            "thickness": 150.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 30.0,
+            "grating_lines_per_mm": 400.0
+          },
+          {
+            "label": "Camera_Mirror",
+            "type": "Spherical",
+            "radius": -300.0,
+            "thickness": -150.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 40.0
+          },
+          {
+            "label": "Spectrometer_Detector",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 9.0
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 11.968,
+        "nyquist_frequency_lp_mm": 41.67,
+        "diffraction_limit_rad": 1.995e-05,
+        "diffraction_limit_arcsec": 4.11,
+        "sampling_ratio_Q": 0.818,
+        "regime": "Detector-Limited (Undersampled, Q < 0.9)",
+        "beam_divergence_urad": null
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Reseau de diffraction par immersion dans le Silicium monocristallin : la dispersion angulaire est multipliee par l'indice de refraction n ~ 3,48, ce qui permet d'atteindre une finesse spectrale record de 0,22 nm (resolution des doublets fins de CO2 et CH4) dans un volume 3,4 fois plus compact qu'un reseau en reflexion dans l'air. Comportement cle : equation du reseau d'immersion n*(sin alpha + sin beta) = m*lambda / d.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 10.0 m vs Fauchee = 15.0 km a 500 km.",
+          "Regime optique Q = 0.82 (Pixel plus grand que la tache de diffraction).",
+          "Sensibilite au pointage : stabilite requise 1.2 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_qkd_edelweiss_entangled",
+      "name": "EagleQKD-200 Sovereign Quantum Terminal",
+      "payload_type": "qkd",
+      "supplier_name": "Edelweiss Quantum Space",
+      "flight_heritage": "Programme européen Eagle-1 / EuroQCI",
+      "trl": 8,
+      "dimensions_mm": [
+        420,
+        310,
+        280
+      ],
+      "mass_kg": 24.0,
+      "power_w": 58.0,
+      "cost_meur": 4.7,
+      "description": "Terminal QKD européen (Ø 20 cm, 180 MHz, 850 nm) qualifié EuroQCI pour microsatellites",
+      "long_description": "Terminal QKD souverain développé par Edelweiss Quantum Space avec un télescope de 20 cm en carbure de silicium et une source quantique à 180 MHz. Positionné entre le QuantumKey-850 (15 cm, PhotonCom) et le lourd QuantaCore-250 (25 cm, QuantaSpace), il offre un excellent débit de clé secrète (> 4 500 bit/s à 500 km) pour un coût et une masse parfaitement adaptés aux plateformes de 150 kg.",
+      "key_features": [
+        "Télescope Ø 20 cm, source 180 MHz à 850 nm",
+        "Pointage fin 1,1 µrad, QBER < 2,8 %",
+        "Masse 24 kg, prix 4,7 M€",
+        "Conforme architecture européenne EuroQCI"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.2,
+        "aperture_diameter_mm": 200.0,
+        "focal_length_m": 2.0,
+        "focal_length_mm": 2000.0,
+        "f_number": 10.0,
+        "pixel_pitch_um": 5.5,
+        "detector_pixels_cross_track": 8000,
+        "sensor_width_mm": 44.0,
+        "fov_full_deg": 1.26,
+        "field_angles_deg": [
+          0.0,
+          0.315,
+          0.63
+        ],
+        "primary_wavelength_um": 0.85,
+        "min_wavelength_um": 0.84,
+        "max_wavelength_um": 0.86,
+        "wavelengths_library": [
+          {
+            "value_um": 0.84,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 0.85,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 0.86,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.85,
+        "optics_mtf_at_nyquist": 0.25,
+        "quantum_efficiency_avg": 0.7
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 1.375,
+        "swath_at_500km_km": 11.0,
+        "diffraction_spot_ground_500km_m": 2.592,
+        "pointing_accuracy_deg": 0.006,
+        "pointing_stability_arcsec_s": 0.3,
+        "max_jitter_arcsec": 0.3
+      },
+      "optical_architecture": {
+        "family": "Afocal_QKD_Transceiver",
+        "pyoptic_preset_call": "afocal_beam_expander(epd_in_mm=5.0, epd_out_mm=200.0, mag=40.0)",
+        "prescription_surfaces": [
+          {
+            "label": "Laser_Fiber_Waist",
+            "type": "Plane",
+            "thickness": 30.0,
+            "material": "AIR",
+            "semi_diameter": 2.5
+          },
+          {
+            "label": "Collimator_Lens",
+            "type": "EvenAsphere",
+            "radius": 15.0,
+            "conic": -0.5,
+            "thickness": 80.0,
+            "material": "N-SF11",
+            "semi_diameter": 6.0
+          },
+          {
+            "label": "M2_Secondary_Beam_Expander",
+            "type": "Conic",
+            "radius": -80.0,
+            "conic": -2.5,
+            "thickness": -120.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 36.0
+          },
+          {
+            "label": "M1_Primary_Collimator",
+            "type": "Conic",
+            "radius": -300.0,
+            "conic": -1.0,
+            "thickness": 200.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 104.0
+          },
+          {
+            "label": "Far_Field_Aperture",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 110.00000000000001
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 10.37,
+        "nyquist_frequency_lp_mm": 90.91,
+        "diffraction_limit_rad": 5.18e-06,
+        "diffraction_limit_arcsec": 1.07,
+        "sampling_ratio_Q": 1.545,
+        "regime": "Diffraction-Limited (Oversampled, Q > 1.5)",
+        "beam_divergence_urad": 5.18
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Terminal quantique QKD a 850 nm : telescope d'emission afocal elargisseur de faisceau (Beam Expander) diffraction-limited. L'angle de divergence du faisceau emis theta ~ 1.22 * lambda / D est inversement proportionnel a l'ouverture. Les etudiants simulent l'impact des aberrations du front d'onde (WFE RMS < lambda/14) sur la baisse de gain d'antenne (critere de Marechal / formule de Ruze) et l'exigence de stabilite ADCS/FSM.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 1.375 m vs Fauchee = 11.0 km a 500 km.",
+          "Regime optique Q = 1.54 (Tache d'Airy etalee sur plusieurs pixels).",
+          "Sensibilite au pointage : stabilite requise 0.3 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    },
+    {
+      "id": "pl_qkd_albion_micro12",
+      "name": "Q-Blade 120 Integrated Photonic QKD",
+      "payload_type": "qkd",
+      "supplier_name": "Albion Quantum Photonics",
+      "flight_heritage": "3 microsatellites UK/ESA",
+      "trl": 8,
+      "dimensions_mm": [
+        280,
+        210,
+        190
+      ],
+      "mass_kg": 10.5,
+      "power_w": 32.0,
+      "cost_meur": 2.4,
+      "description": "Terminal QKD NewSpace à puce photonique intégrée (Ø 12 cm, 120 MHz, 10,5 kg) à coût maîtrisé",
+      "long_description": "Grâce à une source d'états quantiques gravée sur puce photonique en nitrure de silicium et un télescope de 12 cm, le Q-Blade 120 d'Albion Quantum Photonics divise par près de deux la masse (10,5 kg) et le coût (2,4 M€) d'une charge utile QKD opérationnelle tout en délivrant plus de 1 200 bit/s de clés secrètes à 500 km.",
+      "key_features": [
+        "Puce photonique intégrée 120 MHz, Ø 12 cm",
+        "Masse 10,5 kg seulement, prix 2,40 M€",
+        "Pointage fin 1,4 µrad (compatible pack ADCS 0,008°)",
+        "Idéal pour mission QKD sur plateforme 50 à 150 kg"
+      ],
+      "optical_specifications": {
+        "aperture_diameter_m": 0.12,
+        "aperture_diameter_mm": 120.0,
+        "focal_length_m": 1.2,
+        "focal_length_mm": 1200.0,
+        "f_number": 10.0,
+        "pixel_pitch_um": 5.5,
+        "detector_pixels_cross_track": 8000,
+        "sensor_width_mm": 44.0,
+        "fov_full_deg": 2.101,
+        "field_angles_deg": [
+          0.0,
+          0.525,
+          1.05
+        ],
+        "primary_wavelength_um": 0.85,
+        "min_wavelength_um": 0.84,
+        "max_wavelength_um": 0.86,
+        "wavelengths_library": [
+          {
+            "value_um": 0.84,
+            "weight": 0.5,
+            "label": "Band_Min"
+          },
+          {
+            "value_um": 0.85,
+            "weight": 1.0,
+            "label": "Band_Center",
+            "is_primary": true
+          },
+          {
+            "value_um": 0.86,
+            "weight": 0.5,
+            "label": "Band_Max"
+          }
+        ],
+        "optics_transmission": 0.85,
+        "optics_mtf_at_nyquist": 0.25,
+        "quantum_efficiency_avg": 0.7
+      },
+      "mission_context": {
+        "reference_altitude_km": 500.0,
+        "gsd_nadir_at_500km_m": 2.292,
+        "swath_at_500km_km": 18.34,
+        "diffraction_spot_ground_500km_m": 4.321,
+        "pointing_accuracy_deg": 0.008,
+        "pointing_stability_arcsec_s": 0.5,
+        "max_jitter_arcsec": 0.5
+      },
+      "optical_architecture": {
+        "family": "Afocal_QKD_Transceiver",
+        "pyoptic_preset_call": "afocal_beam_expander(epd_in_mm=5.0, epd_out_mm=120.0, mag=24.0)",
+        "prescription_surfaces": [
+          {
+            "label": "Laser_Fiber_Waist",
+            "type": "Plane",
+            "thickness": 30.0,
+            "material": "AIR",
+            "semi_diameter": 2.5
+          },
+          {
+            "label": "Collimator_Lens",
+            "type": "EvenAsphere",
+            "radius": 15.0,
+            "conic": -0.5,
+            "thickness": 80.0,
+            "material": "N-SF11",
+            "semi_diameter": 6.0
+          },
+          {
+            "label": "M2_Secondary_Beam_Expander",
+            "type": "Conic",
+            "radius": -48.0,
+            "conic": -2.5,
+            "thickness": -72.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 21.599999999999998
+          },
+          {
+            "label": "M1_Primary_Collimator",
+            "type": "Conic",
+            "radius": -180.0,
+            "conic": -1.0,
+            "thickness": 120.0,
+            "material": "AIR",
+            "is_mirror": true,
+            "semi_diameter": 62.400000000000006
+          },
+          {
+            "label": "Far_Field_Aperture",
+            "type": "Plane",
+            "thickness": 0.0,
+            "material": "AIR",
+            "semi_diameter": 66.0
+          }
+        ]
+      },
+      "benchmarks_and_physics": {
+        "airy_radius_um": 10.37,
+        "nyquist_frequency_lp_mm": 90.91,
+        "diffraction_limit_rad": 8.64e-06,
+        "diffraction_limit_arcsec": 1.78,
+        "sampling_ratio_Q": 1.545,
+        "regime": "Diffraction-Limited (Oversampled, Q > 1.5)",
+        "beam_divergence_urad": 8.64
+      },
+      "student_pedagogical_insights": {
+        "learning_objectives": "Terminal quantique QKD a 850 nm : telescope d'emission afocal elargisseur de faisceau (Beam Expander) diffraction-limited. L'angle de divergence du faisceau emis theta ~ 1.22 * lambda / D est inversement proportionnel a l'ouverture. Les etudiants simulent l'impact des aberrations du front d'onde (WFE RMS < lambda/14) sur la baisse de gain d'antenne (critere de Marechal / formule de Ruze) et l'exigence de stabilite ADCS/FSM.",
+        "key_tradeoffs": [
+          "Compromis GSD vs Fauchee : GSD = 2.292 m vs Fauchee = 18.34 km a 500 km.",
+          "Regime optique Q = 1.54 (Tache d'Airy etalee sur plusieurs pixels).",
+          "Sensibilite au pointage : stabilite requise 0.5 arcsec/s vis-a-vis du temps d'integration."
+        ]
+      }
+    }
+  ]
+}

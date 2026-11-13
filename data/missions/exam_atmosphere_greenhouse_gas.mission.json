@@ -5,21 +5,22 @@
   "image": "mission_atmosphere_swir.jpg",
   "domain_label": "Connaissance de l'Atmosphère — Spectrométrie Infrarouge à Ondes Courtes (SWIR)",
   "client_agency": "Agence Spatiale Européenne (ESA) / Programme Copernicus — Surveillance Atmosphérique (CAMS)",
-  "context": "La détection des panaches ponctuels de méthane (CH₄ vers 1650 nm) et de dioxyde de carbone (CO₂ vers 1600–2050 nm) issus des sites industriels, pipelines et bassins miniers exige une chaîne instrumentale dispersive complète couplant : (1) un télescope collecteur avant (charge utile optique), (2) une fente spectrométrique d'interface au plan focal (sous-système « Interface Optique ») et (3) un banc spectromètre SWIR refroidi. Ce cahier des charges confronte l'architecte à un trilemme optique sévère entre résolution spatiale (objectif <= 3.5 m, seuil <= 6.8 m), largeur de fauchée spectrométrique (>= 9.5 km), résolution spectrale fine (<= 0.50 nm) et SNR (>= 70).",
-  "primary_objective": "Assembler et qualifier une chaîne spectrométrique SWIR complète (Télescope avant + Fente spectrométrique + Spectromètre SWIR >= 1650 nm) en orbite SSO permettant de résoudre les raies d'absorption fines du CH₄/CO₂ (dLambda <= 0.50 nm) avec une fauchée spectrométrique >= 9.5 km, un GSD spatial <= 6.80 m (objectif <= 3.50 m), un SNR >= 70, une durée de vie >= 5.0 ans et un étalonnage cryo-vide (Cryo-TVAC <= 1.0 %).",
+  "context": "La détection et la quantification des panaches ponctuels de méthane (CH₄ vers 1 650 nm) et de dioxyde de carbone (CO₂ vers 1 600–2 050 nm) issus des sites industriels, pipelines et bassins d'extraction exigent une chaîne instrumentale dispersive complète couplant : (1) un télescope collecteur avant, (2) une fente spectrométrique d'interface au plan focal (sous-système « Interface Optique ») et (3) un banc spectromètre infrarouge à ondes courtes (SWIR). Ce cahier des charges confronte l'architecte à un trilemme optique entre résolution spatiale spectrométrique au nadir (seuil ≤ 6.80 m, objectif ≤ 3.50 m), largeur de fauchée spectrométrique (seuil ≥ 9.5 km, objectif ≥ 15.0 km), pouvoir de résolution spectrale fine (seuil FWHM ≤ 0.50 nm, objectif ≤ 0.25 nm) et rapport signal-sur-bruit moyen (seuil SNR ≥ 70, objectif ≥ 120), sous un plafond global de 19.20 M€.",
+  "primary_objective": "Assembler et qualifier une chaîne spectrométrique SWIR complète (Télescope collecteur avant + Fente spectrométrique + Spectromètre SWIR couvrant au-delà de 1 650 nm) en orbite SSO permettant de résoudre les raies d'absorption fines du CH₄ et du CO₂ : extension spectrale ≥ 1 650 nm (objectif ≥ 2 000 nm), résolution spectrale FWHM ≤ 0.50 nm (objectif ≤ 0.25 nm), GSD spatial spectrométrique ≤ 6.80 m (objectif ≤ 3.50 m), fauchée du banc spectrométrique ≥ 9.5 km (objectif ≥ 15.0 km), SNR moyen ≥ 70 (objectif ≥ 120), étalonnage cryo-vide ≤ 1.0 % (objectif ≤ 0.9 %) et durée de vie ≥ 5.0 ans (objectif ≥ 7.0 ans), sous 19.20 M€ TTC.",
   "secondary_objectives": [
-    "Maîtriser le couplage optique Télescope + Fente + Spectromètre : le spectromètre seul ne possède pas d'optique collectrice frontale ; son GSD, sa fauchée et son nombre d'ouverture F/# dépendent directement du diamètre D et de la focale f du télescope associé.",
-    "Analyser le dilemme de focale du télescope avant : associer un télescope à courte focale et grande ouverture numérique comme WideView-18 (D=18 cm, f=0.90 m, F/5) offre une fauchée de 10.0 km et un SNR de 84.6 mais limite le GSD à 6.67 m ; à l'inverse, choisir STELLA-20 (f=1.80 m, F/9) ou Altair-25 (f=2.20 m) améliore le GSD à 3.33 m / 2.73 m (atteignant l'objectif <= 3.5 m) mais réduit la fauchée à 5.0 km / 4.1 km et fait chuter le SNR sous 26 (en raison de l'ouverture F/9 deux fois moins lumineuse !).",
-    "Intégrer l'étalonnage spectral cryogénique sous vide thermique (Cryo-TVAC 80 K–350 K au CSL Liège, 0.85 M€) indispensable pour stabiliser le plan focal MCT refroidi et respecter les quotas de retour géographique ESA."
+    "Maîtriser le couplage opto-mécanique à trois étages [Télescope avant → Fente spectrométrique → Banc spectromètre] : le banc dispersif ne possédant pas d'optique frontale propre, son échantillonnage spatial (GSD), sa fauchée et son flux lumineux incident (via l'ouverture numérique F/#) dépendent directement du télescope collecteur auquel il est associé.",
+    "Analyser l'effet de la longueur focale et du nombre d'ouverture (F/#) du télescope collecteur avant sur l'équilibre entre résolution spatiale (GSD ≤ 6.80 m), largeur de fauchée (≥ 9.5 km) et rapport signal-sur-bruit (SNR ≥ 70).",
+    "Comparer les spectromètres du catalogue selon leur pouvoir séparateur spectral (FWHM requis ≤ 0.50 nm pour isoler les raies rovibrationnelles des gaz traces contre quelques nanomètres pour l'imagerie minéralogique) et leur origine industrielle.",
+    "Intégrer une campagne d'étalonnage spectral et radiométrique sous vide cryogénique (incertitude ≤ 1.0 %) tout en respectant les quotas de retour géographique ESA (France 30–60 %, Allemagne 10–35 %, Espagne 5–20 %)."
   ],
-  "scientific_or_operational_need": "Pour inverser les colonnes intégrées XCO₂ et XCH₄ avec une précision inférieure à 1 % sans biais systématique, il faut simultanément séparer les raies rovibrationnelles (dLambda <= 0.5 nm), disposer d'un SNR > 70 dans le SWIR et étalonner la fonction d'appareil (ISRF) sous vide cryogénique (<= 1.0 %).",
-  "orbit_constraints_description": "Orbite héliosynchrone (SSO) autour de 500 km avec passage à l'équateur vers 13h00 heure solaire locale (maximisation du rayonnement solaire réfléchi en bande SWIR et de la hauteur de couche limite atmosphérique).",
-  "conops_guidance": "Décrire le fonctionnement couplé Télescope + Fente athermique + Spectromètre : refroidissement du détecteur SWIR à 150 K, acquisitions push-broom au nadir au-dessus des continents, campagnes d'étalonnage en vol (visées lunaires/solaires via diffuseur), stockage sur mémoire de masse >= 1 To et vidage en bande X ou S/X.",
+  "scientific_or_operational_need": "Pour inverser les colonnes intégrées XCO₂ et XCH₄ avec une précision inférieure à 1 % sans biais systématique et attribuer un panache à une installation précise, il est indispensable de séparer les raies d'absorption individuelles (FWHM ≤ 0.50 nm), de maintenir un SNR moyen ≥ 70 dans le SWIR et d'étalonner la fonction d'appareil spectrale (ISRF) sous vide cryogénique (incertitude ≤ 1.0 %).",
+  "orbit_constraints_description": "Orbite héliosynchrone (SSO) autour de 450–550 km d'altitude avec passage à l'équateur en début d'après-midi (~13h00 heure solaire locale) afin de maximiser le rayonnement solaire réfléchi en bande SWIR et le mélange convectif de la couche limite atmosphérique.",
+  "conops_guidance": "Décrire le fonctionnement couplé Télescope + Fente + Spectromètre : régulation cryogénique du plan focal SWIR, acquisitions Push-Broom au nadir au-dessus des bassins industriels et miniers, séquences d'étalonnage spectral en vol (visées solaires via diffuseur et visées lunaires), stockage bord et vidage en bande X sur les stations de Kiruna et Maspalomas.",
   "deliverables_expected": [
-    "Justification complète de la chaîne instrumentale à 3 étages : Télescope collecteur avant + Option « Fente spectrométrique » (onglet 4 ou 5) + Banc spectromètre SWIR.",
-    "Analyse chiffrée du dilemme optique entre WideView-18 (f=0.90 m : conforme Fauchée 10 km & SNR 84.6, mais GSD = 6.67 m) et STELLA-20 / Altair-25 (f=1.80–2.20 m : conforme à l'objectif GSD <= 3.5 m, mais non conforme en Fauchée 4–5 km et SNR 23–25).",
-    "Justification du choix entre le sondeur haute résolution français TropoSonde-CH4 (dLambda = 0.22 nm, 6.40 M€), le sondeur américain CarbonWatch-SWIR (0.30 nm, 5.20 M€, qui dépasse le plafond de 15 % hors-ESA !) et l'imageur allemand HyperSWIR-180 (SNR = 431 mais dLambda = 9.0 nm non conforme pour isoler les raies individuelles).",
-    "Validation de la campagne Cryo-TVAC au CSL Liège (Belgique) et du juste retour géographique ESA (France, Allemagne, Espagne)."
+    "Justification physique et optique de l'assemblage à 3 étages retenu : choix du télescope collecteur avant (focale f, ouverture D et F/#), de l'interface fente spectrométrique et du banc spectromètre SWIR.",
+    "Analyse quantitative du compromis entre résolution spatiale spectrométrique (GSD), largeur de fauchée et rapport signal-sur-bruit en fonction du télescope collecteur sélectionné.",
+    "Validation du bilan énergétique et thermique de la plateforme (dissipation du cryorefroidisseur SWIR), de la campagne d'essais cryo-vide et des quotas de retour géographique ESA (France, Allemagne, Espagne).",
+    "En cas de choix privilégiant l'objectif étendu de résolution spatiale (≤ 3.50 m) ou un équipement hors quota, présentation d'une Demande de Dérogation (Waiver) argumentée à l'Onglet 9."
   ],
   "max_budget_meur": 19.2,
   "min_trl": 7,
@@ -34,7 +35,7 @@
       "threshold": 1650.0,
       "goal": 2000.0,
       "unit": "nm",
-      "description": "Le spectromètre doit couvrir le domaine SWIR au-delà de 1650 nm pour observer les bandes d'absorption du CH₄ (1650 nm) et du CO₂ (1600–2050 nm)."
+      "description": "Le spectromètre doit couvrir le domaine SWIR au-delà de 1 650 nm (objectif ≥ 2 000 nm) pour observer les bandes d'absorption rovibrationnelles du CH₄ et du CO₂."
     },
     {
       "id": "REQ-ATMO-SPEC-RES",
@@ -45,7 +46,7 @@
       "threshold": 0.5,
       "goal": 0.25,
       "unit": "nm",
-      "description": "La résolution spectrale doit être <= 0.50 nm pour séparer les raies individuelles de méthane et de dioxyde de carbone."
+      "description": "La largeur à mi-hauteur de la fonction d'appareil spectrale (FWHM) doit être ≤ 0.50 nm (objectif ≤ 0.25 nm) afin de séparer les raies individuelles des gaz à effet de serre."
     },
     {
       "id": "REQ-ATMO-GSD",
@@ -56,7 +57,7 @@
       "threshold": 6.8,
       "goal": 3.5,
       "unit": "m",
-      "description": "Le pas d'échantillonnage spatial du spectromètre (hérité de la focale du télescope avant) doit être <= 6.80 m (objectif <= 3.50 m pour localiser une cheminée industrielle)."
+      "description": "Le pas d'échantillonnage spatial du spectromètre au nadir (déterminé par la focale du télescope collecteur avant) doit être ≤ 6.80 m (objectif ≤ 3.50 m)."
     },
     {
       "id": "REQ-ATMO-SWATH",
@@ -67,7 +68,7 @@
       "threshold": 9.5,
       "goal": 15.0,
       "unit": "km",
-      "description": "La largeur de fauchée couverte par la fente du spectromètre doit être >= 9.5 km (antagoniste avec le choix d'un télescope à longue focale visant GSD <= 3.5 m)."
+      "description": "La largeur de fauchée couverte par la fente du spectromètre doit être ≥ 9.5 km (objectif ≥ 15.0 km), exigence antagoniste avec l'emploi d'une longue focale."
     },
     {
       "id": "REQ-ATMO-SNR",
@@ -78,7 +79,7 @@
       "threshold": 70.0,
       "goal": 120.0,
       "unit": "ratio",
-      "description": "Le SNR moyen sur les canaux spectraux doit être >= 70 (nécessite un télescope collecteur lumineux à faible nombre d'ouverture F/#)."
+      "description": "Le rapport signal-sur-bruit moyen sur les canaux spectraux doit être ≥ 70 (objectif ≥ 120), ce qui requiert un collecteur avant suffisamment ouvert (faible F/#)."
     },
     {
       "id": "REQ-ATMO-CALIB",
@@ -89,7 +90,7 @@
       "threshold": 1.0,
       "goal": 0.9,
       "unit": "%",
-      "description": "L'incertitude radiométrique et spectrale certifiée au sol doit être <= 1.0 %, imposant une campagne en cuve cryo-vide (Cryo-TVAC 80 K–350 K au CSL Liège, 0.9 %)."
+      "description": "L'incertitude radiométrique et spectrale certifiée au sol sous vide cryogénique doit être ≤ 1.0 % (objectif ≤ 0.9 %)."
     },
     {
       "id": "REQ-ATMO-LIFE",
@@ -100,7 +101,7 @@
       "threshold": 5.0,
       "goal": 7.0,
       "unit": "yr",
-      "description": "La plateforme doit assurer une durée de vie nominale >= 5.0 ans pour établir des séries climatiques pluriannuelles."
+      "description": "La plateforme doit assurer une durée de vie nominale ≥ 5.0 ans (objectif ≥ 7.0 ans) pour le suivi pluriannuel des émissions."
     }
   ],
   "ground_stations": [

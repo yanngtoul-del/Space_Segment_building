@@ -5,21 +5,22 @@
   "image": "mission_sar_radar.jpg",
   "domain_label": "Observation de la Terre — Imagerie Radar à Synthèse d'Ouverture (SAR)",
   "client_agency": "Agence Spatiale Européenne (ESA) / Agence Européenne de Sécurité Maritime (EMSA)",
-  "context": "Pour surveiller le trafic maritime non-coopératif, les dégazages illicites et la dérive des glaces dans l'Arctique indépendamment de la couverture nuageuse et de l'éclairement solaire, l'EMSA et l'ESA lancent le programme RadarGuard-SAR. Cette mission met en évidence le compromis physique fondamental des radars à synthèse d'ouverture (SAR) : en mode Stripmap, la résolution azimutale théorique vaut d_az = L_a / 2 (où L_a est la longueur d'antenne), tandis que le bilan de sensibilité radar (NESZ <= -21.0 dB) exige un produit Puissance x Gain élevé (donc une grande surface d'antenne A et une forte puissance RF).",
-  "primary_objective": "Déployer un satellite SAR en orbite héliosynchrone (SSO, créneau crépusculaire Dawn-Dusk 6h/18h) capable d'acquérir des scènes radar Stripmap avec une résolution azimutale <= 1.80 m (objectif <= 1.30 m), une résolution distance au sol <= 1.00 m, une fauchée >= 30.0 km, une sensibilité NESZ <= -21.0 dB et une qualification antenne/Multipactor en vide thermique (CATR-TVAC).",
+  "context": "Pour surveiller le trafic maritime non-coopératif, les dégazages illicites d'hydrocarbures et la dérive des glaces dans l'Arctique indépendamment de la couverture nuageuse et de l'éclairement solaire, l'EMSA et l'ESA lancent le programme RadarGuard-SAR. Cette mission met en jeu le compromis physique fondamental des radars à synthèse d'ouverture (SAR) : en mode Stripmap, la résolution azimutale théorique vaut d_az = L_a / 2 (où L_a est la longueur d'antenne), tandis que la sensibilité radiométrique au bruit (NESZ ≤ -21.0 dB, objectif ≤ -24.0 dB) exige un produit Puissance × Surface d'antenne élevé, sous un plafond global de 24.50 M€.",
+  "primary_objective": "Déployer un satellite SAR en orbite héliosynchrone (SSO) capable d'acquérir des scènes radar Stripmap avec une résolution azimutale ≤ 1.80 m (objectif ≤ 1.30 m), une résolution distance au sol ≤ 1.00 m (objectif ≤ 0.65 m), une largeur de fauchée radar ≥ 30.0 km (objectif ≥ 50.0 km), une sensibilité radiométrique NESZ ≤ -21.0 dB (objectif ≤ -24.0 dB), une qualification antenne/Multipactor en base compacte sous vide thermique ≤ 2.1 % (objectif ≤ 1.8 %) et une durée de vie ≥ 6.0 ans (objectif ≥ 8.0 ans) sous 24.50 M€ TTC.",
   "secondary_objectives": [
-    "Analyser l'antagonisme physique SAR entre résolution azimutale et sensibilité NESZ : les petits radars NewSpace (CompactSAR-X à 4.90 M€ ou MicroSAR-X à 7.80 M€) offrent d'excellentes résolutions azimutales (1.25 m à 1.60 m) grâce à leur antenne courte, mais souffrent d'un NESZ dégradé (-2.1 dB à -7.7 dB >> -21 dB) qui rend les nappes d'hydrocarbures invisibles.",
-    "Comparer les radars institutionnels haute sensibilité en bande X (Aegis-X Tactical allemand à 9.40 M€, ALBA-X italien à 10.60 M€, Zephyr-X américain à 5.60 M€/8.40 M€) et en bande C/L vis-à-vis de la puissance plateforme (>= 700 W crête), du plafond de 15 % hors-ESA et du budget global de 24.50 M€.",
-    "Dimensionner la chaîne de télémesure charge utile haute cadence (émetteur bande X >= 500 Mbps ou bande Ka) et qualifier l'antenne active en base compacte sous vide thermique (CATR-TVAC chez IABG Ottobrunn, 0.65 M€)."
+    "Analyser l'antagonisme physique SAR entre la finesse de résolution azimutale en mode Stripmap (qui favorise une antenne courte) et la sensibilité radiométrique NESZ (qui exige un grand gain d'antenne et une forte puissance RF émise).",
+    "Dimensionner le sous-système électrique (génération solaire, capacité batterie et bus haute puissance) et le contrôle thermique de la plateforme pour supporter les appels de puissance crête et la dissipation thermique de l'antenne radar active.",
+    "Optimiser la chaîne d'enregistrement et de télémesure descendante haut débit (bande X ou Ka) ainsi que la qualification radiofréquence sous vide thermique (étalonnage diagramme d'antenne CATR et tenue Multipactor).",
+    "Respecter l'équilibre industriel des États participants (Allemagne 40–65 %, France 30–50 %, Italie 3–15 %) et la limite de dépenses hors-ESA (≤ 15 %)."
   ],
-  "scientific_or_operational_need": "La détection des pollutions par hydrocarbures (amortissement des vagues capillaires de Bragg) et des petites embarcations en mer formée exige impérativement un plancher de bruit NESZ <= -21 dB, tandis que l'identification des superstructures de navires requiert une résolution métrique.",
-  "orbit_constraints_description": "Orbite héliosynchrone (SSO) entre 450 km et 550 km d'altitude. Le créneau Dawn-Dusk (passage à l'équateur à 06h00 / 18h00) est vivement recommandé dans le CONOPS afin de maintenir les panneaux solaires illuminés en permanence et d'alimenter l'antenne SAR active (720 W à 1250 W en émission). Notez que baisser l'altitude à 400 km améliore le NESZ de ~2.8 dB (loi en R^3) mais réduit la fauchée au sol de 20 %.",
-  "conops_guidance": "Justifier le cycle d'utilisation radar (duty cycle typique <= 15-25 % par orbite) : préchauffage des modules T/R GaN, acquisition radar par salves de 60 à 120 secondes sur les zones côtières et arctiques, enregistrement sur mémoire de masse haute vitesse, vidage sur la station polaire du Svalbard (SvalSat) et de Matera, et gestion thermique du panneau rayonnant.",
+  "scientific_or_operational_need": "La détection des pollutions marines par hydrocarbures (amortissement des vagues capillaires de Bragg produisant des zones sombres à très faible rétrodiffusion) exige impérativement un plancher de bruit radar NESZ ≤ -21.0 dB, tandis que la détection des navires et icebergs requiert une résolution azimutale ≤ 1.80 m et une résolution distance ≤ 1.00 m sur une fauchée minimale de 30 km.",
+  "orbit_constraints_description": "Orbite héliosynchrone (SSO) entre 450 km et 550 km d'altitude. Une orbite crépusculaire (« Dawn-Dusk », 06h00 / 18h00 heure solaire locale) est privilégiée pour maximiser l'ensoleillement des panneaux solaires et alimenter l'émetteur radar. L'architecte étudiera l'influence de l'altitude orbitale sur le bilan NESZ (loi en R³) et sur la largeur de fauchée au sol.",
+  "conops_guidance": "Justifier le cycle d'utilisation radar (duty cycle par orbite) : préchauffage des modules T/R, prises de vue radar par salves sur les corridors maritimes arctiques et méditerranéens, stockage sur enregistreur SSD haute vitesse, vidage rapide sur les stations de Svalbard (SvalSat) et Matera, et gestion thermique du panneau rayonnant.",
   "deliverables_expected": [
-    "Démonstration du compromis physique SAR : pourquoi un petit radar à antenne courte (CompactSAR-X / MicroSAR-X) atteint l'objectif d'azimut <= 1.30 m mais échoue sur le NESZ (-2 à -8 dB vs -21 dB requis), tandis qu'Aegis-X Tactical ou ALBA-X satisfait le NESZ (-22.8 à -24.1 dB) avec un azimut de 1.75–1.80 m.",
-    "Justification du choix de la plateforme (classe 300–500 kg comme AstraFlex-300 ou AlbionMidi-300) et du bilan de puissance crête/moyenne en orbite Dawn-Dusk.",
-    "Validation de la qualification sol en base compacte sous vide thermique (CATR-TVAC IABG) et du juste retour géographique ESA (Allemagne, France, Italie).",
-    "En cas d'architecture alternative présentant une non-conformité (ex: choix de MicroSAR-X pour réduire la masse/coût au détriment du NESZ, ou choix d'ALBA-X dépassant le quota italien ou le budget avec lanceur dédié), formuler une Demande de Dérogation (Waiver) chiffrée."
+    "Analyse comparative des charges utiles SAR du catalogue (compromis longueur d'antenne / résolution azimutale / sensibilité NESZ / puissance RF / origine géographique).",
+    "Justification du choix de la plateforme (capacité de puissance moyenne et crête, dissipation thermique, durée de vie) et de l'orbite SSO Dawn-Dusk.",
+    "Dimensionnement de la mémoire de masse, du lien descendant haut débit et justification de la campagne d'essais antenne/Multipactor en vide thermique.",
+    "Démonstration de la conformité au plafond de 24.50 M€ et aux quotas ESA (Allemagne, France, Italie), ou rédaction d'une Demande de Dérogation argumentée à l'Onglet 9."
   ],
   "max_budget_meur": 24.5,
   "min_trl": 7,
@@ -34,7 +35,7 @@
       "threshold": 1.8,
       "goal": 1.3,
       "unit": "m",
-      "description": "La résolution azimutale en mode Stripmap (L_a / 2) doit être <= 1.80 m (objectif <= 1.30 m). Attention : réduire L_a pour viser 1.30 m dégrade sévèrement le gain d'antenne et le NESZ."
+      "description": "La résolution azimutale en mode Stripmap (L_a / 2) doit être ≤ 1.80 m (objectif ≤ 1.30 m). Réduire la longueur d'antenne améliore la résolution azimutale mais réduit la surface collectrice et dégrade le NESZ."
     },
     {
       "id": "REQ-SAR-RG-01",
@@ -45,7 +46,7 @@
       "threshold": 1.0,
       "goal": 0.65,
       "unit": "m",
-      "description": "La résolution transversale projetée au sol doit être <= 1.00 m."
+      "description": "La résolution distance projetée au sol (liée à la bande passante du chirp radar) doit être ≤ 1.00 m (objectif ≤ 0.65 m)."
     },
     {
       "id": "REQ-SAR-SWATH-01",
@@ -56,7 +57,7 @@
       "threshold": 30.0,
       "goal": 50.0,
       "unit": "km",
-      "description": "La fauchée radar en mode Stripmap doit être >= 30.0 km."
+      "description": "La largeur de fauchée radar au sol en mode Stripmap doit être ≥ 30.0 km (objectif ≥ 50.0 km)."
     },
     {
       "id": "REQ-SAR-NESZ-01",
@@ -67,7 +68,7 @@
       "threshold": -21.0,
       "goal": -24.0,
       "unit": "dB",
-      "description": "Le Noise Equivalent Sigma Zero (NESZ) doit être <= -21.0 dB pour détecter les pollutions marines à faible rétrodiffusion."
+      "description": "Le niveau de bruit équivalent radar (NESZ) doit être ≤ -21.0 dB (objectif ≤ -24.0 dB) pour permettre la détection des nappes d'hydrocarbures en mer."
     },
     {
       "id": "REQ-SAR-CALIB",
@@ -78,7 +79,7 @@
       "threshold": 2.1,
       "goal": 1.8,
       "unit": "%",
-      "description": "L'antenne active SAR doit être étalonnée en base compacte sous vide thermique (CATR-TVAC <= 2.0 %) pour qualifier l'absence d'effet Multipactor et la stabilité de phase des modules T/R."
+      "description": "L'antenne SAR doit être étalonnée en base compacte sous vide thermique avec une incertitude radiométrique ≤ 2.1 % (objectif ≤ 1.8 %) et une qualification Multipactor."
     },
     {
       "id": "REQ-SAR-LIFE",
@@ -89,7 +90,7 @@
       "threshold": 6.0,
       "goal": 8.0,
       "unit": "yr",
-      "description": "La plateforme doit être dimensionnée pour au moins 6 ans d'opérations."
+      "description": "La plateforme doit être qualifiée pour au moins 6.0 ans d'opérations en orbite basse (objectif ≥ 8.0 ans)."
     }
   ],
   "ground_stations": [

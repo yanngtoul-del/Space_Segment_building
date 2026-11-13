@@ -1,5 +1,6 @@
 """Dedicated Mission Specification Sheet (Fiche de Spécification Mission) viewer widget."""
 
+import html
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont, QColor, QPixmap
 from PySide6.QtWidgets import (
@@ -243,11 +244,11 @@ class MissionSheetView(QScrollArea):
 
         primary_obj = m.primary_objective or m.context
         html_parts = [
-            f"<p style='margin-bottom:6px;'><b style='color:#1e3a8a;'>1. Contexte général :</b> {m.context}</p>",
-            f"<p style='margin-bottom:6px;'><b style='color:#1e3a8a;'>2. Objectif principal de la mission :</b> {primary_obj}</p>",
+            f"<p style='margin-bottom:6px;'><b style='color:#1e3a8a;'>1. Contexte général :</b> {html.escape(m.context)}</p>",
+            f"<p style='margin-bottom:6px;'><b style='color:#1e3a8a;'>2. Objectif principal de la mission :</b> {html.escape(primary_obj)}</p>",
         ]
         if m.secondary_objectives:
-            sec_li = "".join(f"<li>{s}</li>" for s in m.secondary_objectives)
+            sec_li = "".join(f"<li>{html.escape(s)}</li>" for s in m.secondary_objectives)
             html_parts.append(
                 f"<b style='color:#1e3a8a;'>3. Objectifs secondaires :</b>"
                 f"<ul style='margin-top:2px;margin-bottom:6px;'>{sec_li}</ul>"
@@ -255,20 +256,20 @@ class MissionSheetView(QScrollArea):
         if m.scientific_or_operational_need:
             html_parts.append(
                 f"<p style='margin-bottom:6px;'><b style='color:#1e3a8a;'>4. Besoin scientifique / opérationnel & utilisateurs :</b> "
-                f"{m.scientific_or_operational_need}</p>"
+                f"{html.escape(m.scientific_or_operational_need)}</p>"
             )
         if m.orbit_constraints_description:
             html_parts.append(
                 f"<p style='margin-bottom:6px;'><b style='color:#1e3a8a;'>5. Contraintes & orientations orbitales :</b> "
-                f"{m.orbit_constraints_description}</p>"
+                f"{html.escape(m.orbit_constraints_description)}</p>"
             )
         if m.conops_guidance:
             html_parts.append(
                 f"<p style='margin-bottom:6px;'><b style='color:#1e3a8a;'>6. Concept d'opérations attendu (CONOPS) :</b> "
-                f"{m.conops_guidance}</p>"
+                f"{html.escape(m.conops_guidance)}</p>"
             )
         if m.deliverables_expected:
-            del_li = "".join(f"<li>{d}</li>" for d in m.deliverables_expected)
+            del_li = "".join(f"<li>{html.escape(d)}</li>" for d in m.deliverables_expected)
             html_parts.append(
                 f"<b style='color:#1e3a8a;'>7. Points à justifier par l'étudiant dans le rapport :</b>"
                 f"<ul style='margin-top:2px;margin-bottom:2px;'>{del_li}</ul>"
@@ -285,8 +286,8 @@ class MissionSheetView(QScrollArea):
             "REQ-BUDGET",
             "Plafond Budgétaire Global",
             "total_cost_meur",
-            f"<= {m.max_budget_meur:.2f} M€",
-            f"<= {m.max_budget_meur * 0.90:.2f} M€",
+            f"≤ {m.max_budget_meur:.2f} M€",
+            f"≤ {m.max_budget_meur * 0.90:.2f} M€",
             "Le coût consolidé (plateforme, options, charges utiles, calibration sol, lancement) ne doit pas dépasser le plafond.",
         ]
         for col_idx, val in enumerate(budget_cells):
@@ -296,9 +297,11 @@ class MissionSheetView(QScrollArea):
             item.setForeground(QColor("#78350f"))
             self.t_reqs.setItem(0, col_idx, item)
 
+        op_display = {"<=": "≤", ">=": "≥", "<": "<", ">": ">", "==": "="}
         for row_idx, r in enumerate(m.requirements, start=1):
-            goal_str = f"{r.goal} {r.unit}".strip() if r.goal is not None else "—"
-            thresh_str = f"{r.operator.value} {r.threshold} {r.unit}".strip()
+            op_sym = op_display.get(r.operator.value, r.operator.value)
+            goal_str = f"{op_sym} {r.goal} {r.unit}".strip() if r.goal is not None else "—"
+            thresh_str = f"{op_sym} {r.threshold} {r.unit}".strip()
             row_vals = [
                 r.id,
                 r.title,

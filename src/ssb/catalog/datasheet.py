@@ -46,6 +46,12 @@ PAYLOAD_TYPE_LABELS_FR = {
     PayloadType.RADIO_COMM.value: "Charge utile radio-fréquence (RF)",
 }
 
+SENSOR_ARCH_LABELS_FR = {
+    "pushbroom_tdi": "Push-Broom linéaire (balayage en râteau avec intégration TDI)",
+    "pushbroom_linear": "Push-Broom linéaire mono-ligne (balayage en râteau sans TDI)",
+    "frame_matrix": "Capteur matriciel 2D (acquisition par clichés Frame / Step-and-Stare)",
+}
+
 
 @dataclass
 class DatasheetSection:
@@ -206,9 +212,21 @@ def _from_payload(pl: BasePayload, orbit: OrbitDefinition) -> DatasheetData:
     h = orbit.altitude_km
 
     if isinstance(pl, OpticalImagerPayload):
+        arch_lbl = SENSOR_ARCH_LABELS_FR.get(pl.sensor_architecture, pl.sensor_architecture)
+        if pl.sensor_architecture == "frame_matrix":
+            tdi_lbl = "Non applicable (capteur matriciel 2D à obturation globale / Step-and-Stare)"
+        elif pl.tdi_stages > 1:
+            tdi_lbl = f"Oui — {pl.tdi_stages} étages TDI (sommation synchrone au défilement orbital)"
+        else:
+            tdi_lbl = "Non — Barrette Push-Broom mono-ligne (1 étage, sans TDI)"
+
+        fmt_lbl = pl.detector_format_label or f"{pl.detector_pixels_cross_track:,} px cross-track".replace(",", " ")
         spec_rows = [
             ("Diamètre de pupille / miroir primaire", f"{pl.aperture_diameter_m * 100:.1f} cm ({pl.aperture_diameter_m:.2f} m)"),
             ("Longueur focale", f"{pl.focal_length_m:.2f} m (f/{pl.f_number:.1f})"),
+            ("Mode d'acquisition (Push-Broom / Matriciel)", arch_lbl),
+            ("Intégration à décalage temporel (TDI)", tdi_lbl),
+            ("Architecture du plan focal", fmt_lbl),
             ("Pas des pixels (pitch)", f"{pl.pixel_pitch_um:.2f} µm"),
             ("Nombre de pixels fauchée (cross-track)", f"{pl.detector_pixels_cross_track:,}".replace(",", " ")),
             ("Bandes spectrales", f"{len(pl.spectral_bands)} bandes : {', '.join(pl.spectral_bands)}"),
@@ -223,12 +241,13 @@ def _from_payload(pl: BasePayload, orbit: OrbitDefinition) -> DatasheetData:
             (f"Résolution au sol nadir (GSD @ {h:.0f} km)", f"{perf.gsd_nadir_m:.2f} m"),
             (f"Largeur de fauchée (@ {h:.0f} km)", f"{perf.swath_width_km:.1f} km (FOV {perf.field_of_view_deg:.2f}°)"),
             ("Tache de diffraction au sol", f"{perf.diffraction_ground_spot_m:.2f} m"),
+            ("Fréquence ligne / Temps d'intégration élémentaire", f"{perf.line_rate_hz:.0f} Hz ({perf.integration_time_ms:.3f} ms/ligne)"),
             ("Rapport signal/bruit estimé (SNR nadir)", f"{perf.snr_nadir_estimate:.1f}"),
             ("Indice de qualité d'image estimé (NIIRS)", f"{perf.niirs_estimate:.1f}"),
         ]
     elif isinstance(pl, SpectrometerPayload):
         spec_rows = [
-            ("Architecture instrumentale", "Banc dispersif (fente + réseau/prisme + matrice détecteur)"),
+            ("Architecture instrumentale", "Banc dispersif Push-Broom (fente d'entrée + réseau/prisme + matrice 2D spatial×spectral)"),
             ("Optique collectrice requise", "Télescope avant (Charge utile optique)"),
             ("Interface mécanique/optique", "Option « Interface Optique / Fente Spectrométrique »"),
             ("Pas des pixels", f"{pl.pixel_pitch_um:.2f} µm"),
@@ -488,11 +507,10 @@ def _from_launcher(ln: Launcher) -> DatasheetData:
     )
 
 
-
 def _from_calibration(cal: PayloadCalibration) -> DatasheetData:
     env_type = "Cuve Vide Thermique (TVAC / Simulation spatiale)" if cal.is_thermal_vacuum else "Salle blanche ambiante (ISO 5)"
-    vac_str = f"{cal.vacuum_level_mbar:.1e} mbar" if cal.is_thermal_vacuum else "Pression atmosph?rique ambiante (1013 mbar)"
-    temp_str = f"{cal.temp_min_c:.0f} ?C ? {cal.temp_max_c:.0f} ?C (cyclage r?gul?)" if cal.is_thermal_vacuum else "20 ?C ? 1 ?C r?gul?"
+    vac_str = f"{cal.vacuum_level_mbar:.1e} mbar" if cal.is_thermal_vacuum else "Pression atmosphérique ambiante (1013 mbar)"
+    temp_str = f"{cal.temp_min_c:.0f} °C à {cal.temp_max_c:.0f} °C (cyclage régulé)" if cal.is_thermal_vacuum else "20 °C ± 1 °C régulé"
 
     phys = DatasheetSection(
         "Moyens d'essais & Environnement de simulation spatiale",
@@ -500,39 +518,39 @@ def _from_calibration(cal: PayloadCalibration) -> DatasheetData:
             ("Centre technique & laboratoire d'essais", cal.test_center),
             ("Environnement de test", env_type),
             ("Niveau de vide spatial", vac_str),
-            ("Plage de temp?rature de cyclage", temp_str),
-            ("Dur?e de la campagne d'essais", f"{cal.duration_weeks:.1f} semaines ({cal.duration_weeks * 7:.0f} jours de banc)"),
+            ("Plage de température de cyclage", temp_str),
+            ("Durée de la campagne d'essais", f"{cal.duration_weeks:.1f} semaines ({cal.duration_weeks * 7:.0f} jours de banc)"),
             ("Charges utiles admissibles", ", ".join(cal.compatible_payload_types)),
         ],
     )
     meas_rows = [
-        ("Incertitude radiom?trique / RF garantie", f"? {cal.radiometric_accuracy_pct:.1f} %"),
-        ("Caract?risation de la d?focalisation thermique", "Oui (cartographie foyer vs gradient d'orbite)" if cal.thermal_defocus_mitigated else "Non applicable"),
+        ("Incertitude radiométrique / RF garantie", f"± {cal.radiometric_accuracy_pct:.1f} %"),
+        ("Caractérisation de la défocalisation thermique", "Oui (cartographie foyer vs gradient d'orbite)" if cal.thermal_defocus_mitigated else "Non applicable"),
         ("Qualification multipactor haute puissance", "Oui (marge 6 dB selon ECSS-E-ST-20-01C)" if cal.multipactor_qualification else "Non applicable"),
     ]
     for idx_m, m in enumerate(cal.measurements_performed, 1):
         meas_rows.append((f"Mesure protocolaire #{idx_m}", m))
-    spec_sec = DatasheetSection("Mesures m?trologiques & Protocoles de calibration", meas_rows)
+    spec_sec = DatasheetSection("Mesures métrologiques & Protocoles de calibration", meas_rows)
 
     comm = DatasheetSection(
-        "Conditions contractuelles & H?ritage",
+        "Conditions contractuelles & Héritage",
         [
-            ("Op?rateur du centre d'essais", cal.supplier_name),
-            ("Co?t forfaitaire de la campagne cl? en main", f"{cal.price_meur:.2f} M?"),
-            ("Maturit? des bancs d'essais", f"TRL {cal.trl_level} (Moyens spatiaux certifi?s ESA/CNES/DLR)"),
+            ("Opérateur du centre d'essais", cal.supplier_name),
+            ("Coût forfaitaire de la campagne clé en main", f"{cal.price_meur:.2f} M€"),
+            ("Maturité des bancs d'essais", f"TRL {cal.trl_level} (Moyens spatiaux certifiés ESA/CNES/DLR)"),
         ],
     )
     return DatasheetData(
         item_id=cal.id,
         name=cal.name,
         supplier_name=cal.supplier_name,
-        category_label=f"Calibration Sol ? {env_type}",
+        category_label=f"Calibration Sol — {env_type}",
         short_description=cal.description,
         long_description=cal.long_description or cal.description,
         image=cal.image,
-        price_label=f"{cal.price_meur:.2f} M? (forfait)",
+        price_label=f"{cal.price_meur:.2f} M€ (forfait)",
         dimensions_mm=(2000.0, 2000.0, 3000.0),
-        volume_label=f"Dur?e : {cal.duration_weeks:.1f} sem.",
+        volume_label=f"Durée : {cal.duration_weeks:.1f} sem.",
         mass_label=f"Vide : {vac_str}",
         key_features=cal.key_features,
         interfaces=cal.measurements_performed,

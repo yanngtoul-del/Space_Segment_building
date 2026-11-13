@@ -4,21 +4,23 @@
   "mission_type": "telecom_radio",
   "image": "mission_cubesat_rf.jpg",
   "domain_label": "Télécommunications & Collecte RF — Surveillance Maritime AIS & IoT par Nanosatellite",
-  "client_agency": " Consortium NewSpace Européen / Surveillance Maritime & Logistique Arctique",
-  "context": "Un opérateur européen de services maritimes souhaite lancer un démonstrateur nanosatellite (CubeSat 6U ou 12U) en orbite basse héliosynchrone pour collecter les balises AIS des navires, les messages ADS-B aéronautiques et les capteurs IoT déportés en haute mer. Le défi d'ingénierie réside dans l'extrême sévérité de l'enveloppe SWaP-C (Size, Weight, Power and Cost) : sous un plafond strict de 1.95 M€ lancement et essais sol compris, l'architecte doit arbitrer entre un récepteur AIS/ADS-B italien (Meridian 15 Mbps, 3.2 kg), un récepteur SDR suédois ultra-compact (Nordic 20 Mbps, 1.8 kg) permettant d'embarquer en prime une caméra optique 6 cm de vérification visuelle, ou un récepteur IoT large bande 35 Mbps qui impose de passer sur une plateforme 12U hors budget (2.59 M€).",
-  "primary_objective": "Concevoir un nanosatellite de collecte RF en orbite SSO capable d'assurer un débit descendant >= 15.0 Mbps (objectif >= 35.0 Mbps) avec une marge de liaison >= 10.0 dB, une précision de pointage <= 0.10° et une qualification RF en vide thermique (TVAC <= 2.5 %) pour un coût total <= 1.95 M€.",
+  "client_agency": "Consortium NewSpace Européen / Surveillance Maritime & Logistique Arctique",
+  "context": "Un opérateur européen de services maritimes souhaite lancer un démonstrateur nanosatellite (classe CubeSat) en orbite basse héliosynchrone pour collecter les balises AIS des navires, les messages ADS-B aéronautiques et les capteurs IoT déportés en haute mer. Le défi d'ingénierie réside dans l'extrême sévérité de l'enveloppe SWaP-C (Size, Weight, Power and Cost) : sous un plafond strict de 1.95 M€ tout compris (satellite, options, étalonnage sol et lancement), l'architecte doit concevoir un système assurant un débit descendant ≥ 15.0 Mbps (objectif ≥ 35.0 Mbps), une marge de liaison RF ≥ 10.0 dB (objectif ≥ 14.0 dB), un pointage ≤ 0.10° (objectif ≤ 0.05°), une qualification RF en vide thermique ≤ 2.5 % et une durée de vie ≥ 2.5 ans (objectif ≥ 3.0 ans).",
+  "primary_objective": "Concevoir un nanosatellite de collecte RF en orbite SSO capable d'assurer un débit descendant de collecte ≥ 15.0 Mbps (objectif ≥ 35.0 Mbps) avec une marge du bilan de liaison RF ≥ 10.0 dB (objectif ≥ 14.0 dB), une précision de pointage CubeSat ≤ 0.10° (objectif ≤ 0.05°), une qualification RF en vide thermique ≤ 2.5 % (objectif ≤ 2.2 %) et une durée de vie nominale ≥ 2.5 ans (objectif ≥ 3.0 ans) pour un coût total ≤ 1.95 M€ TTC.",
   "secondary_objectives": [
-    "Explorer l'architecture bi-charge utile sur CubeSat 6U : en choisissant le récepteur suédois Nordic AIS SDR (1.8 kg, 10 W, 0.38 M€, 20 Mbps) au lieu du Meridian AIS/ADS-B (3.2 kg, 14 W, 0.55 M€, 15 Mbps), l'architecte libère assez de masse (3.3 kg / 4.0 kg max) pour co-embarquer la caméra optique CubeEye-6cm (1.5 kg, GSD = 6.1 m) afin de confirmer visuellement les navires « sombres » (dark ships) tout en restant à 1.90 M€ (< 1.95 M€) !",
-    "Analyser la limite de marge électrique sur bus 6U : l'ajout de la caméra optique secondaire porte la marge de puissance moyenne à +8.3 % (avertissement < 15 % recommandés), illustrant le compromis entre capacité bi-mission et marge énergétique.",
-    "Démontrer pourquoi l'objectif de débit >= 35.0 Mbps (récepteur IoT UHF/S-Band 7.5 kg ou Helvetia Argos 6.2 kg) dépasse la capacité d'emport du bus 6U (max 4.0 kg) et nécessite un bus 12U qui franchit le plafond de 1.95 M€."
+    "Comparer les différentes plateformes nanosatellites du catalogue (formats 3U, 6U, 12U standard ou haute puissance) vis-à-vis de la masse utile admissible, de la puissance électrique disponible en orbite, de la durée de vie nominale et du coût.",
+    "Analyser le compromis entre les différentes charges utiles de collecte RF / IoT (débit de données, masse, consommation électrique et prix) et évaluer la faisabilité d'embarquer un micro-imageur optique secondaire à capteur matriciel pour la levée de doute visuelle sur les navires non-coopératifs.",
+    "Vérifier l'équilibre du bilan énergétique du nanosatellite (génération solaire vs consommation moyenne de la charge utile et des équipements TT&C / ADCS) en tenant compte de la marge système recommandée.",
+    "Intégrer une qualification radiofréquence en vide thermique (≤ 2.5 %) tout en respectant l'enveloppe globale de 1.95 M€."
   ],
-  "scientific_or_operational_need": "Assurer le suivi quasi-temps réel des flottes marchandes et des bouées océanographiques dans les zones blanches océaniques et polaires, avec levée de doute optique optionnelle sur les anomalies de transpondeur AIS.",
-  "orbit_constraints_description": "Orbite héliosynchrone (SSO) autour de 500–550 km par lancement partagé en déployeur CubeSat P-POD / QuadPack (capacité max 32 kg, coût très réduit ~0.35 M€).",
-  "conops_guidance": "Préciser la gestion de l'énergie à bord du CubeSat : écoute AIS/IoT continue à faible consommation, déclenchement ponctuel de la caméra optique 6 cm uniquement sur alerte de navire suspect au jour, stockage sur mémoire flash 64 Go et vidage rapide en bande S sur les stations de Kiruna et Redu.",
+  "scientific_or_operational_need": "Assurer le suivi quasi-temps réel des flottes marchandes et des bouées océanographiques dans les zones blanches océaniques et arctiques (débit ≥ 15.0 Mbps, marge RF ≥ 10.0 dB), avec capacité optionnelle de vérification optique sur alerte AIS.",
+  "orbit_constraints_description": "Orbite héliosynchrone (SSO) autour de 500–550 km d'altitude, injectable à bas coût via un service de lancement partagé en déployeur CubeSat standardisé.",
+  "conops_guidance": "Préciser la gestion de l'énergie à bord du nanosatellite : écoute AIS/ADS-B/IoT continue à faible consommation au-dessus des bassins océaniques, déclenchement ponctuel d'une éventuelle prise de vue secondaire uniquement sur alerte diurne, stockage sur mémoire flash embarquée et vidage rapide en bande S sur les stations de Redu et Kiruna.",
   "deliverables_expected": [
-    "Comparaison détaillée des 3 options d'architecture : (A) CubeSat 6U mono-charge utile Meridian AIS/ADS-B (15 Mbps, marge puissance confortable 16.7 %, coût 1.75 M€), (B) CubeSat 6U bi-charge utile Nordic AIS SDR 20 Mbps + Caméra CubeEye-6cm (synergie RF+Optique, coût 1.90 M€, marge puissance tendue 8.3 %), et (C) CubeSat 12U avec charge utile IoT 35 Mbps (conforme au Goal 35 Mbps mais hors budget à 2.59 M€).",
-    "Justification de la campagne de qualification RF en vide thermique (TVAC Transpondeur RF & Antennes chez IABG Ottobrunn, 0.38 M€) pour éviter les dérives d'accord d'antenne UHF/S en orbite.",
-    "Analyse du bilan de liaison RF descendant et de la gestion du devoir de réserve énergétique en éclipse."
+    "Comparaison chiffrée des architectures nanosatellites candidates (choix du format de bus CubeSat, de la charge utile RF et opportunité d'une charge utile secondaire) au regard du plafond de 1.95 M€.",
+    "Analyse détaillée des marges de masse, de volume et surtout de puissance électrique moyenne en orbite.",
+    "Validation du bilan de liaison RF descendant (≥ 10.0 dB) et justification de la campagne de qualification RF sous vide thermique.",
+    "En cas de choix privilégiant l'objectif étendu de débit (≥ 35.0 Mbps) ou une plateforme plus lourde dépassant le budget, rédaction d'une Demande de Dérogation argumentée à l'Onglet 9."
   ],
   "max_budget_meur": 1.95,
   "min_trl": 8,
@@ -33,7 +35,7 @@
       "threshold": 15.0,
       "goal": 35.0,
       "unit": "Mbps",
-      "description": "Le débit descendant de la charge utile RF doit être >= 15.0 Mbps (objectif >= 35.0 Mbps). Note : atteindre 35 Mbps impose une charge utile > 6 kg nécessitant un bus 12U hors budget."
+      "description": "Le débit maximal de la charge utile RF de collecte doit être ≥ 15.0 Mbps (objectif ≥ 35.0 Mbps)."
     },
     {
       "id": "REQ-CUBE-MARGIN",
@@ -44,7 +46,7 @@
       "threshold": 10.0,
       "goal": 14.0,
       "unit": "dB",
-      "description": "La marge de liaison descendante (à 10° d'élévation) doit être >= 10.0 dB."
+      "description": "La marge du bilan de liaison RF descendant doit être ≥ 10.0 dB (objectif ≥ 14.0 dB) pour garantir la robustesse des téléchargements à faible angle d'élévation."
     },
     {
       "id": "REQ-CUBE-POINT",
@@ -55,7 +57,7 @@
       "threshold": 0.1,
       "goal": 0.05,
       "unit": "deg",
-      "description": "La précision de pointage (suite ADCS CubeSat) doit être <= 0.10° pour orienter les antennes directives et permettre une éventuelle prise de vue secondaire."
+      "description": "La précision de pointage 3 axes doit être ≤ 0.10° (objectif ≤ 0.05°) pour orienter les antennes directives et permettre une éventuelle prise de vue secondaire."
     },
     {
       "id": "REQ-CUBE-CALIB",
@@ -66,7 +68,7 @@
       "threshold": 2.5,
       "goal": 2.2,
       "unit": "%",
-      "description": "La charge utile RF doit subir une qualification en vide thermique (calib_rf_transponder_tvac <= 2.2 % ou équivalent) pour certifier la stabilité de fréquence et de gain."
+      "description": "La charge utile RF doit subir une qualification en vide thermique certifiant une précision radiométrique/RF ≤ 2.5 % (objectif ≤ 2.2 %)."
     },
     {
       "id": "REQ-CUBE-LIFE",
@@ -77,7 +79,7 @@
       "threshold": 2.5,
       "goal": 3.0,
       "unit": "yr",
-      "description": "La plateforme CubeSat doit garantir une durée de vie >= 2.5 ans."
+      "description": "La plateforme nanosatellite doit présenter une durée de vie nominale ≥ 2.5 ans (objectif ≥ 3.0 ans)."
     }
   ],
   "ground_stations": [

@@ -639,11 +639,11 @@ class StudentMainWindow(QMainWindow):
         l.addWidget(vsplit, stretch=1)
 
         cat_opts = [
-            ("cubesat", "CubeSats (6U à 16U)"),
-            ("smallsat", "Microsatellites & SmallSats (50 à 500 kg)"),
-            ("medium", "Plateformes moyennes (700 à 1500 kg)"),
+            ("cubesat", "CubeSats & Nanosats (3U à 27U)"),
+            ("smallsat", "Microsatellites & SmallSats (45 à 500 kg)"),
+            ("medium", "Plateformes moyennes (600 à 1500 kg)"),
             ("heavy", "Plateformes lourdes (3000 kg)"),
-            ("geo_compact", "SmallGEO compactes (500 à 900 kg)"),
+            ("geo_compact", "SmallGEO compactes (500 à 1400 kg)"),
             ("geo_heavy", "GEO Télécom lourdes (1500 à 4500 kg)"),
             ("meo_constellation", "MEO Constellations durcies"),
         ]

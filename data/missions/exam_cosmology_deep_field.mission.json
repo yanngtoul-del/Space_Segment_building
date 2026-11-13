@@ -5,21 +5,22 @@
   "image": "mission_cosmo_deepfield.jpg",
   "domain_label": "Cosmologie & Astrophysique Spatiale — Imagerie Champ Profond Limitée par la Diffraction",
   "client_agency": "Agence Spatiale Européenne (ESA) / Programme Cosmic Vision — Classe M",
-  "context": "L'étude de l'énergie noire et de la distribution de matière noire par effet de lentille gravitationnelle faible (weak lensing) requiert un télescope spatial à grande ouverture dont la fonction d'étalement du point (PSF) est strictement limitée par la diffraction et thermiquement ultra-stable. Ce sujet d'examen confronte l'architecte à un arbitrage multi-dimensionnel : choix du miroir primaire (STELLA-60 italien D=60 cm vs Helios-70 français D=70 cm vs couplage spectroscopique avec Lumina-VNIR-SWIR), stabilité de pointage ADCS (<= 0.004°, objectif <= 0.001°), qualification cryo-vide (Cryo-TVAC au CSL Liège) et respect de la souscription industrielle Italie / France / Allemagne.",
-  "primary_objective": "Concevoir un observatoire spatial équipé d'un télescope de diamètre >= 0.60 m (objectif >= 0.70 m) présentant une tache de diffraction projetée <= 0.70 m (objectif <= 0.58 m), une précision de pointage <= 0.004° (objectif <= 0.001°), une durée de vie >= 7.0 ans et un étalonnage cryo-vide (<= 1.0 %) sous un plafond de 30.0 M€.",
+  "context": "L'étude de l'énergie noire et de la distribution de matière noire par mesure du cisaillement gravitationnel faible (weak lensing) requiert un télescope spatial à grande ouverture dont la fonction d'étalement du point (PSF) est strictement limitée par la diffraction et thermiquement ultra-stable. Ce cahier des charges confronte l'architecte à un arbitrage système de classe scientifique : sélectionner un grand télescope (diamètre primaire ≥ 0.60 m, objectif ≥ 0.70 m ; tache de diffraction projetée ≤ 0.70 m, objectif ≤ 0.58 m), évaluer l'opportunité d'un couplage spectroscopique proche infrarouge pour la mesure des redshifts, garantir une stabilité de pointage astrométrique ≤ 0.004° (objectif ≤ 0.001°) et une qualification cryo-vide ≤ 1.0 %, tout en respectant la souscription industrielle Italie / France / Allemagne sous un plafond de 30.00 M€.",
+  "primary_objective": "Concevoir un observatoire spatial équipé d'un télescope de diamètre d'ouverture ≥ 0.60 m (objectif ≥ 0.70 m) présentant une tache de diffraction projetée de référence ≤ 0.70 m (objectif ≤ 0.58 m), une précision de pointage astrométrique ≤ 0.004° (objectif ≤ 0.001°), un étalonnage cryo-vide ≤ 1.0 % (objectif ≤ 0.9 %) et une durée de vie scientifique ≥ 7.0 ans (objectif ≥ 10.0 ans) sous un plafond global de 30.00 M€ TTC.",
   "secondary_objectives": [
-    "Arbitrer le choix du télescope primaire : le télescope français Helios-70 (D=0.70 m, 15.20 M€) permet d'atteindre l'objectif de diffraction <= 0.58 m, mais fait bondir la part française à > 85 % et écrase le retour géographique italien (40–65 %) tout en dépassant le budget (31.83 M€ > 30.0 M€).",
-    "Évaluer l'intérêt d'un couplage bi-instrumental (STELLA-60 + Fente grand champ + Spectromètre Lumina-VNIR-SWIR belge) pour mesurer les redshifts photométriques et spectroscopiques tout en restant sous les 30.0 M€ (29.33 M€).",
-    "Comparer les suites ADCS (roues de réaction agiles ±0.004° vs suite ultra-stable ±0.001° à micro-propulseurs gaz froid) et justifier la campagne d'essais Cryo-TVAC (CSL Liège, 0.85 M€)."
+    "Arbitrer le dimensionnement du télescope primaire (diamètre de pupille ≥ 0.60 m vs objectif ≥ 0.70 m, architecture du plan focal pour les poses longues « Step-and-Stare ») au regard du plafond budgétaire de 30.00 M€ et de la répartition géographique (Italie 40–65 %, France 25–50 %, Allemagne 4–20 %).",
+    "Étudier la faisabilité et la valeur ajoutée scientifique d'une architecture bi-instrumentale couplant le télescope principal, une fente spectrométrique grand champ et un spectromètre VNIR/SWIR pour déterminer les redshifts galactiques.",
+    "Sélectionner une plateforme haute stabilité (durée de vie ≥ 7.0 ans) et une suite ADCS ultra-stable permettant de maintenir le flou de bougé bien en deçà de la tache d'Airy durant des poses de plusieurs centaines de secondes.",
+    "Justifier le protocole d'étalonnage optique et de front d'onde (WFE/PSF) sous vide cryogénique."
   ],
-  "scientific_or_operational_need": "La mesure de l'ellipticité de centaines de millions de galaxies lointaines exige une optique sans distorsion thermo-élastique (qualifiée en cuve Cryo-TVAC) et une dérive de pointage inférieure à une fraction de pixel durant des poses longues de 500 secondes.",
-  "orbit_constraints_description": "Orbite héliosynchrone (SSO) Crépusculaire (Dawn-Dusk) autour de 500–600 km pour minimiser les transitions jour/éclipse, garantir une stabilité thermique passive maximale du tube optique en carbure de silicium (SiC) et viser le pôle écliptique hors de la lumière zodiacale.",
-  "conops_guidance": "Détailler la séquence d'observation cosmologique (« Step-and-Stare ») : ralliement agile vers un champ extragalactique, amortissement des vibrations des roues de réaction / micro-propulseurs, pose longue stabilisée, calibration PSF sur champs stellaires de référence, compression sans perte et vidage quotidien en bande X sur Cebreros et Kiruna.",
+  "scientific_or_operational_need": "La mesure sans biais de l'ellipticité apparente de centaines de millions de galaxies lointaines exige une optique limitée par la diffraction, dépourvue de distorsion thermo-élastique (qualifiée en cuve Cryo-TVAC ≤ 1.0 %) et associée à une dérive de pointage inférieure à une fraction de pixel durant des poses longues de 500 secondes.",
+  "orbit_constraints_description": "Orbite héliosynchrone (SSO) crépusculaire (Dawn-Dusk, 06h00 / 18h00) autour de 500–600 km pour éliminer les chocs thermiques d'entrée/sortie d'éclipse, maximiser la stabilité thermo-élastique passive du banc optique en carbure de silicium (SiC) et viser les champs profonds à l'opposé du Soleil et de la Terre.",
+  "conops_guidance": "Détailler la séquence d'observation cosmologique (« Step-and-Stare ») : ralliement vers un champ extragalactique profond hors du plan galactique, amortissement des micro-vibrations avant ouverture de l'obturateur, pose longue stabilisée de 500 s sur matrice focale, calibration périodique de la PSF sur champs stellaires de référence, compression sans perte et vidage quotidien vers Cebreros et Kiruna.",
   "deliverables_expected": [
-    "Analyse comparative entre STELLA-60 (D=0.60 m, diffraction 0.69 m, conforme budget 26.37 M€ et quota Italie 49 %) et Helios-70 (D=0.70 m, diffraction 0.58 m conforme au Goal, mais hors budget 31.83 M€ et non conforme géo-retour Italie).",
-    "Étude de l'option bi-charge utile (ajout d'une fente spectrométrique et d'un spectromètre proche infrarouge pour les redshifts) et impact sur les marges de masse, puissance et budget.",
-    "Justification de la suite ADCS retenue (arbitrage entre le seuil ±0.004° et l'objectif ±0.001° avec ADCS Ultra-Stable) et de la campagne Cryo-TVAC au CSL Liège.",
-    "Formulation d'une Demande de Dérogation (Waiver) si l'architecture privilégie la performance pure (Helios-70 ou lanceur dédié) au détriment du plafond budgétaire ou des quotas ESA."
+    "Analyse comparative des grands télescopes et des plateformes de classe moyenne/lourde disponibles vis-à-vis de la limite de diffraction, de la stabilité de pointage, de la durée de vie (≥ 7.0 ans) et des quotas ESA (Italie, France, Allemagne).",
+    "Évaluation technique et budgétaire de l'option de couplage spectroscopique (ajout d'une fente et d'un spectromètre proche infrarouge).",
+    "Justification de la chaîne ADCS ultra-stable et de la campagne d'essais sous vide cryogénique (≤ 1.0 %).",
+    "En cas de choix privilégiant l'objectif d'ouverture ≥ 0.70 m au détriment du plafond budgétaire ou des quotas industriels, rédaction d'une Demande de Dérogation argumentée à l'Onglet 9."
   ],
   "max_budget_meur": 30.0,
   "min_trl": 7,
@@ -34,7 +35,7 @@
       "threshold": 0.6,
       "goal": 0.7,
       "unit": "m",
-      "description": "Le diamètre de la pupille d'entrée du télescope doit être >= 0.60 m (objectif >= 0.70 m pour maximiser la collecte de photons des galaxies à haut redshift)."
+      "description": "Le diamètre de la pupille d'entrée du télescope doit être ≥ 0.60 m (objectif ≥ 0.70 m) pour maximiser la collecte de photons des galaxies à haut redshift."
     },
     {
       "id": "REQ-COSMO-DIFF",
@@ -45,7 +46,7 @@
       "threshold": 0.7,
       "goal": 0.58,
       "unit": "m",
-      "description": "La limite de diffraction optique (2.44 * lambda * H / D) doit être <= 0.70 m à 500 km (objectif <= 0.58 m)."
+      "description": "La tache de diffraction optique projetée de référence doit être ≤ 0.70 m (objectif ≤ 0.58 m) afin de garantir la finesse angulaire de la PSF."
     },
     {
       "id": "REQ-COSMO-POINTING",
@@ -56,7 +57,7 @@
       "threshold": 0.004,
       "goal": 0.001,
       "unit": "deg",
-      "description": "La précision de pointage 3 axes doit être <= 0.004° (objectif <= 0.001° via la suite ADCS Ultra-Stable pour éviter le flou de bougé durant les poses longues)."
+      "description": "La précision de pointage 3 axes doit être ≤ 0.004° (objectif ≤ 0.001°) avec un jitter et une dérive minimaux durant les poses longues."
     },
     {
       "id": "REQ-COSMO-CALIB",
@@ -67,7 +68,7 @@
       "threshold": 1.0,
       "goal": 0.9,
       "unit": "%",
-      "description": "L'erreur d'étalonnage radiométrique et de front d'onde sous vide cryogénique doit être <= 1.0 % (impose la campagne Cryo-TVAC au CSL Liège)."
+      "description": "L'incertitude d'étalonnage radiométrique et de qualité d'onde (WFE/PSF) sous vide cryogénique doit être ≤ 1.0 % (objectif ≤ 0.9 %)."
     },
     {
       "id": "REQ-COSMO-LIFE",
@@ -78,7 +79,7 @@
       "threshold": 7.0,
       "goal": 10.0,
       "unit": "yr",
-      "description": "La plateforme doit assurer une durée de vie nominale >= 7.0 ans pour compléter le relevé extragalactique."
+      "description": "La plateforme doit assurer une durée de vie nominale ≥ 7.0 ans (objectif ≥ 10.0 ans) pour couvrir l'intégralité du relevé extragalactique."
     }
   ],
   "ground_stations": [

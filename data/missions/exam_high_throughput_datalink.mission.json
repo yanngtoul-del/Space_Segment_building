@@ -5,21 +5,22 @@
   "image": "mission_datarate_laser.jpg",
   "domain_label": "Télécommunications Spatiales — Liaison Optique Laser Très Haut Débit (Free-Space Optical)",
   "client_agency": "Agence Spatiale Européenne (ESA) / Programme HydRON (High ThRoughput Optical Network)",
-  "context": "Face à la saturation du spectre radiofréquence (bandes X et Ka) et à l'explosion des volumes de données générés par les capteurs spatiaux de nouvelle génération, l'ESA développe le nœud optique démonstrateur OptiRelay-Laser en orbite LEO. Ce cahier des charges met l'étudiant face à un dilemme industriel et budgétaire : viser un débit descendant >= 25 Gbps (objectif >= 40 Gbps voire 100 Gbps) avec une précision de pointage plateforme <= 0.003°, une qualification du mécanisme de pointage fin (PAT) en simulateur spatial (LSS-TVAC à l'ESTEC Noordwijk, 0.52 M€) et un équilibre géographique strict entre la France, l'Allemagne et la Suisse sous 14.50 M€.",
-  "primary_objective": "Déployer un satellite relais équipé d'un terminal de télécommunication optique laser (1550 nm) garantissant un débit descendant >= 25.0 Gbps (objectif >= 40.0 Gbps) vers les stations sol optiques européennes (OGS Tenerife et Côte d'Azur), avec une marge de liaison >= 15.0 dB, un pointage ADCS <= 0.003° et une qualification PAT-TVAC (<= 2.5 %).",
+  "context": "Face à la saturation du spectre radiofréquence (bandes X et Ka) et à l'explosion des volumes de données générés par les systèmes d'observation de nouvelle génération, l'ESA développe le démonstrateur de relais optique OptiRelay-Laser en orbite basse. Ce cahier des charges confronte l'architecte à l'ingénierie des liaisons laser en espace libre (FSO à 1 550 nm) : atteindre un débit descendant ≥ 25.0 Gbps (objectif ≥ 40.0 Gbps) avec une marge de liaison ≥ 15.0 dB (objectif ≥ 35.0 dB), un cône de pré-pointage plateforme ≤ 0.003° (objectif ≤ 0.002°) et une qualification du mécanisme de pointage fin (PAT) sous vide thermique ≤ 2.6 % (objectif ≤ 2.0 %), tout en respectant l'équilibre industriel entre la France, l'Allemagne et la Suisse sous un plafond de 14.50 M€.",
+  "primary_objective": "Déployer un satellite relais équipé d'un terminal de télécommunication optique laser (1 550 nm) garantissant un débit descendant ≥ 25.0 Gbps (objectif ≥ 40.0 Gbps) vers les stations sol optiques européennes (Tenerife et Plateau de Calern), avec une marge de liaison ≥ 15.0 dB (objectif ≥ 35.0 dB), un pré-pointage ADCS ≤ 0.003° (objectif ≤ 0.002°), une qualification PAT-TVAC ≤ 2.6 % (objectif ≤ 2.0 %) et une durée de vie ≥ 6.0 ans (objectif ≥ 7.0 ans) sous 14.50 M€ TTC.",
   "secondary_objectives": [
-    "Analyser le dilemme débit vs géo-retour vs budget : le terminal français Celeste-40G (40 Gbps, 3.45 M€) permet d'atteindre l'objectif de 40 Gbps pour un coût moindre, mais combiné à une plateforme française (AstraFlex-150), il fait grimper la part française à > 90 % et viole le retour géographique allemand (30–55 %) ; à l'inverse, le terminal allemand TeraLink-100G (100 Gbps, 6.50 M€) respecte l'équilibre franco-allemand mais fait dépasser le plafond budgétaire (16.23 M€ > 14.50 M€) ; enfin, le terminal japonais Kibo-25G (4.10 M€) dépasse le plafond de 15 % hors-ESA.",
-    "Dimensionner la mémoire tampon embarquée (Mass Memory >= 1 To haute vitesse SpaceFibre) pour stocker les données en cas d'obstruction nuageuse au-dessus d'une station sol optique (site diversity).",
-    "Intégrer la qualification en vide thermique du système de pointage et poursuite laser (PAT-TVAC à l'ESTEC Noordwijk, Pays-Bas) pour garantir l'alignement sub-microradian."
+    "Analyser le bilan de liaison optique espace-sol (puissance laser émise, diamètre du télescope, divergence du faisceau limité par la diffraction et pertes de pointage) en fonction de l'altitude orbitale.",
+    "Concevoir l'architecture de pointage hiérarchique associant le pré-pointage 3 axes de la plateforme (≤ 0.003°) et la boucle d'asservissement fin (PAT) du terminal optique.",
+    "Dimensionner la mémoire tampon embarquée (Mass Memory) pour stocker les téraoctets de données en cas d'indisponibilité météorologique (couverture nuageuse) au-dessus d'une station sol optique.",
+    "Arbitrer la sélection de la plateforme, du terminal laser et des équipements vis-à-vis du plafond budgétaire de 14.50 M€ et des quotas de retour géographique ESA (France 35–60 %, Allemagne 30–55 %, Suisse 2–12 %)."
   ],
-  "scientific_or_operational_need": "Permettre le vidage d'un téraoctet de données en moins de 5 minutes lors d'un passage unique au-dessus d'une station sol optique équipée d'un télescope de 80 cm avec optique adaptative.",
-  "orbit_constraints_description": "Orbite basse (LEO / SSO) entre 450 km et 600 km d'altitude. Une altitude plus élevée allonge la durée de visibilité géométrique au-dessus des stations OGS mais accroît l'affaiblissement d'espace libre en 1/R².",
-  "conops_guidance": "Détailler la séquence d'acquisition optique (« Acquisition, Pointing & Tracking » — APT) : pré-pointage par l'ADCS plateforme (±0.003° via viseurs d'étoiles Sodern Auriga ou pack CMG), acquisition de la balise montante sol par le capteur grand champ, verrouillage de la boucle fine FSM (miroir rapide piézoélectrique) à 1 kHz, transmission cohérente 1550 nm et basculement inter-stations (Tenerife / Calern) en cas de couverture nuageuse.",
+  "scientific_or_operational_need": "Permettre le rapatriement de plusieurs téraoctets de données en quelques minutes lors d'un passage unique au-dessus d'une station sol optique européenne équipée d'un télescope récepteur de 80 cm avec optique adaptative.",
+  "orbit_constraints_description": "Orbite basse (LEO / SSO) entre 450 km et 650 km d'altitude. Une altitude plus élevée augmente la durée de visibilité par passage au-dessus des stations de Tenerife et Calern, mais accroît l'affaiblissement géométrique en 1/R² sur le bilan de liaison optique.",
+  "conops_guidance": "Détailler la séquence opérationnelle « Acquisition, Pointing & Tracking » (APT) : pré-pointage de la plateforme vers la station sol, détection de la balise laser montante, verrouillage du miroir de pointage fin (FSM) à haute bande passante, transmission cohérente à 1 550 nm et stratégie de diversité de sites (basculement Tenerife / Calern selon la nébulosité).",
   "deliverables_expected": [
-    "Comparaison chiffrée des terminaux laser (TeraLink-25G allemand à 25 Gbps, Celeste-40G français à 40 Gbps, TeraLink-100G allemand à 100 Gbps, Kibo-25G japonais) vis-à-vis du débit, du budget de 14.50 M€ et du juste retour ESA.",
-    "Justification du couplage entre l'ADCS plateforme (<= 0.003°) et la boucle de pointage fin du terminal optique, ainsi que du choix de la campagne d'essais PAT-TVAC à l'ESTEC.",
-    "Analyse de la disponibilité météo (diversité de sites entre Tenerife et Grasse/Calern) et du dimensionnement de la mémoire tampon.",
-    "En cas de choix privilégiant le débit objectif de 40 Gbps ou 100 Gbps (Celeste-40G sur bus français ou TeraLink-100G hors budget), rédiger la Demande de Dérogation (Waiver) correspondante."
+    "Étude comparative des terminaux optiques laser du catalogue (débit, marge de liaison, masse/consommation, coût et nationalité industrielle).",
+    "Justification du couplage ADCS plateforme / pointage fin PAT, du dimensionnement de la mémoire tampon et de la campagne de qualification en vide thermique.",
+    "Vérification de la conformité budgétaire (≤ 14.50 M€) et des quotas de retour géographique ESA (France, Allemagne, Suisse).",
+    "En cas de choix privilégiant un objectif étendu de débit (≥ 40 Gbps) au prix d'un dépassement budgétaire ou d'un déséquilibre géographique, rédaction d'une Demande de Dérogation argumentée à l'Onglet 9."
   ],
   "max_budget_meur": 14.5,
   "min_trl": 7,
@@ -34,7 +35,7 @@
       "threshold": 25.0,
       "goal": 40.0,
       "unit": "Gbps",
-      "description": "Le débit utile de la liaison laser espace-sol doit être >= 25.0 Gbps (objectif >= 40.0 Gbps)."
+      "description": "Le débit utile de la liaison laser espace-sol doit être ≥ 25.0 Gbps (objectif ≥ 40.0 Gbps)."
     },
     {
       "id": "REQ-LASER-MARGIN",
@@ -45,7 +46,7 @@
       "threshold": 15.0,
       "goal": 35.0,
       "unit": "dB",
-      "description": "La marge du bilan de liaison optique (pour compenser les scintillations atmosphériques et l'atténuation des cirrus fins) doit être >= 15.0 dB."
+      "description": "La marge du bilan de liaison optique à 1 550 nm doit être ≥ 15.0 dB (objectif ≥ 35.0 dB) pour absorber la scintillation atmosphérique et les cirrus fins."
     },
     {
       "id": "REQ-LASER-POINTING",
@@ -56,7 +57,7 @@
       "threshold": 0.003,
       "goal": 0.002,
       "unit": "deg",
-      "description": "L'ADCS du satellite doit assurer un pré-pointage <= 0.003° pour placer la station sol dans le champ d'acquisition du terminal optique."
+      "description": "Le système ADCS du satellite doit assurer un pré-pointage ≤ 0.003° (objectif ≤ 0.002°) afin de placer la station sol dans le cône d'acquisition du terminal optique."
     },
     {
       "id": "REQ-LASER-CALIB",
@@ -67,7 +68,7 @@
       "threshold": 2.6,
       "goal": 2.0,
       "unit": "%",
-      "description": "Le terminal laser doit être qualifié en cuve à vide thermique (PAT-TVAC <= 2.5 % à l'ESTEC) pour certifier l'absence de dérive thermo-élastique entre la voie d'émission et le capteur de poursuite."
+      "description": "Le terminal optique et son mécanisme de pointage fin (PAT) doivent être qualifiés en vide thermique avec une incertitude ≤ 2.6 % (objectif ≤ 2.0 %) pour garantir la co-axialité émission/réception."
     },
     {
       "id": "REQ-LASER-LIFE",
@@ -78,7 +79,7 @@
       "threshold": 6.0,
       "goal": 7.0,
       "unit": "yr",
-      "description": "La plateforme doit avoir une durée de vie nominale >= 6.0 ans."
+      "description": "La plateforme doit présenter une durée de vie nominale ≥ 6.0 ans (objectif ≥ 7.0 ans)."
     }
   ],
   "ground_stations": [

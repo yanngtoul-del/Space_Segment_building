@@ -5,21 +5,22 @@
   "image": "mission_eo_light.jpg",
   "domain_label": "Observation de la Terre — Imagerie Multispectrale Légère & Agriculture de Précision",
   "client_agency": "Start-up Européenne d'AgriTech / Appel à Projets NewSpace Rapide",
-  "context": "Une jeune pousse européenne d'agriculture de précision souhaite déployer le premier satellite tête de série d'une future constellation de suivi hydrique et parcellaire. Le budget d'investissement (CAPEX) est strictement plafonné à 2.35 M€ tout compris (satellite, options, étalonnage sol et lancement). Ce cahier des charges place l'ingénieur face aux compromis classiques du NewSpace : choisir entre un CubeSat 12U/16U (durée de vie 3.0 ans, capacité charge utile 8–10 kg) et un micro-satellite ESPA-60 (durée de vie 4.0 ans, mais hors budget à > 3.6 M€), et arbitrer entre l'étalonnage TVAC optique complet (+0.48 M€, incertitude 1.8 %) et l'étalonnage standard en salle blanche ISO 5 (+0.12 M€, incertitude 5.5 %).",
-  "primary_objective": "Concevoir un nanosatellite d'observation optique multispectrale en orbite SSO délivrant un GSD <= 2.80 m (objectif <= 1.60 m), une fauchée >= 18.0 km (objectif >= 45.0 km), un SNR >= 80, un étalonnage radiométrique <= 2.0 % (TVAC) et une durée de vie >= 3.0 ans (objectif >= 4.0 ans) sous une enveloppe globale <= 2.35 M€.",
+  "context": "Une jeune pousse européenne d'agriculture de précision souhaite déployer le premier satellite démonstrateur tête de série d'une future constellation de suivi hydrique et parcellaire. Le budget d'investissement (CAPEX) est strictement plafonné à 2.35 M€ tout compris (plateforme, charge utile, options sous-systèmes, campagne d'étalonnage au sol et lancement). Ce cahier des charges place l'architecte devant les compromis fondamentaux du NewSpace : arbitrer entre résolution spatiale au nadir (seuil GSD ≤ 2.80 m, objectif ≤ 1.60 m), largeur de fauchée au sol (seuil ≥ 18.0 km, objectif ≥ 45.0 km), rapport signal-sur-bruit (seuil SNR ≥ 80, objectif ≥ 120), précision de pointage ADCS (≤ 0.06°, objectif ≤ 0.03°), qualité d'étalonnage radiométrique au sol (≤ 2.0 % en vide thermique, objectif ≤ 1.8 %) et durée de vie nominale (seuil ≥ 3.0 ans, objectif ≥ 4.0 ans).",
+  "primary_objective": "Concevoir un nanosatellite ou microsatellite d'observation optique multispectrale en orbite héliosynchrone (SSO) respectant l'ensemble des exigences techniques et programmatiques : résolution spatiale au nadir GSD ≤ 2.80 m (objectif ≤ 1.60 m), largeur de fauchée au sol ≥ 18.0 km (objectif ≥ 45.0 km), rapport signal-sur-bruit SNR ≥ 80 (objectif ≥ 120), précision de pointage ADCS ≤ 0.06° (objectif ≤ 0.03°), incertitude d'étalonnage radiométrique ≤ 2.0 % (objectif ≤ 1.8 %) et durée de vie plateforme ≥ 3.0 ans (objectif ≥ 4.0 ans), sous une enveloppe globale ≤ 2.35 M€ TTC.",
   "secondary_objectives": [
-    "Analyser l'incompatibilité entre le plafond budgétaire de 2.35 M€ et les objectifs étendus (Goals) : viser GSD <= 1.60 m (STELLA-20, 11 kg) ou Fauchée >= 45 km (WideView-18, 9.5 kg) ou une durée de vie de 4.0 ans impose de quitter la plateforme CubeSat 12U (max 8 kg, 3.0 ans) pour une plateforme MicroBus-16U (3.32 M€) ou ESPA-60 (> 3.6 M€) qui dépasse le budget ou dégrade le GSD.",
-    "Arbitrer la stratégie AIT / Calibration au sol : démontrer que sur un budget de 2.35 M€, la campagne TVAC Optique complète chez Intespace (0.48 M€, incertitude 1.8 %) passe tout juste sur MicroBus-12U + CompactPan-12 (coût total 2.30 M€ avec TVAC contre 1.94 M€ en salle blanche ambiante ISO 5 à 5.5 %), et analyser l'impact du choix TT&C sur la marge de puissance électrique du bus 12U (marge serrée de 4.5 % avec l'émetteur bande S standard contre 50.0 % en UHF).",
-    "Optimiser le choix du service de lancement (Déployeur CubeSat P-POD/QuadPack vs Rideshare SSO)."
+    "Étudier le compromis géométrique lié au choix de l'altitude orbitale SSO et des paramètres optiques (focale, pas de pixel, nombre de pixels cross-track) entre résolution spatiale au nadir et largeur de fauchée au sol.",
+    "Analyser le mode d'acquisition du plan focal (capteur matriciel 2D Frame vs barrette linéaire Push-Broom avec ou sans TDI) et ses conséquences sur les exigences de stabilité d'attitude ADCS et sur le rapport signal-sur-bruit.",
+    "Évaluer la tension entre la classe de plateforme (nanosatellite CubeSat vs microsatellite), les objectifs étendus de performance (résolution sub-2 m, très large fauchée ou durée de vie ≥ 4 ans), le bilan de puissance électrique en orbite et le plafond budgétaire.",
+    "Arbitrer la stratégie d'étalonnage radiométrique au sol (campagne en cuve à vide thermique TVAC vs étalonnage en salle blanche à pression ambiante) au regard de la dérive thermo-élastique en orbite et du budget disponible."
   ],
-  "scientific_or_operational_need": "Fournir des cartes hebdomadaires d'indice de végétation (NDVI) à l'échelle intra-parcellaire (< 3 m) sur les grandes plaines céréalières européennes à un coût par satellite compatible d'une constellation de 12 unités.",
-  "orbit_constraints_description": "Orbite héliosynchrone (SSO) entre 450 km et 550 km d'altitude. À 500 km, l'imageur CompactPan-12 (D=12 cm, f=1.05 m, 4.5 kg) fournit un GSD de 2.62 m et une fauchée de 20.95 km. Baisser l'altitude à 420 km améliore le GSD à 2.20 m mais réduit la fauchée à 17.6 km (< 18 km requis !).",
-  "conops_guidance": "Détailler le profil opérationnel d'un CubeSat 12U : acquisitions diurnes programmées sur les zones agricoles, gestion stricte du bilan énergétique en éclipse (capacité batterie réduite sur 12U), stockage sur mémoire flash 64 Go ou 512 Go, et téléchargement des vignettes compressées.",
+  "scientific_or_operational_need": "Fournir des cartes hebdomadaires d'indice de végétation (NDVI) et de stress hydrique à l'échelle intra-parcellaire (GSD ≤ 2.80 m) sur les grandes plaines céréalières européennes avec une fauchée minimale de 18.0 km et une radiométrie absolue maîtrisée (≤ 2.0 %), à un coût unitaire compatible avec le déploiement ultérieur d'une constellation commerciale.",
+  "orbit_constraints_description": "Orbite basse héliosynchrone (SSO) recommandée entre 400 km et 600 km d'altitude pour garantir un éclairement solaire constant lors des prises de vue agronomiques. L'architecte devra déterminer la fenêtre d'altitude optimale permettant de concilier le seuil de résolution spatiale (GSD proportionnel à H/f) et la largeur de fauchée minimale (proportionnelle à N_pix × GSD).",
+  "conops_guidance": "Décrire le profil opérationnel sur une orbite type : programmation des prises de vue diurnes au nadir sur les bassins agricoles, mode de balayage du capteur (Push-Broom ou clichés matriciels), gestion de la profondeur de décharge batterie en éclipse, stockage bord sur mémoire flash et téléchargement des scènes compressées lors des passages au-dessus des stations sol de Toulouse et Delft.",
   "deliverables_expected": [
-    "Justification du dimensionnement CubeSat 12U + CompactPan-12 face aux alternatives MicroBus-16U + WideView-18 (GSD 3.61 m > 2.80 m et coût 3.32 M€) et MicroBus-ESPA60 + STELLA-20 (hors budget > 3.6 M€).",
-    "Arbitrage technico-économique entre la calibration TVAC Optique (0.48 M€, 1.8 % conforme à REQ-LIGHT-CALIB) et la calibration Salle Blanche ISO 5 (0.12 M€, 5.5 % nécessitant une Demande de Dérogation mais économisant 0.36 M€).",
-    "Analyse du compromis sur le sous-système TT&C / liaison descendante vis-à-vis de la marge de puissance électrique du bus 12U (22 W disponibles : 50.0 % de marge en UHF contre 4.5 % en bande S).",
-    "En cas de choix privilégiant la durée de vie de 4 ans (ESPA-60), la fauchée de 57.8 km (WideView-18) ou la calibration ISO 5 à bas coût, rédiger une Demande de Dérogation (Waiver) justifiée."
+    "Justification paramétrique du choix de l'altitude SSO et de la charge utile optique retenue (analyse croisée GSD, fauchée, SNR, architecture capteur Push-Broom/Matriciel et bilan SWaP).",
+    "Dimensionnement de la plateforme et des équipements sous-systèmes (ADCS, mémoire de masse, télémesure/descente de données, propulsion éventuelle) avec vérification des marges de masse et de puissance électrique.",
+    "Justification technico-économique de la campagne d'étalonnage au sol et du service de lancement retenus dans l'enveloppe de 2.35 M€.",
+    "En cas de non-conformité résiduelle résultant d'un arbitrage délibéré (dépassement budgétaire pour viser un objectif étendu, compromis sur la fauchée ou sur le protocole d'étalonnage sol), rédaction d'une Demande de Dérogation (Request for Waiver) argumentée à l'Onglet 9."
   ],
   "max_budget_meur": 2.35,
   "min_trl": 8,
@@ -34,7 +35,7 @@
       "threshold": 2.8,
       "goal": 1.6,
       "unit": "m",
-      "description": "Le GSD au nadir doit être <= 2.80 m (objectif <= 1.60 m). Note : descendre sous 1.60 m exige un télescope >= 20 cm (> 11 kg) incompatible avec un CubeSat 12U."
+      "description": "La distance d'échantillonnage au sol (GSD) au nadir doit être ≤ 2.80 m (objectif ≤ 1.60 m) afin de résoudre l'hétérogénéité intra-parcellaire."
     },
     {
       "id": "REQ-LIGHT-SWATH",
@@ -45,7 +46,7 @@
       "threshold": 18.0,
       "goal": 45.0,
       "unit": "km",
-      "description": "La fauchée au nadir doit être >= 18.0 km (interdit d'abaisser l'altitude SSO sous 430 km avec CompactPan-12)."
+      "description": "La largeur de fauchée au nadir doit être ≥ 18.0 km (objectif ≥ 45.0 km) pour assurer la couverture hebdomadaire des bassins agricoles."
     },
     {
       "id": "REQ-LIGHT-SNR",
@@ -56,7 +57,7 @@
       "threshold": 80.0,
       "goal": 120.0,
       "unit": "ratio",
-      "description": "Le SNR au nadir doit être >= 80 pour garantir la précision radiométrique des indices végétatifs NDVI."
+      "description": "Le rapport signal-sur-bruit au nadir doit être ≥ 80 (objectif ≥ 120) pour garantir la qualité radiométrique des indices végétatifs."
     },
     {
       "id": "REQ-LIGHT-POINT",
@@ -67,7 +68,7 @@
       "threshold": 0.06,
       "goal": 0.03,
       "unit": "deg",
-      "description": "La précision de pointage doit être <= 0.06° (requiert au minimum le pack ADCS CubeSat Précision ±0.05°)."
+      "description": "La précision de pointage 3 axes du système ADCS doit être ≤ 0.06° (objectif ≤ 0.03°) et sa stabilité compatible avec le temps d'intégration du capteur."
     },
     {
       "id": "REQ-LIGHT-CALIB",
@@ -78,7 +79,7 @@
       "threshold": 2.0,
       "goal": 1.8,
       "unit": "%",
-      "description": "L'incertitude radiométrique doit être <= 2.0 % pour fiabiliser les séries NDVI (impose la campagne TVAC Optique à 0.48 M€, 1.8 % ; choisir la salle blanche ISO 5 à 0.12 M€, 5.5 %, exige une Demande de Dérogation)."
+      "description": "L'incertitude radiométrique absolue certifiée au sol doit être ≤ 2.0 % (objectif ≤ 1.8 %) afin d'assurer la comparabilité multi-temporelle des mesures."
     },
     {
       "id": "REQ-LIGHT-LIFE",
@@ -89,7 +90,7 @@
       "threshold": 3.0,
       "goal": 4.0,
       "unit": "yr",
-      "description": "La durée de vie de la plateforme doit être >= 3.0 ans (objectif >= 4.0 ans, mais le passage sur ESPA-60 dépasse le plafond de 2.35 M€)."
+      "description": "La durée de vie nominale de la plateforme doit être ≥ 3.0 ans (objectif ≥ 4.0 ans)."
     }
   ],
   "ground_stations": [

@@ -21,10 +21,15 @@ def test_enriched_catalog_counts_and_datasheets():
     assert len(db.launchers) >= 8
 
     plat_suppliers = db.suppliers_for("platform")
-    assert len(plat_suppliers) == 5
+    assert len(plat_suppliers) >= 10
+    major_suppliers = 0
     for sup in plat_suppliers:
         items = db.items_by_supplier(sup.id, "platform")
-        assert len(items) >= 3, f"Supplier {sup.id} should have at least 3 platforms"
+        assert len(items) >= 1, f"Supplier {sup.id} should have at least 1 platform"
+        if len(items) >= 3:
+            major_suppliers += 1
+    assert major_suppliers >= 5
+    assert len(db.platforms) >= 26
 
     # Every payload type must have at least 4 distinct suppliers (and SAR / radio_comm at least 5)
     suppliers_by_ptype: dict[str, set[str]] = {}
@@ -392,7 +397,7 @@ def test_student_and_teacher_gui_offscreen():
     assert win.current_budgets is not None
     assert win.cmb_preset_missions.count() >= 6
     assert win.browser_payloads.list_suppliers.count() >= 19
-    assert win.browser_platforms.list_suppliers.count() == 6
+    assert win.browser_platforms.list_suppliers.count() >= 11
 
     # Verify each payload sub-category filter in the UI displays >= 4 suppliers (+ "Tous les fournisseurs")
     for idx in range(1, win.browser_payloads.cmb_type.count()):

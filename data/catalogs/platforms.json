@@ -2940,5 +2940,1460 @@
         "interface_mass_kg": 0.2
       }
     ]
+  },
+  {
+    "id": "plat_nordic_3u",
+    "supplier_id": "nordic_nanocomm",
+    "supplier_name": "Nordic NanoComm Systems",
+    "name": "NordicCube-3U NanoBus",
+    "category": "cubesat_3u",
+    "description": "Plateforme CubeSat 3U ultra-légère pour démonstrateurs IoT, AIS et petits capteurs en orbite basse",
+    "dry_mass_kg": 2.2,
+    "max_payload_mass_kg": 2.2,
+    "max_launch_mass_kg": 5.5,
+    "payload_volume_liters": 1.8,
+    "dimensions_mm": [
+      340.0,
+      100.0,
+      100.0
+    ],
+    "deployed_span_m": 0.75,
+    "orbit_avg_power_w": 14.0,
+    "payload_avg_power_w": 8.0,
+    "payload_peak_power_w": 18.0,
+    "bus_voltage_v": 12.0,
+    "battery_capacity_wh": 42.0,
+    "battery_max_dod": 0.25,
+    "pointing_accuracy_deg": 0.8,
+    "pointing_stability_arcsec_s": 45.0,
+    "slew_rate_deg_s": 1.5,
+    "jitter_arcsec": 20.0,
+    "payload_thermal_dissipation_w": 10.0,
+    "base_price_meur": 0.16,
+    "base_lead_time_months": 5,
+    "design_lifetime_years": 2.0,
+    "rad_tolerance_krad": 10.0,
+    "trl": 9,
+    "launch_environment_compatible": [
+      "Falcon9_Rideshare",
+      "VegaC_SSMS",
+      "Electron"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "prop_coldgas_1u"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 5.0
+      },
+      {
+        "function": "ttc",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "ttc_uhf_cubesat",
+          "ttc_sband_transceiver"
+        ],
+        "included_equipment_ids": [
+          "ttc_uhf_cubesat"
+        ],
+        "integration_cost_fixed_meur": 0.01,
+        "integration_cost_pct": 5.0
+      },
+      {
+        "function": "payload_downlink",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "downlink_sband_hr"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 5.0
+      },
+      {
+        "function": "mass_memory",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "mass_mem_64gb"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_64gb"
+        ],
+        "integration_cost_fixed_meur": 0.01,
+        "integration_cost_pct": 0.0
+      },
+      {
+        "function": "adcs",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "adcs_cubesat_basic",
+          "adcs_cubesat_precision"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 5.0
+      },
+      {
+        "function": "optical_interface",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "opt_slit_micro_nanosat"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 5.0
+      }
+    ],
+    "image": "platform_cubesat.jpg",
+    "long_description": "Plateforme CubeSat 3U scandinave d'entrée de gamme développée en Suède pour les démonstrations technologiques universitaires, la collecte maritime AIS et l'IoT léger. Elle offre 1,8 U de volume utile (jusqu'à 2,2 kg) et 8 W de puissance moyenne pour un coût basal imbattable de 0,16 M€, mais sa taille et sa durée de vie nominale de 2,0 ans limitent son usage aux charges utiles ultra-compactes.",
+    "key_features": [
+      "Format CubeSat 3U (2,2 kg sec), baie charge utile 1,8 L / 2,2 kg",
+      "8 W moyens pour la charge utile, batterie 42 Wh",
+      "Transpondeur UHF et mémoire 64 Go inclus de série",
+      "Idéale pour récepteurs SDR AIS/IoT ou caméra 1,2U à budget minimal"
+    ],
+    "interfaces": [
+      "Bus PC/104 CubeSat (5 V / 12 V)",
+      "Interfaces I2C, SPI, UART, CAN",
+      "Compatible déployeurs 3U/6U standardisés"
+    ]
+  },
+  {
+    "id": "plat_nordic_12u_hp",
+    "supplier_id": "nordic_nanocomm",
+    "supplier_name": "Nordic NanoComm Systems",
+    "name": "NordicCube-12U High-Power",
+    "category": "cubesat_12u",
+    "description": "Plateforme CubeSat 12U scandinave à panneaux solaires déployables double-face (38 W CU, 3,5 ans)",
+    "dry_mass_kg": 9.5,
+    "max_payload_mass_kg": 9.5,
+    "max_launch_mass_kg": 22.0,
+    "payload_volume_liters": 7.5,
+    "dimensions_mm": [
+      226.0,
+      226.0,
+      340.0
+    ],
+    "deployed_span_m": 1.35,
+    "orbit_avg_power_w": 58.0,
+    "payload_avg_power_w": 38.0,
+    "payload_peak_power_w": 85.0,
+    "bus_voltage_v": 28.0,
+    "battery_capacity_wh": 165.0,
+    "battery_max_dod": 0.25,
+    "pointing_accuracy_deg": 0.08,
+    "pointing_stability_arcsec_s": 10.0,
+    "slew_rate_deg_s": 2.0,
+    "jitter_arcsec": 4.0,
+    "payload_thermal_dissipation_w": 42.0,
+    "base_price_meur": 0.62,
+    "base_lead_time_months": 7,
+    "design_lifetime_years": 3.5,
+    "rad_tolerance_krad": 18.0,
+    "trl": 9,
+    "launch_environment_compatible": [
+      "Falcon9_Rideshare",
+      "VegaC_SSMS",
+      "Electron"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "prop_coldgas_1u",
+          "prop_coldgas_10u",
+          "prop_pptt_micro"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.04,
+        "integration_cost_pct": 8.0
+      },
+      {
+        "function": "ttc",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "ttc_uhf_cubesat",
+          "ttc_sband_transceiver",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_transceiver"
+        ],
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 5.0
+      },
+      {
+        "function": "payload_downlink",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "downlink_sband_hr",
+          "downlink_xband_tx_50mbps",
+          "downlink_xband_tx_150mbps"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.04,
+        "integration_cost_pct": 8.0
+      },
+      {
+        "function": "mass_memory",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "mass_mem_64gb",
+          "mass_mem_512gb"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_64gb"
+        ],
+        "integration_cost_fixed_meur": 0.02,
+        "integration_cost_pct": 5.0
+      },
+      {
+        "function": "adcs",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "adcs_cubesat_basic",
+          "adcs_cubesat_precision"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.04,
+        "integration_cost_pct": 8.0
+      },
+      {
+        "function": "optical_interface",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "opt_slit_micro_nanosat",
+          "opt_slit_std_vnir"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.03,
+        "integration_cost_pct": 5.0
+      }
+    ],
+    "image": "platform_cubesat.jpg",
+    "long_description": "Version haute puissance du bus 12U développée en Suède par Nordic NanoComm Systems. Dotée de panneaux solaires articulés délivrant 38 W moyens pour la charge utile (contre 22 W sur un 12U standard) et d'une capacité d'emport de 9,5 kg, elle permet d'alimenter confortablement un transpondeur bande S, un émetteur bande X et un imageur compact ou une charge utile IoT gourmande avec une durée de vie nominale de 3,5 ans.",
+    "key_features": [
+      "Génération solaire renforcée : 58 W orbite / 38 W disponibles pour CU + options",
+      "Capacité charge utile 9,5 kg / 7,5 L (compatible imageurs 12–18 cm et IoT lourd)",
+      "Durée de vie nominale 3,5 ans, transpondeur bande S inclus",
+      "Filière industrielle suédoise (ESA)"
+    ],
+    "interfaces": [
+      "Bus 28 V régulé + rails 5 V / 12 V",
+      "SpaceWire, CAN, RS-422, LVDS",
+      "Compatible déployeur CubePod 12U/16U"
+    ]
+  },
+  {
+    "id": "plat_ital_argocube_27u",
+    "supplier_id": "stellare_ottica",
+    "supplier_name": "Stellara Ottica",
+    "name": "ArgoBus-27U Heavy NanoSat",
+    "category": "cubesat_27u",
+    "description": "Grand nanosatellite 27U italien optimisé pour l'optique compacte (jusqu'à 18 kg de CU, 4,5 ans)",
+    "dry_mass_kg": 18.0,
+    "max_payload_mass_kg": 18.0,
+    "max_launch_mass_kg": 40.0,
+    "payload_volume_liters": 15.0,
+    "dimensions_mm": [
+      340.0,
+      340.0,
+      340.0
+    ],
+    "deployed_span_m": 1.65,
+    "orbit_avg_power_w": 82.0,
+    "payload_avg_power_w": 52.0,
+    "payload_peak_power_w": 120.0,
+    "bus_voltage_v": 28.0,
+    "battery_capacity_wh": 240.0,
+    "battery_max_dod": 0.25,
+    "pointing_accuracy_deg": 0.03,
+    "pointing_stability_arcsec_s": 3.5,
+    "slew_rate_deg_s": 2.2,
+    "jitter_arcsec": 1.5,
+    "payload_thermal_dissipation_w": 55.0,
+    "base_price_meur": 1.1,
+    "base_lead_time_months": 9,
+    "design_lifetime_years": 4.5,
+    "rad_tolerance_krad": 22.0,
+    "trl": 8,
+    "launch_environment_compatible": [
+      "Falcon9_Rideshare",
+      "VegaC_SSMS",
+      "OrbitalShare"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "prop_coldgas_10u",
+          "prop_pptt_micro",
+          "prop_green_5n",
+          "prop_electric_hall_100w"
+        ],
+        "included_equipment_ids": [
+          "prop_coldgas_10u"
+        ],
+        "integration_cost_fixed_meur": 0.06,
+        "integration_cost_pct": 8.0
+      },
+      {
+        "function": "ttc",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "ttc_sband_transceiver",
+          "ttc_sband_aurora_it",
+          "ttc_sband_gallia_fr"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_aurora_it"
+        ],
+        "integration_cost_fixed_meur": 0.03,
+        "integration_cost_pct": 5.0
+      },
+      {
+        "function": "payload_downlink",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "downlink_sband_hr",
+          "downlink_xband_tx_50mbps",
+          "downlink_xband_tx_150mbps",
+          "downlink_xband_tx",
+          "downlink_xband_milan_it"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.05,
+        "integration_cost_pct": 8.0
+      },
+      {
+        "function": "mass_memory",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "mass_mem_64gb",
+          "mass_mem_512gb",
+          "mass_mem_1tb"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_512gb"
+        ],
+        "integration_cost_fixed_meur": 0.04,
+        "integration_cost_pct": 5.0
+      },
+      {
+        "function": "adcs",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "adcs_cubesat_precision",
+          "adcs_high_accuracy_pack",
+          "adcs_leonardo_pack_it"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.06,
+        "integration_cost_pct": 8.0
+      },
+      {
+        "function": "optical_interface",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "opt_slit_micro_nanosat",
+          "opt_slit_std_vnir",
+          "opt_slit_athermal_ghg"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.04,
+        "integration_cost_pct": 5.0
+      }
+    ],
+    "image": "platform_cubesat.jpg",
+    "long_description": "Plateforme nanosatellite lourde de format 27U (340 × 340 × 340 mm) développée en Italie par Stellara Ottica (inspirée d'Argotec ArgoMoon / LICIACube et des bus PLATiNO compacts). Elle comble le fossé entre les CubeSats 16U et les microsatellites ESPA : capable d'accueillir un télescope de 20 à 25 cm (jusqu'à 18 kg et 15 L) avec une précision de pointage native de 0,03° et une durée de vie de 4,5 ans.",
+    "key_features": [
+      "Format cubique 27U offrant 15 L et 18 kg de capacité charge utile",
+      "Pointage natif 0,03° optimisé pour télescopes compacts 18–25 cm",
+      "Propulsion gaz froid 10U, TT&C bande S italien et mémoire 512 Go inclus",
+      "Durée de vie 4,5 ans (excellente contribution au retour géographique italien)"
+    ],
+    "interfaces": [
+      "Bus 28 V régulé",
+      "SpaceWire, SpaceFibre, CAN",
+      "Interface anneau léger Rideshare ou déployeur 27U"
+    ]
+  },
+  {
+    "id": "plat_iberia_micro90",
+    "supplier_id": "space_avionics",
+    "supplier_name": "Starlight Avionics",
+    "name": "IberiaSat-90 Agile MicroBus",
+    "category": "smallsat_90kg",
+    "description": "Microsatellite espagnol de classe 90 kg à avionique intégrée pour imagerie optique et télécoms LEO",
+    "dry_mass_kg": 48.0,
+    "max_payload_mass_kg": 42.0,
+    "max_launch_mass_kg": 100.0,
+    "payload_volume_liters": 48.0,
+    "dimensions_mm": [
+      620.0,
+      580.0,
+      680.0
+    ],
+    "deployed_span_m": 2.1,
+    "orbit_avg_power_w": 145.0,
+    "payload_avg_power_w": 95.0,
+    "payload_peak_power_w": 220.0,
+    "bus_voltage_v": 28.0,
+    "battery_capacity_wh": 460.0,
+    "battery_max_dod": 0.25,
+    "pointing_accuracy_deg": 0.012,
+    "pointing_stability_arcsec_s": 1.2,
+    "slew_rate_deg_s": 2.4,
+    "jitter_arcsec": 0.8,
+    "payload_thermal_dissipation_w": 85.0,
+    "base_price_meur": 2.65,
+    "base_lead_time_months": 12,
+    "design_lifetime_years": 5.0,
+    "rad_tolerance_krad": 28.0,
+    "trl": 9,
+    "launch_environment_compatible": [
+      "Falcon9_Rideshare",
+      "VegaC_SSMS",
+      "OrbitalShare",
+      "Borealis_Dedicated"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "prop_coldgas_10u",
+          "prop_green_5n",
+          "prop_electric_hall_100w",
+          "prop_electric_hall_300w",
+          "prop_electric_hemp_de"
+        ],
+        "included_equipment_ids": [
+          "prop_green_5n"
+        ],
+        "integration_cost_fixed_meur": 0.12,
+        "integration_cost_pct": 8.0
+      },
+      {
+        "function": "ttc",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "ttc_sband_transceiver",
+          "ttc_sband_dual_redundant",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_transceiver"
+        ],
+        "integration_cost_fixed_meur": 0.05,
+        "integration_cost_pct": 5.0
+      },
+      {
+        "function": "payload_downlink",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "downlink_xband_tx_150mbps",
+          "downlink_xband_tx",
+          "downlink_xband_milan_it",
+          "downlink_xband_toulouse_fr"
+        ],
+        "included_equipment_ids": [
+          "downlink_xband_tx_150mbps"
+        ],
+        "integration_cost_fixed_meur": 0.08,
+        "integration_cost_pct": 8.0
+      },
+      {
+        "function": "mass_memory",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "mass_mem_512gb",
+          "mass_mem_1tb",
+          "mass_mem_2tb_highrel",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_de",
+          "mass_mem_1tb_ch"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_512gb"
+        ],
+        "integration_cost_fixed_meur": 0.06,
+        "integration_cost_pct": 5.0
+      },
+      {
+        "function": "adcs",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "adcs_high_accuracy_pack",
+          "adcs_agile_wheels_medium",
+          "adcs_sodern_auriga_fr",
+          "adcs_leonardo_pack_it"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.1,
+        "integration_cost_pct": 8.0
+      },
+      {
+        "function": "optical_interface",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "opt_slit_std_vnir",
+          "opt_slit_athermal_ghg",
+          "opt_slit_wide_mapper"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.05,
+        "integration_cost_pct": 5.0
+      }
+    ],
+    "image": "platform_smallsat.jpg",
+    "long_description": "Plateforme microsatellite agile de 48 kg à sec développée à Madrid par Starlight Avionics (inspirée des plateformes espagnoles SENER / Satlantis / Deimos). Capable d'emporter jusqu'à 42 kg de charge utile (télescope de 35 cm, chaîne spectrométrique légère ou terminal QKD/laser) pour un prix de base très compétitif de 2,65 M€, elle constitue un levier idéal pour équilibrer les retours géographiques espagnols et européens.",
+    "key_features": [
+      "Capacité charge utile 42 kg / 48 L pour une masse sèche contenue à 48 kg",
+      "95 W moyens pour la charge utile, durée de vie nominale 5,0 ans",
+      "Propulsion verte 5 N, TT&C bande S, émetteur X 150 Mbps et mémoire 512 Go inclus",
+      "Filière industrielle espagnole (ESA)"
+    ],
+    "interfaces": [
+      "Bus 28 V régulé",
+      "SpaceWire, SpaceFibre, CAN, MIL-STD-1553",
+      "Anneau de séparation ESPA 15 pouces"
+    ]
+  },
+  {
+    "id": "plat_ital_platino100",
+    "supplier_id": "med_radar_ital",
+    "supplier_name": "Alba Spazio Radar",
+    "name": "AlbaBus-100 All-Electric MicroSat",
+    "category": "smallsat_100kg",
+    "description": "Plateforme microsatellite italienne 100 kg tout-électrique haute stabilité (inspirée de PLATiNO ASI)",
+    "dry_mass_kg": 58.0,
+    "max_payload_mass_kg": 55.0,
+    "max_launch_mass_kg": 125.0,
+    "payload_volume_liters": 62.0,
+    "dimensions_mm": [
+      700.0,
+      650.0,
+      800.0
+    ],
+    "deployed_span_m": 2.4,
+    "orbit_avg_power_w": 175.0,
+    "payload_avg_power_w": 115.0,
+    "payload_peak_power_w": 280.0,
+    "bus_voltage_v": 28.0,
+    "battery_capacity_wh": 580.0,
+    "battery_max_dod": 0.25,
+    "pointing_accuracy_deg": 0.008,
+    "pointing_stability_arcsec_s": 0.9,
+    "slew_rate_deg_s": 2.5,
+    "jitter_arcsec": 0.6,
+    "payload_thermal_dissipation_w": 100.0,
+    "base_price_meur": 3.2,
+    "base_lead_time_months": 13,
+    "design_lifetime_years": 5.5,
+    "rad_tolerance_krad": 30.0,
+    "trl": 9,
+    "launch_environment_compatible": [
+      "Falcon9_Rideshare",
+      "VegaC_SSMS",
+      "OrbitalShare",
+      "Borealis_Dedicated"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "prop_electric_hall_100w",
+          "prop_electric_hall_300w",
+          "prop_electric_hemp_de",
+          "prop_green_5n",
+          "prop_monoprop_1n"
+        ],
+        "included_equipment_ids": [
+          "prop_electric_hall_100w"
+        ],
+        "integration_cost_fixed_meur": 0.12,
+        "integration_cost_pct": 8.0
+      },
+      {
+        "function": "ttc",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "ttc_sband_aurora_it",
+          "ttc_sband_transceiver",
+          "ttc_sband_dual_redundant",
+          "ttc_sband_gallia_fr"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_aurora_it"
+        ],
+        "integration_cost_fixed_meur": 0.05,
+        "integration_cost_pct": 5.0
+      },
+      {
+        "function": "payload_downlink",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "downlink_xband_tx_150mbps",
+          "downlink_xband_tx",
+          "downlink_xband_milan_it",
+          "downlink_xband_toulouse_fr",
+          "downlink_kaband_tx_2gbps"
+        ],
+        "included_equipment_ids": [
+          "downlink_xband_milan_it"
+        ],
+        "integration_cost_fixed_meur": 0.08,
+        "integration_cost_pct": 8.0
+      },
+      {
+        "function": "mass_memory",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "mass_mem_512gb",
+          "mass_mem_1tb",
+          "mass_mem_2tb_highrel",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_de",
+          "mass_mem_1tb_ch"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_1tb"
+        ],
+        "integration_cost_fixed_meur": 0.08,
+        "integration_cost_pct": 5.0
+      },
+      {
+        "function": "adcs",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "adcs_high_accuracy_pack",
+          "adcs_leonardo_pack_it",
+          "adcs_sodern_auriga_fr",
+          "adcs_agile_wheels_medium",
+          "adcs_cmg_agility_pack"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.12,
+        "integration_cost_pct": 8.0
+      },
+      {
+        "function": "optical_interface",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "opt_slit_std_vnir",
+          "opt_slit_athermal_ghg",
+          "opt_slit_wide_mapper"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.06,
+        "integration_cost_pct": 5.0
+      }
+    ],
+    "image": "platform_smallsat.jpg",
+    "long_description": "Plateforme microsatellite italienne tout-électrique de classe 100 kg développée sous l'égide de l'Agence Spatiale Italienne (inspirée de SITAEL / Thales Alenia Space PLATiNO). Équipée de série d'un propulseur à effet Hall de 100 W, d'un émetteur bande X italien à 600 Mbit/s et d'un enregistreur de 1 To, elle accueille jusqu'à 55 kg de charge utile (télescopes sub-métriques de 35 à 45 cm, spectromètres ou terminaux laser/QKD) pour une durée de vie de 5,5 ans.",
+    "key_features": [
+      "Capacité charge utile 55 kg / 62 L, puissance CU 115 W moyens",
+      "Pointage de base 0,008° (extensible à 0,003° avec pack ADCS)",
+      "Propulseur Hall 100 W, émetteur X 600 Mbps italien et SSR 1 To inclus de série",
+      "Durée de vie 5,5 ans, maîtrise d'œuvre italienne (ASI/ESA)"
+    ],
+    "interfaces": [
+      "Bus 28 V régulé",
+      "SpaceWire, SpaceFibre, MIL-STD-1553B, CAN",
+      "Compatible Vega-C SSMS et Rideshare ESPA"
+    ]
+  },
+  {
+    "id": "plat_bavaria_reflex180",
+    "supplier_id": "euro_sar_prime",
+    "supplier_name": "Aegis Radar & Defense",
+    "name": "BavariaBus-180 High-Density",
+    "category": "smallsat_180kg",
+    "description": "Plateforme microsatellite allemande 180 kg à forte densité énergétique (260 W CU, 7,0 ans)",
+    "dry_mass_kg": 95.0,
+    "max_payload_mass_kg": 90.0,
+    "max_launch_mass_kg": 210.0,
+    "payload_volume_liters": 115.0,
+    "dimensions_mm": [
+      880.0,
+      820.0,
+      1020.0
+    ],
+    "deployed_span_m": 3.4,
+    "orbit_avg_power_w": 380.0,
+    "payload_avg_power_w": 260.0,
+    "payload_peak_power_w": 650.0,
+    "bus_voltage_v": 28.0,
+    "battery_capacity_wh": 1150.0,
+    "battery_max_dod": 0.25,
+    "pointing_accuracy_deg": 0.006,
+    "pointing_stability_arcsec_s": 0.6,
+    "slew_rate_deg_s": 2.6,
+    "jitter_arcsec": 0.5,
+    "payload_thermal_dissipation_w": 210.0,
+    "base_price_meur": 5.1,
+    "base_lead_time_months": 15,
+    "design_lifetime_years": 7.0,
+    "rad_tolerance_krad": 40.0,
+    "trl": 9,
+    "launch_environment_compatible": [
+      "Falcon9_Rideshare",
+      "VegaC_SSMS",
+      "OrbitalShare",
+      "Borealis_Dedicated",
+      "Ariane6_Dual"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "prop_electric_hemp_de",
+          "prop_electric_hall_300w",
+          "prop_ion_500w",
+          "prop_monoprop_1n",
+          "prop_green_5n"
+        ],
+        "included_equipment_ids": [
+          "prop_electric_hemp_de"
+        ],
+        "integration_cost_fixed_meur": 0.15,
+        "integration_cost_pct": 8.0
+      },
+      {
+        "function": "ttc",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "ttc_sband_transceiver",
+          "ttc_sband_dual_redundant",
+          "ttc_xband_tmtc",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_dual_redundant"
+        ],
+        "integration_cost_fixed_meur": 0.06,
+        "integration_cost_pct": 5.0
+      },
+      {
+        "function": "payload_downlink",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "downlink_xband_tx",
+          "downlink_xband_tx_1200mbps",
+          "downlink_kaband_tx_2gbps",
+          "downlink_xband_toulouse_fr",
+          "downlink_xband_milan_it"
+        ],
+        "included_equipment_ids": [
+          "downlink_xband_tx"
+        ],
+        "integration_cost_fixed_meur": 0.1,
+        "integration_cost_pct": 8.0
+      },
+      {
+        "function": "mass_memory",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "mass_mem_1tb",
+          "mass_mem_2tb_highrel",
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_ch"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_1tb_de"
+        ],
+        "integration_cost_fixed_meur": 0.08,
+        "integration_cost_pct": 5.0
+      },
+      {
+        "function": "adcs",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "adcs_high_accuracy_pack",
+          "adcs_agile_wheels_medium",
+          "adcs_cmg_agility_pack",
+          "adcs_ultra_stable",
+          "adcs_sodern_auriga_fr",
+          "adcs_leonardo_pack_it"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.15,
+        "integration_cost_pct": 8.0
+      },
+      {
+        "function": "optical_interface",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "opt_slit_std_vnir",
+          "opt_slit_athermal_ghg",
+          "opt_slit_wide_mapper"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.06,
+        "integration_cost_pct": 5.0
+      }
+    ],
+    "image": "platform_smallsat.jpg",
+    "long_description": "Plateforme microsatellite allemande de haute densité développée à Munich et Brême (inspirée des bus OHB Tet-1/BiROS et Reflex Aerospace). Avec 90 kg de capacité d'emport charge utile, 260 W de puissance moyenne disponible et une durée de vie nominale de 7,0 ans, elle embarque de série la propulsion plasmique allemande HEMP-300 et une mémoire SpectraStore de 1 To. Idéale pour les missions optiques sub-métriques (35 à 45 cm), les missions atmosphériques multi-instruments et les relais optiques laser.",
+    "key_features": [
+      "Capacité charge utile 90 kg / 115 L, puissance disponible 260 W moyens",
+      "Durée de vie nominale 7,0 ans, tolérance radiative 40 krad",
+      "Propulsion HEMP-300, TT&C redondé, émetteur X 500 Mbps et mémoire 1 To allemands inclus",
+      "Maîtrise d'œuvre allemande (idéale pour les quotas ESA Allemagne)"
+    ],
+    "interfaces": [
+      "Bus 28 V / 50 V régulé",
+      "SpaceFibre, SpaceWire, MIL-STD-1553B",
+      "Anneau ESPA Grande 24 pouces"
+    ]
+  },
+  {
+    "id": "plat_ital_prima220",
+    "supplier_id": "stellare_ottica",
+    "supplier_name": "Stellara Ottica",
+    "name": "AlbaBus-220 Multi-Mission",
+    "category": "smallsat_220kg",
+    "description": "Minisatellite italien multi-mission de classe 220 kg (CU max 105 kg, 7,0 ans, héritage PRISMA)",
+    "dry_mass_kg": 115.0,
+    "max_payload_mass_kg": 105.0,
+    "max_launch_mass_kg": 250.0,
+    "payload_volume_liters": 140.0,
+    "dimensions_mm": [
+      950.0,
+      900.0,
+      1150.0
+    ],
+    "deployed_span_m": 3.6,
+    "orbit_avg_power_w": 360.0,
+    "payload_avg_power_w": 240.0,
+    "payload_peak_power_w": 600.0,
+    "bus_voltage_v": 28.0,
+    "battery_capacity_wh": 1200.0,
+    "battery_max_dod": 0.25,
+    "pointing_accuracy_deg": 0.005,
+    "pointing_stability_arcsec_s": 0.5,
+    "slew_rate_deg_s": 2.4,
+    "jitter_arcsec": 0.45,
+    "payload_thermal_dissipation_w": 200.0,
+    "base_price_meur": 5.5,
+    "base_lead_time_months": 15,
+    "design_lifetime_years": 7.0,
+    "rad_tolerance_krad": 40.0,
+    "trl": 9,
+    "launch_environment_compatible": [
+      "Falcon9_Rideshare",
+      "VegaC_SSMS",
+      "Borealis_Dedicated",
+      "Ariane6_Dual"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "prop_monoprop_1n",
+          "prop_green_5n",
+          "prop_electric_hall_300w",
+          "prop_electric_hemp_de",
+          "prop_ion_500w"
+        ],
+        "included_equipment_ids": [
+          "prop_monoprop_1n"
+        ],
+        "integration_cost_fixed_meur": 0.15,
+        "integration_cost_pct": 8.0
+      },
+      {
+        "function": "ttc",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "ttc_sband_aurora_it",
+          "ttc_sband_dual_redundant",
+          "ttc_xband_tmtc",
+          "ttc_sband_gallia_fr"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_aurora_it"
+        ],
+        "integration_cost_fixed_meur": 0.06,
+        "integration_cost_pct": 5.0
+      },
+      {
+        "function": "payload_downlink",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "downlink_xband_milan_it",
+          "downlink_kaband_milan_it",
+          "downlink_xband_tx",
+          "downlink_xband_tx_1200mbps",
+          "downlink_kaband_tx_2gbps",
+          "downlink_xband_toulouse_fr"
+        ],
+        "included_equipment_ids": [
+          "downlink_xband_milan_it"
+        ],
+        "integration_cost_fixed_meur": 0.1,
+        "integration_cost_pct": 8.0
+      },
+      {
+        "function": "mass_memory",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "mass_mem_1tb",
+          "mass_mem_2tb_highrel",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_1tb_ch"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_1tb"
+        ],
+        "integration_cost_fixed_meur": 0.08,
+        "integration_cost_pct": 5.0
+      },
+      {
+        "function": "adcs",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "adcs_leonardo_pack_it",
+          "adcs_sodern_auriga_fr",
+          "adcs_agile_wheels_medium",
+          "adcs_cmg_agility_pack",
+          "adcs_ultra_stable"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.15,
+        "integration_cost_pct": 8.0
+      },
+      {
+        "function": "optical_interface",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "opt_slit_std_vnir",
+          "opt_slit_athermal_ghg",
+          "opt_slit_wide_mapper"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.06,
+        "integration_cost_pct": 5.0
+      }
+    ],
+    "image": "platform_smallsat.jpg",
+    "long_description": "Plateforme minisatellite italienne de classe 220 kg dérivée de la lignée PRISMA / MITA de l'Agence Spatiale Italienne. Dotée d'un plateau optique thermo-stable capable de porter jusqu'à 105 kg de charge utile (télescopes Korsch de 45 à 60 cm ou combinaison télescope + spectromètre SWIR complet), elle offre un pointage natif de 0,005° et une durée de vie de 7,0 ans.",
+    "key_features": [
+      "Capacité charge utile 105 kg / 140 L (compatible STELLA-60 et chaînes hyperspectrales complètes)",
+      "Pointage natif 0,005° (0,5 arcsec/s), durée de vie 7,0 ans",
+      "Propulsion hydrazine 1 N, TT&C italien redondé, émetteur X 600 Mbps et SSR 1 To inclus",
+      "Maîtrise d'œuvre italienne (Stellara Ottica)"
+    ],
+    "interfaces": [
+      "Bus 28 V régulé",
+      "SpaceFibre, SpaceWire, MIL-STD-1553B",
+      "Adaptateur Vega-C / Falcon 9 Rideshare"
+    ]
+  },
+  {
+    "id": "plat_bavaria_sar450",
+    "supplier_id": "euro_sar_prime",
+    "supplier_name": "Aegis Radar & Defense",
+    "name": "BavariaBus-450 SAR & Dawn-Dusk",
+    "category": "smallsat_450kg",
+    "description": "Plateforme allemande 450 kg haute puissance (780 W CU, 1,8 kW crête) optimisée pour radars SAR et imagerie THR",
+    "dry_mass_kg": 230.0,
+    "max_payload_mass_kg": 210.0,
+    "max_launch_mass_kg": 500.0,
+    "payload_volume_liters": 290.0,
+    "dimensions_mm": [
+      1350.0,
+      1150.0,
+      1550.0
+    ],
+    "deployed_span_m": 5.2,
+    "orbit_avg_power_w": 1050.0,
+    "payload_avg_power_w": 780.0,
+    "payload_peak_power_w": 1850.0,
+    "bus_voltage_v": 50.0,
+    "battery_capacity_wh": 3400.0,
+    "battery_max_dod": 0.3,
+    "pointing_accuracy_deg": 0.004,
+    "pointing_stability_arcsec_s": 0.4,
+    "slew_rate_deg_s": 2.8,
+    "jitter_arcsec": 0.35,
+    "payload_thermal_dissipation_w": 550.0,
+    "base_price_meur": 8.9,
+    "base_lead_time_months": 18,
+    "design_lifetime_years": 8.0,
+    "rad_tolerance_krad": 50.0,
+    "trl": 9,
+    "launch_environment_compatible": [
+      "Falcon9_Rideshare",
+      "VegaC_SSMS",
+      "Ariane6_Dual",
+      "EuroLaunch_Medium"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "prop_electric_hemp_de",
+          "prop_electric_hall_300w",
+          "prop_ion_500w",
+          "prop_electric_hall_1kw",
+          "prop_monoprop_1n",
+          "prop_biprop_400n"
+        ],
+        "included_equipment_ids": [
+          "prop_electric_hemp_de"
+        ],
+        "integration_cost_fixed_meur": 0.22,
+        "integration_cost_pct": 10.0
+      },
+      {
+        "function": "ttc",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "ttc_sband_dual_redundant",
+          "ttc_xband_tmtc",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_dual_redundant"
+        ],
+        "integration_cost_fixed_meur": 0.08,
+        "integration_cost_pct": 5.0
+      },
+      {
+        "function": "payload_downlink",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "downlink_xband_tx",
+          "downlink_xband_tx_1200mbps",
+          "downlink_kaband_tx_2gbps",
+          "downlink_xband_toulouse_fr",
+          "downlink_xband_milan_it",
+          "downlink_kaband_milan_it"
+        ],
+        "included_equipment_ids": [
+          "downlink_xband_tx_1200mbps"
+        ],
+        "integration_cost_fixed_meur": 0.14,
+        "integration_cost_pct": 8.0
+      },
+      {
+        "function": "mass_memory",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_2tb_highrel",
+          "mass_mem_8tb",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_ch"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_2tb_de"
+        ],
+        "integration_cost_fixed_meur": 0.1,
+        "integration_cost_pct": 5.0
+      },
+      {
+        "function": "adcs",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "adcs_agile_wheels_medium",
+          "adcs_cmg_agility_pack",
+          "adcs_ultra_stable",
+          "adcs_sodern_auriga_fr",
+          "adcs_leonardo_pack_it"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.18,
+        "integration_cost_pct": 10.0
+      },
+      {
+        "function": "optical_interface",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "opt_slit_std_vnir",
+          "opt_slit_athermal_ghg",
+          "opt_slit_wide_mapper"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.08,
+        "integration_cost_pct": 5.0
+      }
+    ],
+    "image": "platform_medium.jpg",
+    "long_description": "Plateforme minisatellite lourde allemande de 230 kg à sec conçue par Aegis Radar & Defense sur l'héritage TerraSAR-X / TanDEM-X. Sa structure hexagonale rigide et son bus 50 V de 1 050 W moyens (780 W disponibles pour la charge utile, 1 850 W crête) sont taillés pour supporter les antennes SAR actives à forte dissipation thermique (jusqu'à 550 W) ou les télescopes de 60 à 70 cm sur 8 ans.",
+    "key_features": [
+      "Puissance exceptionnelle pour SAR : 780 W moyens CU / 1 850 W crête / batterie 3,4 kWh",
+      "Capacité charge utile 210 kg / 290 L, dissipation thermique 550 W",
+      "Propulsion HEMP-300, émetteur X 1,2 Gbps et mémoire 2 To allemands inclus de série",
+      "Durée de vie 8,0 ans, pointage natif 0,004°"
+    ],
+    "interfaces": [
+      "Bus primaire 50 V régulé haute intensité",
+      "SpaceFibre 4 voies, MIL-STD-1553B",
+      "Panneau latéral renforcé pour déploiement d'antenne SAR"
+    ]
+  },
+  {
+    "id": "plat_ital_cosmo600",
+    "supplier_id": "med_radar_ital",
+    "supplier_name": "Alba Spazio Radar",
+    "name": "AlbaBus-600 High-Stability Science & EO",
+    "category": "medium_600kg",
+    "description": "Plateforme moyenne italienne 600 kg ultra-stable pour grands télescopes d'astrophysique/EO et radars lourds (8,5 ans)",
+    "dry_mass_kg": 310.0,
+    "max_payload_mass_kg": 280.0,
+    "max_launch_mass_kg": 680.0,
+    "payload_volume_liters": 420.0,
+    "dimensions_mm": [
+      1650.0,
+      1400.0,
+      1850.0
+    ],
+    "deployed_span_m": 6.0,
+    "orbit_avg_power_w": 920.0,
+    "payload_avg_power_w": 620.0,
+    "payload_peak_power_w": 1600.0,
+    "bus_voltage_v": 50.0,
+    "battery_capacity_wh": 3800.0,
+    "battery_max_dod": 0.3,
+    "pointing_accuracy_deg": 0.003,
+    "pointing_stability_arcsec_s": 0.25,
+    "slew_rate_deg_s": 2.2,
+    "jitter_arcsec": 0.2,
+    "payload_thermal_dissipation_w": 520.0,
+    "base_price_meur": 11.2,
+    "base_lead_time_months": 20,
+    "design_lifetime_years": 8.5,
+    "rad_tolerance_krad": 60.0,
+    "trl": 9,
+    "launch_environment_compatible": [
+      "Falcon9_Rideshare",
+      "VegaC_SSMS",
+      "Ariane6_Dual",
+      "EuroLaunch_Medium"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "prop_monoprop_1n",
+          "prop_biprop_400n",
+          "prop_electric_hall_300w",
+          "prop_ion_500w",
+          "prop_electric_hall_1kw",
+          "prop_electric_hemp_de"
+        ],
+        "included_equipment_ids": [
+          "prop_monoprop_1n"
+        ],
+        "integration_cost_fixed_meur": 0.25,
+        "integration_cost_pct": 10.0
+      },
+      {
+        "function": "ttc",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "ttc_sband_aurora_it",
+          "ttc_sband_dual_redundant",
+          "ttc_xband_tmtc",
+          "ttc_sband_gallia_fr"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_aurora_it"
+        ],
+        "integration_cost_fixed_meur": 0.08,
+        "integration_cost_pct": 5.0
+      },
+      {
+        "function": "payload_downlink",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "downlink_xband_milan_it",
+          "downlink_kaband_milan_it",
+          "downlink_xband_tx_1200mbps",
+          "downlink_kaband_tx_2gbps",
+          "downlink_xband_toulouse_fr"
+        ],
+        "included_equipment_ids": [
+          "downlink_xband_milan_it"
+        ],
+        "integration_cost_fixed_meur": 0.15,
+        "integration_cost_pct": 8.0
+      },
+      {
+        "function": "mass_memory",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "mass_mem_2tb_highrel",
+          "mass_mem_8tb",
+          "mass_mem_1tb_fr",
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_1tb_ch"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_2tb_highrel"
+        ],
+        "integration_cost_fixed_meur": 0.12,
+        "integration_cost_pct": 5.0
+      },
+      {
+        "function": "adcs",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "adcs_leonardo_pack_it",
+          "adcs_sodern_auriga_fr",
+          "adcs_agile_wheels_medium",
+          "adcs_cmg_agility_pack",
+          "adcs_ultra_stable"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.2,
+        "integration_cost_pct": 10.0
+      },
+      {
+        "function": "optical_interface",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "opt_slit_std_vnir",
+          "opt_slit_athermal_ghg",
+          "opt_slit_wide_mapper"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.08,
+        "integration_cost_pct": 5.0
+      }
+    ],
+    "image": "platform_medium.jpg",
+    "long_description": "Plateforme de classe moyenne (310 kg à sec, 280 kg de charge utile) développée à Turin et Rome sur l'héritage COSMO-SkyMed et Euclid. Son architecture à découplage micro-vibratoire et isolation thermique multicouche garantit une stabilité de pointage native de 0,25 arcsec/s (précision 0,003°) et une durée de vie de 8,5 ans. Elle constitue la plateforme italienne de référence pour les missions de cosmologie (STELLA-60 / EagleEye-70), d'observation optique THR ou de radar SAR institutionnel.",
+    "key_features": [
+      "Capacité charge utile 280 kg / 420 L, puissance 620 W moyens",
+      "Haute stabilité native : pointage 0,003°, dérive 0,25 arcsec/s, jitter 0,20 arcsec",
+      "Durée de vie 8,5 ans (conforme aux exigences scientifiques longue durée)",
+      "Maîtrise d'œuvre italienne (Alba Spazio Radar)"
+    ],
+    "interfaces": [
+      "Bus 50 V régulé",
+      "SpaceFibre redondé, MIL-STD-1553B",
+      "Interface lanceur Vega-C / Ariane 6 / Rideshare lourd"
+    ]
+  },
+  {
+    "id": "plat_bavaria_geo1200",
+    "supplier_id": "euro_sar_prime",
+    "supplier_name": "Aegis Radar & Defense",
+    "name": "LuxorGEO-1200 Modular Telecom Bus",
+    "category": "geo_compact",
+    "description": "Plateforme géostationnaire compacte allemande (classe SmallGEO / Electra, 320 kg CU, 2,6 kW CU, 15 ans)",
+    "dry_mass_kg": 640.0,
+    "max_payload_mass_kg": 320.0,
+    "max_launch_mass_kg": 1380.0,
+    "payload_volume_liters": 900.0,
+    "dimensions_mm": [
+      2100.0,
+      1850.0,
+      2400.0
+    ],
+    "deployed_span_m": 15.5,
+    "orbit_avg_power_w": 3600.0,
+    "payload_avg_power_w": 2600.0,
+    "payload_peak_power_w": 4200.0,
+    "bus_voltage_v": 100.0,
+    "battery_capacity_wh": 14500.0,
+    "battery_max_dod": 0.65,
+    "pointing_accuracy_deg": 0.008,
+    "pointing_stability_arcsec_s": 0.6,
+    "slew_rate_deg_s": 0.6,
+    "jitter_arcsec": 0.5,
+    "payload_thermal_dissipation_w": 2200.0,
+    "base_price_meur": 19.8,
+    "base_lead_time_months": 24,
+    "design_lifetime_years": 15.0,
+    "rad_tolerance_krad": 100.0,
+    "trl": 9,
+    "launch_environment_compatible": [
+      "Ariane6_GTO",
+      "Falcon9_GTO",
+      "Heavy_GEO"
+    ],
+    "slots": [
+      {
+        "function": "propulsion",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "prop_electric_hall_1kw",
+          "prop_chemical_biprop_400n_de",
+          "prop_biprop_400n",
+          "prop_ion_500w"
+        ],
+        "included_equipment_ids": [
+          "prop_chemical_biprop_400n_de"
+        ],
+        "integration_cost_fixed_meur": 0.35,
+        "integration_cost_pct": 10.0
+      },
+      {
+        "function": "ttc",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "ttc_sband_dual_redundant",
+          "ttc_xband_tmtc",
+          "ttc_sband_gallia_fr",
+          "ttc_sband_aurora_it"
+        ],
+        "included_equipment_ids": [
+          "ttc_sband_dual_redundant"
+        ],
+        "integration_cost_fixed_meur": 0.1,
+        "integration_cost_pct": 5.0
+      },
+      {
+        "function": "payload_downlink",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "downlink_xband_tx_1200mbps",
+          "downlink_kaband_tx_2gbps",
+          "downlink_kaband_milan_it"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.15,
+        "integration_cost_pct": 8.0
+      },
+      {
+        "function": "mass_memory",
+        "min_qty": 1,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "mass_mem_1tb_de",
+          "mass_mem_2tb_de",
+          "mass_mem_1tb_ch",
+          "mass_mem_1tb_fr",
+          "mass_mem_2tb_highrel"
+        ],
+        "included_equipment_ids": [
+          "mass_mem_1tb_de"
+        ],
+        "integration_cost_fixed_meur": 0.1,
+        "integration_cost_pct": 5.0
+      },
+      {
+        "function": "adcs",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "adcs_agile_wheels_medium",
+          "adcs_ultra_stable",
+          "adcs_sodern_auriga_fr",
+          "adcs_leonardo_pack_it"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.2,
+        "integration_cost_pct": 8.0
+      },
+      {
+        "function": "optical_interface",
+        "min_qty": 0,
+        "max_qty": 1,
+        "allowed_equipment_ids": [
+          "opt_slit_std_vnir",
+          "opt_slit_wide_mapper"
+        ],
+        "included_equipment_ids": [],
+        "integration_cost_fixed_meur": 0.1,
+        "integration_cost_pct": 5.0
+      }
+    ],
+    "image": "platform_large.jpg",
+    "long_description": "Plateforme géostationnaire compacte allemande développée dans le cadre du programme ESA ARTES SmallGEO (inspirée de la plateforme OHB Luxor / Hispasat 36W-1). Capable d'emporter jusqu'à 320 kg et 2,6 kW de charge utile télécom en restant sous la limite de 1 400 kg au lancement (compatible avec le créneau GTO Rideshare à 14,50 M€), elle inclut de série le moteur d'apogée bi-ergol allemand 400 N et offre une alternative industrielle allemande aux bus GEO français.",
+    "key_features": [
+      "Capacité charge utile GEO 320 kg / 2 600 W moyens, masse max au lancement 1 380 kg",
+      "Compatible lancement partagé GTO Rideshare (≤ 1 400 kg)",
+      "Durée de vie 15,0 ans en GEO, blindage 100 krad, moteur d'apogée 400 N allemand inclus",
+      "Maîtrise d'œuvre allemande (programme ESA SmallGEO)"
+    ],
+    "interfaces": [
+      "Bus 100 V régulé haute puissance",
+      "MIL-STD-1553B, SpaceWire, SpaceFibre",
+      "Adaptateur standard 1194 mm GTO"
+    ]
   }
 ]
+

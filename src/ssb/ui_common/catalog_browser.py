@@ -1,5 +1,6 @@
 """Reusable Supplier → Catalog → Complete Datasheet browser widgets (PySide6)."""
 
+import html
 from typing import Any, Callable
 from PySide6.QtCore import Qt, Signal
 from PySide6.QtGui import QPixmap, QColor, QBrush, QFont
@@ -146,14 +147,15 @@ class DatasheetView(QScrollArea):
         self.schematic.set_item_geometry(ds.dimensions_mm, ds.name, ds.volume_label, ds.mass_label)
 
         # Build rich description + key features + interfaces
-        parts = [f"<p style='margin-bottom:6px;'><b>Résumé :</b> {ds.short_description}</p>"]
+        parts = [f"<p style='margin-bottom:6px;'><b>Résumé :</b> {html.escape(ds.short_description)}</p>"]
         if ds.long_description and ds.long_description != ds.short_description:
-            parts.append(f"<p style='margin-bottom:6px;'>{ds.long_description}</p>")
+            parts.append(f"<p style='margin-bottom:6px;'>{html.escape(ds.long_description)}</p>")
         if ds.key_features:
-            bullets = "".join(f"<li>{f}</li>" for f in ds.key_features)
+            bullets = "".join(f"<li>{html.escape(f)}</li>" for f in ds.key_features)
             parts.append(f"<b>Points clés :</b><ul style='margin-top:2px;margin-bottom:4px;'>{bullets}</ul>")
         if ds.interfaces:
-            parts.append(f"<p style='margin-top:2px;'><b>Interfaces :</b> {'  •  '.join(ds.interfaces)}</p>")
+            escaped_ifaces = [html.escape(iface) for iface in ds.interfaces]
+            parts.append(f"<p style='margin-top:2px;'><b>Interfaces :</b> {'  •  '.join(escaped_ifaces)}</p>")
         self.lbl_desc.setText("".join(parts))
 
         # Rebuild section tables
@@ -428,8 +430,8 @@ class CatalogBrowser(QWidget):
             sup = self.catalog.suppliers[sup_id]
             kind = "Acteur historique / institutionnel" if sup.kind == "historique" else "Acteur NewSpace"
             self.lbl_supplier_info.setText(
-                f"<b>{sup.name}</b> ({sup.country})<br>"
-                f"<i>{kind} — fondé en {sup.founded or 'N/A'}</i><br>{sup.description}"
+                f"<b>{html.escape(sup.name)}</b> ({html.escape(sup.country)})<br>"
+                f"<i>{kind} — fondé en {html.escape(str(sup.founded or 'N/A'))}</i><br>{html.escape(sup.description)}"
             )
             self.lbl_items_header.setText(f"2. Catalogue de {sup.name}")
         self._refresh_items()

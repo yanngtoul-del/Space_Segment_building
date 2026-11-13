@@ -50,7 +50,7 @@ class BasePayload(CatalogMeta):
 
 
 class OpticalImagerPayload(BasePayload):
-    """High-resolution optical telescope (push-broom or matrix)."""
+    """High-resolution optical telescope (push-broom linear with/without TDI or 2D frame matrix)."""
 
     payload_type: Literal[PayloadType.OPTICAL_IMAGER] = PayloadType.OPTICAL_IMAGER
 
@@ -59,6 +59,20 @@ class OpticalImagerPayload(BasePayload):
     f_number: float = Field(..., ge=1.0)
     pixel_pitch_um: float = Field(..., ge=1.0, le=50.0)
     detector_pixels_cross_track: int = Field(..., ge=100)
+    sensor_architecture: str = Field(
+        "pushbroom_tdi",
+        description="Acquisition architecture: 'pushbroom_tdi', 'pushbroom_linear' (no TDI), or 'frame_matrix' (2D snapshot/staring)",
+    )
+    tdi_stages: int = Field(
+        1,
+        ge=1,
+        le=256,
+        description="Number of Time Delay Integration (TDI) stages along-track (1 = no TDI)",
+    )
+    detector_format_label: str = Field(
+        "",
+        description="Explicit focal plane description (push-broom linear vs 2D matrix, TDI stages)",
+    )
     spectral_bands: list[str] = Field(default_factory=lambda: ["PAN", "B", "G", "R", "NIR"])
     min_wavelength_nm: float = Field(450.0, ge=200.0)
     max_wavelength_nm: float = Field(900.0, le=14000.0)

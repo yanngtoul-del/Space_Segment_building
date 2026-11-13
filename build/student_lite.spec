@@ -1,9 +1,11 @@
 # -*- mode: python ; coding: utf-8 -*-
 import os
+import sys
 
 block_cipher = None
 
 project_root = os.path.abspath(os.path.join(SPECPATH, '..'))
+use_upx = sys.platform == 'win32'
 
 added_files = [
     (os.path.join(project_root, 'data', 'catalogs', '*'), 'data/catalogs'),
@@ -73,7 +75,7 @@ exe = EXE(
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
-    upx=True,
+    upx=use_upx,
     console=False,
     disable_windowed_traceback=False,
     argv_emulation=False,
@@ -88,7 +90,20 @@ coll = COLLECT(
     a.zipfiles,
     a.datas,
     strip=False,
-    upx=True,
+    upx=use_upx,
     upx_exclude=[],
     name='SpaceSegmentBuilder-Student-Lite',
 )
+
+if sys.platform == 'darwin':
+    app = BUNDLE(
+        coll,
+        name='SpaceSegmentBuilder-Student-Lite.app',
+        icon=None,
+        bundle_identifier='edu.spacesegment.student.lite',
+        info_plist={
+            'CFBundleDisplayName': 'Space Segment Builder (Student Lite)',
+            'CFBundleShortVersionString': '0.1.0',
+            'NSHighResolutionCapable': True,
+        },
+    )

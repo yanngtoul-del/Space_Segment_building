@@ -68,6 +68,23 @@ class PlatformSlotsWidget(QWidget):
             QTableWidget::item {
                 color: #0f172a;
             }
+            QSpinBox, QTableWidget QSpinBox {
+                background-color: #ffffff;
+                color: #000000;
+                font-weight: bold;
+                font-size: 12px;
+                border: 1px solid #94a3b8;
+                border-radius: 3px;
+                padding: 1px 2px;
+            }
+            QSpinBox QLineEdit, QTableWidget QSpinBox QLineEdit {
+                color: #000000;
+                background-color: #ffffff;
+                font-weight: bold;
+            }
+            QSpinBox:focus {
+                border: 1px solid #2563eb;
+            }
         """)
         self.table.setHorizontalHeaderLabels(
             [
@@ -192,6 +209,23 @@ class PlatformSlotsWidget(QWidget):
                 sp = QSpinBox()
                 sp.setRange(0, slot.max_qty)
                 sp.setValue(sel_map.get((slot.function.value, eq.id), 0))
+                sp.setAlignment(Qt.AlignmentFlag.AlignCenter)
+                sp.setStyleSheet("""
+                    QSpinBox {
+                        background-color: #ffffff;
+                        color: #000000;
+                        font-weight: bold;
+                        font-size: 12px;
+                        border: 1px solid #94a3b8;
+                        border-radius: 3px;
+                        padding: 1px;
+                    }
+                    QSpinBox QLineEdit {
+                        color: #000000;
+                        background-color: #ffffff;
+                        font-weight: bold;
+                    }
+                """)
                 sp.valueChanged.connect(self._on_spin_changed)
                 self.table.setCellWidget(r, 1, sp)
                 self._spinners.append((slot.function.value, eq.id, sp, slot))
@@ -207,6 +241,8 @@ class PlatformSlotsWidget(QWidget):
                 surch_str = f"({eq.price_meur:.2f} M€ cat.)"
                 it_qty = QTableWidgetItem("—")
                 it_qty.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+                it_qty.setForeground(QBrush(QColor("#000000")))
+                it_qty.setBackground(QBrush(QColor("#e2e8f0")))
                 self.table.setItem(r, 1, it_qty)
 
             it_mass = QTableWidgetItem(mass_str)

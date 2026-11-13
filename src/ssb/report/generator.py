@@ -1,17 +1,21 @@
 """Automatic Word (.docx) report generator for student exams."""
 
 from pathlib import Path
+
+import matplotlib
 from docx import Document
-from docx.shared import Inches, Pt, RGBColor
-from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_TABLE_ALIGNMENT
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.shared import Inches, Pt, RGBColor
+
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-from ssb.core.project import StudentProject
-from ssb.system.evaluator import SystemBudgets
 from ssb.core.catalog_meta import ESA_MEMBER_STATES
 from ssb.core.paths import images_dir
+from ssb.core.project import StudentProject
+from ssb.system.evaluator import SystemBudgets
 
 
 class ReportGenerator:
@@ -43,31 +47,25 @@ class ReportGenerator:
             seg_lons.append(lons[i])
             seg_lats.append(lats[i])
             if i < len(lons) - 1 and abs(lons[i + 1] - lons[i]) > 180:
-                ax.plot(seg_lons, seg_lats, color="#00ffff", linewidth=1.5, alpha=0.85)
-                seg_lons = []
-                seg_lats = []
+                ax.plot(seg_lons, seg_lats, color="#00d2ff", linewidth=1.6, alpha=0.9)
+                seg_lons, seg_lats = [], []
         if seg_lons:
-            ax.plot(seg_lons, seg_lats, color="#00ffff", linewidth=1.5, alpha=0.85)
+            ax.plot(seg_lons, seg_lats, color="#00d2ff", linewidth=1.6, alpha=0.9)
 
-        ecl_lons = [lons[i] for i, e in enumerate(eclipses) if e]
-        ecl_lats = [lats[i] for i, e in enumerate(eclipses) if e]
+        # Highlight eclipse points
+        ecl_lons = [lo for lo, e in zip(lons, eclipses) if e]
+        ecl_lats = [la for la, e in zip(lats, eclipses) if e]
         if ecl_lons:
-            ax.scatter(ecl_lons, ecl_lats, color="#34495e", s=6, label="Éclipse (ombre)", zorder=3)
+            ax.scatter(ecl_lons, ecl_lats, color="#e74c3c", s=10, zorder=5, label="Éclipse (Ombre Terre)")
 
-        sun_lons = [lons[i] for i, e in enumerate(eclipses) if not e]
-        sun_lats = [lats[i] for i, e in enumerate(eclipses) if not e]
-        if sun_lons:
-            ax.scatter(sun_lons, sun_lats, color="#f1c40f", s=8, label="Ensoleillé", zorder=4)
+        ax.set_title("Trace au Sol Orbitale (Ground Track) & Zones d'Éclipse", fontsize=11, fontweight="bold")
+        ax.set_xlabel("Longitude (°)")
+        ax.set_ylabel("Latitude (°)")
+        if ecl_lons:
+            ax.legend(loc="lower right", fontsize=8, facecolor="#0b1426", labelcolor="white")
 
-        if lons:
-            ax.scatter([lons[0]], [lats[0]], color="#2ecc71", s=60, marker="o", edgecolors="white", label="Point initial (t0)", zorder=5)
-
-        ax.set_xlabel("Longitude (°)", fontsize=9, color="#1e293b")
-        ax.set_ylabel("Latitude (°)", fontsize=9, color="#1e293b")
-        ax.set_title("Trace au Sol Orbitale — 24 heures de propagation", fontsize=11, fontweight="bold", color="#0f2744")
-        ax.legend(loc="lower right", fontsize=8, facecolor="#ffffff", framealpha=0.9)
-        plt.tight_layout()
-        fig.savefig(output_image_path, bbox_inches="tight")
+        fig.tight_layout()
+        fig.savefig(output_image_path, dpi=150)
         plt.close(fig)
 
     @classmethod
@@ -75,8 +73,8 @@ class ReportGenerator:
         cls,
         project: StudentProject,
         budgets: SystemBudgets,
-        compliance_matrix: list[dict] | None = None,
         ground_track: list | None = None,
+        compliance_matrix: list[dict] | None = None,
         out_path: Path | None = None,
         output_docx_path: Path | str | None = None,
     ) -> Path:

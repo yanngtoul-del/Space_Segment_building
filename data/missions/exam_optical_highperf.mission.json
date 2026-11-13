@@ -5,21 +5,22 @@
   "image": "mission_eo_highperf.jpg",
   "domain_label": "Observation de la Terre — Imagerie Optique Très Haute Résolution (Classe 30–40 cm)",
   "client_agency": "Direction Générale de l'Armement (DGA) / Agence Spatiale Européenne — Programme Souveraineté & Défense",
-  "context": "Pour les besoins de renseignement stratégique, de sécurité européenne et d'évaluation des dommages sur infrastructures critiques, ce programme vise un satellite d'observation optique de classe 30 à 40 cm doté d'une haute agilité de basculement. Le cahier des charges confronte l'étudiant à un arbitrage majeur entre deux classes d'architecture : (1) un satellite agile de classe 420 kg autour du télescope Helios-70 (D=0.70 m, GSD=0.39 m à 500 km, fauchée=13.93 km) sur bus AstraFlex-300 (~32 M€), ou (2) un satellite lourd de classe 820 kg autour du télescope Korsch 1.0 m (VHR-100, D=1.00 m, GSD=0.29 m, fauchée=14.00 km) sur bus AstraFlex-700 qui atteint tous les objectifs de performance mais pulvérise le plafond budgétaire de 33.50 M€ (> 52 M€).",
-  "primary_objective": "Déployer un satellite d'observation optique Très Haute Résolution en orbite SSO délivrant un GSD <= 0.40 m (objectif <= 0.30 m), une ouverture >= 0.70 m (objectif >= 1.00 m), une fauchée >= 13.8 km (objectif >= 15.0 km), une précision de pointage <= 0.004° (objectif <= 0.003° avec CMG), une durée de vie >= 8.0 ans et une qualification TVAC optique (<= 2.0 %) sous 33.50 M€.",
+  "context": "Pour les besoins de renseignement stratégique, de sécurité européenne et d'évaluation précise des dommages sur infrastructures critiques, ce programme vise le déploiement d'un satellite d'observation optique de Très Haute Résolution (THR, classe 30–40 cm) doté d'une forte agilité de re-pointage. L'architecte doit résoudre l'équation technico-économique d'un système optique à grande pupille (seuil D ≥ 0.70 m, objectif ≥ 1.00 m) soumis simultanément à une exigence de résolution GSD ≤ 0.40 m (objectif ≤ 0.30 m) et à une exigence de fauchée minimale ≥ 13.8 km (objectif ≥ 16.0 km), sous un plafond budgétaire strict de 33.50 M€ et des contraintes de souveraineté industrielle franco-allemande.",
+  "primary_objective": "Déployer un satellite d'observation optique Très Haute Résolution en orbite SSO délivrant un GSD au nadir ≤ 0.40 m (objectif ≤ 0.30 m), un diamètre d'ouverture du télescope ≥ 0.70 m (objectif ≥ 1.00 m), une largeur de fauchée au nadir ≥ 13.8 km (objectif ≥ 16.0 km), une précision de pointage ADCS ≤ 0.004° (objectif ≤ 0.003°), une qualification opto-mécanique en vide thermique ≤ 2.0 % (objectif ≤ 0.9 %) et une durée de vie ≥ 8.0 ans (objectif ≥ 10.0 ans) sous un plafond global de 33.50 M€ TTC.",
   "secondary_objectives": [
-    "Analyser la sensibilité extrême de la fauchée et du GSD à l'altitude avec Helios-70 (D=0.70 m, f=8.40 m) : à 500 km, GSD = 0.39 m (<= 0.40 m) et Fauchée = 13.93 km (>= 13.8 km) ; si l'on abaisse l'altitude à 420 km pour viser GSD = 0.33 m, la fauchée tombe à 11.7 km (< 13.8 km) ; si l'on monte à 550 km pour élargir la fauchée à 15.3 km, le GSD se dégrade à 0.43 m (> 0.40 m) !",
-    "Comparer l'architecture Helios-70 sur AstraFlex-300 (~31–33 M€, conforme budget) face à VHR-100 (D=1.0 m, 280 kg, 24.5 M€) qui impose de passer sur AstraFlex-700 et dépasse les 52 M€.",
-    "Arbitrer les équipements sous-systèmes (actionneurs gyroscopiques CMG ±0.003° à 6.5°/s pour l'agilité multi-cibles vs roues de réaction ±0.004°, émetteur X-Band 1200 Mbps ou Ka-Band 2 Gbps, essais TVAC Optique chez Intespace) et respecter le juste retour industriel ESA (France, Allemagne, Italie/Espagne)."
+    "Déterminer par le calcul la plage d'altitude orbitale SSO permettant de satisfaire simultanément la contrainte de résolution au nadir (GSD ≤ 0.40 m) et la contrainte de largeur de fauchée (≥ 13.8 km).",
+    "Analyser le saut d'échelle physique et financier (masse de l'instrument, classe de plateforme, capacité lanceur et coût global) entre un télescope de classe 70 cm et un instrument de classe métrique (1.00 m).",
+    "Dimensionner la chaîne cinématique de contrôle d'attitude (roues de réaction haute capacité vs actionneurs gyroscopiques CMG) au regard des exigences de stabilité d'intégration Push-Broom TDI multi-étages (64 à 128 étages) et d'agilité de basculement hors-nadir.",
+    "Assurer la cohérence de la chaîne bord-sol très haut débit (mémoire de masse et émetteur bande X large bande ou bande Ka) et le respect des quotas de retour géographique (France 70–98 %, Allemagne 2–25 %)."
   ],
-  "scientific_or_operational_need": "L'identification formelle de véhicules, d'aéronefs sur tarmac et d'ouvrages d'art exige un GSD <= 0.40 m (idéalement 0.30 m) associé à une haute agilité de dépointage (roulis/tangage rapide par CMG ou roues de réaction) pour acquérir plusieurs cibles sur un même théâtre d'opérations.",
-  "orbit_constraints_description": "Orbite héliosynchrone (SSO) strictement contrainte autour de 495–510 km si l'on utilise Helios-70 (fenêtre d'altitude étroite où GSD <= 0.40 m et Fauchée >= 13.8 km sont simultanément vérifiés).",
-  "conops_guidance": "Détailler le mode d'acquisition agile : programmation sécurisée en bande S redondée, basculement rapide hors-nadir entre cibles ponctuelles, ralentissement de la vitesse de défilement apparente au sol (TDI — Time Delay Integration), chiffrement et stockage sur mémoire >= 1–2 To, vidage haut débit sur les stations souveraines.",
+  "scientific_or_operational_need": "L'identification formelle de véhicules, d'aéronefs sur tarmac et d'ouvrages d'art exige un GSD ≤ 0.40 m (idéalement ≤ 0.30 m) associé à une fauchée d'au moins 13.8 km et à une haute agilité de dépointage pour acquérir plusieurs cibles ponctuelles lors d'un même passage au-dessus d'un théâtre d'opérations.",
+  "orbit_constraints_description": "Orbite héliosynchrone (SSO) en basse altitude. En raison de l'antagonisme direct entre GSD et largeur de fauchée à géométrie focale fixée, la fenêtre d'altitude admissible sans dérogation est particulièrement étroite et doit être rigoureusement identifiée par l'architecte.",
+  "conops_guidance": "Détailler le mode d'acquisition agile : programmation sécurisée en bande S, basculement rapide hors-nadir entre cibles ponctuelles, asservissement gyroscopique du défilement au sol pour l'intégration TDI à grand nombre d'étages, chiffrement et stockage sur mémoire de masse haute capacité, puis vidage très haut débit en bande X ou Ka vers les stations de Toulouse/Creil et Kiruna.",
   "deliverables_expected": [
-    "Démonstration mathématique de la fenêtre d'altitude SSO (495–510 km) permettant à Helios-70 de satisfaire simultanément GSD <= 0.40 m et Fauchée >= 13.8 km.",
-    "Comparaison chiffrée entre l'architecture Helios-70 / AstraFlex-300 (conforme budget <= 33.5 M€) et l'architecture VHR-100 / AstraFlex-700 (conforme aux objectifs GSD 0.29 m et D=1.0 m mais hors budget à > 52 M€).",
-    "Justification du choix ADCS (roues de réaction agiles vs pack CMG 4 gyros pour l'agilité tactique), de la chaîne de vidage haut débit et de la campagne TVAC Optique.",
-    "Validation du retour géographique ESA (France, Allemagne) et rédaction d'une Demande de Dérogation si l'étudiant choisit de privilégier le miroir de 1.0 m ou un lanceur dédié."
+    "Détermination analytique de la fenêtre d'altitude SSO compatible à la fois avec GSD ≤ 0.40 m et Fauchée ≥ 13.8 km.",
+    "Étude comparative des architectures instrumentales et plateformes candidates (compromis ouverture/résolution vs masse, coût de lancement et plafond budgétaire de 33.50 M€).",
+    "Justification du sous-système ADCS (stabilité durant l'intégration TDI multi-étages et agilité de re-pointage), de la chaîne de télémesure haut débit et de la qualification TVAC optique.",
+    "Validation de la répartition industrielle franco-allemande et, si un objectif étendu (GSD ≤ 0.30 m ou fauchée ≥ 16.0 km) est privilégié au prix d'un écart sur un autre critère, rédaction d'une Demande de Dérogation argumentée à l'Onglet 9."
   ],
   "max_budget_meur": 33.5,
   "min_trl": 8,
@@ -34,7 +35,7 @@
       "threshold": 0.4,
       "goal": 0.3,
       "unit": "m",
-      "description": "Le GSD au nadir doit être <= 0.40 m (objectif <= 0.30 m). Note : atteindre 0.30 m à 500 km exige le télescope VHR-100 (1.0 m, 280 kg) hors budget, ou d'abaisser Helios-70 à 400 km (ce qui viole la fauchée)."
+      "description": "La distance d'échantillonnage au sol (GSD) au nadir doit être ≤ 0.40 m (objectif ≤ 0.30 m) pour permettre l'identification tactique fine."
     },
     {
       "id": "REQ-HP-APERTURE",
@@ -45,7 +46,7 @@
       "threshold": 0.7,
       "goal": 1.0,
       "unit": "m",
-      "description": "Le diamètre du miroir primaire doit être >= 0.70 m (exclut STELLA-60 à 0.60 m sauf demande de dérogation)."
+      "description": "Le diamètre du miroir primaire du télescope doit être ≥ 0.70 m (objectif ≥ 1.00 m) afin de limiter la tache de diffraction et de maximiser le flux photonique."
     },
     {
       "id": "REQ-HP-SWATH",
@@ -56,7 +57,7 @@
       "threshold": 13.8,
       "goal": 16.0,
       "unit": "km",
-      "description": "La fauchée au nadir doit être >= 13.8 km (interdit de descendre Helios-70 sous 495 km sans dérogation)."
+      "description": "La largeur de fauchée au nadir doit être ≥ 13.8 km (objectif ≥ 16.0 km) pour couvrir une agglomération ou une base étendue en une seule trace."
     },
     {
       "id": "REQ-HP-POINT",
@@ -67,7 +68,7 @@
       "threshold": 0.004,
       "goal": 0.003,
       "unit": "deg",
-      "description": "La précision de pointage doit être <= 0.004° (objectif <= 0.003° avec le pack CMG haute agilité ou Sodern Auriga)."
+      "description": "La précision de pointage 3 axes doit être ≤ 0.004° (objectif ≤ 0.003°) avec une dérive et un jitter compatibles avec un plan focal Push-Broom TDI à haute cadence."
     },
     {
       "id": "REQ-HP-CALIB",
@@ -78,7 +79,7 @@
       "threshold": 2.0,
       "goal": 0.9,
       "unit": "%",
-      "description": "L'étalonnage interférométrique et radiométrique sous vide thermique doit certifier une précision <= 2.0 % (TVAC Optique Intespace ou Cryo-TVAC CSL)."
+      "description": "La campagne d'étalonnage interférométrique et radiométrique sous vide thermique doit certifier une incertitude ≤ 2.0 % (objectif ≤ 0.9 %)."
     },
     {
       "id": "REQ-HP-LIFE",
@@ -89,7 +90,7 @@
       "threshold": 8.0,
       "goal": 10.0,
       "unit": "yr",
-      "description": "La plateforme doit être qualifiée pour au moins 8.0 ans en orbite basse."
+      "description": "La plateforme doit être qualifiée pour au moins 8.0 ans d'opérations en orbite basse (objectif ≥ 10.0 ans)."
     }
   ],
   "ground_stations": [
